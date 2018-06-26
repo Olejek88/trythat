@@ -1,5 +1,6 @@
 import React from 'react';
-import agent from '../../agent';
+import { Link } from 'react-router-dom';
+import LoadingSpinner from '../LoadingSpinner';
 
 const Tags = props => {
   const tags = props.tags;
@@ -8,19 +9,18 @@ const Tags = props => {
       <div className="tag-list">
         {
           tags.map(tag => {
-            const handleClick = ev => {
-              ev.preventDefault();
-              props.onClickTag(tag, page => agent.Articles.byTag(tag, page), agent.Articles.byTag(tag));
-            };
 
             return (
-              <a
-                href=""
+              <Link
+                to={{
+                  pathname: "/",
+                  search: "?tab=tag&tag=" + tag
+                }}
                 className="tag-default tag-pill"
                 key={tag}
-                onClick={handleClick}>
+              >
                 {tag}
-              </a>
+              </Link>
             );
           })
         }
@@ -28,7 +28,7 @@ const Tags = props => {
     );
   } else {
     return (
-      <div>Loading Tags...</div>
+      <LoadingSpinner />
     );
   }
 };

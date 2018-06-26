@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 
 const LoggedOutView = props => {
   if (!props.currentUser) {
@@ -43,21 +44,22 @@ const LoggedInView = props => {
 
         <li className="nav-item">
           <Link to="/editor" className="nav-link">
-            <i className="ion-compose"></i>&nbsp;New Post
+            <i className="ion-compose" />&nbsp;New Post
           </Link>
         </li>
 
         <li className="nav-item">
           <Link to="/settings" className="nav-link">
-            <i className="ion-gear-a"></i>&nbsp;Settings
+            <i className="ion-gear-a" />&nbsp;Settings
           </Link>
         </li>
 
         <li className="nav-item">
           <Link
             to={`/@${props.currentUser.username}`}
-            className="nav-link">
-            <img src={props.currentUser.image} className="user-pic" alt={props.currentUser.username} />
+            className="nav-link"
+          >
+            <img src={props.currentUser.image} className="user-pic" alt="" />
             {props.currentUser.username}
           </Link>
         </li>
@@ -69,6 +71,8 @@ const LoggedInView = props => {
   return null;
 };
 
+@inject('userStore', 'commonStore')
+@observer
 class Header extends React.Component {
   render() {
     return (
@@ -76,12 +80,12 @@ class Header extends React.Component {
         <div className="container">
 
           <Link to="/" className="navbar-brand">
-            {this.props.appName.toLowerCase()}
+            {this.props.commonStore.appName.toLowerCase()}
           </Link>
 
-          <LoggedOutView currentUser={this.props.currentUser} />
+          <LoggedOutView currentUser={this.props.userStore.currentUser} />
 
-          <LoggedInView currentUser={this.props.currentUser} />
+          <LoggedInView currentUser={this.props.userStore.currentUser} />
         </div>
       </nav>
     );

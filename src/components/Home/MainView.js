@@ -1,23 +1,28 @@
 import ArticleList from '../ArticleList';
 import React from 'react';
-import agent from '../../agent';
-import { connect } from 'react-redux';
-import { CHANGE_TAB } from '../../constants/actionTypes';
+import { inject, observer } from 'mobx-react';
+import { withRouter, NavLink } from 'react-router-dom'
+import { parse as qsParse } from 'query-string';
 
 const YourFeedTab = props => {
-  if (props.token) {
-    const clickHandler = ev => {
-      ev.preventDefault();
-      props.onTabClick('feed', agent.Articles.feed, agent.Articles.feed());
-    }
+  if (props.currentUser) {
 
     return (
       <li className="nav-item">
-        <a  href=""
-            className={ props.tab === 'feed' ? 'nav-link active' : 'nav-link' }
-            onClick={clickHandler}>
+      <NavLink
+          className="nav-link"
+          isActive={
+            (match, location) => {
+              return location.search.match("tab=feed") ? 1 : 0;
+            }
+          }
+          to={{
+            pathname: "/",
+            search: "?tab=feed"
+          }}
+        >
           Your Feed
-        </a>
+        </NavLink>
       </li>
     );
   }
@@ -25,18 +30,22 @@ const YourFeedTab = props => {
 };
 
 const GlobalFeedTab = props => {
-  const clickHandler = ev => {
-    ev.preventDefault();
-    props.onTabClick('all', agent.Articles.all, agent.Articles.all());
-  };
   return (
     <li className="nav-item">
-      <a
-        href=""
-        className={ props.tab === 'all' ? 'nav-link active' : 'nav-link' }
-        onClick={clickHandler}>
+      <NavLink
+        className="nav-link"
+        isActive={
+          (match, location) => {
+            return !location.search.match(/tab=(feed|tag)/) ? 1 : 0;
+          }
+        }
+        to={{
+          pathname: "/",
+          search: "?tab=all"
+        }}
+      >
         Global Feed
-      </a>
+      </NavLink>
     </li>
   );
 };
@@ -49,48 +58,92 @@ const TagFilterTab = props => {
   return (
     <li className="nav-item">
       <a href="" className="nav-link active">
-        <i className="ion-pound"></i> {props.tag}
+        <i className="ion-pound" /> {props.tag}
       </a>
     </li>
   );
 };
 
-const mapStateToProps = state => ({
-  ...state.articleList,
-  tags: state.home.tags,
-  token: state.common.token
-});
+@inject('articlesStore', 'commonStore', 'userStore')
+@withRouter
+@observer
+export default class MainView extends React.Component {
 
-const mapDispatchToProps = dispatch => ({
-  onTabClick: (tab, pager, payload) => dispatch({ type: CHANGE_TAB, tab, pager, payload })
-});
+  componentWillMount() {
+    this.props.articlesStore.setPredicate(this.getPredicate());
+  }
 
-const MainView = props => {
-  return (
-    <div className="col-md-9">
-      <div className="feed-toggle">
-        <ul className="nav nav-pills outline-active">
+  componentDidMount() {
+    this.props.articlesStore.loadArticles();
+  }
 
-          <YourFeedTab
-            token={props.token}
-            tab={props.tab}
-            onTabClick={props.onTabClick} />
+  componentDidUpdate(previousProps) {
+    if (
+      this.getTab(this.props) !== this.getTab(previousProps) ||
+      this.getTag(this.props) !== this.getTag(previousProps)
+    ) {
+      this.props.articlesStore.setPredicate(this.getPredicate());
+      this.props.articlesStore.loadArticles();
+    }
+  }
 
-          <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
+  getTag(props = this.props) {
+    return qsParse(props.location.search).tag || "";
+  }
 
-          <TagFilterTab tag={props.tag} />
+  getTab(props = this.props) {
+    return qsParse(props.location.search).tab || 'all';
+  }
 
-        </ul>
+  getPredicate(props = this.props) {
+    switch (this.getTab(props)) {
+      case 'feed': return { myFeed: true };
+      case 'tag': return { tag: qsParse(props.location.search).tag };
+      default: return {};
+    }
+  }
+
+  handleTabChange = (tab) => {
+    if (this.props.location.query.tab === tab) return;
+    this.props.router.push({ ...this.props.location, query: { tab } })
+  };
+
+  handleSetPage = page => {
+    this.props.articlesStore.setPage(page);
+    this.props.articlesStore.loadArticles();
+  };
+
+  render() {
+    const { currentUser } = this.props.userStore;
+    const { articles, isLoading, page, totalPagesCount } = this.props.articlesStore;
+
+    return (
+      <div className="col-md-9">
+        <div className="feed-toggle">
+          <ul className="nav nav-pills outline-active">
+
+            <YourFeedTab
+              currentUser={currentUser}
+              tab={this.getTab()}
+            />
+
+            <GlobalFeedTab
+              tab={this.getTab()}
+            />
+
+            <TagFilterTab tag={qsParse(this.props.location.search).tag} />
+
+          </ul>
+        </div>
+
+        <ArticleList
+          articles={articles}
+          loading={isLoading}
+          totalPagesCount={totalPagesCount}
+          currentPage={page}
+          onSetPage={this.handleSetPage}
+        />
       </div>
-
-      <ArticleList
-        pager={props.pager}
-        articles={props.articles}
-        loading={props.loading}
-        articlesCount={props.articlesCount}
-        currentPage={props.currentPage} />
-    </div>
-  );
+    );
+  }
 };
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainView);

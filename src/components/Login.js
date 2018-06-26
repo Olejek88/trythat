@@ -1,45 +1,28 @@
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import ListErrors from './ListErrors';
 import React from 'react';
-import agent from '../agent';
-import { connect } from 'react-redux';
-import {
-  UPDATE_FIELD_AUTH,
-  LOGIN,
-  LOGIN_PAGE_UNLOADED
-} from '../constants/actionTypes';
+import { inject, observer } from 'mobx-react';
 
-const mapStateToProps = state => ({ ...state.auth });
-
-const mapDispatchToProps = dispatch => ({
-  onChangeEmail: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
-  onUnload: () =>
-    dispatch({ type: LOGIN_PAGE_UNLOADED })
-});
-
-class Login extends React.Component {
-  constructor() {
-    super();
-    this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
-    this.changePassword = ev => this.props.onChangePassword(ev.target.value);
-    this.submitForm = (email, password) => ev => {
-      ev.preventDefault();
-      this.props.onSubmit(email, password);
-    };
-  }
+@inject('authStore')
+@withRouter
+@observer
+export default class Login extends React.Component {
 
   componentWillUnmount() {
-    this.props.onUnload();
+    this.props.authStore.reset();
   }
 
+  handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
+  handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
+  handleSubmitForm = (e) => {
+    e.preventDefault();
+    this.props.authStore.login()
+      .then(() => this.props.history.replace('/'));
+  };
+
   render() {
-    const email = this.props.email;
-    const password = this.props.password;
+    const { values, errors, inProgress } = this.props.authStore;
+
     return (
       <div className="auth-page">
         <div className="container page">
@@ -48,14 +31,14 @@ class Login extends React.Component {
             <div className="col-md-6 offset-md-3 col-xs-12">
               <h1 className="text-xs-center">Sign In</h1>
               <p className="text-xs-center">
-                <Link to="/register">
+                <Link to="register">
                   Need an account?
                 </Link>
               </p>
 
-              <ListErrors errors={this.props.errors} />
+              <ListErrors errors={errors} />
 
-              <form onSubmit={this.submitForm(email, password)}>
+              <form onSubmit={this.handleSubmitForm}>
                 <fieldset>
 
                   <fieldset className="form-group">
@@ -63,8 +46,9 @@ class Login extends React.Component {
                       className="form-control form-control-lg"
                       type="email"
                       placeholder="Email"
-                      value={email}
-                      onChange={this.changeEmail} />
+                      value={values.email}
+                      onChange={this.handleEmailChange}
+                    />
                   </fieldset>
 
                   <fieldset className="form-group">
@@ -72,14 +56,16 @@ class Login extends React.Component {
                       className="form-control form-control-lg"
                       type="password"
                       placeholder="Password"
-                      value={password}
-                      onChange={this.changePassword} />
+                      value={values.password}
+                      onChange={this.handlePasswordChange}
+                    />
                   </fieldset>
 
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
-                    disabled={this.props.inProgress}>
+                    disabled={inProgress}
+                  >
                     Sign in
                   </button>
 
@@ -93,5 +79,3 @@ class Login extends React.Component {
     );
   }
 }
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
