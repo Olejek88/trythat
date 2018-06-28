@@ -11,6 +11,8 @@ import Login from './Login';
 import Profile from './Profile';
 import Register from './Register';
 import Settings from './Settings';
+import Country from './Country';
+
 
 @inject('userStore', 'commonStore')
 @withRouter
@@ -45,6 +47,7 @@ export default class App extends React.Component {
             <Route path="/@:username/favorites" component={Profile} />
             <Route path="/" component={Home} />
           </Switch>
+            <Footer />
         </div>
       );
     }

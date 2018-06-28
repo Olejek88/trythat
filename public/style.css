@@ -1,0 +1,222 @@
+.top-search .search-icon {
+    width: 28px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    vertical-align: bottom;
+}
+
+.top-search {
+    z-index: 10;
+    min-width: 36px;
+    position: relative;
+    width: 50px;
+    height: 100%;
+    line-height: 18px;
+    padding: 0 0 0 15px;
+    flex-wrap: nowrap;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: center;
+}
+
+.main_container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#buttons-nav a {
+    margin: 0 5px;
+}
+.button {
+    display: inline-block;
+    height: 44px;
+    text-transform: uppercase;
+    padding: 5px;
+    min-width: 100px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.primaryButton {
+    background-color: #00A94F;
+}
+.button, .buttonx {
+    height: 44px;
+    line-height: normal !important;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 0 5px;
+    min-width: 100px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 2px 0;
+    vertical-align: middle !important;
+    border: 2px solid transparent;
+}
+a {
+    color: #00A94F;
+    text-decoration: none;
+}
+
+.button .title-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.button .title-container, .buttonx .title-container {
+    height: 100% !important;
+    position: relative !important;
+}
+
+.button .title {
+    width: 100%;
+    text-align: center;
+    max-height: 100%;
+    letter-spacing: 0.14em;
+    font-size: 11px;
+    font-family: Montserrat, Tahoma;
+    font-style: normal;
+    margin: 0 !important;
+}
+
+.primaryButton .title {
+    color: #ffffff;
+}
+.primaryButton .title {
+    color: #fff !important;
+}
+
+.navButton {
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.sg-bg-1 {
+    background-color: #000000;
+}
+#top-logo {
+    margin-right: 15px;
+}
+
+#top-logo .logo {
+    display: inline-block;
+}
+
+#top-logo .logo img {
+    max-height: 40px;
+}
+
+@media screen and (max-width: 1150px) {
+    #top-logo {
+      margin-right: 0;
+  }
+}
+
+.level-menu {margin: 20px 0 0 0;}
+.level-menu .l-menu{float: left; min-height: 60px; position: relative; box-sizing:border-box; padding-top:2px;}
+.level-menu .l-menu .highlight-bar{
+    width: 100%;
+    background-color: #00A94F;
+    z-index: 12;
+    height: 6px;
+    display: none;
+    position: absolute;
+    bottom: 0;
+}
+.level-menu .l-menu .drop-down{position: absolute; z-index: 10; left: 0; top: 60px; background-color: #fff; display: none; box-shadow: 0 4px 8px -5px rgb(119, 119, 119);}
+.rtl.level-menu .l-menu .drop-down {right:0; left:initial;}
+
+.level-menu .drop-down .level-2{background-color: #333333;float: left; padding: 13px 0 15px 0;}
+.level-menu .level-2 .col p{line-height: 18px; padding-left: 15px;}
+.level-menu .drop-down .level-3{float: left; padding: 8px 0;}
+.level-menu .drop-down .col{width:160px; float: left; box-sizing: border-box; min-height: 10px;}
+.level-menu .drop-down .col .topNavCat{width: 100%; float: left; padding-left:0; box-sizing:border-box; min-width:120px;}
+.level-menu .l-menu .label p{color: #fff; padding: 10px 15px 0 15px; transition: color 200ms;}
+.level-menu .l-menu .label p:hover{color:#00A94F;}
+.level-menu .l-menu .level-link{padding: 8px 5px 8px 0; display: inline-block; vertical-align: middle; word-wrap: break-word; max-width: 80%;}
+.level-menu .l-menu .topNavCat img{width: 16px; display: inline-block; vertical-align: middle;}
+.level-menu .l-menu .greyOut .level-link{color: #888;}
+.level-menu .topNavCat a {width:100%; display:inline-block; padding-left:15px}
+.level-menu .l-menu .drop-down a {box-sizing: border-box; color: #000000}
+.level-menu .topNavCat a:hover {
+    width:100%; display:inline-block;
+    color: #00A94F}
+@media screen and (max-width: 1150px){
+    .level-menu .l-menu .label p {
+        padding: 10px 10px 0 10px
+    }
+}
+
+.level-menu .l-menu.red .label p:hover{color:#AF1E2D;}
+.level-menu .l-menu.red .highlight-bar{background-color:#AF1E2D;}
+
+/* header style for  version 2  */
+.level-menu .drop-down.version2 {width:600px;}
+.level-menu .lvl2_title {padding: 16px 0; text-align:center;  cursor:default;}
+.level-menu .lvl2_title:empty {display:none;}
+.level-menu .lvl2_content {display:flex; flex-wrap: wrap; padding: 10px 15px; align-items: flex-start;}
+.level-menu .lvl2_content:empty {display:none;}
+.level-menu .lvl2_content > div {flex-basis: 33.3%;}
+.level-menu.version2 .l-menu .level-link {padding: 6px 0;}
+
+.io-popup-warpper li.child:hover {background: #00A94F;}
+
+#top-welcome a.shopping.filled {
+    background-color: #00A94F;
+    border-left: none;
+}
+
+#top-welcome .ui-autocomplete {
+    border:1px solid #e1e1e1;}
+.ui-widget {
+    font-family:"source-sans-pro-n4", sans-serif;font-size:14px;line-height:22px;letter-spacing:0.0125em;font-weight:normal;}
+.ui-autocomplete-category.ac-group {
+    margin-top:10px;
+}
+.ac-group {
+    font-family:"source-sans-pro-n4", sans-serif;font-size:14px;line-height:22px;letter-spacing:0.0125em;font-weight:normal;}
+.ui-autocomplete.ui-menu .ui-menu-item span.highlight {
+    background-color: yellow;
+}
+.ui-menu .ui-group-seperator, .ui-menu .ui-menu-divider.ui-group-seperator{
+    border: none;
+    border-bottom: 1px solid #999999;
+}
+#top-welcome .ui-autocomplete .ui-menu-item.ui-state-focus, #top-welcome .ui-autocomplete .ui-menu-item.ui-state-hover {
+    border: none;
+    background: none;
+    background-color: #e1e1e1;
+}
+#disc-menu .ui-autocomplete .ui-menu-item:last-of-type,
+#d-disc-header .ui-autocomplete .ui-menu-item:last-of-type,
+#disc-d-widget .ui-autocomplete .ui-menu-item:last-of-type,
+#top-welcome .ui-autocomplete .ui-menu-item:last-of-type,
+#top-welcome .ui-autocomplete .ui-menu-item:last-of-type {
+    text-align:center;
+    font-family:"Montserrat", sans-serif;font-size:13px;line-height:1.33em;letter-spacing:0.02em;font-weight:normal;        color:#00A94F;}
+
+input[type="search"]#top-nav-search::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    background-image: url("X---close.png");
+    background-size: 15px 15px;
+}
+#buttons-nav a {
+    margin: 0 5px;
+}
+
+@media screen and (max-width: 1150px){
+    #top-welcome.top-search {
+                             display:none;
+                         }
+    .l-menu .sg-f-btn {
+        font-size: 10px;
+    }
+}

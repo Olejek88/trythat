@@ -118,24 +118,32 @@ export default class MainView extends React.Component {
     const { articles, isLoading, page, totalPagesCount } = this.props.articlesStore;
 
     return (
-      <div className="col-md-9">
-        <div className="feed-toggle">
-          <ul className="nav nav-pills outline-active">
-
-            <YourFeedTab
-              currentUser={currentUser}
-              tab={this.getTab()}
-            />
-
-            <GlobalFeedTab
-              tab={this.getTab()}
-            />
-
-            <TagFilterTab tag={qsParse(this.props.location.search).tag} />
-
-          </ul>
-        </div>
-
+        Banner
+      Slideshow
+      Search Widget
+      Row
+      Category
+      Category
+      Category
+      Row
+      Category
+      Category
+      Category
+      Row
+      Text
+      Row
+      Experience
+      Experience
+      Experience
+      Experience
+      Row
+      Text
+      Row
+      Experience
+      Experience
+      Experience
+      Experience
+        <div className="col-md-9">
         <ArticleList
           articles={articles}
           loading={isLoading}
