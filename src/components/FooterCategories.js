@@ -1,85 +1,121 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 
-const LoggedOutView = props => {
-  if (!props.currentUser) {
-    return (
-            <div id="header-fixed" className="sg-bg-1" style={{top: '0', float: 'right'}}>
-                        <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3'}}>
-                            <Link to="/" className="navButton button" id="sellBtn">
-                                <div className="title-container"><p className="title">Sell on TryThat</p></div>
-                            </Link>
-                            <Link to="/register" className="access-join allowAllUsers js-signUp primaryButton button" id="signUpBtn">
-                                <div className="title-container"><p className="title">Register</p></div>
-                            </Link>
-                            <Link to="/login" className="navButton button js-login" id="logInBtn">
-                                <div className="title-container"><p className="title">Log in</p></div>
-                            </Link>
-                            <Link to="javascript:void(1);" className="sg-inline-middle">
-                                <img src="/icon_search.png" style={{width:'30px'}} alt="search"/>
-                            </Link>
-                            <Link to="javascript:void(1);" className="shopping access-join js-shopping-bag js-signUp sg-inline-middle">
-                                <img src="/icon_cart.png" style={{width:'30px'}} alt="go to cart"/>
-                            </Link>
-                        </div>
-            </div>
-    );
-  }
-  return null;
-};
-
-const LoggedInView = props => {
-  if (props.currentUser) {
-    return (
-        <div id="header-fixed" className="sg-bg-1" style={{top: '0', float: 'right'}}>
-            <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3'}}>
-                <Link
-                    to={`/@${props.currentUser.username}`}
-                    className="nav-link">
-                    <img src={props.currentUser.image} className="user-pic" alt="" />
-                    {props.currentUser.username}
-                </Link>
-                <Link to="/" className="navButton button" id="sellBtn">
-                    <div className="title-container"><p className="title">Sell on TryThat</p></div>
-                </Link>
-                <Link to="/settings" className="access-join allowAllUsers js-signUp primaryButton button" id="signUpBtn">
-                    <div className="title-container"><p className="title">Profile</p></div>
-                </Link>
-                <Link to="/logout" className="navButton button js-login" id="logInBtn">
-                    <div className="title-container"><p className="title">Log Out</p></div>
-                </Link>
-                <Link to="javascript:void(1);" className="sg-inline-middle">
-                    <img src="/icon_search.png" style={{width:'30px'}} alt="search"/>
-                </Link>
-                <Link to="javascript:void(1);" className="shopping access-join js-shopping-bag js-signUp sg-inline-middle">
-                    <img src="/icon_cart.png" style={{width:'30px'}} alt="go to cart"/>
-                </Link>
-            </div>
-        </div>
-    );
-  }
-  return null;
-};
-
-@inject('userStore', 'commonStore')
 @observer
-class Header extends React.Component {
+class FooterCategories extends React.Component {
   render() {
     return (
-      <nav className="navbar sg-bg-1">
-        <div className="main_container">
-          <Link to="/" className="navbar-brand">
-            {this.props.commonStore.appName.toLowerCase()}
-          </Link>
-
-          <LoggedOutView currentUser={this.props.userStore.currentUser} />
-
-          <LoggedInView currentUser={this.props.userStore.currentUser} />
+        <div className="pageframe_div discovery layout_tiles last_pageframe partial_width  layout_  "
+             data-frametypeid="4" data-frametypename="Layout by layoutId" data-frameid="126"
+             data-framename="Catch All Footer" data-layoutid="" data-layoutname="" data-displayorder="9.500">
+            <div></div>
+            <div></div>
+            <h2 className="pageframe_header sg-f-dspl-m txt-align-ovr1 discovery" style="margin-bottom:20px; ">
+                Shop more experiences that give back</h2>
+            <div className="layout_tiles_container discovery pageframe_content_container  ">
+                <div className="layout_tile tile1  discovery ">
+                    <table className="tile_table discovery catch_all_footer_table" data-cols="5">
+                        <tbody>
+                        <tr>
+                            <td className="sg-bd-2 sg-no-bd-bottom sg-no-bd-left" style="">
+                                <div
+                                    className="catch_all_footer_subtitle sg-f-btn sg-text-transform sg-c-2 discovery">CATEGORIES
+                                </div>
+                                <table className="catch_all_footer_lists_table discovery">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <ul className="catch_all_footer_list list0 discovery">
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">Culinary</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">Beer, Wine, &amp; Spirits</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">Adventure</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">Music</a></li>
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul className="catch_all_footer_list list1 discovery">
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">Fine Art</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">Photography</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">Artisans</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">Home Decor</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td className="sg-bd-2 sg-no-bd-bottom sg-no-bd-left" style="">
+                                <div
+                                    className="catch_all_footer_subtitle sg-f-btn sg-text-transform sg-c-2 discovery">Activities
+                                </div>
+                                <table className="catch_all_footer_lists_table discovery">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <ul className="catch_all_footer_list list0 discovery">
+                                                <li><a href="/" className="sg-f-bdy sg-c-1"
+                                                       style="line-height:2em;">Outdoors</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1"
+                                                       style="line-height:2em;">Lessons</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1"
+                                                       style="line-height:2em;">Local Tours</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1"
+                                                       style="line-height:2em;">Travel &amp; Destinations</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td className="sg-bd-2 sg-no-bd-bottom sg-no-bd-left" style="">
+                                <div
+                                    className="catch_all_footer_subtitle sg-f-btn sg-text-transform sg-c-2 discovery">occasions
+                                </div>
+                                <table className="catch_all_footer_lists_table discovery">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <ul className="catch_all_footer_list list0 discovery">
+                                                <li><a href="/" className="sg-f-bdy sg-c-1"
+                                                       style="line-height:2em;">Parties</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1"
+                                                       style="line-height:2em;">Weddings</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1"
+                                                       style="line-height:2em;">Group Events</a></li>
+                                                <li><a href="/" className="sg-f-bdy sg-c-1"
+                                                       style="line-height:2em;">Gifts</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td className="sg-bd-2 sg-no-bd-bottom sg-no-bd-left" style="">
+                                <div
+                                    className="catch_all_footer_subtitle sg-f-btn sg-text-transform sg-c-2 discovery">LOCATIONS
+                                </div>
+                                <table className="catch_all_footer_lists_table discovery">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <ul className="catch_all_footer_list list0 discovery">
+                                                <li><a href="/" className="sg-f-bdy sg-c-1" style="line-height:2em;">
+                                                    Chelyabinsk</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
         </div>
-      </nav>
     );
   }
 }
 
-export default Header;
+export default FooterCategories;

@@ -1,8 +1,11 @@
-import ArticleList from '../ArticleList';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter, NavLink } from 'react-router-dom'
 import { parse as qsParse } from 'query-string';
+import Banner from "./Banner";
+import MainCategories from "./MainCategories";
+import ExperienceTitle from "./ExperienceTitle";
+import ExperienceRow from "./ExperienceRow";
 
 const YourFeedTab = props => {
   if (props.currentUser) {
@@ -114,44 +117,15 @@ export default class MainView extends React.Component {
   };
 
   render() {
-    const { currentUser } = this.props.userStore;
-    const { articles, isLoading, page, totalPagesCount } = this.props.articlesStore;
 
     return (
-        Banner
-      Slideshow
-      Search Widget
-      Row
-      Category
-      Category
-      Category
-      Row
-      Category
-      Category
-      Category
-      Row
-      Text
-      Row
-      Experience
-      Experience
-      Experience
-      Experience
-      Row
-      Text
-      Row
-      Experience
-      Experience
-      Experience
-      Experience
-        <div className="col-md-9">
-        <ArticleList
-          articles={articles}
-          loading={isLoading}
-          totalPagesCount={totalPagesCount}
-          currentPage={page}
-          onSetPage={this.handleSetPage}
-        />
-      </div>
+        <React.Fragment>
+            <Banner/>
+            <MainCategories/>
+            <ExperienceTitle/>
+            <ExperienceRow category={1}/>
+            <ExperienceRow category={2}/>
+        </React.Fragment>
     );
   }
 };

@@ -220,3 +220,195 @@ input[type="search"]#top-nav-search::-webkit-search-cancel-button {
         font-size: 10px;
     }
 }
+
+
+.disc-d-widget{
+    position: relative;
+    background-color: #fff;
+}
+
+.disc-d-widget .disc-input-block{
+    padding: 5px 10px;
+    border: 1px solid #e1e1e1;
+    position: relative;
+}
+.disc-d-widget .disc-input-block input[type="text"]{
+    margin: 0;
+    border: none;
+    text-overflow: ellipsis;
+    /*
+    font-family: Montserrat;
+    font-size: 11px;
+    letter-spacing: 0.014em;
+    */
+}
+
+.disc-d-widget .disc-input-block input[type="text"]::-webkit-input-placeholder{
+    font-size:14px; color:#777777;
+}
+.disc-d-widget .disc-input-block input[type="text"]:-moz-placeholder{
+    font-size:14px; color:#777777;
+}
+.disc-d-widget .disc-input-block input[type="text"]::-moz-placeholder{
+    font-size:14px; color:#777777;
+}
+.disc-d-widget .disc-input-block input[type="text"]:-ms-input-placeholder{
+    font-size:14px; color:#777777;
+}
+
+.disc-d-widget .disc-btn-block{
+    padding: 5px 10px;
+    height: 40px;
+    border: 1px solid #e1e1e1;
+}
+.disc-d-widget .disc-btn-block .disc-btn{
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+}
+.disc-d-widget .disc-btn-block .disc-btn.button .title{
+    line-height: 23px;
+}
+
+.disc-d-widget .disc-popup-block{
+    display: none;
+    position: absolute;
+    top: 62px;
+    border: 1px solid #e1e1e1;
+    z-index: 110;
+    background-color: #fff;
+    padding: 20px;
+}
+.disc-d-widget .discovery-popup .disc-header{
+    display: none;
+}
+.disc-d-widget .discovery-popup .disc-item.disc-view-more{
+    display: none;
+}
+.disc-d-widget .discovery-popup .disc-item.disc-view-less{
+    display: none;
+}
+.disc-d-widget .discovery-popup .disc-footer{
+    display: block;
+}
+
+.disc-d-widget .up-arrow{
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;                /* celia want it to be white on brand marquee*/
+    position: absolute;
+    top: -10px;
+    left: 200px;
+}
+
+
+@media only screen and (min-width: 981px) and (max-width: 1200px) {
+    .pac-container {
+        margin-top: 10.5px !important;
+        margin-left: -20px !important;
+        width: 187px !important;
+    }
+}
+
+@media only screen and (min-width: 1201px) {
+    .pac-container {
+        margin-top: 14px !important;
+        margin-left: -20px !important;
+        width: 288px !important;
+    }
+}
+
+.pac-matched {
+    margin-bottom: 2px !important;
+    height: 20px !important;
+    font-family: "source-sans-pro-n4",sans-serif !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 20px !important;
+    font-size: 14px !important;
+    color: #888 !important;
+    background-color: yellow;
+}
+
+.pac-item:hover {background-color: #f2f2f2;}
+
+.pac-item {
+    border: none;
+    font-weight: 400 !important;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.pac-logo:after {
+    display: none !important;
+}
+
+.pac-item {font-size: 15px !important;}
+
+.search-wrapper {
+    display: inline-block;
+    padding: 9px 16px 9px 6px;
+}
+
+.search-wrapper {
+    border-right: 1px solid #e1e1e1;
+}
+
+@media only screen and (min-width: 641px) and (max-width: 980px) {
+
+}
+
+@media only screen and (min-width: 981px) and (max-width: 1200px) {
+    .discovery.brand_marquee .disc-d-widget .disc-input-block .discovery-search {width:400px;}
+    #d-disc-header .disc-input-block .discovery-search {width:400px;}
+    #disc-d-widget .ui-autocomplete, #d-disc-header .ui-autocomplete {width: 428px !important;}
+
+    #disc-d-widget .ui-autocomplete .ui-menu-item.ui-state-focus,
+    #disc-d-widget .ui-autocomplete .ui-menu-item.ui-state-hover,
+    #d-disc-header .ui-autocomplete .ui-menu-item.ui-state-focus,
+    #d-disc-header .ui-autocomplete .ui-menu-item.ui-state-hover {
+        width: 390px;
+    }
+
+    #disc-d-widget .ui-autocomplete .ui-menu-item,
+    #disc-d-widget .ui-autocomplete .ui-menu-item,
+    #d-disc-header .ui-autocomplete .ui-menu-item,
+    #d-disc-header .ui-autocomplete .ui-menu-item {
+        width: 390px;
+    }
+}
+
+@media only screen and (min-width: 1201px) {
+    #disc-d-widget.ui-autocomplete, #d-disc-header .ui-autocomplete {width: 633px;}
+    .discovery.brand_marquee .disc-d-widget .disc-input-block .discovery-search{width:605px;}
+    #d-disc-header .disc-input-block .discovery-search {width:605px;}
+
+    #disc-d-widget .ui-autocomplete .ui-menu-item.ui-state-focus,
+    #disc-d-widget .ui-autocomplete .ui-menu-item.ui-state-hover,
+    #d-disc-header .ui-autocomplete .ui-menu-item.ui-state-focus,
+    #d-disc-header .ui-autocomplete .ui-menu-item.ui-state-hover {
+        width: 590px;
+    }
+
+    #disc-d-widget .ui-autocomplete .ui-menu-item,
+    #disc-d-widget .ui-autocomplete .ui-menu-item,
+    #d-disc-header .ui-autocomplete .ui-menu-item,
+    #d-disc-header .ui-autocomplete .ui-menu-item {
+        width: 590px;
+    }
+}
+
+.city-search-wrapper {
+    display: inline-block;
+    padding: 9px 6px 9px 16px;
+    vertical-align: top;
+}
+
+.rtl.search-wrapper {border-right:none; border-left:1px solid #e1e1e1;}
+
+.tangram-suggestion-main {z-index: 400;width: 250px; padding-top: 16px;}
+.tangram-suggestion-main[id="tangram-suggestion--TANGRAM__3-main"] {
+    z-index: 2001 !important;
+}

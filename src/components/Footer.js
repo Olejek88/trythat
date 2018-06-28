@@ -1,6 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
+import SiteMenu from "./SiteMenu";
+import SiteInfo from "./SiteInfo";
+import FooterCategories from "./FooterCategories";
 
 const FooterView = props => {
     return (
@@ -27,10 +29,6 @@ class Footer extends React.Component {
     return (
       <nav className="navbar sg-bg-1">
         <div className="main_container">
-          <Link to="/" className="navbar-brand">
-            {this.props.commonStore.appName.toLowerCase()}
-          </Link>
-
           <FooterView />
         </div>
       </nav>
