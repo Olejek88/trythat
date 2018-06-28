@@ -21,14 +21,15 @@ class CategoryRow extends React.Component {
                                             <div className="collection_title sg-f-dspl-m2 sg-c-3 sg-text-transform">Local
                                             </div>
                                             <div className="collection_description sg-f-dspl-s sg-c-3"
-                                                 style="text-align:center;">Find amazing experiences in your city
+                                                 style={{textAlign: 'center'}}>Find amazing experiences in your city
                                             </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="gradient"></div>
+                            <div className="gradient">
+                            </div>
                     </div>
                 </a>
             </div>
@@ -49,14 +50,15 @@ class CategoryRow extends React.Component {
                                                 Experiences
                                             </div>
                                             <div className="collection_description sg-f-dspl-s sg-c-3"
-                                                 style="text-align:center;">For over the top occasions.
+                                                 style={{textAlign: 'center'}}>For over the top occasions.
                                             </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="gradient"></div>
+                            <div className="gradient">
+                            </div>
                     </div>
                 </a>
             </div>
@@ -77,18 +79,20 @@ class CategoryRow extends React.Component {
                                                 Auctions and Sweepstakes
                                             </div>
                                             <div className="collection_description sg-f-dspl-s sg-c-3"
-                                                 style="text-align:center;">Bid and give back
+                                                 style={{textAlign: 'center'}}>Bid and give back
                                             </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="gradient"></div>
+                            <div className="gradient">
+                            </div>
                     </div>
                 </a>
             </div>
-            <div style="clear:both;"></div>
+            <div style={{clear: 'both'}}>
+            </div>
         </div>
     );
   }

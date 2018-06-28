@@ -12,6 +12,7 @@ import Profile from './Profile';
 import Register from './Register';
 import Settings from './Settings';
 import Country from './Country';
+import Footer from "./Footer";
 
 
 @inject('userStore', 'commonStore')

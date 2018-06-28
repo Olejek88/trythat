@@ -13,27 +13,30 @@ const Banner = ({ appName, token }) => {
               <div className="sy-box">
                   <div className="sy-slides-wrap">
                       <div className="sy-slides-crop">
-                          <div className="responsive_slider   sy-list">
+                          <div className="responsive_slider sy-list">
                               <div className="responsive_slide sy-slide fade useCSS sy-active"
-                                   style="display: block; transition-duration: 500ms; opacity: 1;"
+                                   style={{display: 'block', transitionDuration: '500ms', opacity: '1'}}
                                    data-text="Great Causes">
-                                  <div className="slide_img_div" style="background-image:url(&quot;/bucket.jpg&quot;)"></div>
+                                  <div className="slide_img_div" style={{backgroundImage: 'url("/bucket.jpg")'}}>
+                                  </div>
                               </div>
                           </div>
                       </div>
-                      <div className="sy-filler" style="padding-top: 28.0702%;"></div>
+                      <div className="sy-filler" style={{paddingTop: '28.0702%'}}>
+                      </div>
                   </div>
               </div>
           </div>
-          <div className="alpha_overlay discovery"></div>
-          <div className="text_overlay body_content discovery partial_width txt-align-ovr1 >" style="display: block;">
-              <span className="static_text sg-f-dspl-xl sg-c-3" style="text-transform:none;">Unforgettable Experiences for</span>
-              <span className="moving_text sg-f-dspl-xl sg-c-primary" style="">
-                  <span className="old_value" style="bottom: 0px; opacity: 1;">Great Causes</span></span>
+          <div className="alpha_overlay discovery">
           </div>
-          <div className="search_container body_content discovery partial_width txt-align-ovr1" style="">
+          <div className="text_overlay body_content discovery partial_width txt-align-ovr1 >" style={{display: 'block'}}>
+              <span className="static_text sg-f-dspl-xl sg-c-3" style={{textTransform: 'none'}}>Unforgettable Experiences for</span>
+              <span className="moving_text sg-f-dspl-xl sg-c-primary">
+                  <span className="old_value" style={{bottom: '0px',opacity: '1'}}>Great Causes</span></span>
+          </div>
+          <div className="search_container body_content discovery partial_width txt-align-ovr1">
               <div id="disc-d-widget" className="disc-d-widget sg-inline-middle" data-value="" data-text="" data-catname="">
-                  <div className="disc-input-block js-disc-input-block" style="display:inline-block;">
+                  <div className="disc-input-block js-disc-input-block" style={{display: 'inline-block'}}>
                       <div className="search-wrapper ">
                           <input
                               className="f-left sg-f-btn js-disc-input ui-autocomplete-input discovery-search js-discovery-search"
@@ -47,28 +50,30 @@ const Banner = ({ appName, token }) => {
                                  autoComplete="off" type="text" />
                       </div>
                   </div>
-                  <div className="disc-btn-block js-disc-btn" style="float:right;">
-                      <div className="disc-btn sg-text-transform primaryButton button" style="width:100%" tabIndex="0">
+                  <div className="disc-btn-block js-disc-btn" style={{float: 'right'}}>
+                      <div className="disc-btn sg-text-transform primaryButton button" style={{width: '100%'}} tabIndex="0">
                           <div className="title-container"><p className="title">find experiences</p></div>
                       </div>
                   </div>
 
-                  <div className="clearAll"></div>
+                  <div className="clearAll">
+                  </div>
                   <div className="disc-popup-block js-disc-popup-block">
-                      <div className="up-arrow"></div>
+                      <div className="up-arrow">
+                      </div>
 
                       <div className="discovery-popup js-discovery-popup sg-f-bdy desktop">
                           <div className="disc-header-search">
-                              <a href="/filter/" className="sg-c-primary sg-text-transform sg-f-ttl">advanced search</a>
-                              <div className="clearAll"></div>
+                              <a href="/" className="sg-c-primary sg-text-transform sg-f-ttl">advanced search</a>
+                              <div className="clearAll">
+                              </div>
                           </div>
                           <div className="disc-all-ex">
                               <div
                                   className="disc-item js-disc-item js-filter-disc-item js-filter-op js-useObj js-filter-all sg-hover-3"
                                   data-type="radio" data-closest=".js-discovery-popup" data-name="category"
                                   data-value="">
-                                  <p className="disc-item-text">
-                                      All Experiences </p>
+                                  <p className="disc-item-text">All Experiences </p>
                               </div>
                           </div>
                           <div className="disc-column inline-top js-disc-col">
@@ -386,21 +391,17 @@ const Banner = ({ appName, token }) => {
                           </div>
                           <div className="view-all-categories">
                               <p className="fo-11-n-m  co-gr le-14 sg-text-transform"
-                                 onClick="$('.js-filter-hint[data-mapping=disc]').click()">
-                                  view all </p>
-                              <div className="clearAll"></div>
+                                 onClick="$('.js-filter-hint[data-mapping=disc]').click()">view all</p>
+                              <div className="clearAll">
+                              </div>
                           </div>
                           <div className="disc-footer">
-                              <a href="/filter/" className="fo-11-n-m  co-gr le-14">
-                                  ADVANCED SEARCH </a>
-                              <div className="clearAll"></div>
+                              <a href="/" className="fo-11-n-m  co-gr le-14">ADVANCED SEARCH </a>
+                              <div className="clearAll">
+                              </div>
                           </div>
                       </div>
-
                   </div>
-
-                  <ul className="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-5" tabIndex="0"
-                      style="display: none;"></ul>
               </div>
           </div>
       </div>

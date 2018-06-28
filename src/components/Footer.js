@@ -8,15 +8,11 @@ const FooterView = props => {
     return (
         <div id="header-fixed" className="sg-bg-1" style={{top: '0', float: 'right'}}>
             <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3'}}>
-                <Row>
+                <React.Fragment>
                     <FooterCategories />
-                </Row>
-                <Row>
                     <SiteMenu />
-                </Row>
-                <Row>
                     <SiteInfo />
-                </Row>
+                </React.Fragment>
             </div>
         </div>
     );

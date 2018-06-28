@@ -6,11 +6,11 @@ class SiteMenu extends React.Component {
   render() {
     return (
         <div id="footer" className="desktop responsive  sg-bg-1">
-            <div id="footer-center" style="width:100%; margin:0 auto;" className="responsive ">
+            <div id="footer-center" style={{width: '100%', margin: '0 auto'}} className="responsive ">
                 <div id="footer-logo">
                     <img src="/key-white.png" />
                 </div>
-                <div id="footer-menu" className="responsive   sg-c-3" style="text-align:center;">
+                <div id="footer-menu" className="responsive   sg-c-3" style={{textAlign: 'center'}}>
                     <ul className="footer-menu-item">
                         <p>Company</p>
                         <li><a className="sg-c-3 allowAllUsers" href="/">About Us</a></li>
@@ -49,17 +49,17 @@ class SiteMenu extends React.Component {
                         <li><a className="sg-c-3 allowAllUsers" href="/">Luminary Terms Of Use</a>
                         </li>
                     </ul>
-                    <ul id="stay-connected" className="footer-menu-item" style="margin: 0;">
+                    <ul id="stay-connected" className="footer-menu-item" style={{margin: '0'}}>
                         <p>Stay Connected</p>
-                        <li style="display:inline;">
+                        <li style={{display: 'inline'}}>
                             <a href="https://www.facebook.com/" target="_blank" className="allowAllUsers">
                             <img className="social-media-icons" src="/icon_facebook.png" alt="fb"/></a>
                         </li>
-                        <li style="display:inline;">
+                        <li style={{display: 'inline'}}>
                             <a href="https://twitter.com/" target="_blank" className="allowAllUsers">
                                 <img className="social-media-icons" src="/icon_twitter.png" alt="twitter"/></a>
                         </li>
-                        <li style="display:inline;">
+                        <li style={{display: 'inline'}}>
                             <a href="https://www.instagram.com/" target="_blank" className="allowAllUsers">
                                 <img className="social-media-icons" src="/icon_instagram.png" alt="inst" /></a>
                         </li>
