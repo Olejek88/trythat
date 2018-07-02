@@ -5,23 +5,20 @@ import { observer } from 'mobx-react';
 class CategoryRow extends React.Component {
   render() {
     return (
-        <div className="layout_tiles_container discovery pageframe_content_container  ">
-            <div className="layout_tile tile1  discovery ">
-                <a className="tile_collection tile desktop " href="/">
+        <div className="discovery discovery-row">
+            <div className="layout_tile discovery " style={{clear: 'both', float: 'left'}}>
+                <a className="tile_collection" href="/">
                     <div className="collection_img_container">
-                        <img className="collection_img  lazyloaded"
-                             data-src="https://d5xydlzdo08s0.cloudfront.net/media/categories/231/localtile__L.jpg"
-                             alt="Local, Find amazing experiences in your city"
-                             src="https://d5xydlzdo08s0.cloudfront.net/media/categories/231/localtile__L.jpg" />
+                        <img className="collection_img"
+                             data-src="exp1.jpg" alt="Local, Find amazing experiences in your city" src="exp1.jpg" />
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <div className="collection_title sg-f-dspl-m2 sg-c-3 sg-text-transform">Local
-                                            </div>
-                                            <div className="collection_description sg-f-dspl-s sg-c-3"
-                                                 style={{textAlign: 'center'}}>Find amazing experiences in your city
+                                            <div className="collection_title">Local</div>
+                                            <div className="collection_description" style={{textAlign: 'center'}}>
+                                                Find amazing experiences in your city
                                             </div>
                                         </td>
                                     </tr>
@@ -33,23 +30,19 @@ class CategoryRow extends React.Component {
                     </div>
                 </a>
             </div>
-            <div className="layout_tile tile2  discovery ">
-                <a className="tile_collection tile desktop " href="/">
+            <div className="layout_tile discovery " style={{marginLeft: '2%', float: 'left'}}>
+                <a className="tile_collection" href="/">
                     <div className="collection_img_container">
-                        <img className="collection_img  lazyloaded"
-                             data-src="https://d5xydlzdo08s0.cloudfront.net/media/categories/264/cabotile__L.jpg"
-                             alt="Once-in-a-Lifetime Experiences, For over the top occasions."
-                             src="https://d5xydlzdo08s0.cloudfront.net/media/categories/264/cabotile__L.jpg"/>
+                        <img className="collection_img"
+                             data-src="exp2.jpg" alt="Once-in-a-Lifetime Experiences, For over the top occasions."
+                             src="exp2.jpg"/>
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <div
-                                                className="collection_title sg-f-dspl-m2 sg-c-3 sg-text-transform">Once-in-a-Lifetime
-                                                Experiences
-                                            </div>
-                                            <div className="collection_description sg-f-dspl-s sg-c-3"
+                                            <div className="collection_title">Once-in-a-Lifetime Experiences</div>
+                                            <div className="collection_description"
                                                  style={{textAlign: 'center'}}>For over the top occasions.
                                             </div>
                                         </td>
@@ -62,23 +55,19 @@ class CategoryRow extends React.Component {
                     </div>
                 </a>
             </div>
-            <div className="layout_tile tile3  discovery ">
-                <a className="tile_collection tile desktop " href="/">
+            <div className="layout_tile discovery " style={{clear: 'right', float:'right'}}>
+                <a className="tile_collection" href="/">
                     <div className="collection_img_container">
-                        <img className="collection_img  lazyloaded"
-                             data-src="https://d5xydlzdo08s0.cloudfront.net/media/categories/256/charityauctiontile__L.jpg"
-                             alt="Charity Auctions and Sweepstakes, Bid and give back"
-                             src="https://d5xydlzdo08s0.cloudfront.net/media/categories/256/charityauctiontile__L.jpg"/>
+                        <img className="collection_img"
+                             data-src="exp3.jpg" alt="Charity Auctions and Sweepstakes, Bid and give back"
+                             src="exp3.jpg"/>
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <div
-                                                className="collection_title sg-f-dspl-m2 sg-c-3 sg-text-transform">Charity
-                                                Auctions and Sweepstakes
-                                            </div>
-                                            <div className="collection_description sg-f-dspl-s sg-c-3"
+                                            <div className="collection_title">Charity Auctions and Sweepstakes</div>
+                                            <div className="collection_description"
                                                  style={{textAlign: 'center'}}>Bid and give back
                                             </div>
                                         </td>

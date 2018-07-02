@@ -5,8 +5,12 @@ import { observer } from 'mobx-react';
 class ExperienceTitle extends React.Component {
   render() {
     return (
-        <h2 className="pageframe_header sg-f-dspl-m txt-align-ovr1 discovery" style={{marginBottom: '20px'}}>
-            Explore Experiences that Give Back</h2>
+        <div className="discovery discovery-row">
+            <h2 className="experience_header" style={{marginBottom: '20px'}}>
+                Откройте для себя лучшие предложения</h2>
+            <div></div>
+            <h3 className="experience_sub_header">Unlock Access to Local Experts</h3>
+        </div>
     );
   }
 }

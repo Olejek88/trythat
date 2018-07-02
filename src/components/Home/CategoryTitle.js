@@ -5,8 +5,10 @@ import { observer } from 'mobx-react';
 class CategoryTitle extends React.Component {
   render() {
     return (
-        <h2 className="pageframe_header sg-f-dspl-m txt-align-ovr1 discovery" style={{marginBottom: '20px'}}>
-            Explore Experiences that Give Back</h2>
+        <div className="discovery_block">
+            <h2 className="discovery_header" style={{marginBottom: '20px'}}>
+                Выбирайте впечатления, которые запомнятся вам надолго</h2>
+        </div>
     );
   }
 }

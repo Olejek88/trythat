@@ -6,12 +6,14 @@ import Experience from "./Experience";
 class ExperienceRow extends React.Component {
   render() {
     return (
-        <React.Fragment>
-            <Experience id={1} />
-            <Experience id={2} />
-            <Experience id={3} />
-            <Experience id={4} />
-        </React.Fragment>
+        <div className="experience">
+            <React.Fragment>
+                <Experience id={1}/>
+                <Experience id={2}/>
+                <Experience id={3}/>
+                <Experience id={4}/>
+            </React.Fragment>
+        </div>
     );
   }
 }

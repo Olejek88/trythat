@@ -15,13 +15,9 @@ export default class Home extends React.Component {
     const { tags, token, appName } = this.props.commonStore;
     return (
         <div className="home-page">
-
-        <div className="container page">
-          <div className="row">
+            <div className="main-row">
             <MainView />
           </div>
-        </div>
-
       </div>
     );
   }
