@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 class ExperienceTitle extends React.Component {
   render() {
     return (
-        <div className="discovery discovery-row">
+        <div className="discovery-row experience-title" style={{clear: 'both'}}>
             <h2 className="experience_header" style={{marginBottom: '20px'}}>
                 Откройте для себя лучшие предложения</h2>
             <div></div>

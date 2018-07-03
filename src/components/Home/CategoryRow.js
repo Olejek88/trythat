@@ -6,7 +6,7 @@ class CategoryRow extends React.Component {
   render() {
     return (
         <div className="discovery discovery-row">
-            <div className="layout_tile discovery " style={{clear: 'both', float: 'left'}}>
+            <div className="layout_tile discovery " style={{float: 'left'}}>
                 <a className="tile_collection" href="/">
                     <div className="collection_img_container">
                         <img className="collection_img"
@@ -30,7 +30,7 @@ class CategoryRow extends React.Component {
                     </div>
                 </a>
             </div>
-            <div className="layout_tile discovery " style={{marginLeft: '2%', float: 'left'}}>
+            <div className="layout_tile discovery " style={{float: 'left'}}>
                 <a className="tile_collection" href="/">
                     <div className="collection_img_container">
                         <img className="collection_img"
@@ -55,7 +55,7 @@ class CategoryRow extends React.Component {
                     </div>
                 </a>
             </div>
-            <div className="layout_tile discovery " style={{clear: 'right', float:'right'}}>
+            <div className="layout_tile discovery " style={{float:'left'}}>
                 <a className="tile_collection" href="/">
                     <div className="collection_img_container">
                         <img className="collection_img"
@@ -79,8 +79,6 @@ class CategoryRow extends React.Component {
                             </div>
                     </div>
                 </a>
-            </div>
-            <div style={{clear: 'both'}}>
             </div>
         </div>
     );

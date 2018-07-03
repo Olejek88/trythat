@@ -6,15 +6,11 @@ import FooterCategories from "./FooterCategories";
 
 const FooterView = props => {
     return (
-        <div id="header-fixed" className="sg-bg-1" style={{top: '0', float: 'right'}}>
-            <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3'}}>
-                <React.Fragment>
-                    <FooterCategories />
-                    <SiteMenu />
-                    <SiteInfo />
-                </React.Fragment>
-            </div>
-        </div>
+        <React.Fragment>
+            <FooterCategories/>
+            <SiteMenu/>
+            <SiteInfo/>
+        </React.Fragment>
     );
 };
 
@@ -23,11 +19,9 @@ const FooterView = props => {
 class Footer extends React.Component {
   render() {
     return (
-      <nav className="navbar sg-bg-1">
         <div className="main_container">
-          <FooterView />
+            <FooterView/>
         </div>
-      </nav>
     );
   }
 }
