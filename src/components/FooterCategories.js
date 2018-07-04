@@ -8,7 +8,7 @@ class FooterCategories extends React.Component {
         <div className="footer_div">
             <h2 className="footer_header" style={{marginBottom: '20px'}}>Shop more experiences that give back</h2>
             <div className="pageframe_content_container">
-                <table className="tile_table discovery catch_all_footer_table" data-cols="5">
+                <table className="tile_table discovery-footer catch_all_footer_table" data-cols="5">
                     <tbody>
                     <tr>
                         <td className="sg-bd-2">
@@ -16,7 +16,7 @@ class FooterCategories extends React.Component {
                             <table className="catch_all_footer_lists_table">
                                 <tbody>
                                 <tr>
-                                    <td>
+                                    <td className="footer-td-content">
                                         <ul className="catch_all_footer_list">
                                             <li><a href="/" className="sg-f-bdy" style={{lineHeight: '2em'}}>Culinary</a></li>
                                             <li><a href="/" className="sg-f-bdy" style={{lineHeight: '2em'}}>Beer, Wine, &amp; Spirits</a></li>
@@ -24,7 +24,7 @@ class FooterCategories extends React.Component {
                                             <li><a href="/" className="sg-f-bdy" style={{lineHeight: '2em'}}>Music</a></li>
                                         </ul>
                                     </td>
-                                    <td>
+                                    <td className="footer-td-content">
                                         <ul className="catch_all_footer_list">
                                             <li><a href="/" className="sg-f-bdy" style={{lineHeight: '2em'}}>Fine Art</a></li>
                                             <li><a href="/" className="sg-f-bdy" style={{lineHeight: '2em'}}>Photography</a></li>
@@ -41,7 +41,7 @@ class FooterCategories extends React.Component {
                             <table className="catch_all_footer_lists_table">
                                 <tbody>
                                 <tr>
-                                    <td>
+                                    <td className="footer-td-content">
                                         <ul className="catch_all_footer_list">
                                             <li><a href="/" className="sg-f-bdy"
                                                    style={{lineHeight: '2em'}}>Outdoors</a></li>
@@ -62,7 +62,7 @@ class FooterCategories extends React.Component {
                             <table className="catch_all_footer_lists_table">
                                 <tbody>
                                 <tr>
-                                    <td>
+                                    <td className="footer-td-content">
                                         <ul className="catch_all_footer_list">
                                             <li><a href="/" className="sg-f-bdy"
                                                    style={{lineHeight: '2em'}}>Parties</a></li>
@@ -85,7 +85,7 @@ class FooterCategories extends React.Component {
                             <table className="catch_all_footer_lists_table">
                                 <tbody>
                                 <tr>
-                                    <td>
+                                    <td className="footer-td-content">
                                         <ul className="catch_all_footer_list">
                                             <li><a href="/" className="sg-f-bdy" style={{lineHeight: '2em'}}>
                                                 Chelyabinsk</a></li>

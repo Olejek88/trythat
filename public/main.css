@@ -1,26 +1,13 @@
-/*
-  Feel free to include your own styles and/or override Conduit/Bootstrap
-  SASS variables.
-
-  More info on how to modify the Conduit SASS styles can be found at
-  https://github.com/GoThinkster/conduit-sass
-*/
 .logo-font {
   font-family: "Titillium Web", sans-serif; }
 
 html {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 100px; }
+}
 
-/*!
- * Bootstrap v4.0.0-alpha.2 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-/*! normalize.css commit fe56763 | MIT License | github.com/necolas/normalize.css */
 html {
-  font-family: sans-serif;
+  font-family: source-sans-pro-n4;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; }
 
@@ -245,9 +232,11 @@ th {
 html {
   box-sizing: border-box; }
 
-
+/*
 @-ms-viewport {
-  width: device-width; }
+  width: device-width;
+}
+*/
 
 html {
   font-size: 16px;
@@ -1695,7 +1684,7 @@ select.form-control:not([size]):not([multiple]) {
   padding: 0.5rem 0.75rem;
   margin-bottom: 0;
   font-size: 1rem; }
-
+/*
 _::-webkit-full-page-media.form-control,
 input[type="date"].form-control,
 input[type="time"].form-control,
@@ -1718,10 +1707,10 @@ input[type="month"].input-sm,
 .input-group-sm
 input[type="month"].form-control {
   line-height: 1.8125rem; }
-
 _::-webkit-full-page-media.input-lg,
 .input-group-lg _::-webkit-full-page-media.form-control,
 input[type="date"].input-lg,
+*/
 .input-group-lg
 input[type="date"].form-control,
 input[type="time"].input-lg,
@@ -2611,7 +2600,7 @@ input[type="button"].btn-block {
 
 .btn-lg .caret, .btn-group-lg > .btn .caret {
   border-width: 0.3em 0.3em 0;
-  border-bottom-width: 0; }
+  }
 
 .dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret {
   border-width: 0 0.3em 0.3em; }

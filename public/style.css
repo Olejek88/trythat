@@ -7,6 +7,15 @@ a:hover {
     width: 100%;
 }
 
+.discovery-footer {
+    height: 200px;
+    width: 90%;
+}
+.desktop-sitemenu {
+    height: 200px;
+    width: 90%;
+}
+
 .experience-title {
     height: 100px;
     width: 100%;
@@ -435,8 +444,6 @@ a:hover {
 .main_container {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 .footer {
@@ -465,14 +472,14 @@ a:hover {
     table-layout: fixed;
 }
 .sg-bd-2 {
-    border-bottom: none;
-    border-top: none;
     vertical-align: top;
     padding-right: 15px;
     padding-left: 15px;
-    border-left: none;
     font-size: 14px;
     font-style: normal;
+    border: 1px solid #e1e1e1;
+    border-top: none;
+    border-bottom: none;
 }
 
 .catch_all_footer_subtitle {
@@ -495,6 +502,27 @@ a:hover {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+.footer-td-content {
+    text-align: left;
+}
+
+.social-media-icons {
+    height: 32px;
+    width: 32px;
+    margin: 0;
+}
+.site_info {
+    clear: both;
+    padding-top: 25px;
+    color: white;
+    text-align: center;
+    margin: 0 auto 0;
+    height: 25px;
+    width: 100%;
+    font-size: 14px;
+}
+
 .catch_all_footer_list {
     list-style: none;
 
@@ -577,6 +605,36 @@ a {
     background-color: #000000;
     color: #ffffff;
     border: 2px solid #ffffff;
+}
+
+.responsive {
+    position: relative;
+    margin: 0 auto 0;
+    height: 187px;
+    width: 100%;
+    float: left;
+    font-size: 12px;
+}
+
+.sg-c-3 {
+    position: relative;
+    z-index: 2;
+    margin: 50px auto 0 auto;
+    color: #ffffff;
+}
+
+.footer-menu-item {
+    float: none;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+    margin-right: 56px;
+}
+
+.allowAllUsers {
+    letter-spacing: .02em;
+    line-height: 20px;
+    text-decoration: none;
 }
 
 .sg-bg-1 {

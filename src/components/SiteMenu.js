@@ -5,14 +5,11 @@ import { observer } from 'mobx-react';
 class SiteMenu extends React.Component {
   render() {
     return (
-        <div id="footer" className="desktop responsive  sg-bg-1">
-            <div id="footer-center" style={{width: '100%', margin: '0 auto'}} className="responsive ">
-                <div id="footer-logo">
-                    <img src="/key-white.png" />
-                </div>
-                <div id="footer-menu" className="responsive   sg-c-3" style={{textAlign: 'center'}}>
+        <div id="footer" className="desktop-sitemenu responsive sg-bg-1">
+            <div style={{width: '100%', margin: '0 auto'}} className="responsive ">
+                <div id="footer-menu" className="responsive sg-c-3" style={{textAlign: 'center'}}>
                     <ul className="footer-menu-item">
-                        <p>Company</p>
+                        <p style={{marginBottom: '16px'}}>Company</p>
                         <li><a className="sg-c-3 allowAllUsers" href="/">About Us</a></li>
                         <li><a className="sg-c-3 allowAllUsers">How It Works</a></li>
                         <li><a className="sg-c-3 allowAllUsers" href="/">Careers</a></li>
