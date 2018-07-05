@@ -1,0 +1,117 @@
+.left-box {
+    max-width: 714px;
+    min-width: 386px;
+    width: 60%;
+    width: -webkit-calc(100% - 410px);
+    width: -moz-calc(100% - 410px);
+    width: calc(100% - 410px);
+    min-height: 470px;
+    overflow: hidden;
+    float: left;
+    position: relative;
+}
+
+.pImgContainer {
+    width: 100%;
+    overflow: hidden;
+    background-color: #f2f2f2;
+    position: relative;
+    min-height: 470px;
+}
+
+.pImgContainer #pImages_left{
+    background: url(marquee_scroll_left.png);
+    z-index: 2;
+    position: absolute;
+    top: 195px;
+    left: 0;
+    background-size: 33px;
+    width: 33px;
+    height: 66px;
+}
+
+.pImgContainer #pImages_right{
+    background: url(marquee_scroll_right.png);
+    z-index: 2;
+    position: absolute;
+    top: 195px;
+    right: 0;
+    background-size: 33px;
+    width: 33px;
+    height: 66px
+}
+
+.scroll {
+    float: left;
+    position: relative;
+    overflow: hidden;
+    width: 960px;
+    height: 472px;
+}
+
+.imgDiv {
+    width: 714px;
+    height: 470px;
+    overflow: hidden;
+    position: relative;
+    float: left;
+}
+
+.items {
+    position: absolute;
+    clear: both;
+}
+
+.pImgSlide {
+    visibility: hidden;
+}
+
+.pImgSlide a {
+    width: 8px;
+    height: 8px;
+    float: left;
+    background: url(/navigator.png) 0 0 no-repeat;
+    background-position-x: 0;
+    background-position-y: 0;
+    display: block;
+    font-size: 1px;
+    margin-bottom: 10px;
+}
+
+.pImgSlide a.active {
+    background-position: 0 -16px;
+}
+.right-box {
+    width: 386px;
+    max-width: 100%;
+    min-height: 470px;
+    float: right;
+    position: relative;
+    height: auto;
+}
+
+.lum-name {
+    word-wrap: break-word;
+    width: 312px;
+    cursor: pointer;
+    line-height: 22px;
+}
+
+.sg-f-dspl-s {
+    font-family: source-sans-pro-n6, sans-serif;
+    font-size: 18px;
+    line-height: 1.33em;
+    letter-spacing: 0.04em;
+    font-weight: normal;
+}
+
+.charity-name {
+    margin-left: -2px;
+    margin-top: 2px;
+    float: left;
+    cursor: pointer;
+    width: 100%;
+}
+
+.sg-f-bdy
+.sg-c-2
