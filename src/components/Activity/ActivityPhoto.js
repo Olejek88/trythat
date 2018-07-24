@@ -7,7 +7,6 @@ class ActivityPhoto extends React.Component {
     return (
         <div className="left-box product-slider-box" style="margin-bottom: 40px;">
             <div className="pImgContainer">
-                <!-- "previous slide" button -->
                 <a className="prev p-arrow disabled" id="pImages_left" tabIndex="0">
                 </a>
                 <div className="scrollable-placeholder" style="display: none;">
@@ -38,7 +37,6 @@ class ActivityPhoto extends React.Component {
             </div>
 
             <div style="width: 100%; position: absolute; bottom: 0px;">
-                <!-- the tabs -->
                 <div className="pImgSlide" style="margin: 0 auto; width: 14px;">
                     <a href="#" className="active">
                     </a>
