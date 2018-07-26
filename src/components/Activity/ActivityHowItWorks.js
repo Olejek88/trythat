@@ -11,35 +11,29 @@ class ActivityHowItWorks extends React.Component {
                 <table className="elements-list">
                     <tbody><tr>
                         <td>
-                            <img src="steps_schedule-mbnp__L.jpg" alt="" />
-                                <p className="fo-18-n-s4">Provide Details </p>/
+                            <img src={"steps_schedule.jpg"} alt="" />
+                                <p className="fo-18-n-s4">Provide Details </p>
                                 <p className="fo-15-n-s4">
                                 </p>
-                                <div style="padding: 0 60px 0 60px;"><font
-                                    style="font-family:'source-sans-pro-n4', sans-serif;">Provide your preferred dates
-                                    for the experience.</font>
+                                <div style={{padding: '0 60px 0 60px'}}>Provide your preferred dates for the experience.
                                     <div><p></p>
                                     </div>
                                 </div></td>
                         <td>
-                            <img src="steps_confirm.jpg" alt="" />
-                                <p className="fo-18-n-s4">
-                                    Details Confirmed </p>
-                                <p className="fo-15-n-s4">
-                                </p>
-                                <div style="padding: 0 60px 0 60px;"><font
-                                    style="font-family:'source-sans-pro-n4', sans-serif;">The luminary will confirm the
-                                    schedule or ask for alternatives.</font></div>
+                            <img src={"steps_confirm.jpg"} alt="" />
+                                <p className="fo-18-n-s4">Details Confirmed </p>
+                                <p className="fo-15-n-s4"></p>
+                                <div style={{padding: '0 60px 0 60px'}}>The luminary will confirm the
+                                    schedule or ask for alternatives.</div>
                                 <p></p>
                         </td>
                         <td>
-                            <img src="steps_enjoy.jpg" alt="" />
+                            <img src={"steps_enjoy.jpg"} alt="" />
                                 <p className="fo-18-n-s4">Enjoy! </p>
                                 <p className="fo-15-n-s4">
                                 </p>
-                                <div style="padding: 0 60px 0 60px;">
-                                    <font style="font-family:'source-sans-pro-n4', sans-serif;">Have a wonderful time. We look
-                                    forward to coordinating your next IfOnly experience.</font></div>
+                                <div style={{padding: '0 60px 0 60px'}}>
+                                    Have a wonderful time. We look forward to coordinating your next IfOnly experience.</div>
                                 <p></p>
                         </td>
                     </tr>

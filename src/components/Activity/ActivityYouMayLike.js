@@ -8,9 +8,9 @@ class ActivityYouMayLike extends React.Component {
         return (
             <div className="p-otherExp-section " data-html="">
                 <div className="otherExp-section">
-                    <div style="width: 100%; max-width: 960px; margin: 0 auto;">
+                    <div style={{width: '100%', maxWidth: '960px', margin: '0 auto'}}>
                         <div className="row">
-                            <div className="row" style="margin: 32px 0;">
+                            <div className="row" style={{margin: '32px 0'}}>
                                 <h3 className="sg-f-dspl-l sg-text-transform you-may-also-enjoy">you may also enjoy</h3>
                             </div>
                             <div className="experience">

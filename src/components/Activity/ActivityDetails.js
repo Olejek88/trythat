@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 class ActivityDetails extends React.Component {
   render() {
     return (
-        <div className="right-box details-box" style="min-height: initial;">
+        <div className="right-box details-box" style={{minHeight: 'initial'}}>
             <div className="pdp-product-details ">
                 <h4 className="sg-f-ttl">Подробнее</h4>
                 <div className="product-desc  sg-f-bdy ">
@@ -19,25 +19,17 @@ class ActivityDetails extends React.Component {
                             <li>Paired wines accompany each course</li>
                             <li>Gratuity is included</li>
                         </ul>
-                        <div className="buy-as-a-gift js-how-to-buy-gift sg-bd-2"
-                             style="margin-top: 15px;cursor: pointer;width: 100%; height: 50px;
-                             background: url('buyingthisasagift_banner__L.jpg');background-size: cover;
-                             background-size: auto 100%; background-repeat: no-repeat;">
+                        <div className="buy-as-a-gift js-how-to-buy-gift sg-bd-2 buy_as_gift_div">
                             <p className="sg-c-1" tabIndex="0"
-                               style="text-align: right; margin-right: 10px; line-height: 50px;">
-                                <font style="font-family:Montserrat;font-size:11px;letter-spacing: 0.14em;text-transform:uppercase;color:#00a94f;">Buying
-                                this as a gift?&nbsp;&nbsp;&nbsp;</font></p>
+                               style={{textAlign: 'right', marginRight: '10px', lineHeight: '50px'}}>
+                                <font className="buy_as_gift">Buying this as a gift?&nbsp;&nbsp;&nbsp;</font></p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <p className="view-fp sg-text-transform  sg-inline-middle" clickaction="show" tabIndex="0">
-                <span>read fine print</span>
-                <img className="view-fp-arrow" src="icon_arrow_down_000.png" />
-            </p>
-            <div style="clear: both"></div>
-            <div className="finePrint-sec " style="display: none;">
+            <div style={{clear: 'both'}}>
+            </div>
+            <div className="finePrint-sec " style={{display: 'none'}}>
                 <div className="product-desc ">
                     <div className="content celeb-color-anchor">
                         <ul>

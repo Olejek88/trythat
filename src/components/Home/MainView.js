@@ -6,6 +6,7 @@ import Banner from "./Banner";
 import MainCategories from "./MainCategories";
 import ExperienceTitle from "./ExperienceTitle";
 import ExperienceRow from "./ExperienceRow";
+import FooterCategories from "../FooterCategories";
 
 const YourFeedTab = props => {
   if (props.currentUser) {
@@ -125,6 +126,7 @@ export default class MainView extends React.Component {
             <ExperienceTitle/>
             <ExperienceRow category={1}/>
             <ExperienceRow category={2}/>
+            <FooterCategories/>
         </React.Fragment>
     );
   }

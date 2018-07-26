@@ -8,7 +8,7 @@ class ActivityDescription extends React.Component {
         <div className="left-box desc-box">
             <div className="pdp-product-description sg-f-bdy">
                 <h4 className="sg-f-ttl">The Experience</h4>
-                <div className="product-desc body-text" style="position: relative; word-wrap: break-word;">
+                <div className="product-desc body-text" style={{position: 'relative', wordWrap: 'break-word'}}>
                     <p>Chez Panisse is a dining institution. Prior to Alice Waters
                         opening her venerated restaurant, home cooking typically involved highly
                         processed foods and fine dining required complicated French techniques.

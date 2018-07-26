@@ -46,15 +46,18 @@ export default class App extends React.Component {
                         <PrivateRoute path="/settings" component={Settings}/>
                         <Route path="/@:username" component={Profile}/>
                         <Route path="/@:username/favorites" component={Profile}/>
+                        <Route path="/activity/:id" component={Activity}/>
                         <Route path="/" component={Home}/>
-                        <Route path="/activity" component={Activity}/>
                     </Switch>
                     <Footer/>
                 </div>
             );
         }
         return (
-            <Header/>
+            <div>
+                <Header/>
+                <Footer/>
+            </div>
         );
     }
 }

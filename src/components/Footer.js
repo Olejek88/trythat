@@ -2,12 +2,11 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import SiteMenu from "./SiteMenu";
 import SiteInfo from "./SiteInfo";
-import FooterCategories from "./FooterCategories";
+//import FooterCategories from "./FooterCategories";
 
 const FooterView = props => {
     return (
         <React.Fragment>
-            <FooterCategories/>
             <SiteMenu/>
             <SiteInfo/>
         </React.Fragment>
