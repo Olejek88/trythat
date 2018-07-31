@@ -18,7 +18,7 @@ const FooterView = props => {
 class Footer extends React.Component {
   render() {
     return (
-        <div className="main_container">
+        <div className="main_container" style={{float: 'bottom'}}>
             <FooterView/>
         </div>
     );

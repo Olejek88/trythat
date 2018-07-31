@@ -9,7 +9,7 @@ class ActivitySelect extends React.Component {
                 <div className="p-attributes " data-productid="325">
                     <h2 className="lum-name sg-f-dspl-s ">Alice Waters</h2>
                     <p className="charity-name sg-f-bdy sg-c-2 ">
-                        <img src="icon_ribbon.png" style={{width: '12.5px'}}/>
+                        <img src="{icon_ribbon.png}" style={{width: '12.5px'}}/>
                         <span>Benefiting The Edible Schoolyard Project</span>
                     </p>
                     <div className="name-group" style={{float: 'left', width: '100%', marginTop: '34px'}}>

@@ -746,6 +746,13 @@ a:hover {
     padding: 0;
 }
 
+#footer {
+    position: relative;
+    margin: 0 auto 0;
+    height: 187px;
+    width: 100%;
+}
+
 .p-top-sec .p-form .buyBox {
     padding: 10px;
     width: auto;

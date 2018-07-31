@@ -29,10 +29,10 @@ export default class Login extends React.Component {
           <div className="row">
 
             <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign In</h1>
+              <h1 className="text-xs-center">Войти</h1>
               <p className="text-xs-center">
                 <Link to="register">
-                  Need an account?
+                  Нужен аккаунт?
                 </Link>
               </p>
 
@@ -55,24 +55,19 @@ export default class Login extends React.Component {
                     <input
                       className="form-control form-control-lg"
                       type="password"
-                      placeholder="Password"
+                      placeholder="Пароль"
                       value={values.password}
                       onChange={this.handlePasswordChange}
                     />
                   </fieldset>
 
-                  <button
-                    className="btn btn-lg btn-primary pull-xs-right"
-                    type="submit"
-                    disabled={inProgress}
-                  >
-                    Sign in
+                  <button className="btn btn-primary pull-xs-right" type="submit" disabled={inProgress}>
+                    Войти
                   </button>
 
                 </fieldset>
               </form>
             </div>
-
           </div>
         </div>
       </div>

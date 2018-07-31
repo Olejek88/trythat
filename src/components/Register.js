@@ -24,15 +24,15 @@ export default class Register extends React.Component {
     const { values, errors, inProgress } = this.props.authStore;
 
     return (
-      <div className="auth-page">
+      <div className="auth-page" style={{marginBottom: '10px'}}>
         <div className="container page">
           <div className="row">
 
             <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign Up</h1>
+              <h1 className="text-xs-center">Зарегистрироваться</h1>
               <p className="text-xs-center">
                 <Link to="login">
-                  Have an account?
+                  Уже есть аккаунт?
                 </Link>
               </p>
 
@@ -42,18 +42,16 @@ export default class Register extends React.Component {
                 <fieldset>
 
                   <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
+                    <input className="form-control form-control-lg"
                       type="text"
-                      placeholder="Username"
+                      placeholder="Имя пользователя"
                       value={values.username}
                       onChange={this.handleUsernameChange}
                     />
                   </fieldset>
 
                   <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
+                    <input className="form-control form-control-lg"
                       type="email"
                       placeholder="Email"
                       value={values.email}
@@ -65,24 +63,21 @@ export default class Register extends React.Component {
                     <input
                       className="form-control form-control-lg"
                       type="password"
-                      placeholder="Password"
+                      placeholder="Пароль"
                       value={values.password}
                       onChange={this.handlePasswordChange}
                     />
                   </fieldset>
 
-                  <button
-                    className="btn btn-lg btn-primary pull-xs-right"
+                  <button className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
-                    disabled={inProgress}
-                  >
-                    Sign in
+                    disabled={inProgress}>
+                    Подтвердить
                   </button>
 
                 </fieldset>
               </form>
             </div>
-
           </div>
         </div>
       </div>
