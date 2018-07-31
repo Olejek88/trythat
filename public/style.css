@@ -709,6 +709,43 @@ a:hover {
     padding: 2px 0;
 }
 
+.social_wiget_div .wishlist {
+    box-sizing: border-box;
+    height: 44px;
+    line-height: 40px;
+    margin: 10px;
+}
+
+.secondaryButton {
+    background-color: #ffffff;
+    border: 2px solid #00A94F;
+    color: #00A94F;
+}
+
+.social_wiget_div .btn_table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.phone, .pdp_question_mark {
+    cursor: pointer;
+    overflow: hidden;
+}
+
+
+.sg-chatbubble {
+    background-image: url('icon_chatbubble_green.png');
+}
+.sg-chatbubble, .sg-gift-icon, .sg-info-icon {
+    width: 25px;
+    height: 25px;
+    background-size: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    padding: 0;
+}
+
 .p-top-sec .p-form .buyBox {
     padding: 10px;
     width: auto;

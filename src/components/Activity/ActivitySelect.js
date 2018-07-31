@@ -173,7 +173,7 @@ class ActivitySelect extends React.Component {
                                 <div className="clearAll"></div>
                             </div>
                         </div>
-                        <div className="social_wiget_div sg-f-hdr sg-bd-2 desktop " style={{textAlign: 'center'}}>
+                        <div className="social_wiget_div sg-f-hdr sg-bd-3 desktop " style={{textAlign: 'center'}}>
                             <div className="wishlist  secondaryButton sg-cursor " pid="325" lvl="1" tabIndex="0">
                                 <div className="pdp heart_img" pid="325"></div>
                                 <p className="pdp wishlist-text title sg-text-transform">add to wishlist</p>
@@ -181,7 +181,7 @@ class ActivitySelect extends React.Component {
                             <table className="btn_table sg-bd-2 sg-no-bd-bottom sg-no-bd-left sg-no-bd-right">
                                 <tbody>
                                 <tr>
-                                    <td className="left_td share_td sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-bottom">
+                                    <td className="left_td share_td sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-bottom">
                                         <a href="#" className="button sg-inline-middle" id="sweepstake-share"
                                            data-type="" style={{justifyContent: 'center'}}>
                                             <img style={{width: '28px', verticalAlign: 'middle'}}
@@ -198,7 +198,7 @@ class ActivitySelect extends React.Component {
                                             <div className="sg-chatbubble ">
                                             </div>
                                             <span className="txt-ovr-2 sg-hover-primary sg-text-transform"
-                                                  style={{padding: '0 0 0 5px'}}>ask a question</span></div>
+                                                  style={{padding: '0 0 0 5px', color: '#373a3c'}}>ask a question</span></div>
                                     </td>
                                 </tr>
                                 </tbody>
