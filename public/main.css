@@ -275,7 +275,9 @@ ol,
 ul,
 dl {
   margin-top: 0;
-  margin-bottom: 1rem; }
+  margin-bottom: 1rem;
+  list-style: none;
+}
 
 ol ol,
 ul ul,
@@ -2990,14 +2992,11 @@ input[type="button"].btn-block {
 
 .navbar {
   position: relative;
-  padding: 0.5rem 1rem; }
+  padding: 0.05rem 1rem; }
   .navbar::after {
     content: "";
     display: table;
     clear: both; }
-  @media (min-width: 544px) {
-    .navbar {
-      border-radius: 0.25rem; } }
 
 .navbar-full {
   z-index: 1000; }
@@ -3033,10 +3032,10 @@ input[type="button"].btn-block {
 
 .navbar-brand {
   float: left;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+  padding-top: 8px;
   margin-right: 1rem;
   font-size: 1.25rem; }
+
   .navbar-brand:focus, .navbar-brand:hover {
     text-decoration: none; }
   .navbar-brand > img {
@@ -5068,7 +5067,9 @@ ul.tag-list {
 .navbar-brand {
   font-family: "Titillium Web", sans-serif;
   font-size: 1.5rem !important;
-  padding-top: 0rem !important;
+    /*
+    padding-top: 0rem !important;
+    */
   margin-right: 2rem !important;
   color: #5CB85C !important; }
 
