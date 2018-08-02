@@ -55,12 +55,14 @@ const LoggedInView = props => {
                 */}
                 <Link to="/settings" className="myaccount sg-inline-middle" id="settings">
                     <div id="profile_settings" className={"profile_icon"}>
-                        <img src={"icon_peep_fff.png"} style={{width: '28px'}} />
+                        <img src={"icon_peep_fff.png"} style={{width: '28px'}} alt={"none"}/>
                         <p className="caption sg-c-4" style={{textAlign: 'center'}}>Вы</p>
-                        <div className="bubble notification unread txt-ovr-4 bg-ovr-3" style={{visibility: 'hidden'}}></div>
+                        <div className="bubble notification unread txt-ovr-4 bg-ovr-3" style={{visibility: 'hidden'}}>
+                        </div>
                         <div id="acct-popup-wrapper" className="io-popup-warpper">
                             <div id="acct-popup-box" className="sg-bg-3 sg-bd-3">
-                                <div id="acct-popup-carrot" className="io-arrow-popup-carrot"></div>
+                                <div id="acct-popup-carrot" className="io-arrow-popup-carrot">
+                                </div>
                                 <ul id="acct-popup" style={{paddingLeft:0}}>
                                     <a href="/settings" tabIndex="2401">
                                         <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
@@ -82,7 +84,8 @@ const LoggedInView = props => {
                                             style={{position: 'relative', margin: '0px 3px', visibility: 'hidden'}}>
                                 </span></p></li>
                                     </a>
-                                    <li style={{borderBottom: '1px solid #e1e1e1', paddingBottom: '5px'}}></li>
+                                    <li style={{borderBottom: '1px solid #e1e1e1', paddingBottom: '5px'}}>
+                                    </li>
                                     <a href="javascript:logout();" tabIndex="2409">
                                         <li className="child  sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3"><p>Выйти</p></li>
                                     </a>
