@@ -1436,6 +1436,165 @@ a {
     line-height: 30px;
 }
 
+.emailInput {
+    margin-right: 20px;
+}
+
+.rtl .emailInput {
+    margin-left:20px;
+    margin-right: 0;
+}
+
+span.err {
+    color: #D8000C;
+}
+
+.custom-form .view-frame, .view-frame.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+}
+
+#vendor-admin #main-detail {
+    width: 730px;
+    margin: 0 auto;
+    max-width: 90%;
+    padding: 0 5%;
+}
+#main-detail {
+    min-height: 500px;
+}
+
+#account-content {
+    margin-top: 40px;
+}
+
+#main-detail.account-page .account-header {
+    padding: 17px 0;
+}
+
+.sg-f-dspl-m {
+    font-family: georgia, serif;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0.01em;
+    font-weight: normal;
+}
+
+#main-detail.account-page .sibs {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+input[type="checkbox"] {
+    height: auto;
+    width: auto;
+}
+textarea, input {
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+h3,form {
+    margin: auto;
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+input {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1em;
+    letter-spacing: 0.02em;
+    font-weight: normal;
+    text-overflow: ellipsis;
+}
+
+#profile input[type="text"], #changePassword input[type="password"], #changePassword .input_container {
+    width: 282px;
+    display: block;
+}
+
+.custom-form.vendor-page input[type="text"] {
+    width: 100%;
+}
+
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
+    border: 1px solid #e1e1e1;
+}
+
+:focus, #top-welcome a.shopping:focus img, .loc-button.preCheckOutField a > input:focus, .schedule-button.preCheckOutField a > input:focus {
+    outline: #00A94F dotted 2px !important;
+}
+
+:focus, #top-welcome a.shopping:focus img {
+    outline: #00a94f dotted 2px;
+}
+textarea, input {
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+div.row {
+    margin-bottom: 10px;
+}
+.row {
+    width: 100%;
+}
+
+#main-detail.account-page .sibs {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#account-content label {
+    display: inline-block;
+    width: 160px;
+    margin: 10px 0;
+}
+
+.custom-form select {
+
+    margin: 0;
+
+}
+
+:focus, #top-welcome a.shopping:focus img, .loc-button.preCheckOutField a > input:focus, .schedule-button.preCheckOutField a > input:focus {
+    outline: #00A94F dotted 2px !important;
+}
+
+:focus, #top-welcome a.shopping:focus img {
+    outline: #00a94f dotted 2px;
+}
+
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
+    border: 1px solid #e1e1e1;
+}
+
+select {
+    background: url(mobile-dropdown.png) no-repeat scroll 100% 8px / 35px auto white;
+    padding: 10px;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-color: #e1e1e1;
+}
+
+#account-content h3 {
+    margin: 25px 0;
+}
+
+#profileForm select {
+    width:282px;
+}
+
+.mobile #account-content .sibs > label {
+    margin-bottom:4px !important;
+}
+
+#profileForm select.mobile {
+    width:100%;
+}
+
 .otherExp-section {
     width: 100%;
     min-height: 100px;

@@ -603,6 +603,13 @@ pre {
   margin-left: -15px;
   margin-right: -15px; }
 
+.row-flow {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    padding: 5px 0px;
+}
+
 .col-xs {
   position: relative;
   flex-basis: 0;
