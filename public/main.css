@@ -244,11 +244,14 @@ html {
   -webkit-tap-highlight-color: transparent; }
 
 body {
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #373a3c;
-  background-color: #fff; }
+    font-family: source-sans-pro-n4, "Source Sans Pro", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    color: #373a3c;
+    background-color: #fff;
+}
 
 [tabindex="-1"]:focus {
   outline: none !important; }

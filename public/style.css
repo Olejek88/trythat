@@ -139,7 +139,7 @@ a:hover {
     background-size: 50% 50%;
     background-repeat: no-repeat;
     background-position: center center;
-    background-image: url('/icon_heart.png');
+    background-image: url('icon_heart.png');
     z-index: 2;
 }
 
@@ -555,11 +555,40 @@ a:hover {
     list-style: none;
 }
 
+.info-box .widget-row div:last-of-type {
+    border-bottom: none;
+}
+
+.event_venue_row .displayonly_title, .location_row .displayonly_title {
+    background-image: url(icon_signpost.png);
+}
+
+.product_sec_title .review_stars_div {
+    display:inline-block;
+    margin-left:10px;
+    position:relative;
+}
+
+.product_sec_div.reviews {
+    margin-bottom:20px;
+}
+
+.product_sec_div.reviews .view_all_link_container {
+    text-align:center;
+}
+
+.reviews.view_all_link_container .review_item:nth-child(n+5) {
+    display:none;
+}
+.reviews.show_all.view_all_link_container .review_item:nth-child(n+5) {
+    display:block;
+}
+
 .sg-f-bdy {
     color: #000000;
-    font-family: sans-serif, tahoma;
+    font-family: source-sans-pro-n4, sans-serif, tahoma;
+    line-height: 22px;
     font-size: 12px;
-    line-height: 12px;
     letter-spacing: 0.0125em;
     font-weight: normal;
     text-decoration: none;
@@ -571,6 +600,20 @@ a:hover {
     line-height: 18px;
     letter-spacing: 0.0125em;
     font-weight: normal;
+}
+
+.info-box select, .info-box input[type="text"] {
+    border-top: none;
+    cursor: pointer;
+    margin: 0;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #e1e1e1;
+}
+.preCheckOutField select {
+    padding: 9px 2%;
+    width: 100%;
+    background-color: #fff;
 }
 
 .luminary-section {
@@ -808,6 +851,13 @@ div.p-top-sec .p-form .info-box {
     font-weight: normal;
 }
 
+.displayonly_title {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-y: center;
+    min-height: 22px;
+}
+
 .attr-field {
     text-align: center;
     display: block;
@@ -869,7 +919,7 @@ div.p-top-sec .p-form .info-box {
     background-position-x: 100%;
     background-position-y: center;
     background-size: 35px;
-    background: url("/icon_arrow_right_fff.png") no-repeat 16px 8px 100% center;
+    background: url("icon_arrow_right_fff.png") no-repeat 16px 8px 100% center;
 }
 
 .buy_as_gift {
@@ -921,6 +971,21 @@ div.p-top-sec .p-form .info-box {
     margin: 0 5px;
 }
 
+.button, .buttonx {
+    height: 44px;
+    line-height: normal !important;
+    box-sizing: border-box;
+    cursor: pointer;
+    padding: 0 5px;
+    min-width: 100px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 2px 0;
+    vertical-align: middle !important;
+    border: 2px solid transparent;
+}
+
 .button {
     display: inline-block;
     height: 44px;
@@ -929,6 +994,10 @@ div.p-top-sec .p-form .info-box {
     min-width: 100px;
     box-sizing: border-box;
     cursor: pointer;
+}
+
+.sg-no-bd-bottom {
+    border-bottom: none;
 }
 
 .primaryButton2 {
@@ -1211,14 +1280,38 @@ a {
     margin-top: 10px;
 }
 
-.sg-inline-middle {
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
 .view-fp {
     float: left;
     margin-top: 20px;
+}
+
+.review_stars_div .review_star {
+    width: 18px;
+}
+.review_stars_inner_div > * {
+    vertical-align: middle;
+}
+
+.review_stars_inner_div {
+    display: inline-block;
+    padding-bottom: 1px;
+}
+
+.social_wiget_div .review_stars_div {
+    margin: 10px;
+}
+
+.review_stars_div .total_reviews_span {
+    margin-left: 5px;
+    margin-right: 5px;
+    display: inline-block;
+    margin-top: 2px;
+    position: relative;
+    top: 0;
+}
+
+.span-right {
+    padding-left: 5px;
 }
 
 .view-fp-arrow {
@@ -1501,6 +1594,11 @@ h3,form {
     vertical-align: baseline;
 }
 
+.txt-ovr-2 {
+    color: #00A94F;
+}
+
+
 input {
     font-family: "Montserrat", sans-serif;
     font-size: 1em;
@@ -1625,22 +1723,6 @@ select {
     min-height: 250px;
     margin: 0;
     overflow: hidden;
-}
-
-
-.button, .buttonx {
-    height: 44px;
-    line-height: normal !important;
-    box-sizing: border-box;
-    cursor: pointer;
-    padding: 0 5px;
-    min-width: 100px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    margin: 2px 0;
-    vertical-align: middle !important;
-    border: 2px solid transparent;
 }
 
 .button.wide {

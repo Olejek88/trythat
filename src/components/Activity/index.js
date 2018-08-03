@@ -8,6 +8,7 @@ import ActivityHowItWorks from "./ActivityHowItWorks";
 import ActivityAboutLuminary from "./ActivityAboutLuminary";
 import ActivityYouMayLike from "./ActivityYouMayLike";
 import {withRouter} from "react-router-dom";
+import ActivityReview from "./ActivityReview";
 
 
 @observer
@@ -44,6 +45,7 @@ class Activity extends React.Component {
             </div>
             <React.Fragment>
                 <ActivityHowItWorks/>
+                <ActivityReview/>
                 <ActivityAboutLuminary/>
                 <ActivityYouMayLike/>
             </React.Fragment>

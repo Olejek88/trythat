@@ -9,7 +9,7 @@ class ActivitySelect extends React.Component {
                 <div className="p-attributes " data-productid="325">
                     <h2 className="lum-name sg-f-dspl-s ">Alice Waters</h2>
                     <p className="charity-name sg-f-bdy sg-c-2 ">
-                        <img src="{icon_ribbon.png}" style={{width: '12.5px'}}/>
+                        <img src={"icon_ribbon.png"} style={{width: '12.5px'}}/>
                         <span>Benefiting The Edible Schoolyard Project</span>
                     </p>
                     <div className="name-group" style={{float: 'left', width: '100%', marginTop: '34px'}}>
@@ -66,8 +66,8 @@ class ActivitySelect extends React.Component {
                                 <div className="widget-row">
                                     <input value="" name="scenario" id="scenario" type="hidden"/>
                                     <input name="userId" id="userId" type="hidden"/>
-                                    <div className="sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right preCheckOutField displayonly_div event_venue_row"
-                                        style={{padding: '10px'}}>
+                                    <div className="sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right
+                                            preCheckOutField displayonly_div event_venue_row" style={{padding: '10px 10px 0 10px'}}>
                                         <div className="sg-inline-top"
                                              style={{width: '100%', position: 'relative', flexWrap: 'nowrap'}}>
                                             <div className="sg-inline-middle displayonly_title "
@@ -81,23 +81,25 @@ class ActivitySelect extends React.Component {
                                         <div className="displayonly_content">
                                         </div>
                                     </div>
-                                    <div className="row preCheckOutField sg-bg-3" id="addPeople">
+                                    <div className="preCheckOutField sg-bg-3" id="addPeople">
                                         <select className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
-                                            data-peopleexception="" style={{width: '100%', display: 'none'}}
-                                            name="numGuests" id="numGuests">
-                                            <option value="2" selected="selected">2 people</option>
+                                        style={{width: '100%'}} name="numGuests" id="numGuests">
+                                            <option value="1" selected="selected">1 человек</option>
+                                            <option value="2">2 people</option>
+                                            <option value="3">3 people</option>
+                                            <option value="4">4 people</option>
+                                            <option value="5">5 people</option>
                                         </select>
-                                        <input className="js-ori-numGuests" value="2" data-exceptionguestprice=""
-                                               type="hidden"/>
-                                        <div className="row addPeopleError" id="addPeopleError"
-                                             style={{display: 'none', color: '#FD6340 !important',
-                                             fontFamily: 'georgia', fontStyle: 'italic', fontSize: '13px',
-                                                 boxSizing: 'border-box', padding: '5px 10px'}}>
-                                            <p style={{color: '#FD6340 !important',fontFamily: 'georgia',
-                                                fontStyle: 'italic', fontSize: '13px'}}>Incorrect Number Of People</p>
+                                        <input className="js-ori-numGuests" value="1" data-exceptionguestprice="" type="hidden"/>
+                                        <div className="row" id="addPeopleError"
+                                             style={{display: 'none', color: '#FD6340 !important', fontFamily: 'georgia',
+                                                 fontStyle: 'italic', fontSize: '13px', boxSizing: 'border-box', padding: '5px 10px'}}>
+                                            <p style={{color: '#FD6340 !important', fontFamily: 'georgia',
+                                                fontStyle: 'italic', fontSize: '13px'}}>
+                                                Incorrect Number Of People</p>
                                         </div>
                                     </div>
-                                    <div className="row preCheckOutField sg-bg-3" id="addDuration">
+                                    <div className="preCheckOutField sg-bg-3" id="addDuration">
                                         <input name="durationMinutes" className="js-durationMinutes"
                                                data-exceptiontime="" data-exceptiondurationprice=""
                                                id="CartItemSocialInfo_durationMinutes" value="2.5" type="hidden"/>
@@ -167,38 +169,42 @@ class ActivitySelect extends React.Component {
                                     <div id="buynow-button" style={{width: '100%'}}
                                          className=" sg-text-transform  primaryButton button" data-pid="325"
                                          tabIndex="0">
-                                        <div className="title-container"><p className="title">buy now</p></div>
+                                        <div className="title-container"><p className="title">заказать</p></div>
                                     </div>
                                 </div>
                                 <div className="clearAll"></div>
                             </div>
                         </div>
                         <div className="social_wiget_div sg-f-hdr sg-bd-3 desktop " style={{textAlign: 'center'}}>
-                            <div className="wishlist  secondaryButton sg-cursor " pid="325" lvl="1" tabIndex="0">
+                            <div className="wishlist  secondaryButton sg-cursor " tabIndex="0">
                                 <div className="pdp heart_img" pid="325"></div>
-                                <p className="pdp wishlist-text title sg-text-transform">add to wishlist</p>
+                                <p className="pdp wishlist-text title sg-text-transform">Добавить в список желаний</p>
+                            </div>
+                            <div className="review_stars_div " data-average-rating="5.00">
+                                <div className="review_stars_inner_div sg-inline-middle">
+                                    <img className="review_star" src={"icon_star_filled.png"} />
+                                    <img className="review_star" src={"icon_star_filled.png"} />
+                                    <img className="review_star" src={"icon_star_filled.png"} />
+                                    <img className="review_star" src={"icon_star_half.png"} />
+                                    <img className="review_star" src={"icon_star_outline.png"} />
+                                    <span className="total_reviews_span sg-f-bdy">(1)</span></div>
                             </div>
                             <table className="btn_table sg-bd-2 sg-no-bd-bottom sg-no-bd-left sg-no-bd-right">
                                 <tbody>
                                 <tr>
-                                    <td className="left_td share_td sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-bottom">
-                                        <a href="#" className="button sg-inline-middle" id="sweepstake-share"
-                                           data-type="" style={{justifyContent: 'center'}}>
+                                    <td className="left_td share_td sg-bd-3 sg-no-bd-left sg-no-bd-bottom">
+                                        <a href="#" className="button sg-inline-middle" style={{justifyContent: 'center'}}>
                                             <img style={{width: '28px', verticalAlign: 'middle'}}
                                                  src={"icon_share_green.png"}/>
-                                            <span className="sg-text-transform txt-ovr-2 sg-hover-primary">share</span>
+                                            <span className="sg-text-transform txt-ovr-2 sg-hover-primary">Поделиться</span>
                                         </a>
                                     </td>
-                                    <td className="right_td question_td">
-                                        <div className="phone pdp_question_mark  button sg-inline-middle allowAllUsers"
-                                             data-origin="productPage" data-siteid="1" data-id="325"
-                                             data-imgsrc="waters_350px__L.jpg"
-                                             data-name="IfOnly"
-                                             data-subject="About Supper in the Kitchen at Chez Panisse" tabIndex="0">
-                                            <div className="sg-chatbubble ">
-                                            </div>
-                                            <span className="txt-ovr-2 sg-hover-primary sg-text-transform"
-                                                  style={{padding: '0 0 0 5px', color: '#373a3c'}}>ask a question</span></div>
+                                    <td className="right_td question_td sg-bd-3 sg-no-bd-right sg-no-bd-bottom">
+                                        <a href="#" className="button sg-inline-middle" style={{justifyContent: 'center'}}>
+                                            <img style={{width: '20px', verticalAlign: 'middle', paddingTop: '8px'}}
+                                                 src={"icon_chatbubble_green.png"}/>
+                                            <span className="sg-text-transform txt-ovr-2 sg-hover-primary span-right">Задать вопрос</span>
+                                        </a>
                                     </td>
                                 </tr>
                                 </tbody>

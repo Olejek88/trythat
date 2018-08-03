@@ -28,7 +28,6 @@ class SettingsForm extends React.Component {
         };
 
         this.submitForm = ev => {
-            alert("aaaa");
             ev.preventDefault();
 
             const user = Object.assign({}, this.state);
@@ -82,7 +81,7 @@ class SettingsForm extends React.Component {
                                     </div>
                                     <div className="row-flow">
                                         <div className="sibs">
-                                            <label htmlFor="UserEx_emailAddress" className="required">Email
+                                            <label htmlFor="emailAddress" className="required">Email
                                                 <span className="required">*</span>
                                             </label>
                                         </div>
@@ -102,26 +101,25 @@ class SettingsForm extends React.Component {
                                                 <span className="required">*</span></label>
                                         </div>
                                         <div className="sibs">
-                                            <input
-                                                type="text"
+                                            <input type="text"
                                                 maxLength="50"
                                                 name="firstName"
                                                 id="firstName"
                                                 value={this.state.firstName}
-                                                onChange={this.updateState('firstname')} />
+                                                onChange={this.updateState('firstName')} />
                                         </div>
                                     </div>
                                     <div className="row-flow">
                                         <div className="sibs">
-                                            <label htmlFor="lastName">Фамилия</label></div>
+                                            <label htmlFor="lastName">Фамилия
+                                                <span className="required">*</span></label></div>
                                         <div className="sibs">
-                                            <input
-                                                type="text"
+                                            <input type="text"
                                                 maxLength="50"
                                                 name="lastName"
                                                 id="lastName"
                                                 value={this.state.lastName}
-                                                onChange={this.updateState('lastname')} />
+                                                onChange={this.updateState('lastName')} />
                                         </div>
                                     </div>
 
