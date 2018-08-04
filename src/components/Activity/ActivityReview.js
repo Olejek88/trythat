@@ -5,7 +5,8 @@ import {observer} from 'mobx-react';
 class ActivityReview extends React.Component {
     render() {
         return (
-            <div className="reviews-section" data-html="" style={{clear: 'both', borderBottom: '1px solid #e1e1e1'}}>
+            <div className="reviews-section" data-html="" style={{clear: 'both', borderBottom: '1px solid #e1e1e1',
+                borderTop: '1px solid #e1e1e1'}}>
                 <div className="product_sec_div reviews view_all_link_container desktop ">
                     <div className="product_sec_header ">
                         <div className="product_sec_title sg-f-ttl">Отзывы клиентов
