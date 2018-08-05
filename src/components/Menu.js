@@ -11,10 +11,10 @@ class SiteMenu extends React.Component {
                     <a href="#" style={{cursor: 'default'}} className="label js-tab-featrue js-show-dropdown " tabIndex="1000">
                         <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Впечатления</p>
                     </a>
-                    <div className="highlight-bar" style={{display: 'none'}}></div>
-                    <div className="drop-down  version2" style={{minWidth: '0px', display: 'none'}}>
+                    <div className="highlight-bar" style={{display: 'block'}}></div>
+                    <div className="drop-down  version2" style={{minWidth: '0px', display: 'block'}}>
                         <div className="lvl2_container">
-                            <div className="lvl2_title sg-f-btn sg-text-transform sg-bg-1 sg-c-3">Категории</div>
+                            <div className="lvl2_title sg-f-btn sg-text-transform sg-bg-1 sg-c-5">Категории</div>
                             <div className="lvl2_content">
                                 <div data-navmenuid="185" className="topNavCat">
                                     <a href="/" title="Искусство" className=" " tabIndex="1001">
@@ -40,7 +40,7 @@ class SiteMenu extends React.Component {
                         </div>
                         <div className="lvl2_container">
                             <div
-                                className="lvl2_title sg-f-btn sg-text-transform sg-bg-1 sg-c-3">Случаи
+                                className="lvl2_title sg-f-btn sg-text-transform sg-bg-1 sg-c-5">Случаи
                             </div>
                             <div className="lvl2_content">
                                 <div data-navmenuid="203" className="topNavCat">
@@ -66,7 +66,7 @@ class SiteMenu extends React.Component {
                             </div>
                         </div>
                         <div className="lvl2_container">
-                            <div className="lvl2_title sg-f-btn sg-text-transform sg-bg-1 sg-c-3">Тренды</div>
+                            <div className="lvl2_title sg-f-btn sg-text-transform sg-bg-1 sg-c-5">Тренды</div>
                             <div className="lvl2_content">
                                 <div data-navmenuid="213" className="topNavCat">
                                     <a href="/" title="Популярное" className=" " tabIndex="1001">
