@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import Menu from "./Menu";
+import MenuNew from "./MenuNew";
 
 const LoggedOutView = props => {
     if (!props.currentUser) {
@@ -33,8 +34,9 @@ const LoggedOutView = props => {
 const LoggedInView = props => {
     if (props.currentUser) {
         return (
-            <div id="header-fixed" className="sg-bg-1" style={{top: '0', float: 'right'}}>
-                <div id="buttons-nav" className="sg-f-bdy-s sg-inline-middle" style={{order: '3'}}>
+            <React.Fragment>
+                <div id="buttons-nav" className=" sg-inline-middle"
+                     style={{order: '3', flexWrap: 'nowrap'}}>
                     {/*
                 <Link
                     to={`/@${props.currentUser.username}`}
@@ -54,6 +56,9 @@ const LoggedInView = props => {
                     <div className="title-container"><p className="title">Выйти</p></div>
                 </Link>
                 */}
+                </div>
+                <div id="top-welcome" className="search_result_container sg-f-bdy-s sg-inline-middle"
+                     style={{flexWrap: 'nowrap', order: '4'}}>
                     <Link to="/settings" className="myaccount sg-inline-middle" id="settings">
                         <div id="profile_settings" className={"profile_icon"}>
                             <img src={"icon_peep_fff.png"} style={{width: '28px'}} alt={"none"}/>
@@ -108,7 +113,7 @@ const LoggedInView = props => {
                         <img src={"icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
                     </Link>
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
     return null;
@@ -119,26 +124,28 @@ const LoggedInView = props => {
 class Header extends React.Component {
     render() {
         return (
-            <nav className="navbar sg-bg-1" id={"top-welcome"}>
-                <div id="header-nav" className="main_container sg-inline-middle" style={{flexWrap: 'nowrap'}}>
-                    <div id="top-logo">
-                        <Link to="/" className="navbar-brand">
-                            {this.props.commonStore.appName.toLowerCase()}
-                        </Link>
-{/*
+            <div id="header-fixed" className="sg-bg-1" style={{top: '0'}}>
+                <div id="header-wrap">
+                    <div id="header-nav" className="main_container sg-inline-middle" style={{flexWrap: 'nowrap'}}>
+                        <div id="top-logo">
+                            <Link to="/" className="navbar-brand">
+                                {this.props.commonStore.appName.toLowerCase()}
+                            </Link>
+                            {/*
                         <a href="/" className="logo" tabIndex="1">
                             <img className="logo-img" style="max-height:40px;"
                                  alt="Private fencing lesson, with an introduction to the basic strategies of the sport. Learn attacks, defensive actions, and bouting with a partner. Learn what it takes to develop skills for championship level fencing."
                                  src="/images/IfOnly_logo_white.png">
                         </a>
 */}
-                    </div>
-                    <Menu/>
-                    <LoggedOutView currentUser={this.props.userStore.currentUser}/>
+                        </div>
+                        <MenuNew/>
+                        <LoggedOutView currentUser={this.props.userStore.currentUser}/>
 
-                    <LoggedInView currentUser={this.props.userStore.currentUser}/>
+                        <LoggedInView currentUser={this.props.userStore.currentUser}/>
+                    </div>
                 </div>
-            </nav>
+            </div>
         );
     }
 }

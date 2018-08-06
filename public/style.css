@@ -898,6 +898,7 @@ div.p-top-sec .p-form .info-box {
 .sg-inline-middle {
     flex-wrap: wrap;
     align-items: center;
+    display: inline-flex;
 }
 
 .sg-c-1 {
@@ -1781,6 +1782,10 @@ select {
     width: 28px;
 }
 
+#top-welcome a {
+    padding: 0 15px;
+}
+
 .profile_icon {
     height: 50px;
 }
@@ -1814,6 +1819,31 @@ select {
     display:block;
 }
 
+#menu1:hover #menu_drop_1 {
+    display:block;
+}
+#menu1:hover #menu_highlight_1{
+    display:block;
+}
+#menu2:hover #menu_drop_2 {
+    display:block;
+}
+#menu2:hover #menu_highlight_2{
+    display:block;
+}
+#menu3:hover #menu_drop_3 {
+    display:block;
+}
+#menu3:hover #menu_highlight_3{
+    display:block;
+}
+#menu4:hover #menu_drop_4 {
+    display:block;
+}
+#menu4:hover #menu_highlight_4{
+    display:block;
+}
+
 /*
 p {
     width: 100%;
@@ -1824,8 +1854,7 @@ p {
     margin: 20px 0 0 0;
 }
 
-.level-menu
-.l-menu{
+.level-menu .l-menu{
     float: left;
     min-height: 60px;
     position: relative;
@@ -1836,6 +1865,7 @@ p {
 .level-menu .l-menu.holiday {
     background: url('holiday_nav_bg_green.png') no-repeat scroll 6px -1px / 75px auto rgba(0, 0, 0, 0);
 }
+
 .level-menu .l-menu .highlight-bar{
     width: 100%;
     background-color: #00A94F;
@@ -1845,11 +1875,15 @@ p {
     position: absolute;
     bottom: 0;
 }
+
 .level-menu .l-menu .drop-down {
     position: absolute;
     z-index: 10;
     left: 0;
-    top: 60px; background-color: #fff; display: none; box-shadow: 0 4px 8px -5px rgb(119, 119, 119);
+    top: 60px;
+    background-color: #fff;
+    display: none;
+    box-shadow: 0 4px 8px -5px rgb(119, 119, 119);
 }
 
 .rtl.level-menu .l-menu .drop-down {
@@ -1860,7 +1894,7 @@ p {
 .level-menu .drop-down .level-2 {
     background-color: #333333;
     float: left;
-    padding: 13px 0 15px 0;
+    padding: 13px 0 0 0;
 }
 .level-menu .level-2 .col p {
     line-height: 18px;
@@ -1869,7 +1903,7 @@ p {
 
 .level-menu .drop-down .level-3 {
     float: left;
-    padding: 8px 0px;
+    padding: 8px 0;
 }
 
 .level-menu .drop-down .col {
@@ -1888,18 +1922,11 @@ p {
 }
 .level-menu .l-menu .label p {
     color: #fff;
-    padding: 10px 15px 0px 15px;
+    padding: 10px 15px 0 15px;
     transition: color 200ms;
 }
 .level-menu .l-menu .label p:hover {
     color:#00A94F;
-}
-.level-menu .l-menu .level-link {
-    padding: 8px 5px 8px 0;
-    display: inline-block;
-    vertical-align: middle;
-    word-wrap: break-word;
-    max-width: 80%;
 }
 .level-menu .l-menu .topNavCat img {
     width: 16px;
@@ -1943,6 +1970,10 @@ p {
     width:600px;
 }
 
+.f-style-ovr1 {
+    font-style: italic;
+}
+
 .level-menu .lvl2_title {
     padding: 16px 0;
     text-align:center;
@@ -1977,9 +2008,6 @@ p {
 }
 
 .sg-c-3 {
-    position: relative;
-    z-index: 2;
-    margin: 50px auto 0 auto;
     color: #ffffff;
 }
 
@@ -1996,8 +2024,30 @@ p {
     margin-right: 15px;
 }
 
+#top-welcome {
+    z-index: 10;
+    height: 80px;
+}
+
+#header-fixed {
+    width: 100%;
+    height: 80px;
+    z-index: 2001;
+    position: fixed;
+}
+
+#header-wrap {
+    margin-left: 20px;
+    height: 80px;
+}
+
+#header-nav {
+    min-width: 720px;
+    width: 100%;
+}
+
 .sg-f-btn {
-    font-family: montserrat;
+    font-family: montserrat, sans-serif;
     font-size: 11px;
     letter-spacing: 1.4px;
     text-transform: uppercase;
@@ -2045,35 +2095,9 @@ p {
     left: initial;
 }
 
-.level-menu .drop-down .level-2 {
-    background-color: #333333;
-    float: left;
-    padding: 13px 0 15px 0;
-}
-
 .level-menu .level-2 .col p {
     line-height: 18px;
     padding-left: 15px;
-}
-
-.level-menu .drop-down .level-3 {
-    float: left;
-    padding: 8px 0;
-}
-
-.level-menu .drop-down .col {
-    width: 160px;
-    float: left;
-    box-sizing: border-box;
-    min-height: 10px;
-}
-
-.level-menu .drop-down .col .topNavCat {
-    width: 100%;
-    float: left;
-    padding-left: 0;
-    box-sizing: border-box;
-    min-width: 120px;
 }
 
 .level-menu .l-menu .label p:hover {

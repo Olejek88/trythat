@@ -7,12 +7,12 @@ class SiteMenu extends React.Component {
     return (
         <div id="header-menu" className="sg-inline-flex-grow" style={{margin: '0 10px', order: '2'}}>
             <div className="level-menu  sg-inline-middle version2" style={{flexWrap: 'nowrap'}} data-header-version="2">
-                <div className="l-menu js-menu  " data-navmenuid="175">
+                <div className="l-menu js-menu" data-navmenuid="175">
                     <a href="#" style={{cursor: 'default'}} className="label js-tab-featrue js-show-dropdown " tabIndex="1000">
                         <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Впечатления</p>
                     </a>
                     <div className="highlight-bar" style={{display: 'block'}}></div>
-                    <div className="drop-down  version2" style={{minWidth: '0px', display: 'block'}}>
+                    <div className="drop-down version2" style={{minWidth: '0px', display: 'block'}}>
                         <div className="lvl2_container">
                             <div className="lvl2_title sg-f-btn sg-text-transform sg-bg-1 sg-c-5">Категории</div>
                             <div className="lvl2_content">
@@ -44,23 +44,23 @@ class SiteMenu extends React.Component {
                             </div>
                             <div className="lvl2_content">
                                 <div data-navmenuid="203" className="topNavCat">
-                                    <a href="/corporate" title="Корпоративные события" className=" " tabIndex="1001">
+                                    <a href="/" title="Корпоративные события" className=" " tabIndex="1001">
                                         <p className="level-link fo-14-n-s4">Корпоративные события</p></a>
                                 </div>
                                 <div data-navmenuid="203" className="topNavCat">
-                                    <a href="/corporate" title="Свадьбы" className=" " tabIndex="1001">
+                                    <a href="/" title="Свадьбы" className=" " tabIndex="1001">
                                         <p className="level-link fo-14-n-s4">Свадьба</p></a>
                                 </div>
                                 <div data-navmenuid="203" className="topNavCat">
-                                    <a href="/corporate" title="Вечеринки" className=" " tabIndex="1001">
+                                    <a href="/" title="Вечеринки" className=" " tabIndex="1001">
                                         <p className="level-link fo-14-n-s4">Вечеринки</p></a>
                                 </div>
                                 <div data-navmenuid="203" className="topNavCat">
-                                    <a href="/corporate" title="Подарки" className=" " tabIndex="1001">
+                                    <a href="/" title="Подарки" className=" " tabIndex="1001">
                                         <p className="level-link fo-14-n-s4">Подарки</p></a>
                                 </div>
                                 <div data-navmenuid="203" className="topNavCat">
-                                    <a href="/corporate" title="Юбилеи" className=" " tabIndex="1001">
+                                    <a href="/" title="Юбилеи" className=" " tabIndex="1001">
                                         <p className="level-link fo-14-n-s4">Юбилеи</p></a>
                                 </div>
                             </div>
@@ -68,10 +68,6 @@ class SiteMenu extends React.Component {
                         <div className="lvl2_container">
                             <div className="lvl2_title sg-f-btn sg-text-transform sg-bg-1 sg-c-5">Тренды</div>
                             <div className="lvl2_content">
-                                <div data-navmenuid="213" className="topNavCat">
-                                    <a href="/" title="Популярное" className=" " tabIndex="1001">
-                                        <p className="level-link fo-14-n-s4">Популярное</p></a>
-                                </div>
                                 <div data-navmenuid="213" className="topNavCat">
                                     <a href="/" title="Популярное" className=" " tabIndex="1001">
                                         <p className="level-link fo-14-n-s4">Популярное</p></a>
@@ -89,7 +85,7 @@ class SiteMenu extends React.Component {
                     </div>
                 </div>
                 <div className="l-menu js-menu  " data-navmenuid="220">
-                    <a href="#" style={{cursor: 'default'}} className="label js-tab-featrue js-show-dropdown " tabIndex="1100">
+                    <a href="#" style={{cursor: 'default'}} className="label js-tab-featrue js-show-dropdown" tabIndex="1100">
                         <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Города</p>
                     </a>
                     <div className="highlight-bar" style={{display: 'none'}}></div>
@@ -111,7 +107,7 @@ class SiteMenu extends React.Component {
                 </div>
             </div>
         </div>
-    );
+   );
   }
 }
 
