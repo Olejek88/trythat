@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import ExperienceMini from "../Home/ExperienceMini";
+import ExperienceMini from "../ExperienceMini";
 
 @observer
 class ActivityInfo extends React.Component {
@@ -25,7 +25,7 @@ class ActivityInfo extends React.Component {
                                     }}>
                                     </div>
                                     <img className="img-coming-soon" style={{display: 'none'}}
-                                         src={"lum_comingsoonbanner.png"}/>
+                                         src={"lum_comingsoonbanner.png"} alt={"скоро"}/>
                                     <img className="luminary-img" src={"waters_350px__L.jpg"}
                                          alt="Alice Waters"/>
                                 </div>

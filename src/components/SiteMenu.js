@@ -1,17 +1,25 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import Link from "react-router-dom/es/Link";
+import {inject} from "mobx-react/index";
 
+@inject('commonStore')
 @observer
 class SiteMenu extends React.Component {
   render() {
     return (
         <div id="footer" className="desktop-sitemenu responsive sg-bg-1">
             <div style={{width: '100%', margin: '0 auto'}} className="responsive ">
+                <div id="footer-logo">
+                    <Link to="/" className="navbar-brand">
+                        {this.props.commonStore.appName.toLowerCase()}
+                    </Link>
+                </div>
                 <div id="footer-menu" className="responsive sg-c-3" style={{textAlign: 'center'}}>
                     <ul className="footer-menu-item">
                         <p style={{marginBottom: '16px'}}>Компания</p>
                         <li><a className="sg-c-3 allowAllUsers" href="/">О нас</a></li>
-                        <li><a className="sg-c-3 allowAllUsers">Как это работает</a></li>
+                        <li><a className="sg-c-3 allowAllUsers" href="/">Как это работает</a></li>
                         <li><a className="sg-c-3 allowAllUsers" href="/">Карьера</a></li>
                         <li><a className="sg-c-3 allowAllUsers" href="/">Статьи</a></li>
                     </ul>

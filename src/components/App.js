@@ -14,6 +14,7 @@ import Register from './Register';
 //import _Settings from './_Settings';
 import Footer from "./Footer";
 import Settings from "./Settings";
+import Category from "./Category";
 
 
 @inject('userStore', 'commonStore')
@@ -48,6 +49,7 @@ export default class App extends React.Component {
                         <Route path="/@:username" component={Profile}/>
                         <Route path="/@:username/favorites" component={Profile}/>
                         <Route path="/activity/:id" component={Activity}/>
+                        <Route path="/category/:id" component={Category}/>
                         <Route path="/" component={Home}/>
                     </Switch>
                     <Footer/>

@@ -4,8 +4,8 @@ import { withRouter, NavLink } from 'react-router-dom'
 import { parse as qsParse } from 'query-string';
 import Banner from "./Banner";
 import MainCategories from "./MainCategories";
-import ExperienceTitle from "./ExperienceTitle";
-import ExperienceRow from "./ExperienceRow";
+import ExperienceTitle from "../ExperienceTitle";
+import ExperienceRow from "../ExperienceRow";
 import FooterCategories from "../FooterCategories";
 
 const YourFeedTab = props => {

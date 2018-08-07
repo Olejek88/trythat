@@ -72,7 +72,7 @@ class SettingsForm extends React.Component {
                                             <label className="required">Фотография</label>
                                         </div>
                                         <div className="sibs emailInput">
-                                            <img src={"luminary2.jpg"} style={{width: '200px'}}/>
+                                            <img src={"luminary2.jpg"} style={{width: '200px'}} alt={"luminary"} />
                                             <input style={{background: '#FFF'}}
                                                    name="image"
                                                    type="hidden"
@@ -418,8 +418,7 @@ class SettingsForm extends React.Component {
                                         </div>
                                         <div className="sibs input_container">
                                             <div className="swapper" style={{float: 'right'}}>
-                                                <a href="#" id="forgot-password" className="fo-13-n-s3">Забыли
-                                                    пароль?</a>
+                                                <a href="/" id="forgot-password" className="fo-13-n-s3">Забыли пароль?</a>
                                             </div>
                                             <div style={{clear: 'both'}}>
                                                 <p id="login_error" className="sg-c-error"

@@ -15,7 +15,7 @@ import ActivityReview from "./ActivityReview";
 @withRouter
 class Activity extends React.Component {
     componentDidMount() {
-        const slug = this.props.match.params.id;
+        //const slug = this.props.match.params.id;
         //this.props.articlesStore.loadArticle(slug, { acceptCached: true });
         //this.props.commentsStore.setArticleSlug(slug);
         //this.props.commentsStore.loadComments();
@@ -30,7 +30,7 @@ class Activity extends React.Component {
 
   render() {
     return (
-        <div id="pdp" className=" ">
+        <div id="content">
             <div className="product-section ">
                 <div className="inner-product-section" style={{width: '100%', maxWidth: '1124px', margin: '0 auto'}}>
                     <div className="p-top-sec">

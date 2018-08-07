@@ -12,7 +12,6 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { tags, token, appName } = this.props.commonStore;
     return (
         <div className="home-page" style={{minHeight: '100%', width: '100%', position: 'relative', margin: '0 auto',
             overflow: 'hidden', paddingTop: '80px'}}>

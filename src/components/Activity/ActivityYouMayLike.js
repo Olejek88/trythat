@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import Experience from "../Home/Experience";
+import Experience from "../Experience";
 
 @observer
 class ActivityYouMayLike extends React.Component {
@@ -11,7 +11,7 @@ class ActivityYouMayLike extends React.Component {
                     <div style={{width: '100%', maxWidth: '960px', margin: '0 auto'}}>
                         <div className="row">
                             <div className="row" style={{margin: '32px 0'}}>
-                                <h3 className="sg-f-dspl-l sg-text-transform you-may-also-enjoy">you may also enjoy</h3>
+                                <h3 className="sg-f-dspl-l sg-text-transform you-may-also-enjoy">Вам также может понравиться</h3>
                             </div>
                             <div className="experience">
                                 <React.Fragment>

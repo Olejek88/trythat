@@ -8,7 +8,7 @@ class SiteMenu extends React.Component {
         <div id="header-menu" className="sg-inline-flex-grow" style={{margin: '0 10px', order: '2'}}>
             <div className="level-menu  sg-inline-middle version1" style={{flexWrap: 'nowrap'}} data-header-version="1">
                 <div className="l-menu js-menu" data-navmenuid="1" id="menu1">
-                    <a href="#" className="label js-tab-featrue js-show-dropdown" id="menu1">
+                    <a href="/" className="label js-tab-featrue js-show-dropdown" id="menu1">
                         <p className="sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Категории</p>
                     </a>
                     <div className="highlight-bar" id="menu_highlight_1"></div>
@@ -16,7 +16,7 @@ class SiteMenu extends React.Component {
                         <div className="level-3">
                             <div className="col" style={{minWidth: '320px'}}>
                                 <div data-navmenuid="185" className="topNavCat">
-                                    <a href="/" title="Искусство" className=" " tabIndex="1001">
+                                    <a href="/#/category/1" title="Искусство" className=" " tabIndex="1001">
                                         <p className="level-link fo-14-n-s4">Искусство</p></a>
                                 </div>
                                 <div data-navmenuid="185" className="topNavCat">
@@ -40,7 +40,7 @@ class SiteMenu extends React.Component {
                     </div>
                 </div>
                 <div className="l-menu js-menu" data-navmenuid="2" id="menu2">
-                    <a href="#" className="label js-tab-featrue js-show-dropdown" tabIndex="1100">
+                    <a href="/" className="label js-tab-featrue js-show-dropdown" tabIndex="1100">
                         <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>На случай</p>
                     </a>
                     <div className="highlight-bar" id="menu_highlight_2"></div>
@@ -114,14 +114,11 @@ class SiteMenu extends React.Component {
                     </div>
                 </div>
                 <div className="l-menu js-menu  " data-navmenuid="122" id="menu4">
-                    <a href="#" className="label js-tab-featrue js-show-dropdown" tabIndex="1300">
+                    <a href="/" className="label js-tab-featrue js-show-dropdown" tabIndex="1300">
                         <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Фильтр</p>
                     </a>
                     <div className="highlight-bar" id="menu_highlight_4"></div>
                     <div className="drop-down  version1" style={{minWidth: '160px'}} id="menu_drop_4">
-                        <div className="level-2 f-style-ovr1 sg-c-3 hidden">
-                            <div className="col"><p className="fo-13-i-g co-ff"></p></div>
-                        </div>
                         <div className="level-3">
                             <div className="col">
                                 <div data-navmenuid="213" className="topNavCat">
