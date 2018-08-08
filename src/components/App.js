@@ -11,7 +11,7 @@ import Home from './Home';
 import Login from './Login';
 import Profile from './Profile';
 import Register from './Register';
-//import _Settings from './_Settings';
+import Sell from './Sell';
 import Footer from "./Footer";
 import Settings from "./Settings";
 import Category from "./Category";
@@ -50,6 +50,7 @@ export default class App extends React.Component {
                         <Route path="/@:username/favorites" component={Profile}/>
                         <Route path="/activity/:id" component={Activity}/>
                         <Route path="/category/:id" component={Category}/>
+                        <Route path="/sell" component={Sell}/>
                         <Route path="/" component={Home}/>
                     </Switch>
                     <Footer/>

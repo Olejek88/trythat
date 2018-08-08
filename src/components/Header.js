@@ -43,7 +43,7 @@ const LoggedInView = props => {
                     {props.currentUser.username}
                 </Link>
 */}
-                    <Link to="/" className="navButton button" id="sellBtn">
+                    <Link to="/sell" className="navButton button" id="sellBtn">
                         <div className="title-container"><p className="title">Продать на TryThat</p></div>
                     </Link>
                     {/*
@@ -80,8 +80,7 @@ const LoggedInView = props => {
                                             <p>Заказы</p></li>
                                     </a>
                                     <a href="/wishlist" tabIndex="2406">
-                                        <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3"><p>Список
-                                            желаний</p></li>
+                                        <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3"><p>Список желаний</p></li>
                                     </a>
                                     <a href="/follows" tabIndex="2407">
                                         <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">

@@ -968,6 +968,20 @@ div.p-top-sec .p-form .info-box {
     font-weight: normal;
 }
 
+.steps .button {
+    margin: 40px 0 0 378px;
+}
+
+.button .title-container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.button .title-container, .buttonx .title-container {
+    height: 100% !important;
+    position: relative !important;
+}
+
 .displayonly_title {
     background-repeat: no-repeat;
     background-size: contain;
@@ -1874,17 +1888,6 @@ select {
     background-color: #00A94F;
 }
 
-.button .title-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.button .title-container, .buttonx .title-container {
-    height: 100% !important;
-    position: relative !important;
-}
-
 .button .title {
     width: 100%;
     text-align: center;
@@ -1917,6 +1920,193 @@ select {
     width: 100%;
     float: left;
     font-size: 12px;
+}
+
+.band {
+    float: left;
+    width: 100%;
+}
+
+.band-banner {
+    min-height:400px;
+    min-width: 900px;
+    background:url("marketplace.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
+    position:relative;
+}
+
+.band-steps {
+    position: relative;
+    height: 620px;
+    min-width: 960px;
+    background: url("steps.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
+}
+
+.center {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.center.separator {
+    border-bottom: 1px solid #e1e1e1;
+    margin: 30px auto;
+}
+
+.mk-home-title {
+    width: 100%;
+    text-align: center;
+    height: auto;
+    margin: 20px 0 50px;
+    font-family: "source-sans-pro-n4", sans-serif;
+    font-size: 30px;
+    color: #333;
+    line-height: 110%;
+}
+
+.talent-imgs {
+    width: 100%;
+    min-width: 960px;
+}
+
+.talent-imgs li {
+    float: left;
+    width: 33.3333%;
+    height: 245px;
+}
+
+.talent-imgs li div {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 0;
+}
+
+.talents {
+    float: left;
+    width: 100%;
+    margin: 30px 0 40px 0;
+}
+
+.talents ul li p {
+    font-family: "source-sans-pro-n4", sans-serif;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.why {
+    float: left;
+    width: 100%;
+}
+
+.why ul {
+    float: left;
+    width: 960px;
+    margin-top: 30px;
+}
+
+.why ul li {
+    margin-top: 40px;
+    float: left;
+    width: 320px;
+    height: 160px;
+}
+
+.why ul li p.subject {
+    float: left;
+    width: 300px;
+    font-family: "source-sans-pro-n4",sans-serif;
+    font-size: 21px;
+    color: #333;
+    line-height: 100%;
+    margin-bottom: 10px;
+}
+
+.why ul li p.text {
+    float: left;
+    width: 280px;
+    font-family: "source-sans-pro-n4", sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+.steps {
+    float: left;
+    width: 960px;
+    position: absolute;
+}
+
+.steps .step123 {
+    float: left;
+    margin: 110px 0 0 100px;
+}
+
+.steps .step123 ul li {
+    width: 760px;
+    float: left;
+    margin-bottom: 30px;
+}
+
+.steps .step123 ul li .number {
+    float: left;
+}
+
+.steps .step123 ul li p.text {
+    float: left;
+    font-family: "source-sans-pro-n4", sans-serif;
+    font-size: 22px;
+    color: #fff;
+    line-height: 120%;
+    text-shadow: 1px 2px 4px rgba(51,51,51,0.4);
+    margin: 13px 0 0 50px;
+    width: 612px;
+}
+
+.marquee {
+    position: relative;
+}
+
+.marquee .catch {
+    position: absolute;
+    top: 80px;
+    left: 26px;
+}
+
+.marquee .catch p.title-1 {
+    margin-left: 4px;
+    font-size: 42px;
+    width: 500px;
+    max-width: 100%;
+    line-height: 100%;
+}
+.marquee .catch p {
+    color: #fff;
+    text-shadow: 1px 2px 4px rgba(51,51,51,0.4);
+    line-height: 120%;
+}
+
+.marquee .catch p.text {
+    margin: 24px 0 40px 4px;
+    font-family: "source-sans-pro-n4", sans-serif;
+    font-size: 20px;
+    width: 400px;
+    letter-spacing: .02em;
+}
+.marquee .catch p {
+    color: #fff;
+    text-shadow: 1px 2px 4px rgba(51,51,51,0.4);
+    line-height: 120%;
+}
+
+
+.offer {
+    float: left;
+    width: 33.33%;
+    text-align: center;
+}
+
+.p-offer {
+    width: calc(100% - 140px);
+    margin:0 auto;
 }
 
 #top-welcome a.myaccount {
