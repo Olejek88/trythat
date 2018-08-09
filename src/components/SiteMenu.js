@@ -18,7 +18,7 @@ class SiteMenu extends React.Component {
                 <div id="footer-menu" className="responsive sg-c-3" style={{textAlign: 'center'}}>
                     <ul className="footer-menu-item">
                         <p style={{marginBottom: '16px'}}>Компания</p>
-                        <li><a className="sg-c-3 allowAllUsers" href="/">О нас</a></li>
+                        <li><a className="sg-c-3 allowAllUsers" href="/#/about">О нас</a></li>
                         <li><a className="sg-c-3 allowAllUsers" href="/">Как это работает</a></li>
                         <li><a className="sg-c-3 allowAllUsers" href="/">Карьера</a></li>
                         <li><a className="sg-c-3 allowAllUsers" href="/">Статьи</a></li>

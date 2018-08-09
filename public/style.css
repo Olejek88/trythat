@@ -424,7 +424,7 @@ a:hover {
 }
 
 .pageframe_div.discovery {
-    margin: 0px auto 90px auto;
+    margin: 0 auto 90px auto;
 }
 
 .pageframe_div {
@@ -698,6 +698,16 @@ a:hover {
     font-family: source-sans-pro-n4, sans-serif, tahoma;
     line-height: 20px;
     font-size: 12px;
+    letter-spacing: 0.0125em;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.sg-f-bdy-b {
+    color: #000000;
+    font-family: tahoma, source-sans-pro-n4, sans-serif;
+    line-height: 22px;
+    font-size: 14px;
     letter-spacing: 0.0125em;
     font-weight: normal;
     text-decoration: none;
@@ -1577,9 +1587,7 @@ a {
 }
 
 .sg-bg-3 {
-
     background-color: #ffffff;
-
 }
 
 .wishlist-text-con {
@@ -1927,11 +1935,218 @@ select {
     width: 100%;
 }
 
+#main.responsive, .main_responsive {
+    width: 1110px;
+}
+#main.responsive, .main_responsive {
+    float: none;
+    margin: 0 auto;
+}
+#main {
+    float: left;
+    width: 960px;
+    margin: 0 82px;
+    padding-bottom: 50px;
+    position: relative;
+}
+
+.landing_page_text {
+    margin: 440px 0 15px 0;
+}
+
+.landing_page_text > p {
+    margin-bottom: 15px;
+}
+
+.landing_page_title {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    width: 100%;
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    font-family: "tj-evolette-a-black",sans-serif;
+}
+
+.frame_title_about {
+    margin: 40px 0 20px 0;
+    text-align: center;
+}
+
+.responsive .celebrityBox {
+    width: 256px;
+}
+.celebrityBox:nth-child(4n+1) {
+    margin-left: 0;
+}
+.celebrityBox {
+    float: left;
+    position: relative;
+    width: 219px;
+    height: 320px;
+    margin: 0 0 30px 28px;
+    margin-left: 28px;
+}
+
+.responsive .celebrityBox .img-box-wrapper {
+    margin: 16px auto 0 auto;
+}
+.celebrityBox .img-box-wrapper {
+    border-radius: 93px;
+    height: 186px;
+    width: 186px;
+    margin: 16px 0 0 16px;
+    overflow: hidden;
+}
+
+.celebrityBox .img-box img {
+    height: 177px;
+    width: 177px;
+}
+
+.celebrityBox .celeb-info {
+    height: 100px;
+}
+
+.celebrityBox .celeb-info .celeb-info-content {
+    position: relative;
+}
+
+.responsive .celebrityBox .celeb-info .name {
+    width: 100%;
+}
+.celebrityBox .celeb-info .name {
+    margin: 10px 0 0 0;
+    width: 219px;
+}
+
+.celebrityBox .celeb-info .name p {
+    text-align: center;
+}
+
+.celebrityBox .celeb-info .charity {
+    margin-top: 2px;
+}
+
+.team_member_div {
+    display: none;
+}
+
+#member_1:hover~#member_detail_1 {
+    display: block;
+}
+
+.frameType10 .team_member_div {
+    position: relative;
+}
+
+.frameType10 .team_member_div .left_col {
+    float: left;
+}
+
+.frameType10 .team_member_div .left_col .celebrityBox {
+    width: 200px;
+    height: auto;
+    margin: 0;
+}
+
+.responsive .celebrityBox .img-box-wrapper {
+    margin: 16px auto 0 auto;
+}
+.celebrityBox .img-box-wrapper {
+    border-radius: 93px;
+    height: 186px;
+    width: 186px;
+    margin: 16px 0 0 16px;
+    overflow: hidden;
+}
+
+.team_member_div .left_col .celebrityBox {
+    width: 200px;
+    height: auto;
+    margin: 0;
+}
+
+.team_member_div .left_col {
+    float: left;
+}
+.team_member_div .right_col {
+    float: left;
+    width: calc(100% - 200px);
+    box-sizing: border-box;
+    padding: 70px 0 0 25px;
+}
+
+.team_member_div .member_name {
+    font-family: "source-sans-pro-n4",sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+}
+
+.team_member_div .member_position {
+    margin-top: 5px;
+}
+.team_member_div .member_position, .frameType10 .team_membems_div .fav_exp_title, .frameType10 .team_membems_div .fav_exp_link {
+    font-family: Georgia, times, serif;
+    letter-spacing: 0.3px;
+    font-style: italic;
+    font-size: 14px;
+    color: #777;
+}
+
+.team_member_div .member_social_links {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.team_member_div .member_social_links a {
+    float: left;
+}
+
+.team_member_div .member_social_links img {
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+}
+
+.sg-f-dspl-m2 {
+    font-family: montserrat, sans-serif;
+    font-size: 20px;
+    line-height: 26px;
+    letter-spacing: 0.16em;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.celebrityBox .celeb-info .charity p {
+    text-align: center;
+}
+
+.celebrityBox .img-box {
+    border-radius: 88px;
+    height: 177px;
+    width: 177px;
+    margin: 5px 0 0 5px;
+    overflow: hidden;
+    position: relative;
+}
+
 .band-banner {
     min-height:400px;
     min-width: 900px;
     background:url("marketplace.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
     position:relative;
+}
+
+.band-about {
+    min-height: 400px;
+    min-width: 900px;
+    background: url("chelyabinsk.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
+    position: relative;
 }
 
 .band-steps {
@@ -2113,8 +2328,12 @@ select {
     width: 28px;
 }
 
+#top-welcome a.wishlist {
+    padding: 0 15px;
+}
+
 #top-welcome a {
-    padding: 0 5px;
+    padding: 0 15px;
 }
 
 .profile_icon {
@@ -2123,8 +2342,16 @@ select {
 
 #acct-popup-wrapper {
     position: absolute;
-    top: 35px;
-    right: 30px;
+    top: 55px;
+    right: 140px;
+    z-index: 200;
+    display: none;
+}
+
+#wish-popup-wrapper {
+    position: absolute;
+    top: 55px;
+    right: 65px;
     z-index: 200;
     display: none;
 }
@@ -2136,17 +2363,72 @@ select {
     padding: 20px 10px 10px 10px;
 }
 
+.mCSB_container.mCS_no_scrollbar {
+    margin-right: 0;
+}
+.mCSB_container {
+    width: auto;
+    margin-right: 12px;
+    overflow: hidden;
+}
+.mCSB_container {
+    margin-right: 0;
+}
+
 #acct-popup-carrot, #lang-popup-carrot {
     float: left;
     margin: -21px 0 0 85px;
     height: 0;
 }
 
-.io-popup-warpper li {
+.io-arrow-popup .item:last-of-type {
+    border-bottom: none;
+}
+.io-arrow-popup .item {
+    min-height: 81px;
+    height: 81px;
+}
+.io-popup-wrapper li {
     width: 100%;
 }
 
+.io-arrow-popup .item .img-box-wrapper {
+    width: 95px;
+    height: 52px;
+}
+.io-arrow-popup .item .img-box {
+    width: 75px;
+    height: 50px;
+    overflow: hidden;
+    background-size: cover;
+    margin: 0 10px;
+}
+.io-arrow-popup .item .name {
+    overflow: hidden;
+}
+.io-arrow-popup .item > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+.io-arrow-popup .item .amount {
+    width: 50px;
+}
+.io-arrow-popup .item > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.io-arrow-popup .separator {
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+}
+
 #profile_settings:hover #acct-popup-wrapper {
+    display:block;
+}
+
+#wish:hover #wish-popup-wrapper {
     display:block;
 }
 
@@ -2332,10 +2614,14 @@ p {
     padding: 2px 0;
 }
 
-.io-popup-warpper li.child p {
+.io-popup-wrapper li.child p {
     width: 100%;
     padding: 0 5px;
     margin-top: 10px;
+}
+
+.io-popup-wrapper a {
+    padding: 0 5px !important;
 }
 
 .sg-c-3 {
@@ -2361,7 +2647,7 @@ p {
 }
 
 #footer-logo {
-    margin: 0px auto 10px auto;
+    margin: 0 auto 10px auto;
     width: 14px;
 }
 
@@ -2485,7 +2771,7 @@ p {
     display: none;
 }
 
-.io-popup-warpper li.child:hover {
+.io-popup-wrapper li.child:hover {
     background: #00A94F;
     color: white;
 }
@@ -2555,6 +2841,51 @@ input[type="search"]#top-nav-search::-webkit-search-cancel-button {
     background-image: url("X---close.png");
     background-size: 15px 15px;
 }
+
+.wishlist-image {
+ background-image: url("exp1.jpg");
+}
+
+.io-popup-wrapper {
+    display: none;
+    position: absolute;
+    z-index: 201;
+}
+
+#wish-popup-box {
+    float: left;
+    width: 472px;
+    margin-top: 28px;
+    z-index: 201;
+}
+
+#cart-popup-added-block, #wish-popup-added-block {
+    display: none;
+    float: left;
+    width: 100%;
+    height: 35px;
+}
+
+.added-icon {
+    float: left;
+}
+
+.sg-image-checkmark {
+    width: 18px;
+    height: 15px;
+}
+
+.added-text {
+    margin-left: 10px;
+}
+
+.sg-f-subttl {
+    font-family: "source-sans-pro-n4", sans-serif;
+    font-size: 14px;
+    line-height: 1.33em;
+    font-weight: normal;
+}
+
 
 @media screen and (max-width: 1150px) {
     #top-welcome.top-search {
