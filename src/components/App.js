@@ -1,4 +1,4 @@
-import Header from './Header';
+import Header from './Header/Header';
 import React from 'react';
 import {Switch, Route, withRouter} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
@@ -16,7 +16,8 @@ import About from './About';
 import Footer from "./Footer";
 import Settings from "./Settings";
 import Category from "./Category";
-
+import Orders from "./Orders";
+import Cart from "./Cart";
 
 @inject('userStore', 'commonStore')
 @withRouter
@@ -53,6 +54,8 @@ export default class App extends React.Component {
                         <Route path="/category/:id" component={Category}/>
                         <Route path="/sell" component={Sell}/>
                         <Route path="/about" component={About}/>
+                        <Route path="/orders" component={Orders}/>
+                        <Route path="/cart" component={Cart}/>
                         <Route path="/" component={Home}/>
                     </Switch>
                     <Footer/>

@@ -249,9 +249,9 @@ $(document).ready(function () {
 
                                                 $("#optionsError").val(1);
 
-                                                /*to display appropriate buy/waitlist/request button*/
+                                                /!*to display appropriate buy/waitlist/request button*!/
 
-/*
+/!*
 if(g_is_guest) {
     html    = buyNowBtn;
 }
@@ -315,7 +315,7 @@ function displayElegantGiftPresentation(totalPrice) {
 </script>
 *!/
 
-/*
+/!*
 ioReady(function (){
     $('#pdp-terms-dialog').find('.header-text').html("Terms & Conditions");
     $('#pdp-terms-dialog').find('.message').html(null);
@@ -966,7 +966,7 @@ ioReady(function (){
                                 $(".scheduling-submit").show();
                                 $(".scheduling-next-choice").hide();
 
-                                /*
+                                /!*
                                 if($("#calendar-popUp").attr("data-sellerid") == 0){    // always hide the explanation box if it is marketplace products
                                     $("#product-scheduling-dialog .explanation").show();
                                     $(".scheduling-submit").hide();
@@ -1524,4 +1524,2141 @@ function availability_override_link_clicked(obj){
             });
 
             });
+
+                    <script type="text/javascript">
+                        var shippingRequired = 1;
+                        var itemCountForDomesticShippingRate = 0;
+                        var itemCountForInternationalShippingRate = 1;
+                        var fixedDomesticShippingCost = 65.00;
+                        var fixedInternationalShippingCost = 0.00;
+
+                        var shopping_cart_height = 0;
+                        var u_travelCost = -1;
+                        var distance = -2;
+                        var errorMessage = "";
+
+                        function cartStr(index, replace
+                    ) {
+                        var strings = {
+                        'Shipping'                           : "Shipping",
+                        'details_needed'                     : "Details Needed",
+                        'enter_correct_email'                : "Please enter correct email.",
+                        'select_date_after_change_duration'  : "Please re-select a date and time after you change the duration of the event.",
+                        'suggest_enter_date_and_location'    : "We suggest you submit <span>both Date\/Time<\/span> and <span>Location<\/span>. Your experience will not be officially booked until both Date\/Time and Location are agreed upon. <br><br>Are you sure you would like to proceed?",
+                        'select_date_after_from_now'         : "Please select a date after %numberOfDays% days from now.",
+                        'title_tbd'                          : "TBD",
+                        'title_included'                     : "Included",
+                        'shipping_estimate_head'             : "To: %countryShortCode%, %shippingZip%",
+                        'person'                             : "person",
+                        'people'                             : "people",
+                        'hour'                               : "hour",
+                        'hours'                              : "hours",
+                        'enter_valid_amount'                 : "Please enter a valid amount.",
+                        'enter_select_amount'                : "Please enter or select an amount",
+                    };
+
+                        if (typeof strings[index] === 'undefined') {
+                        return index;
+                    } else {
+                        var str = strings[index];
+                        if (typeof replace === 'object') {
+                        for (var key in replace) {
+                        str = str.replace(key, replace[key]);
+                    }
+                    }
+                        return str;
+                    }
+                    }
+                        /!**************************************** Layout Preparing ********************!/
+/!*
+infoBoxLayOutPreparing();
+
+// set .
+p - block - 2 the same height of .
+    p - block - 1
+// using display: table; display:table - cell to verticle center the .
+price - info
+if (!g_is_mobile){
+    $(".p-block .p-block-2").each(function () {
+        if ($(this).height() > $(this).siblings(".p-block-1").height()) {
+            $(this).siblings(".p-block-1").css('min-height', $(this).height());
+        } else {
+            $(this).css('min-height', $(this).siblings(".p-block-1").height());
+        }
+    });
+}
+
+$(".p-form .
+info - box
+").each(function(){
+
+})
+;
+
+$(window).load(function (){
+    var pos = !isHandheld();
+
+    $("#overBooked-notification").appendTo('body');
+    $("#overBooked-notification").overlay({
+        top: 60, left: getPopupLeftToCenter("overBooked-notification"), fixed: pos, closeOnClick: true,
+        mask: {color: '#000000', loadSpeed: 200, closeSpeed:0, opacity: 0.5}
+    });
+})
+;
+
+ioReady(function (){
+
+    if ( ! g_is_mobile) {
+        var top_margin = $("#product-table").offset().top - 95;
+        var top_offset = 45;
+
+        var c_bottom = $("#left-block").offset().top + $("#left-block").height();
+
+        $(document).scroll(function(){
+            var scrollTop = $(document).scrollTop();
+            //console.log('top_margin:' + top_margin + ' | ' + 'c_bottom:' + c_bottom + ' | ' + 'scrollTop:' + scrollTop);
+
+            var rtl = $("#right-block").hasClass('rtl');
+            var $rightBlock = $("#right-block");
+
+            if(rtl){
+                $rightBlock.css('left', 0 );
+            }
+            else{
+                $rightBlock.css('right', 0);
+            }
+
+            if (scrollTop > top_margin){
+                if(scrollTop + $("#right-block").height() + 150 > c_bottom){
+                    var c_top = $("#shopping-cart .box").height() - $("#right-block").height() - 155;
+                    $rightBlock.css({position: "relative", top:c_top});
+                } else {
+                    $rightBlock.css({position: "absolute", top: (scrollTop - top_offset) + "px"});
+                }
+            } else {
+                $rightBlock.css({position: "relative", top: 0});
+            }
+
+        });
+    }
+
+    // Special Code for MasterCard temp user - see dialog in _cart_content.php
+    // url of the product in the cart is '#' to prevent user to go to PDP
+
+    // var left = g_is_mobile ? 10 : getPopupLeftToCenter("pdDetailsOverlay");
+    var prev_pid  = "";
+    var pid  = "";
+    $("#pdDetailsOverlay").appendTo("body");
+    $("#pdDetailsOverlay").overlay({
+        top: 100, left: 'center', fixed: true, closeOnClick: true,load: false,
+        mask: {color: '#000000', loadSpeed: 200, opacity: 0.5},
+        onLoad: function(){
+            ga('send', 'pageview', 'Age Verification');
+            $.post('/website/logPageView',{'pageId':this.getOverlay().attr('id')},function(data){},'json');
+        },
+        onBeforeLoad: function(){
+            if (pid !== prev_pid) {
+                prev_pid = pid;
+                $.post( '/product/getProductDescription', {pid : pid},
+                    function(data){
+                        if(data.result === 0){
+                            alertEx("Error Occured Please Try Again");
+                        } else {
+                            $("#pdDetailsOverlay .product-desc").html(data.details);
+                            // $("#pdDetailsOverlay .fineprint").html(data.finePrint);
+                        }
+                    }, 'json');
+            }
+        }
+    });
+
+    $(".js-pdpDetails").click(function(){
+        if($(this).attr('href') === "#"){
+            pid = $(this).attr('pid');
+            $("#pdDetailsOverlay").overlay().load();
+            return false;
+        } else {
+            return true;
+        }
+    });
+
+    $("#customer-support").click(function(){
+        showConciergeEmailPopup();
+        return false;
+    });
+
+    //==========================================================================
+
+    $("#shipping-estimation .help_popUp").click(function(){
+        if (g_is_mobile) {
+            $("#shipping_estimate_help_dialog").css({right: '10px', top: '100px'});
+        } else {
+            $("#shipping_estimate_help_dialog").css({left: '-300px', top: '-40px'});
+        }
+        $("#shipping_estimate_help_dialog").toggle();
+        return false;
+    });
+    $("#shipping_estimate_help_dialog .close").click(function(){
+        $("#shipping_estimate_help_dialog").hide();
+    });
+
+    $("#shipTo").click(function(){
+        $(".estimation-block").show();
+    });
+
+    //==========================================================================
+
+    if ( ! g_is_mobile) {
+        $("#product-table .tip .convert-tip, #product-table .tip .remove-tip").mouseleave(function(){
+            $(this).hide();
+            return false;
+        });
+        $("#product-table .convert a").mouseenter(function(){
+            $(this).parent().parent().find(".convert-tip").show();
+            return false;
+        });
+        $("#product-table .convert a").mouseleave(function(e){
+            if (e.relatedTarget) {
+                if ($(e.relatedTarget).hasClass('convert-tip') ||
+                    $(e.relatedTarget).parent().hasClass('convert-tip')) {
+                    return false;
+                }
+            }
+            $(this).parent().parent().find(".convert-tip").hide();
+            return false;
+        });
+        $("#product-table .remove a").mouseenter(function(){
+            $(this).parent().parent().find(".remove-tip").show();
+            return false;
+        });
+        $("#product-table .remove a").mouseleave(function(e){
+            if (e.relatedTarget) {
+                if ($(e.relatedTarget).hasClass('remove-tip') ||
+                    $(e.relatedTarget).parent().hasClass('remove-tip')) {
+                    return false;
+                }
+            }
+            $(this).parent().parent().find(".remove-tip").hide();
+            return false;
+        });
+    }
+
+
+//    $("#product-table .addAddress").click(function(){
+//        ga('send', 'event', 'Cart', 'Add Address');
+//        $("#location-productName").html($(this).attr("pname"));
+//        $("#location-productId").val($(this).attr("pid"));
+//        $("#location-number").val($(this).attr("number"));
+//        $("#cart-calendar .location-celebId").val($(this).attr("cid"));
+//
+//        return false;
+//    });
+
+    //=========================================  Duration Change  ==============
+    $(".js-durationMinutes").change(function(){
+        var $main = $(this).closest('.body-row').find('.main');
+        var $priceInfo = $(this).closest('.body-row').find('.price-info');
+        //$(this).closest('.info').find('.schedule-container .schedule').attr('duration',parseInt($(this).val()));
+        var dm      = (parseInt($(this).val()) * 60);
+        var pId     = $(this).closest('.p-form').attr("data-pid");
+        var number  = $(this).closest('.p-form').attr("data-num");
+        $.post( '/cart/updateSocialInfo', {
+                productId        : pId,
+                number           : number,
+                durationMinutes  : dm,
+                type             : "estimation",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    updateCostInfo(data, $main, $priceInfo);
+                    displayEstimationData(data);
+
+                    $main.siblings(".p-block").find(".js-p-form").attr("data-dm",dm);
+                    if ($main.siblings(".p-block").find(".js-p-form .schedule-button.preCheckOutField input").val() !== "" ){
+
+                        // clear the userSchedules for this product
+                        $.post( '/cart/deleteSchedules', "productId=" + pId + "&number=" + number,
+                            function(data){
+                            },
+                            'json'
+                        );
+                        alertEx(cartStr('select_date_after_change_duration'));
+                        $main.siblings(".p-block").find(".js-p-form .schedule-button.preCheckOutField input").val("");
+                        draw_calendar_general($('#calendar-popUp'));
+                        $('#calendar-popUp .cal-time .time').html("");
+                        $('#calendar-popUp .schedule-wrapper input').val("");
+                        $("#calendar-popUp .cal-day-box.day.selected").removeClass("selected");
+                    }
+
+                } else {
+                    alertEx(data.msg);
+                }
+            },
+            'json'
+        );
+    });
+
+    //======================================  Number of Guest Change  ==========
+    $(".js-numGuests").change(function(){
+        var $main = $(this).closest('.body-row').find('.main');
+        var $priceInfo = $(this).closest('.body-row').find('.price-info');
+        var $this = $(this);
+
+        // for buy with friends,  for a guest,  change the guest number attr when number of guests changed. VP-9655
+        var $form = $this.closest('.js-p-form');
+        if ($form.attr('data-isgroupbuytype') === '1' && $form.attr('data-master-oii') !== '0') {
+            var people_val = $this.val()*1;
+            var people_string =  people_val>1?getJsText('people'):getJsText('person');
+            $this.closest('.info-box').children('.attr-row').find('.attr-guests .attr-val').text($this.val() + ' ' + people_string) ;
+        }
+
+        $.post( '/cart/updateSocialInfo', {
+                productId        : $(this).closest('.p-form').attr("data-pid"),
+                number           : $(this).closest('.p-form').attr("data-num"),
+                numGuests        : $(this).val(),
+                type             : "estimation",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    updateCostInfo(data, $main, $priceInfo);
+                    displayEstimationData(data);
+                } else {
+                    alertEx(data.msg);
+                }
+            },
+            'json'
+        );
+        return false;
+    });
+    //======================================  Quantity Change  =================
+    $(".js-quantity-change").change(function(){
+        ga('send', 'event', 'Checkout', 'QuantityUpdate');
+        var $obj = $(this);
+        var pid     = $obj.closest('.p-form').attr("data-pid");
+        var num     = $obj.closest('.p-form').attr("data-num");
+        var new_qty = $obj.val();
+        $obj.closest('.body-row').find(".js-quantity").text(new_qty);
+        $.post( '/cart/update', {
+                productId        : pid,
+                number           : num,
+                quantity         : new_qty,
+                type             : "estimation",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    $obj.closest('.body-row').find('.shipping-msg').html('<p>'+data.shippingMsg+'</p>');
+                    var price      = $obj.closest('.body-row').attr("data-price"); // calculate locally
+                    var new_amount = price * new_qty;
+                    var localeId   = data.products[0].localeId;
+
+                    $obj.closest('.body-row').find(".js-amount").html(g_locale.formatCurrency(new_amount, undefined, localeId, true));
+
+                    // need to update hyatt points for price change if world of hyatt member
+                    if($('.hyatt-points-sec').length > 0) {
+                        var pBlock2 = $obj.closest('.p-block-1').siblings('.p-block-2');
+                        pBlock2.find('.js-total-sum').html(new_amount.formatMoney().replace(/\.0+$/,''));
+                        var points = g_locale.formatNumber(calculateHyattPointsConversion(new_amount), false, false, false);
+                        pBlock2.find('.hyattTotalPoints').html(points);
+                    }
+                    displayEstimationData(data);
+                    if(!g_is_mobile){
+                        getCartPopupHtml(false, false);
+                    }
+                    ga('send', 'pageview', 'Shopping Bag');
+                } else {
+                    alertEx(data.msg);
+                }
+            }, 'json');
+        return false;
+    });
+
+    //======================================  addon Change  ================
+    $(".customCheckBox span").click(function(){
+        var parent_productId = $(this).closest(".js-p-form").attr("data-pid");
+        var parent_number    = $(this).closest(".js-p-form").attr("data-num");
+        var pid              = $(this).closest(".customCheckBox").attr("pid");
+        var num              = $(this).closest(".customCheckBox").attr("data-number");
+
+        if($(this).closest(".customCheckBox").hasClass("checked")){
+            var action = "remove";
+            $(this).closest(".customCheckBox").removeClass("checked");
+        }else{
+            var action = "add";
+            $(this).closest(".customCheckBox").addClass("checked");
+        }
+
+        var $main = $(this).closest('.body-row').find('.main');
+        var $priceInfo = $(this).closest('.body-row').find('.price-info');
+
+        $.post( '/cart/UpdateSubproducts', {
+                productId        : pid,
+                number           : num,
+                parent_productId : parent_productId,
+                parent_number    : parent_number,
+                action           : action,
+                type             : "estimation",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    updateCostInfo(data, $main, $priceInfo);
+                    displayEstimationData(data);
+                } else {
+                    alertEx(data.msg);
+                }
+            }, 'json');
+        return false;
+    });
+
+    //======================================  Gift Certificate  ================
+    $(".preCheckOutField .gift-cert-value").change(function(){
+
+        var value   = "";
+
+        if ($(this).val() === "own") {
+            $(this).closest(".preCheckOutField").next(".preCheckOutField.own").show();
+            $(this).closest(".preCheckOutField").next(".preCheckOutField.own").find("input").focus();
+            //$("#CartItemSocialInfo_value").val($(this).closest(".preCheckOutField").next(".preCheckOutField.own input").val());
+        } else {
+            $(this).closest(".preCheckOutField").next(".preCheckOutField.own").hide();
+            $(this).closest(".preCheckOutField").next(".preCheckOutField.own").find("input").val($(this).val());
+            giftCertificatValueUpdate($(this), $(this).val());
+            //$("#CartItemSocialInfo_value").val($(this).val());
+        }
+        return false;
+    });
+    $(".preCheckOutField .gift-cert-custom").focusout(function(){
+        isValidAmount($(this));
+    });
+
+
+    //================================  For all input and textarea  ============
+    $(".preCheckOutField input.js-general, .preCheckOutField textarea.js-general").focusout(function(){
+        $(this).val($(this).val().trim());
+        if ($(this).val() !== ""){
+            if ($(this).hasClass("js-email")) {
+                $(this).siblings(".errorMessage").remove();
+                if (! validateEmail($(this).val())){
+                    $("<p class='errorMessage'>"+cartStr('enter_correct_email')+"</p>").insertAfter($(this));
+                    $(this).addClass("js-error");
+                    return false;
+                }else{
+                    $(this).removeClass("js-error");
+                }
+            }
+
+            var obj = {productId : $(this).closest('.p-form').attr("data-pid"),
+                number    : $(this).closest('.p-form').attr("data-num"),
+                type      : "no-estimation"};
+            obj[$(this).attr("data-db-name")] = $(this).val();
+
+            $.post( '/cart/updateSocialInfo', obj,
+                function(data){
+                    if (data.result === 1) {
+                        // this doesn't change price
+                    } else {
+                        alertEx(data.msg);
+                    }
+                },
+                'json'
+            );
+        }
+    });
+
+    //=============================  Only for PT 17 Entring address in cart  ===
+
+    $(".start-checkout").click(function(){
+
+        if (g_needCompleteSignup) {
+            $("#redirectURL").val('');
+            displayOverlay('complete-signup-dialog');
+            return false;
+        }
+
+
+        //event.preventDefault();
+        if(!actionBtnClickHandling($(this))){
+            return false;
+        }
+
+        $obj = $(this);
+        $("#product-table .preCheckOutField .js-required.required").removeClass("required");
+        var complete = true;
+        var scrollTo = "";
+        var prevPid = "";
+        var errCount = 0;
+        var errClass = "";
+        var $prevObj;
+        var $currentObj;
+
+        if($("#product-table .preCheckOutField .js-error:visible").length > 0){
+            scrollTo = $("#product-table .preCheckOutField .js-error:visible").first().offset().top - 30 - 55 - 40;
+            $('html, body').animate({scrollTop:scrollTo}, 400,function(){
+                //alertEx("Please finish the required filed(s).");
+            });
+
+            actionBtnClickHandling($(this), "remove");
+            return false;
+        }
+
+
+        $("#product-table .preCheckOutField .js-required:visible").each(function(){
+            $currentObj = $(this);
+
+            if ($(this).val() === "") {
+
+                complete = false; errCount++;
+                $(this).addClass("required");
+                $(this).closest('.widget-row').find('.errorMessage').remove();
+
+                if($prevObj !== undefined &&
+                    $(this).closest('.nextProd').attr('data-pid') !== $prevObj.closest('.nextProd').attr('data-pid'))
+                {
+                    //Time to append errormessage
+                    if(errorMessage !== "")  $prevObj.append("<p class='errorMessage'>"+errorMessage+"</p>");
+
+                    //Clear Error Message
+                    errorMessage = "";
+                    if(g_is_mobile){
+                        $prevObj.closest('.p-block').find('.price-info').css('border-top', '1px solid #e1e1e1');
+                    }
+
+                    errCount = 0;
+
+                }
+                //If more than one error message in a block remove bottom border for the blocks
+                /!* if(errCount >= 1 && $prevObj !== undefined && !$prevObj.hasClass('js-gift-certificate')
+                     && !$prevObj.children('.preCheckOutField.js-required:visible').is(':last-child')){
+                     //$prevObj.find('input').css('border-bottom','none');
+                 }*!/
+
+/!*
+if ($(this).attr('data-error') !== undefined && $(this).hasClass("required")) {
+    errorMessage += $(this).attr('data-error') + "<br />";
+}
+
+if (scrollTo === "") {
+    scrollTo = $(this).offset().top - 30 - 55 - 40;
+}
+} else
+{
+    // If $prevObj is set but the current input field does not have
+    // value and errormessage has value then append to prev obj if pids are not equal
+    if ($prevObj !== undefined &&
+        $(this).closest('.nextProd').attr('data-pid') !== $prevObj.closest('.nextProd').attr('data-pid')) {
+        //Time to append errormessage
+        if (errorMessage !== "") $prevObj.append("<p class='errorMessage'>" + errorMessage + "</p>");
+
+        //Clear Error Message
+        errorMessage = "";
+        if (g_is_mobile) {
+            $prevObj.closest('.p-block').find('.price-info').css('border-top', '1px solid #e1e1e1');
+        }
+
+        errCount = 0;
+    }
+}
+
+$prevObj = $(this).closest('.widget-row');
+if ($prevObj.children('.preCheckOutField:visible').length > 1) {
+    if (errorMessage !== "" && $prevObj.length > 0
+        && !$prevObj.hasClass('js-gift-certificate')
+        && $prevObj.find('input').hasClass('js-required')) {
+        $currentObj.css('border-bottom', '1px solid #FD6340');
+    }
+}
+
+//Append error message to last block
+if (errorMessage !== "") {
+    //VP-11833 Needed to add border top for personalized messages.
+    //Error appeared to be in the textbox
+    $prevObj.append("<p class='errorMessage sg-c-error sg-bd-2 sg-no-bd-bottom sg-no-bd-left sg-no-bd-right'>" + errorMessage + "</p>");
+    //If more than one error message in a block remove top border for the blocks
+    errCount = 0;
+    errorMessage = "";
+}
+})
+;
+
+if (!complete) {
+    $('html, body').animate({scrollTop: scrollTo}, 400, function () {
+        //alertEx("Please finish the required filed(s).");
+    });
+
+    actionBtnClickHandling($(this), "remove");
+    return false;
+}
+
+//Do Ajax post to check if the duration is available
+$.get('/cart/checkDurationAvailable',
+    function (data) {
+        if (data.result === 1) {
+            // Do Nothing
+            complete = true;
+        } else if (data.loggedIn !== undefined && data.loggedIn === 0) {
+            // logged out or tempuser session expired
+            // illegal action - redirect to homepage
+            window.location.href = g_is_mobile ? "/m" : "/"; // For tempuser session expired, it will display Session Expired page
+        } else {
+            complete = false;
+
+            /!*
+            $('#conversationOverlay-dialog .celebrity-img').attr('src', data.celebImg);
+            $('#conversationOverlay-dialog .celebrity-name').html(data.celebName);
+            $('#conversationOverlay-dialog .subject-txt').val(data.productName);
+            *!/
+/!*
+            var contact_link = $('#overBooked-notification .vendor-contact-us');
+            contact_link.attr('pid', data.productId);
+            contact_link.attr('service_vendorid', data.service_vendorId);
+            contact_link.attr('data-imgsrc', data.vendorImg);
+            contact_link.attr('data-id', data.service_vendorId);
+            contact_link.attr('data-name', data.vendorName);
+
+
+            $('.overBooked-vendorName').html(data.celebName);
+            $('.overBooked-timeRange').html(Math.abs(data.difference));
+            $('.overBooked-windowSize').html(data.windowSize);
+            $("#overBooked-notification").overlay().load();
+
+            actionBtnClickHandling($obj, "remove");
+            return false;
+        }
+
+        if (complete) {
+            // encourage customer to fill out all info for redemption items
+
+            var redir = true;
+            $("#product-table .preCheckOutField .js-recommended:visible").each(function () {
+                if ($(this).val() === "") {
+                    redir = false;
+                    confirmEx(cartStr('suggest_enter_date_and_location'),
+                        cartStr('details_needed'),
+                        function () {
+                            window.location = (g_is_mobile ? "/m" : "") + "/cart/checkout";
+                        },
+                        function () {
+                            $(".start-checkout").removeClass('disabled');
+                        },
+                        'yes',
+                        'no');
+                    return false;
+                }
+            });
+
+            if (redir === true) {
+                window.location.href = (g_is_mobile ? "/m" : "") + "/cart/checkout";
+            }
+
+        }
+    },
+    'json'
+);
+
+})
+;
+
+$(".vendor-contact-us").click(function () {
+    $("#overBooked-notification").overlay().close();
+
+    questionPopUp($(this));
+
+    /!*
+    $('#conversationOverlay-dialog .celebrity-img').attr('src', $('.conversation-celebImg').val());
+    $('#conversationOverlay-dialog .celebrity-name').html( $('.conversation-celebName').val());
+    $('#conversationOverlay-dialog .subject-txt').val( 'About ' + $('#conversationOverlay-dialog .subject-txt').val());
+    $("#conversationOverlay-dialog").overlay().load();
+    *!/
+/!*
+    return false;
+});
+
+$('.datetimepicker').each(function () {
+    var showTim = (($(this).attr("date-pt") === '18') ? false : true);
+    $(this).datetimepicker({
+        minDate: (parseInt($(this).attr("date-mindate")) + 1),
+        showTimepicker: showTim,
+        onClose: function (dateText) {
+            dateText = dateText.trim();
+            if (dateText === '') {
+                return true;
+            }
+            var timeToPostDaysInAdvance = parseInt($(this).attr("date-mindate"));
+            var timestamp = new Date().getTime() + (timeToPostDaysInAdvance * 24 * 60 * 60 * 1000);
+            var selected = new Date(dateText);
+            if (timestamp > selected) {
+                alertEx(cartStr('select_date_after_from_now', {'%numberOfDays%': timeToPostDaysInAdvance}));
+                $(this).val('');
+            } else {
+                $.post('/cart/updateSocialInfo',
+                    "&productId=" + $(this).closest('.p-form').attr("data-pid") +
+                    "&number=" + $(this).closest('.p-form').attr("data-num") + "&timeToPost=" + dateText + ":00",
+                    function (data) {
+                        if (data.result === 1) {
+
+                        } else {
+                            alertEx(data.msg);
+                        }
+                    },
+                    'json'
+                );
+            }
+        }
+    });
+});
+
+
+//========================================  Before Checkout  ===============
+// Check if Forms need to be Submitted
+
+$("#product-table").children('.locationAddress-container').each(function () {
+    if ($(this).find('.location-address').val() !== "") {
+        $(this).find('.location-address-save').trigger('click');
+    }
+});
+//==========================================================================
+$("#estimate-button").click(function () {
+    if ($(this).hasClass('inactive')) return false;
+    if ($("#zipcode").val() === '') {
+        alertEx("Please enter a zip code.");
+        return false;
+    }
+    if ($("#shippingCountryShortCode").val() === 'US' && $("#zipcode").val().length !== 5) {
+        alertEx("Please enter a 5-digit zip code.");
+        return false;
+    }
+
+    ga('send', 'event', 'Checkout', 'Estimate');
+    var current = $(this);
+    current.addClass('inactive');
+    $('html, body').animate({scrollTop: 0}, 500);
+    $("#shipping-estimation .estimation-block").hide();
+    $("#shipping-estimation h2 span").removeClass('expanded');
+    $("#shipping-estimation .estimation-result-block").show();
+    $("#shipping").html('');
+    $("#shipTo").html('');
+    $("#tax").html('');
+    $("#grandTotal").html('');                        //$('.productTotal_summary').html()
+    $.post('/cart/estimate',
+        {
+            type: "shipping",
+            zipcode: $("#zipcode").val(),
+            countryShortCode: $("#shippingCountryShortCode").val()
+        },
+        function (data) {
+            if (data.result === 1) {
+                displayEstimationData(data);
+            } else {
+                alertEx(data.msg);
+            }
+            $("#shipping-estimation .estimation-expand").removeClass('expanded');
+            current.removeClass('inactive');
+        }, 'json');
+    return false;
+});
+
+$(".top-warning .js-goto-wishlist").click(function () {
+    if ($(this).hasClass("mobile")) {
+        location.href = "/m/wishlist";
+    } else {
+        $('html, body').animate({
+            scrollTop: $("#cart-wishlist").offset().top - 100
+        }, 1500);
+    }
+
+    return false;
+});
+
+$(".top-warning img").click(function () {
+    $(this).parent().fadeOut('slow');
+});
+
+$("#shipping-estimation h2, #shipping-estimation .estimation-expand").click(function () {
+    if ($("#shipping-estimation .estimation-expand").hasClass('expanded')) {
+        $("#shipping-estimation .estimation-block").slideUp();
+        $("#shipping-estimation .estimation-expand").removeClass('expanded');
+    } else {
+        $("#shipping-estimation .estimation-block").slideDown();
+        $("#shipping-estimation .estimation-expand").addClass('expanded');
+    }
+    return false;
+});
+
+
+})
+;
+
+function displayEstimationData(data) {
+    var productTotal = 0;
+
+    if (data.productTotal) {
+        productTotal = parseFloat(data.productTotal);
+    }
+
+    var localeId = g_user_locale.localeId;
+    if ($.isArray(data.products) && data.products.length > 0) {
+        localeId = data.products[0].localeId;
+    }
+    else if (data.thisProduct !== undefined) {
+        localeId = data.thisProduct.localeId;
+    }
+    else {
+    }
+
+    var pointStr = "%points% Point";
+    var pointsStr = "%points% Points";
+
+    if ('Hyatt_redemptionOnly' in data && data['Hyatt_redemptionOnly'] && 0) {
+        var productTotalPoints = g_locale.formatNumber(calculateHyattPointsConversion(productTotal), false, false, false);
+        var htmlPoints = '';
+
+        if (productTotalPoints != 1) {
+            htmlPoints = pointsStr.replace('%points%', productTotalPoints);
+        } else {
+            htmlPoints = pointStr.replace('%points%', productTotalPoints);
+        }
+
+        $('#estimate-subtotal').html(htmlPoints);
+        $('.productTotal_summary').html(htmlPoints);
+    } else if ('hyattPointsPrice' in data && 'hyattPointsTotal' in data && 0) {
+        price = data.hyattPointsPrice;
+        total = data.hyattPointsTotal;
+        $('.productTotal_summary').html(data.hyattPointsTotal);
+    } else {
+        $('#estimate-subtotal').html(g_locale.formatCurrency(productTotal, undefined, localeId, true));  //productTotal.formatMoney()
+        $('.productTotal_summary').html(g_locale.formatCurrency(productTotal, undefined, localeId, true));   //productTotal.formatMoney()
+    }
+
+    if (data.shipping === 0) {
+        if (data.chargedPostCheckout === '1') {
+            $("#shipping").html(cartStr("title_tbd"));
+            $(".help_dialog.shipping-tip").slideToggle('slow');
+        } else if (data.shippingRequired === '0') {
+            $(".shipping-amount").html(g_locale.getCurrencySymbol(localeId) + '0.00');
+        } else {
+            $("#shipping").html(cartStr("title_included"));
+        }
+        if (data.shippingInfo !== null && data.shippingInfo.result === 0) {
+            alertEx(data.shippingInfo.msg, cartStr('Shipping'));
+        }
+    } else {
+        if (data.shipping !== undefined) {
+            $("#shipping").html(g_locale.formatCurrency(data.shipping, undefined, localeId, true));   //data.shipping.formatMoney()
+        }
+        if (data.chargedPostCheckout) {
+            $(".help_dialog.shipping-tip").slideToggle('slow');
+        }
+    }
+    $("#shipTo").html(cartStr('shipping_estimate_head', {
+        '%countryShortCode%': $("#shippingCountryShortCode option:selected").html(),
+        '%shippingZip%': data.shippingZip
+    }));
+
+    if ((data.tax - data.taxIncluded) >= 0.01) {
+        $("#tax").html(g_locale.formatCurrency(data.tax - data.taxIncluded, undefined, localeId, true));    //data.tax.formatMoney()
+    }
+    else {
+        $("#tax").closest("div").hide();
+    }
+
+    if (typeof data.totalTravelCost !== 'undefined') {
+        var travelTotal = parseFloat(data.totalTravelCost);
+        $('.travelTotal_summary').html(g_locale.formatCurrency(travelTotal, undefined, localeId, true));      //travelTotal.formatMoney()
+        if (travelTotal > 0) {
+            $(".js-total-travel-cost").show();
+        } else {
+            $(".js-total-travel-cost").hide();
+        }
+    }
+
+    var total = 1 * productTotal + 1 * data.shipping + 1 * data.tax;
+
+    if ('Hyatt_redemptionOnly' in data && data['Hyatt_redemptionOnly'] && 0) {
+        var productTotalPoints = g_locale.formatNumber(calculateHyattPointsConversion(total), false, false, false);
+        var htmlPoints = '';
+
+        if (productTotalPoints != 1) {
+            htmlPoints = pointsStr.replace('%points%', productTotalPoints);
+        } else {
+            htmlPoints = pointStr.replace('%points%', productTotalPoints);
+        }
+
+        $("#grandTotal").html(htmlPoints);
+        $(".grandTotal_summary").html(htmlPoints);
+
+        $('#shipping').parent('p').parent('div').hide();
+        $('#shipTo').parent('p').parent('div').hide();
+    } else {
+        $("#grandTotal").html(g_locale.formatCurrency(total, undefined, localeId, true)); // do not display grandTotal (grand total is applied promo and gc)  //total.formatMoney()
+        $(".grandTotal_summary").html(g_locale.formatCurrency(total, undefined, localeId, true)); // copy #grandTotal display for total display in redemtpion cart
+    }
+
+    // update mini cart
+    if (!g_is_mobile) {
+        getCartPopupHtml(false, false);
+    }
+
+}
+
+function updateCostInfo(data, $main, $priceInfo
+) {
+    var localeId = data.thisProduct.localeId;
+
+    var addOnPrice = 0;
+    if (data.thisProduct.addOnPrice !== undefined) {
+        addOnPrice = parseFloat(data.thisProduct.addOnPrice);
+    } else if (data.products !== undefined) {
+        for (var i = 0; data.products.length > i; i++) {
+            if (data.products[i].isMaster === '1') {
+                continue;
+            } else if (data.products[i].parent_productId === data.thisProduct.productId) {
+                addOnPrice += parseFloat(data.products[i].price);
+            }
+        }
+    }
+
+    var price = '';
+    var total = '';
+
+    if (data.thisProduct.Hyatt_redemptionOnly && 'hyattPointsPrice' in data && 'hyattPointsTotal' in data && 0) {
+        data.thisProduct.isPickOneProduct = false;
+        price = data.hyattPointsPrice;
+        total = data.hyattPointsTotal;
+    } else {
+        price = g_locale.formatCurrency(ioRound(data.thisProduct.price, 2), undefined, localeId, false);  //ioRound(data.thisProduct.price).formatMoney(0);
+        total = g_locale.formatCurrency(ioRound(parseFloat(data.thisProduct.price, 2) + addOnPrice), undefined, localeId, false);
+    }
+
+    if (data.thisProduct.isPickOneProduct) {
+        var strPrice = 'Use Redemption Code';
+        var pPrice = ioRound(data.thisProduct.price, 2);
+        var maxBenefit = ioRound(data.thisProduct.maxBenefit, 2);
+        if (maxBenefit > 0 && pPrice > maxBenefit) {
+            var str = '%s with Redemption Code';
+            var payPrice = g_locale.formatCurrency(pPrice - maxBenefit, undefined, localeId, false); //(pPrice - maxBenefit).formatMoney(0);
+            strPrice = str.replace('%s', payPrice);
+        }
+        $main.find('.js-price').html(strPrice);
+        $main.find('.js-amount').html(strPrice);
+        return;
+    } else {
+        $main.find('.js-price').html(price);
+        $main.find('.js-amount').html(total);
+    }
+
+    var unitPrice = data.thisProduct.price;
+    data.thisProduct.price = parseFloat(data.thisProduct.price);
+    data.thisProduct.numGuests = parseInt(data.thisProduct.numGuests);
+    data.thisProduct.durationHours = parseInt(data.thisProduct.durationHours);
+    data.thisProduct.travelCost = parseFloat(data.thisProduct.travelCost);
+
+    console.log(unitPrice);
+    var calStr = "";
+
+    if ($priceInfo.attr("data-gv") > 0 && $priceInfo.attr("data-dv") > 0) {
+        unitPrice = unitPrice / (data.thisProduct.numGuests * data.thisProduct.durationHours);
+        calStr = g_locale.formatCurrency(unitPrice, undefined, localeId, false) + " &nbsp;&nbsp;x&nbsp;&nbsp; "
+            + data.thisProduct.numGuests + " " + (data.thisProduct.numGuests > 1 ? cartStr("people") : cartStr("person")) + " &nbsp;&nbsp;x&nbsp;&nbsp; "
+            + data.thisProduct.durationHours + " " + (data.thisProduct.durationHours > 1 ? cartStr("hours") : cartStr("hour"));
+    } else if ($priceInfo.attr("data-gv") > 0) {
+        console.log(data.thisProduct.numGuests);
+        unitPrice = unitPrice / data.thisProduct.numGuests;
+        calStr = g_locale.formatCurrency(unitPrice, undefined, localeId, false) + " &nbsp;&nbsp;x&nbsp;&nbsp; "
+            + data.thisProduct.numGuests + " " + (data.thisProduct.numGuests > 1 ? cartStr("people") : cartStr("person"));
+    } else if ($priceInfo.attr("data-dv") > 0) {
+        unitPrice = unitPrice / data.thisProduct.durationHours;
+        calStr = g_locale.formatCurrency(unitPrice, undefined, localeId, false) + " &nbsp;&nbsp;x&nbsp;&nbsp; "
+            + data.thisProduct.durationHours + " " + (data.thisProduct.durationHours > 1 ? cartStr("hours") : cartStr("hour"));
+    }
+    console.log(unitPrice);
+
+    if (calStr !== "") {
+        $priceInfo.find(".js-price-detail").html(calStr);
+        $priceInfo.find(".js-price-total").text(price);
+
+        //if we have addOn
+        if (addOnPrice > 0) {
+            $priceInfo.find(".js-price-addon-price").text(g_locale.formatCurrency(ioRound(addOnPrice), undefined, localeId, false));
+            $priceInfo.find(".js-addon-cost").show();
+        } else {
+            $priceInfo.find(".js-addon-cost").hide();
+        }
+
+        if (data.thisProduct.travelCost > 0) {
+            $priceInfo.find(".js-travel-cost").show();
+            $priceInfo.find(".js-travel-cost-amt").text(g_locale.formatCurrency(data.thisProduct.travelCost, undefined, localeId, false));
+            $priceInfo.find(".js-total-sum").text(g_locale.formatCurrency((parseFloat(data.thisProduct.price) + addOnPrice + data.thisProduct.travelCost), undefined, localeId, false));
+
+            // need to update hyatt points for price change if world of hyatt member
+            if ($('.hyatt-points-sec').length > 0) {
+                var points = g_locale.formatNumber(calculateHyattPointsConversion(parseFloat(data.thisProduct.price) + addOnPrice + data.thisProduct.travelCost), false, false, false);
+                $priceInfo.find('.hyattTotalPoints').html(points);
+            }
+        } else {
+            $priceInfo.find(".js-total-sum").text(g_locale.formatCurrency(parseFloat(data.thisProduct.price) + addOnPrice, undefined, localeId, false));
+            $priceInfo.find(".js-travel-cost").hide();
+
+            // need to update hyatt points for price change if world of hyatt member
+            if ($('.hyatt-points-sec').length > 0) {
+                var points = g_locale.formatNumber(calculateHyattPointsConversion(parseFloat(data.thisProduct.price) + addOnPrice), false, false, false);
+                $priceInfo.find('.hyattTotalPoints').html(points);
+            }
+        }
+    } else {
+        //alertEx("Unknow Error. Please contact Ifonly Admin");
+    }
+}
+
+function addCommasForCart(nStr) {
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    x2 = x2.substring(0, 3);
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+    //return x1;
+}
+
+function giftCertificatValueUpdate($obj, gcValue
+) {
+
+    var $main = $obj.closest('.body-row').find('.main');
+    $.post('/cart/updateSocialInfo', {
+            productId: $obj.closest('.p-form').attr("data-pid"),
+            number: $obj.closest('.p-form').attr("data-num"),
+            value: gcValue,
+            type: "estimation",
+            zipcode: $("#zipcode").val(),
+            countryShortCode: $("#shippingCountryShortCode").val()
+        },
+        function (data) {
+            if (data.result === 1) {
+                var price = (parseFloat(data.thisProduct.price)).formatMoney().split(".");
+                $main.find(".js-price").html(price[0]);
+
+                var totalAmt = parseFloat(data.thisProduct.price);
+                if ($main.find('.js-sub-price').length > 0) {
+                    $main.find('.js-sub-price').each(function () {
+                        totalAmt += parseFloat($(this).attr("data-price"));
+                    });
+                }
+                totalAmt = totalAmt.formatMoney().split(".");
+                $main.find('.js-amount').html(totalAmt[0]);
+                //updateCostInfo(data, $main, $priceInfo)
+                displayEstimationData(data);
+            } else {
+                alertEx(data.msg);
+            }
+        },
+        'json'
+    );
+}
+
+function isValidAmount($obj, type
+) {
+    if (type === undefined) {
+        type = "giftCertificate";
+    }
+    if ($obj.val() !== '') {
+        var amount = $obj.val();
+        amount = amount.replace(/[^\d]/g, '');
+        $obj.val(amount);
+        if (isNaN(parseFloat(amount))) {
+            //alert('Please enter a valid amount.');
+            alertEx(cartStr('enter_valid_amount'));
+            $obj.val('');
+            return false;
+        } else {
+            amount = parseFloat(amount);
+            if (amount === 0) {
+                //alert('Please enter or select an amount.');
+                alertEx(cartStr('enter_select_amount'));
+                return false;
+            }
+
+            if (type === "giftCertificate") {
+                giftCertificatValueUpdate($obj, amount);
+            }
+        }
+    }
+    return true;
+}
+
+</script>
+
+                        var shippingRequired = 1;
+                        var itemCountForDomesticShippingRate = 0;
+                        var itemCountForInternationalShippingRate = 1;
+                        var fixedDomesticShippingCost = 65.00;
+                        var fixedInternationalShippingCost = 0.00;
+
+                        var shopping_cart_height = 0;
+                        var u_travelCost = -1;
+                        var distance = -2;
+                        var errorMessage = "";
+
+                        function cartStr(index, replace
+                    ) {
+                        var strings = {
+                        'Shipping'                           : "Shipping",
+                        'details_needed'                     : "Details Needed",
+                        'enter_correct_email'                : "Please enter correct email.",
+                        'select_date_after_change_duration'  : "Please re-select a date and time after you change the duration of the event.",
+                        'suggest_enter_date_and_location'    : "We suggest you submit <span>both Date\/Time<\/span> and <span>Location<\/span>. Your experience will not be officially booked until both Date\/Time and Location are agreed upon. <br><br>Are you sure you would like to proceed?",
+                        'select_date_after_from_now'         : "Please select a date after %numberOfDays% days from now.",
+                        'title_tbd'                          : "TBD",
+                        'title_included'                     : "Included",
+                        'shipping_estimate_head'             : "To: %countryShortCode%, %shippingZip%",
+                        'person'                             : "person",
+                        'people'                             : "people",
+                        'hour'                               : "hour",
+                        'hours'                              : "hours",
+                        'enter_valid_amount'                 : "Please enter a valid amount.",
+                        'enter_select_amount'                : "Please enter or select an amount",
+                    };
+
+                        if (typeof strings[index] === 'undefined') {
+                        return index;
+                    } else {
+                        var str = strings[index];
+                        if (typeof replace === 'object') {
+                        for (var key in replace) {
+                        str = str.replace(key, replace[key]);
+                    }
+                    }
+                        return str;
+                    }
+                    }
+                        /!**************************************** Layout Preparing ********************!/
+infoBoxLayOutPreparing();
+
+// set .
+// using display: table; display:table - cell to verticle center the .
+price - info
+if (!g_is_mobile){
+    $(".p-block .p-block-2").each(function () {
+        if ($(this).height() > $(this).siblings(".p-block-1").height()) {
+            $(this).siblings(".p-block-1").css('min-height', $(this).height());
+        } else {
+            $(this).css('min-height', $(this).siblings(".p-block-1").height());
+        }
+    });
+}
+
+$(".p-form .
+info - box
+").each(function(){
+
+})
+;
+
+$(window).load(function (){
+    var pos = !isHandheld();
+
+    $("#overBooked-notification").appendTo('body');
+    $("#overBooked-notification").overlay({
+        top: 60, left: getPopupLeftToCenter("overBooked-notification"), fixed: pos, closeOnClick: true,
+        mask: {color: '#000000', loadSpeed: 200, closeSpeed:0, opacity: 0.5}
+    });
+})
+;
+
+/!**************************************** Layout Preparing ********************!/
+ioReady(function (){
+
+    if ( ! g_is_mobile) {
+        var top_margin = $("#product-table").offset().top - 95;
+        var top_offset = 45;
+
+        var c_bottom = $("#left-block").offset().top + $("#left-block").height();
+
+        $(document).scroll(function(){
+            var scrollTop = $(document).scrollTop();
+            //console.log('top_margin:' + top_margin + ' | ' + 'c_bottom:' + c_bottom + ' | ' + 'scrollTop:' + scrollTop);
+
+            var rtl = $("#right-block").hasClass('rtl');
+            var $rightBlock = $("#right-block");
+
+            if(rtl){
+                $rightBlock.css('left', 0 );
+            }
+            else{
+                $rightBlock.css('right', 0);
+            }
+
+            if (scrollTop > top_margin){
+                if(scrollTop + $("#right-block").height() + 150 > c_bottom){
+                    var c_top = $("#shopping-cart .box").height() - $("#right-block").height() - 155;
+                    $rightBlock.css({position: "relative", top:c_top});
+                } else {
+                    $rightBlock.css({position: "absolute", top: (scrollTop - top_offset) + "px"});
+                }
+            } else {
+                $rightBlock.css({position: "relative", top: 0});
+            }
+
+        });
+    }
+
+    // Special Code for MasterCard temp user - see dialog in _cart_content.php
+    // url of the product in the cart is '#' to prevent user to go to PDP
+
+    // var left = g_is_mobile ? 10 : getPopupLeftToCenter("pdDetailsOverlay");
+    var prev_pid  = "";
+    var pid  = "";
+    $("#pdDetailsOverlay").appendTo("body");
+    $("#pdDetailsOverlay").overlay({
+        top: 100, left: 'center', fixed: true, closeOnClick: true,load: false,
+        mask: {color: '#000000', loadSpeed: 200, opacity: 0.5},
+        onLoad: function(){
+            ga('send', 'pageview', 'Age Verification');
+            $.post('/website/logPageView',{'pageId':this.getOverlay().attr('id')},function(data){},'json');
+        },
+        onBeforeLoad: function(){
+            if (pid !== prev_pid) {
+                prev_pid = pid;
+                $.post( '/product/getProductDescription', {pid : pid},
+                    function(data){
+                        if(data.result === 0){
+                            alertEx("Error Occured Please Try Again");
+                        } else {
+                            $("#pdDetailsOverlay .product-desc").html(data.details);
+                            // $("#pdDetailsOverlay .fineprint").html(data.finePrint);
+                        }
+                    }, 'json');
+            }
+        }
+    });
+
+    $(".js-pdpDetails").click(function(){
+        if($(this).attr('href') === "#"){
+            pid = $(this).attr('pid');
+            $("#pdDetailsOverlay").overlay().load();
+            return false;
+        } else {
+            return true;
+        }
+    });
+
+    $("#customer-support").click(function(){
+        showConciergeEmailPopup();
+        return false;
+    });
+
+    //==========================================================================
+
+    $("#shipping-estimation .help_popUp").click(function(){
+        if (g_is_mobile) {
+            $("#shipping_estimate_help_dialog").css({right: '10px', top: '100px'});
+        } else {
+            $("#shipping_estimate_help_dialog").css({left: '-300px', top: '-40px'});
+        }
+        $("#shipping_estimate_help_dialog").toggle();
+        return false;
+    });
+    $("#shipping_estimate_help_dialog .close").click(function(){
+        $("#shipping_estimate_help_dialog").hide();
+    });
+
+    $("#shipTo").click(function(){
+        $(".estimation-block").show();
+    });
+
+    //==========================================================================
+
+    if ( ! g_is_mobile) {
+        $("#product-table .tip .convert-tip, #product-table .tip .remove-tip").mouseleave(function(){
+            $(this).hide();
+            return false;
+        });
+        $("#product-table .convert a").mouseenter(function(){
+            $(this).parent().parent().find(".convert-tip").show();
+            return false;
+        });
+        $("#product-table .convert a").mouseleave(function(e){
+            if (e.relatedTarget) {
+                if ($(e.relatedTarget).hasClass('convert-tip') ||
+                    $(e.relatedTarget).parent().hasClass('convert-tip')) {
+                    return false;
+                }
+            }
+            $(this).parent().parent().find(".convert-tip").hide();
+            return false;
+        });
+        $("#product-table .remove a").mouseenter(function(){
+            $(this).parent().parent().find(".remove-tip").show();
+            return false;
+        });
+        $("#product-table .remove a").mouseleave(function(e){
+            if (e.relatedTarget) {
+                if ($(e.relatedTarget).hasClass('remove-tip') ||
+                    $(e.relatedTarget).parent().hasClass('remove-tip')) {
+                    return false;
+                }
+            }
+            $(this).parent().parent().find(".remove-tip").hide();
+            return false;
+        });
+    }
+
+
+//    $("#product-table .addAddress").click(function(){
+//        ga('send', 'event', 'Cart', 'Add Address');
+//        $("#location-productName").html($(this).attr("pname"));
+//        $("#location-productId").val($(this).attr("pid"));
+//        $("#location-number").val($(this).attr("number"));
+//        $("#cart-calendar .location-celebId").val($(this).attr("cid"));
+//
+//        return false;
+//    });
+
+    //=========================================  Duration Change  ==============
+    $(".js-durationMinutes").change(function(){
+        var $main = $(this).closest('.body-row').find('.main');
+        var $priceInfo = $(this).closest('.body-row').find('.price-info');
+        //$(this).closest('.info').find('.schedule-container .schedule').attr('duration',parseInt($(this).val()));
+        var dm      = (parseInt($(this).val()) * 60);
+        var pId     = $(this).closest('.p-form').attr("data-pid");
+        var number  = $(this).closest('.p-form').attr("data-num");
+        $.post( '/cart/updateSocialInfo', {
+                productId        : pId,
+                number           : number,
+                durationMinutes  : dm,
+                type             : "estimation",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    updateCostInfo(data, $main, $priceInfo);
+                    displayEstimationData(data);
+
+                    $main.siblings(".p-block").find(".js-p-form").attr("data-dm",dm);
+                    if ($main.siblings(".p-block").find(".js-p-form .schedule-button.preCheckOutField input").val() !== "" ){
+
+                        // clear the userSchedules for this product
+                        $.post( '/cart/deleteSchedules', "productId=" + pId + "&number=" + number,
+                            function(data){
+                            },
+                            'json'
+                        );
+                        alertEx(cartStr('select_date_after_change_duration'));
+                        $main.siblings(".p-block").find(".js-p-form .schedule-button.preCheckOutField input").val("");
+                        draw_calendar_general($('#calendar-popUp'));
+                        $('#calendar-popUp .cal-time .time').html("");
+                        $('#calendar-popUp .schedule-wrapper input').val("");
+                        $("#calendar-popUp .cal-day-box.day.selected").removeClass("selected");
+                    }
+
+                } else {
+                    alertEx(data.msg);
+                }
+            },
+            'json'
+        );
+    });
+
+    //======================================  Number of Guest Change  ==========
+    $(".js-numGuests").change(function(){
+        var $main = $(this).closest('.body-row').find('.main');
+        var $priceInfo = $(this).closest('.body-row').find('.price-info');
+        var $this = $(this);
+
+        // for buy with friends,  for a guest,  change the guest number attr when number of guests changed. VP-9655
+        var $form = $this.closest('.js-p-form');
+        if ($form.attr('data-isgroupbuytype') === '1' && $form.attr('data-master-oii') !== '0') {
+            var people_val = $this.val()*1;
+            var people_string =  people_val>1?getJsText('people'):getJsText('person');
+            $this.closest('.info-box').children('.attr-row').find('.attr-guests .attr-val').text($this.val() + ' ' + people_string) ;
+        }
+
+        $.post( '/cart/updateSocialInfo', {
+                productId        : $(this).closest('.p-form').attr("data-pid"),
+                number           : $(this).closest('.p-form').attr("data-num"),
+                numGuests        : $(this).val(),
+                type             : "estimation",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    updateCostInfo(data, $main, $priceInfo);
+                    displayEstimationData(data);
+                } else {
+                    alertEx(data.msg);
+                }
+            },
+            'json'
+        );
+        return false;
+    });
+    //======================================  Quantity Change  =================
+    $(".js-quantity-change").change(function(){
+        ga('send', 'event', 'Checkout', 'QuantityUpdate');
+        var $obj = $(this);
+        var pid     = $obj.closest('.p-form').attr("data-pid");
+        var num     = $obj.closest('.p-form').attr("data-num");
+        var new_qty = $obj.val();
+        $obj.closest('.body-row').find(".js-quantity").text(new_qty);
+        $.post( '/cart/update', {
+                productId        : pid,
+                number           : num,
+                quantity         : new_qty,
+                type             : "estimation",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    $obj.closest('.body-row').find('.shipping-msg').html('<p>'+data.shippingMsg+'</p>');
+                    var price      = $obj.closest('.body-row').attr("data-price"); // calculate locally
+                    var new_amount = price * new_qty;
+                    var localeId   = data.products[0].localeId;
+
+                    $obj.closest('.body-row').find(".js-amount").html(g_locale.formatCurrency(new_amount, undefined, localeId, true));
+
+                    // need to update hyatt points for price change if world of hyatt member
+                    if($('.hyatt-points-sec').length > 0) {
+                        var pBlock2 = $obj.closest('.p-block-1').siblings('.p-block-2');
+                        pBlock2.find('.js-total-sum').html(new_amount.formatMoney().replace(/\.0+$/,''));
+                        var points = g_locale.formatNumber(calculateHyattPointsConversion(new_amount), false, false, false);
+                        pBlock2.find('.hyattTotalPoints').html(points);
+                    }
+                    displayEstimationData(data);
+                    if(!g_is_mobile){
+                        getCartPopupHtml(false, false);
+                    }
+                    ga('send', 'pageview', 'Shopping Bag');
+                } else {
+                    alertEx(data.msg);
+                }
+            }, 'json');
+        return false;
+    });
+
+    //======================================  addon Change  ================
+    $(".customCheckBox span").click(function(){
+        var parent_productId = $(this).closest(".js-p-form").attr("data-pid");
+        var parent_number    = $(this).closest(".js-p-form").attr("data-num");
+        var pid              = $(this).closest(".customCheckBox").attr("pid");
+        var num              = $(this).closest(".customCheckBox").attr("data-number");
+
+        if($(this).closest(".customCheckBox").hasClass("checked")){
+            var action = "remove";
+            $(this).closest(".customCheckBox").removeClass("checked");
+        }else{
+            var action = "add";
+            $(this).closest(".customCheckBox").addClass("checked");
+        }
+
+        var $main = $(this).closest('.body-row').find('.main');
+        var $priceInfo = $(this).closest('.body-row').find('.price-info');
+
+        $.post( '/cart/UpdateSubproducts', {
+                productId        : pid,
+                number           : num,
+                parent_productId : parent_productId,
+                parent_number    : parent_number,
+                action           : action,
+                type             : "estimation",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    updateCostInfo(data, $main, $priceInfo);
+                    displayEstimationData(data);
+                } else {
+                    alertEx(data.msg);
+                }
+            }, 'json');
+        return false;
+    });
+
+    //======================================  Gift Certificate  ================
+    $(".preCheckOutField .gift-cert-value").change(function(){
+
+        var value   = "";
+
+        if ($(this).val() === "own") {
+            $(this).closest(".preCheckOutField").next(".preCheckOutField.own").show();
+            $(this).closest(".preCheckOutField").next(".preCheckOutField.own").find("input").focus();
+            //$("#CartItemSocialInfo_value").val($(this).closest(".preCheckOutField").next(".preCheckOutField.own input").val());
+        } else {
+            $(this).closest(".preCheckOutField").next(".preCheckOutField.own").hide();
+            $(this).closest(".preCheckOutField").next(".preCheckOutField.own").find("input").val($(this).val());
+            giftCertificatValueUpdate($(this), $(this).val());
+            //$("#CartItemSocialInfo_value").val($(this).val());
+        }
+        return false;
+    });
+    $(".preCheckOutField .gift-cert-custom").focusout(function(){
+        isValidAmount($(this));
+    });
+
+
+    //================================  For all input and textarea  ============
+    $(".preCheckOutField input.js-general, .preCheckOutField textarea.js-general").focusout(function(){
+        $(this).val($(this).val().trim());
+        if ($(this).val() !== ""){
+            if ($(this).hasClass("js-email")) {
+                $(this).siblings(".errorMessage").remove();
+                if (! validateEmail($(this).val())){
+                    $("<p class='errorMessage'>"+cartStr('enter_correct_email')+"</p>").insertAfter($(this));
+                    $(this).addClass("js-error");
+                    return false;
+                }else{
+                    $(this).removeClass("js-error");
+                }
+            }
+
+            var obj = {productId : $(this).closest('.p-form').attr("data-pid"),
+                number    : $(this).closest('.p-form').attr("data-num"),
+                type      : "no-estimation"};
+            obj[$(this).attr("data-db-name")] = $(this).val();
+
+            $.post( '/cart/updateSocialInfo', obj,
+                function(data){
+                    if (data.result === 1) {
+                        // this doesn't change price
+                    } else {
+                        alertEx(data.msg);
+                    }
+                },
+                'json'
+            );
+        }
+    });
+
+    //=============================  Only for PT 17 Entring address in cart  ===
+
+    $(".start-checkout").click(function(){
+
+        if (g_needCompleteSignup) {
+            $("#redirectURL").val('');
+            displayOverlay('complete-signup-dialog');
+            return false;
+        }
+
+
+        //event.preventDefault();
+        if(!actionBtnClickHandling($(this))){
+            return false;
+        }
+
+        $obj = $(this);
+        $("#product-table .preCheckOutField .js-required.required").removeClass("required");
+        var complete = true;
+        var scrollTo = "";
+        var prevPid = "";
+        var errCount = 0;
+        var errClass = "";
+        var $prevObj;
+        var $currentObj;
+
+        if($("#product-table .preCheckOutField .js-error:visible").length > 0){
+            scrollTo = $("#product-table .preCheckOutField .js-error:visible").first().offset().top - 30 - 55 - 40;
+            $('html, body').animate({scrollTop:scrollTo}, 400,function(){
+                //alertEx("Please finish the required filed(s).");
+            });
+
+            actionBtnClickHandling($(this), "remove");
+            return false;
+        }
+
+
+        $("#product-table .preCheckOutField .js-required:visible").each(function(){
+            $currentObj = $(this);
+
+            if ($(this).val() === "") {
+
+                complete = false; errCount++;
+                $(this).addClass("required");
+                $(this).closest('.widget-row').find('.errorMessage').remove();
+
+                if($prevObj !== undefined &&
+                    $(this).closest('.nextProd').attr('data-pid') !== $prevObj.closest('.nextProd').attr('data-pid'))
+                {
+                    //Time to append errormessage
+                    if(errorMessage !== "")  $prevObj.append("<p class='errorMessage'>"+errorMessage+"</p>");
+
+                    //Clear Error Message
+                    errorMessage = "";
+                    if(g_is_mobile){
+                        $prevObj.closest('.p-block').find('.price-info').css('border-top', '1px solid #e1e1e1');
+                    }
+
+                    errCount = 0;
+
+                }
+                //If more than one error message in a block remove bottom border for the blocks
+                /!* if(errCount >= 1 && $prevObj !== undefined && !$prevObj.hasClass('js-gift-certificate')
+                     && !$prevObj.children('.preCheckOutField.js-required:visible').is(':last-child')){
+                     //$prevObj.find('input').css('border-bottom','none');
+                 }*!/
+
+
+                if($(this).attr('data-error') !== undefined && $(this).hasClass("required")) {
+                    errorMessage += $(this).attr('data-error')+"<br />";
+                }
+
+                if(scrollTo === ""){
+                    scrollTo = $(this).offset().top - 30 - 55 - 40;
+                }
+            } else {
+                // If $prevObj is set but the current input field does not have
+                // value and errormessage has value then append to prev obj if pids are not equal
+                if($prevObj !== undefined &&
+                    $(this).closest('.nextProd').attr('data-pid') !== $prevObj.closest('.nextProd').attr('data-pid'))
+                {
+                    //Time to append errormessage
+                    if(errorMessage !== "")  $prevObj.append("<p class='errorMessage'>"+errorMessage+"</p>");
+
+                    //Clear Error Message
+                    errorMessage = "";
+                    if(g_is_mobile){
+                        $prevObj.closest('.p-block').find('.price-info').css('border-top', '1px solid #e1e1e1');
+                    }
+
+                    errCount = 0;
+                }
+            }
+
+            $prevObj = $(this).closest('.widget-row');
+            if($prevObj.children('.preCheckOutField:visible').length > 1){
+                if(errorMessage !== "" && $prevObj.length > 0
+                    && !$prevObj.hasClass('js-gift-certificate')
+                    && $prevObj.find('input').hasClass('js-required')){
+                    $currentObj.css('border-bottom','1px solid #FD6340');
+                }
+            }
+
+            //Append error message to last block
+            if(errorMessage !== ""){
+                //VP-11833 Needed to add border top for personalized messages.
+                //Error appeared to be in the textbox
+                $prevObj.append("<p class='errorMessage sg-c-error sg-bd-2 sg-no-bd-bottom sg-no-bd-left sg-no-bd-right'>"+errorMessage+"</p>");
+                //If more than one error message in a block remove top border for the blocks
+                errCount = 0;
+                errorMessage = "";
+            }
+        });
+
+        if ( ! complete){
+            $('html, body').animate({scrollTop:scrollTo}, 400,function(){
+                //alertEx("Please finish the required filed(s).");
+            });
+
+            actionBtnClickHandling($(this), "remove");
+            return false;
+        }
+
+        //Do Ajax post to check if the duration is available
+        $.get( '/cart/checkDurationAvailable',
+            function(data){
+                if (data.result === 1) {
+                    // Do Nothing
+                    complete = true;
+                } else if (data.loggedIn !== undefined && data.loggedIn === 0) {
+                    // logged out or tempuser session expired
+                    // illegal action - redirect to homepage
+                    window.location.href = g_is_mobile ? "/m" : "/"; // For tempuser session expired, it will display Session Expired page
+                } else {
+                    complete = false;
+
+                    /!*
+                    $('#conversationOverlay-dialog .celebrity-img').attr('src', data.celebImg);
+                    $('#conversationOverlay-dialog .celebrity-name').html(data.celebName);
+                    $('#conversationOverlay-dialog .subject-txt').val(data.productName);
+                    *!/
+
+                    var contact_link = $('#overBooked-notification .vendor-contact-us');
+                    contact_link.attr('pid', data.productId);
+                    contact_link.attr('service_vendorid', data.service_vendorId);
+                    contact_link.attr('data-imgsrc', data.vendorImg);
+                    contact_link.attr('data-id', data.service_vendorId);
+                    contact_link.attr('data-name', data.vendorName );
+
+
+                    $('.overBooked-vendorName').html(data.celebName);
+                    $('.overBooked-timeRange').html(Math.abs(data.difference));
+                    $('.overBooked-windowSize').html(data.windowSize);
+                    $("#overBooked-notification").overlay().load();
+
+                    actionBtnClickHandling($obj, "remove");
+                    return false;
+                }
+
+                if (complete){
+                    // encourage customer to fill out all info for redemption items
+
+                    var redir = true;
+                    $("#product-table .preCheckOutField .js-recommended:visible").each(function(){
+                        if ($(this).val() === "") {
+                            redir = false;
+                            confirmEx(cartStr('suggest_enter_date_and_location'),
+                                cartStr('details_needed'),
+                                function(){
+                                    window.location = (g_is_mobile ? "/m" : "") + "/cart/checkout";
+                                },
+                                function(){
+                                    $(".start-checkout").removeClass('disabled');
+                                },
+                                'yes',
+                                'no');
+                            return false;
+                        }
+                    });
+
+                    if (redir === true) {
+                        window.location.href = (g_is_mobile ? "/m" : "") + "/cart/checkout";
+                    }
+
+                }
+            },
+            'json'
+        );
+
+    });
+
+    $(".vendor-contact-us").click(function(){
+        $("#overBooked-notification").overlay().close();
+
+        questionPopUp($(this));
+
+        /!*
+        $('#conversationOverlay-dialog .celebrity-img').attr('src', $('.conversation-celebImg').val());
+        $('#conversationOverlay-dialog .celebrity-name').html( $('.conversation-celebName').val());
+        $('#conversationOverlay-dialog .subject-txt').val( 'About ' + $('#conversationOverlay-dialog .subject-txt').val());
+        $("#conversationOverlay-dialog").overlay().load();
+        *!/
+        return false;
+    });
+
+    $('.datetimepicker').each(function(){
+        var showTim = ( ($(this).attr("date-pt") === '18')? false: true);
+        $(this).datetimepicker({
+            minDate: (parseInt($(this).attr("date-mindate")) + 1),
+            showTimepicker: showTim  ,
+            onClose: function(dateText) {
+                dateText = dateText.trim();
+                if(dateText === '') {
+                    return true;
+                }
+                var timeToPostDaysInAdvance = parseInt($(this).attr("date-mindate"));
+                var timestamp = new Date().getTime() + (timeToPostDaysInAdvance * 24 * 60 * 60 * 1000);
+                var selected = new Date(dateText);
+                if (timestamp > selected) {
+                    alertEx(cartStr('select_date_after_from_now', {'%numberOfDays%':timeToPostDaysInAdvance}));
+                    $(this).val('');
+                }else{
+                    $.post( '/cart/updateSocialInfo',
+                        "&productId="+$(this).closest('.p-form').attr("data-pid") +
+                        "&number="+$(this).closest('.p-form').attr("data-num") + "&timeToPost="+dateText+":00",
+                        function(data){
+                            if (data.result === 1) {
+
+                            } else {
+                                alertEx(data.msg);
+                            }
+                        },
+                        'json'
+                    );
+                }
+            }
+        });
+    });
+
+
+    //========================================  Before Checkout  ===============
+    // Check if Forms need to be Submitted
+
+    $("#product-table").children('.locationAddress-container').each(function(){
+        if($(this).find('.location-address').val() !== ""){
+            $(this).find('.location-address-save').trigger('click');
+        }
+    });
+    //==========================================================================
+    $("#estimate-button").click(function(){
+        if ($(this).hasClass('inactive')) return false;
+        if ($("#zipcode").val() === '') {
+            alertEx("Please enter a zip code.");
+            return false;
+        }
+        if ($("#shippingCountryShortCode").val() === 'US' && $("#zipcode").val().length !== 5 ) {
+            alertEx("Please enter a 5-digit zip code.");
+            return false;
+        }
+
+        ga('send', 'event', 'Checkout', 'Estimate');
+        var current = $(this);
+        current.addClass('inactive');
+        $('html, body').animate({scrollTop: 0},500);
+        $("#shipping-estimation .estimation-block").hide();
+        $("#shipping-estimation h2 span").removeClass('expanded');
+        $("#shipping-estimation .estimation-result-block").show();
+        $("#shipping").html('');
+        $("#shipTo").html('');
+        $("#tax").html('');
+        $("#grandTotal").html('');                        //$('.productTotal_summary').html()
+        $.post( '/cart/estimate',
+            {
+                type             : "shipping",
+                zipcode          : $("#zipcode").val(),
+                countryShortCode : $("#shippingCountryShortCode").val()
+            },
+            function(data){
+                if (data.result === 1) {
+                    displayEstimationData(data);
+                } else {
+                    alertEx(data.msg);
+                }
+                $("#shipping-estimation .estimation-expand").removeClass('expanded');
+                current.removeClass('inactive');
+            }, 'json');
+        return false;
+    });
+
+    $(".top-warning .js-goto-wishlist").click(function() {
+        if($(this).hasClass("mobile")){
+            location.href = "/m/wishlist";
+        }else{
+            $('html, body').animate({
+                scrollTop: $("#cart-wishlist").offset().top - 100
+            }, 1500);
+        }
+
+        return false;
+    });
+
+    $(".top-warning img").click(function() {
+        $(this).parent().fadeOut('slow');
+    });
+
+    $("#shipping-estimation h2, #shipping-estimation .estimation-expand").click(function(){
+        if($("#shipping-estimation .estimation-expand").hasClass('expanded')){
+            $("#shipping-estimation .estimation-block").slideUp();
+            $("#shipping-estimation .estimation-expand").removeClass('expanded');
+        } else {
+            $("#shipping-estimation .estimation-block").slideDown();
+            $("#shipping-estimation .estimation-expand").addClass('expanded');
+        }
+        return false;
+    });
+
+
+})
+;
+
+function displayEstimationData(data) {
+    var productTotal = 0;
+
+    if(data.productTotal){
+        productTotal = parseFloat(data.productTotal);
+    }
+
+    var localeId = g_user_locale.localeId;
+    if($.isArray(data.products) && data.products.length>0){
+        localeId = data.products[0].localeId;
+    }
+    else if ( data.thisProduct !== undefined){
+        localeId = data.thisProduct.localeId;
+    }
+    else {
+    }
+
+    var pointStr = "%points% Point";
+    var pointsStr = "%points% Points";
+
+    if ('Hyatt_redemptionOnly' in data && data['Hyatt_redemptionOnly'] && 0) {
+        var productTotalPoints = g_locale.formatNumber(calculateHyattPointsConversion(productTotal), false, false, false);
+        var htmlPoints = '';
+
+        if (productTotalPoints != 1) {
+            htmlPoints = pointsStr.replace('%points%', productTotalPoints);
+        } else {
+            htmlPoints = pointStr.replace('%points%', productTotalPoints);
+        }
+
+        $('#estimate-subtotal').html(htmlPoints);
+        $('.productTotal_summary').html(htmlPoints);
+    } else if ('hyattPointsPrice' in data && 'hyattPointsTotal' in data && 0) {
+        price = data.hyattPointsPrice;
+        total = data.hyattPointsTotal;
+        $('.productTotal_summary').html(data.hyattPointsTotal);
+    } else {
+        $('#estimate-subtotal').html(g_locale.formatCurrency(productTotal, undefined, localeId, true));  //productTotal.formatMoney()
+        $('.productTotal_summary').html(g_locale.formatCurrency(productTotal, undefined, localeId, true));   //productTotal.formatMoney()
+    }
+
+    if (data.shipping === 0) {
+        if (data.chargedPostCheckout === '1') {
+            $("#shipping").html(cartStr("title_tbd"));
+            $(".help_dialog.shipping-tip").slideToggle('slow');
+        } else if (data.shippingRequired === '0') {
+            $(".shipping-amount").html(g_locale.getCurrencySymbol(localeId) + '0.00');
+        } else {
+            $("#shipping").html(cartStr("title_included"));
+        }
+        if (data.shippingInfo !== null && data.shippingInfo.result === 0) {
+            alertEx(data.shippingInfo.msg, cartStr('Shipping'));
+        }
+    } else {
+        if(data.shipping !== undefined){
+            $("#shipping").html(g_locale.formatCurrency(data.shipping, undefined, localeId, true));   //data.shipping.formatMoney()
+        }
+        if (data.chargedPostCheckout) {
+            $(".help_dialog.shipping-tip").slideToggle('slow');
+        }
+    }
+    $("#shipTo").html(cartStr('shipping_estimate_head', {
+        '%countryShortCode%' : $("#shippingCountryShortCode option:selected").html(),
+        '%shippingZip%'      : data.shippingZip
+    }));
+
+    if ((data.tax - data.taxIncluded) >= 0.01) {
+        $("#tax").html(g_locale.formatCurrency(data.tax - data.taxIncluded, undefined, localeId, true));    //data.tax.formatMoney()
+    }
+    else{
+        $("#tax").closest("div").hide();
+    }
+
+    if (typeof data.totalTravelCost !== 'undefined') {
+        var travelTotal  = parseFloat(data.totalTravelCost);
+        $('.travelTotal_summary').html(g_locale.formatCurrency(travelTotal, undefined, localeId, true));      //travelTotal.formatMoney()
+        if (travelTotal > 0) {
+            $(".js-total-travel-cost").show();
+        } else {
+            $(".js-total-travel-cost").hide();
+        }
+    }
+
+    var total = 1*productTotal + 1*data.shipping + 1*data.tax;
+
+    if ('Hyatt_redemptionOnly' in data && data['Hyatt_redemptionOnly'] && 0) {
+        var productTotalPoints = g_locale.formatNumber(calculateHyattPointsConversion(total), false, false, false);
+        var htmlPoints = '';
+
+        if (productTotalPoints != 1) {
+            htmlPoints = pointsStr.replace('%points%', productTotalPoints);
+        } else {
+            htmlPoints = pointStr.replace('%points%', productTotalPoints);
+        }
+
+        $("#grandTotal").html(htmlPoints);
+        $(".grandTotal_summary").html(htmlPoints);
+
+        $('#shipping').parent('p').parent('div').hide();
+        $('#shipTo').parent('p').parent('div').hide();
+    } else {
+        $("#grandTotal").html(g_locale.formatCurrency(total, undefined, localeId, true)); // do not display grandTotal (grand total is applied promo and gc)  //total.formatMoney()
+        $(".grandTotal_summary").html(g_locale.formatCurrency(total, undefined, localeId, true)); // copy #grandTotal display for total display in redemtpion cart
+    }
+
+    // update mini cart
+    if (!g_is_mobile) {
+        getCartPopupHtml(false, false);
+    }
+
+}
+
+function updateCostInfo(data, $main, $priceInfo
+){
+    var localeId = data.thisProduct.localeId;
+
+    var addOnPrice = 0;
+    if (data.thisProduct.addOnPrice !== undefined) {
+        addOnPrice = parseFloat(data.thisProduct.addOnPrice);
+    } else if (data.products !== undefined)  {
+        for(var i=0; data.products.length > i; i++) {
+            if (data.products[i].isMaster === '1') {
+                continue;
+            } else if(data.products[i].parent_productId === data.thisProduct.productId) {
+                addOnPrice += parseFloat(data.products[i].price);
+            }
+        }
+    }
+
+    var price = '';
+    var total = '';
+
+    if (data.thisProduct.Hyatt_redemptionOnly && 'hyattPointsPrice' in data && 'hyattPointsTotal' in data && 0) {
+        data.thisProduct.isPickOneProduct = false;
+        price = data.hyattPointsPrice;
+        total = data.hyattPointsTotal;
+    } else {
+        price =  g_locale.formatCurrency(ioRound(data.thisProduct.price, 2), undefined, localeId, false);  //ioRound(data.thisProduct.price).formatMoney(0);
+        total =  g_locale.formatCurrency(ioRound(parseFloat(data.thisProduct.price, 2) + addOnPrice), undefined, localeId, false);
+    }
+
+    if (data.thisProduct.isPickOneProduct) {
+        var strPrice = 'Use Redemption Code';
+        var pPrice     = ioRound(data.thisProduct.price, 2);
+        var maxBenefit = ioRound(data.thisProduct.maxBenefit, 2);
+        if (maxBenefit > 0 && pPrice > maxBenefit) {
+            var str = '%s with Redemption Code';
+            var payPrice = g_locale.formatCurrency(pPrice - maxBenefit, undefined, localeId, false); //(pPrice - maxBenefit).formatMoney(0);
+            strPrice = str.replace('%s', payPrice);
+        }
+        $main.find('.js-price').html(strPrice);
+        $main.find('.js-amount').html(strPrice);
+        return;
+    } else {
+        $main.find('.js-price').html(price);
+        $main.find('.js-amount').html(total);
+    }
+
+    var unitPrice = data.thisProduct.price;
+    data.thisProduct.price         = parseFloat(data.thisProduct.price);
+    data.thisProduct.numGuests     = parseInt(data.thisProduct.numGuests);
+    data.thisProduct.durationHours = parseInt(data.thisProduct.durationHours);
+    data.thisProduct.travelCost    = parseFloat(data.thisProduct.travelCost);
+
+    console.log(unitPrice);
+    var calStr = "";
+
+    if($priceInfo.attr("data-gv") > 0 && $priceInfo.attr("data-dv") > 0){
+        unitPrice = unitPrice / ( data.thisProduct.numGuests * data.thisProduct.durationHours );
+        calStr    = g_locale.formatCurrency(unitPrice, undefined, localeId, false)  + " &nbsp;&nbsp;x&nbsp;&nbsp; "
+            + data.thisProduct.numGuests + " " + (data.thisProduct.numGuests > 1 ? cartStr("people") : cartStr("person")) + " &nbsp;&nbsp;x&nbsp;&nbsp; "
+            + data.thisProduct.durationHours + " " + (data.thisProduct.durationHours > 1 ? cartStr("hours") : cartStr("hour"));
+    }else if($priceInfo.attr("data-gv") > 0){
+        console.log(data.thisProduct.numGuests);
+        unitPrice = unitPrice / data.thisProduct.numGuests ;
+        calStr    = g_locale.formatCurrency(unitPrice, undefined, localeId, false) + " &nbsp;&nbsp;x&nbsp;&nbsp; "
+            + data.thisProduct.numGuests + " " + (data.thisProduct.numGuests > 1 ? cartStr("people") : cartStr("person"));
+    }else if($priceInfo.attr("data-dv") > 0){
+        unitPrice = unitPrice / data.thisProduct.durationHours ;
+        calStr    = g_locale.formatCurrency(unitPrice, undefined, localeId, false) + " &nbsp;&nbsp;x&nbsp;&nbsp; "
+            + data.thisProduct.durationHours + " " + (data.thisProduct.durationHours > 1 ? cartStr("hours") : cartStr("hour"));
+    }
+    console.log(unitPrice);
+
+    if (calStr !== ""){
+        $priceInfo.find(".js-price-detail").html(calStr);
+        $priceInfo.find(".js-price-total").text(price);
+
+        //if we have addOn
+        if (addOnPrice > 0) {
+            $priceInfo.find(".js-price-addon-price").text(g_locale.formatCurrency(ioRound(addOnPrice), undefined, localeId, false));
+            $priceInfo.find(".js-addon-cost").show();
+        } else {
+            $priceInfo.find(".js-addon-cost").hide();
+        }
+
+        if (data.thisProduct.travelCost > 0) {
+            $priceInfo.find(".js-travel-cost").show();
+            $priceInfo.find(".js-travel-cost-amt").text( g_locale.formatCurrency(data.thisProduct.travelCost, undefined, localeId, false) );
+            $priceInfo.find(".js-total-sum").text( g_locale.formatCurrency( (parseFloat(data.thisProduct.price) + addOnPrice + data.thisProduct.travelCost),  undefined, localeId, false) );
+
+            // need to update hyatt points for price change if world of hyatt member
+            if($('.hyatt-points-sec').length > 0) {
+                var points = g_locale.formatNumber(calculateHyattPointsConversion(parseFloat(data.thisProduct.price) + addOnPrice + data.thisProduct.travelCost), false, false, false);
+                $priceInfo.find('.hyattTotalPoints').html(points);
+            }
+        } else {
+            $priceInfo.find(".js-total-sum").text( g_locale.formatCurrency(parseFloat(data.thisProduct.price) + addOnPrice,  undefined, localeId, false) );
+            $priceInfo.find(".js-travel-cost").hide();
+
+            // need to update hyatt points for price change if world of hyatt member
+            if($('.hyatt-points-sec').length > 0) {
+                var points = g_locale.formatNumber(calculateHyattPointsConversion(parseFloat(data.thisProduct.price) + addOnPrice), false, false, false);
+                $priceInfo.find('.hyattTotalPoints').html(points);
+            }
+        }
+    }else{
+        //alertEx("Unknow Error. Please contact Ifonly Admin");
+    }
+}
+
+function addCommasForCart(nStr)
+{
+    nStr += '';
+    x = nStr.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+    x2 = x2.substring(0,3);
+    var rgx = /(\d+)(\d{3})/;
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+    return x1 + x2;
+    //return x1;
+}
+
+function giftCertificatValueUpdate($obj, gcValue
+){
+
+    var $main   = $obj.closest('.body-row').find('.main');
+    $.post( '/cart/updateSocialInfo', {
+            productId        : $obj.closest('.p-form').attr("data-pid"),
+            number           : $obj.closest('.p-form').attr("data-num"),
+            value            : gcValue,
+            type             : "estimation",
+            zipcode          : $("#zipcode").val(),
+            countryShortCode : $("#shippingCountryShortCode").val()
+        },
+        function(data){
+            if (data.result === 1) {
+                var price = (parseFloat(data.thisProduct.price)).formatMoney().split(".");
+                $main.find(".js-price").html(price[0]);
+
+                var totalAmt = parseFloat(data.thisProduct.price);
+                if($main.find('.js-sub-price').length > 0){
+                    $main.find('.js-sub-price').each(function(){
+                        totalAmt += parseFloat($(this).attr("data-price"));
+                    });
+                }
+                totalAmt = totalAmt.formatMoney().split(".");
+                $main.find('.js-amount').html(totalAmt[0]);
+                //updateCostInfo(data, $main, $priceInfo)
+                displayEstimationData(data);
+            } else {
+                alertEx(data.msg);
+            }
+        },
+        'json'
+    );
+}
+
+function isValidAmount($obj, type
+) {
+    if(type === undefined){
+        type = "giftCertificate";
+    }
+    if ($obj.val() !== '') {
+        var amount = $obj.val();
+        amount = amount.replace (/[^\d]/g, '');
+        $obj.val(amount);
+        if (isNaN(parseFloat(amount))) {
+            //alert('Please enter a valid amount.');
+            alertEx(cartStr('enter_valid_amount'));
+            $obj.val('');
+            return false;
+        } else {
+            amount = parseFloat(amount);
+            if (amount === 0) {
+                //alert('Please enter or select an amount.');
+                alertEx(cartStr('enter_select_amount'));
+                return false;
+            }
+
+            if(type === "giftCertificate"){
+                giftCertificatValueUpdate($obj, amount);
+            }
+        }
+    }
+    return true;
+}
 */
