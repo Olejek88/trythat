@@ -1,34 +1,33 @@
 import { observable, action } from 'mobx';
-import articlesStore from './articlesStore';
+import activityStore from "./activityStore";
 
 class EditorStore {
 
   @observable inProgress = false;
   @observable errors = undefined;
-  @observable articleSlug = undefined;
+  @observable activitySlug = undefined;
 
   @observable title = '';
   @observable description = '';
   @observable body = '';
   @observable tagList = [];
 
-  @action setArticleSlug(articleSlug) {
-    if (this.articleSlug !== articleSlug) {
+  @action setActivitySlug(activitySlug) {
+    if (this.activitySlug !== activitySlug) {
       this.reset();
-      this.articleSlug = articleSlug;
+      this.activitySlug = activitySlug;
     }
   }
 
   @action loadInitialData() {
-    if (!this.articleSlug) return Promise.resolve();
+    if (!this.activitySlug) return Promise.resolve();
     this.inProgress = true;
-    return articlesStore.loadArticle(this.articleSlug, { acceptCached: true })
-      .then(action((article) => {
-        if (!article) throw new Error('Can\'t load original article');
-        this.title = article.title;
-        this.description = article.description;
-        this.body = article.body;
-        this.tagList = article.tagList;
+    return activityStore.loadActivity(this.activitySlug, { acceptCached: true })
+      .then(action((activity) => {
+        if (!activity) throw new Error('Can\'t load original activity');
+        this.title = activity.title;
+        this.description = activity.description;
+        this.tags = activity.tags;
       }))
       .finally(action(() => { this.inProgress = false; }));
   }
@@ -36,7 +35,6 @@ class EditorStore {
   @action reset() {
     this.title = '';
     this.description = '';
-    this.body = '';
     this.tagList = [];
   }
 
@@ -46,10 +44,6 @@ class EditorStore {
 
   @action setDescription(description) {
     this.description = description;
-  }
-
-  @action setBody(body) {
-    this.body = body;
   }
 
   @action addTag(tag) {
@@ -64,14 +58,13 @@ class EditorStore {
   @action submit() {
     this.inProgress = true;
     this.errors = undefined;
-    const article = {
+    const activity = {
       title: this.title,
       description: this.description,
-      body: this.body,
       tagList: this.tagList,
-      slug: this.articleSlug,
+      slug: this.activitySlug,
     };
-    return (this.articleSlug ? articlesStore.updateArticle(article) : articlesStore.createArticle(article))
+    return (this.activitySlug ? activityStore.updateActivity(activity) : activityStore.createActivity(activity))
       .catch(action((err) => {
         this.errors = err.response && err.response.body && err.response.body.errors; throw err;
       }))

@@ -5,7 +5,6 @@ import {inject, observer} from 'mobx-react';
 import PrivateRoute from './PrivateRoute';
 
 import Activity from './Activity';
-import Article from './Article';
 import Editor from './Editor';
 import Home from './Home';
 import Login from './Login';
@@ -18,8 +17,9 @@ import Settings from "./Settings";
 import Category from "./Category";
 import Orders from "./Orders";
 import Cart from "./Cart";
+import AddActivity from "./AddActivity";
 
-@inject('userStore', 'commonStore')
+@inject('userStore', 'commonStore', 'activityStore')
 @withRouter
 @observer
 export default class App extends React.Component {
@@ -46,7 +46,6 @@ export default class App extends React.Component {
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/editor/:slug?" component={Editor}/>
-                        <Route path="/article/:id" component={Article}/>
                         <PrivateRoute path="/settings" component={Settings}/>
                         <Route path="/@:username" component={Profile}/>
                         <Route path="/@:username/favorites" component={Profile}/>
@@ -56,6 +55,7 @@ export default class App extends React.Component {
                         <Route path="/about" component={About}/>
                         <Route path="/orders" component={Orders}/>
                         <Route path="/cart" component={Cart}/>
+                        <Route path="/add" component={AddActivity}/>
                         <Route path="/" component={Home}/>
                     </Switch>
                     <Footer/>

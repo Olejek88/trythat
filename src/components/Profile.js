@@ -1,4 +1,4 @@
-import ArticleList from './ArticleList';
+//import ActivityList from './ActivityList';
 import React from 'react';
 import LoadingSpinner from './LoadingSpinner';
 import RedError from './RedError';
@@ -52,24 +52,24 @@ const FollowUserButton = props => {
 };
 
 
-@inject('articlesStore', 'profileStore', 'userStore')
+@inject('activityStore', 'profileStore', 'userStore')
 @withRouter
 @observer
 export default class Profile extends React.Component {
   componentWillMount() {
-    this.props.articlesStore.setPredicate(this.getPredicate());
+    this.props.activityStore.setPredicate(this.getPredicate());
   }
 
   componentDidMount() {
     this.props.profileStore.loadProfile(this.props.match.params.username);
-    this.props.articlesStore.loadArticles();
+    this.props.activityStore.loadActivities();
   }
 
   componentDidUpdate(previousProps) {
     if (this.props.location !== previousProps.location) {
       this.props.profileStore.loadProfile(this.props.match.params.username);
-      this.props.articlesStore.setPredicate(this.getPredicate());
-      this.props.articlesStore.loadArticles();
+      this.props.activityStore.setPredicate(this.getPredicate());
+      this.props.activityStore.loadActivities();
     }
   }
 
@@ -89,8 +89,8 @@ export default class Profile extends React.Component {
   handleUnfollow = () => this.props.profileStore.unfollow();
 
   handleSetPage = page => {
-    this.props.articlesStore.setPage(page);
-    this.props.articlesStore.loadArticles();
+    this.props.activityStore.setPage(page);
+    this.props.activityStore.loadActivities();
   };
 
   renderTabs() {
@@ -107,7 +107,7 @@ export default class Profile extends React.Component {
             }
             to={`/@${profile.username}`}
           >
-            My Articles
+            Мои впечатления
           </NavLink>
         </li>
 
@@ -116,7 +116,7 @@ export default class Profile extends React.Component {
             className="nav-link"
             to={`/@${profile.username}/favorites`}
           >
-            Favorited Articles
+            Избранные впечатления
           </NavLink>
         </li>
       </ul>
@@ -124,7 +124,7 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { profileStore, articlesStore, userStore } = this.props;
+    const { profileStore, activityStore, userStore } = this.props;
     const { profile, isLoadingProfile } = profileStore;
     const { currentUser } = userStore;
 
@@ -168,12 +168,14 @@ export default class Profile extends React.Component {
                 {this.renderTabs()}
               </div>
 
-              <ArticleList
-                articles={articlesStore.articles}
-                totalPagesCount={articlesStore.totalPagesCount}
+{/*
+              <ActivityList
+                activities={activityStore.activities}
+                totalPagesCount={activityStore.totalPagesCount}
                 onSetPage={this.handleSetPage}
-                loading={articlesStore.isLoading}
+                loading={activityStore.isLoading}
               />
+*/}
             </div>
 
           </div>

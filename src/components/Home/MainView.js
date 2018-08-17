@@ -68,17 +68,17 @@ const TagFilterTab = props => {
   );
 };
 
-@inject('articlesStore', 'commonStore', 'userStore')
+@inject('activityStore', 'commonStore', 'userStore')
 @withRouter
 @observer
 export default class MainView extends React.Component {
 
   componentWillMount() {
-    this.props.articlesStore.setPredicate(this.getPredicate());
+    this.props.activityStore.setPredicate(this.getPredicate());
   }
 
   componentDidMount() {
-    this.props.articlesStore.loadArticles();
+    this.props.activityStore.loadActivities();
   }
 
   componentDidUpdate(previousProps) {
@@ -86,8 +86,8 @@ export default class MainView extends React.Component {
       this.getTab(this.props) !== this.getTab(previousProps) ||
       this.getTag(this.props) !== this.getTag(previousProps)
     ) {
-      this.props.articlesStore.setPredicate(this.getPredicate());
-      this.props.articlesStore.loadArticles();
+      this.props.activityStore.setPredicate(this.getPredicate());
+      this.props.activityStore.loadActivity();
     }
   }
 
@@ -113,8 +113,8 @@ export default class MainView extends React.Component {
   };
 
   handleSetPage = page => {
-    this.props.articlesStore.setPage(page);
-    this.props.articlesStore.loadArticles();
+    this.props.activityStore.setPage(page);
+    this.props.activityStore.loadActivity();
   };
 
   render() {

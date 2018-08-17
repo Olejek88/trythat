@@ -2,6 +2,7 @@ import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 import commonStore from './stores/commonStore';
 import authStore from './stores/authStore';
+import activityStore from './stores/activityStore';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
@@ -67,40 +68,40 @@ const Tags = {
 };
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
-const omitSlug = article => Object.assign({}, article, { slug: undefined })
+const omitSlug = activity => Object.assign({}, activity, { slug: undefined })
 
-const Articles = {
+const Activities = {
   all: (page, lim = 10) =>
-    requests.get(`/articles?${limit(lim, page)}`),
-  byAuthor: (author, page, query) =>
-    requests.get(`/articles?author=${encode(author)}&${limit(5, page)}`),
+    requests.get(`/activities?${limit(lim, page)}`),
+  byLuminary: (luminary, page, query) =>
+    requests.get(`/activities?luminary=${encode(luminary)}&${limit(5, page)}`),
   byTag: (tag, page, lim = 10) =>
-    requests.get(`/articles?tag=${encode(tag)}&${limit(lim, page)}`),
+    requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
   del: slug =>
-    requests.del(`/articles/${slug}`),
+    requests.del(`/activities/${slug}`),
   favorite: slug =>
-    requests.post(`/articles/${slug}/favorite`),
-  favoritedBy: (author, page) =>
-    requests.get(`/articles?favorited=${encode(author)}&${limit(5, page)}`),
+    requests.post(`/activities/${slug}/favorite`),
+  favoredBy: (luminary, page) =>
+    requests.get(`/activities?favored=${encode(luminary)}&${limit(5, page)}`),
   feed: () =>
-    requests.get('/articles/feed?limit=10&offset=0'),
+    requests.get('/activities/feed?limit=10&offset=0'),
   get: slug =>
-    requests.get(`/articles/${slug}`),
-  unfavorite: slug =>
-    requests.del(`/articles/${slug}/favorite`),
-  update: article =>
-    requests.put(`/articles/${article.slug}`, { article: omitSlug(article) }),
-  create: article =>
-    requests.post('/articles', { article })
+    requests.get(`/activities/${slug}`),
+  unfavore: slug =>
+    requests.del(`/activities/${slug}/favorite`),
+  update: activity =>
+    requests.put(`/activities/${activity.slug}`, { activity: omitSlug(activity) }),
+  create: activity =>
+    requests.post('/activities', { activity })
 };
 
 const Comments = {
   create: (slug, comment) =>
-    requests.post(`/articles/${slug}/comments`, { comment }),
+    requests.post(`/activities/${slug}/comments`, { comment }),
   delete: (slug, commentId) =>
-    requests.del(`/articles/${slug}/comments/${commentId}`),
-  forArticle: slug =>
-    requests.get(`/articles/${slug}/comments`)
+    requests.del(`/activities/${slug}/comments/${commentId}`),
+  forActivity: slug =>
+    requests.get(`/activities/${slug}/comments`)
 };
 
 const Profile = {
@@ -113,7 +114,7 @@ const Profile = {
 };
 
 export default {
-  Articles,
+  Activities,
   Auth,
   Comments,
   Profile,
