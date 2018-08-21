@@ -70,7 +70,7 @@ const LoggedInView = props => {
                         <PopUserMenu />
                     </div>
                     <div id="wish" className={"profile_icon"}>
-                        <Link  to="/" className="settings" style={{textAlign: 'center'}}>
+                        <Link to="/wishlist" className="settings" style={{textAlign: 'center'}}>
                             <img src={"icon_heart_on_white.png"} style={{height: '28px'}} alt="хочу" />
                         </Link>
                         <p className="caption sg-c-4" style={{textAlign: 'center', marginTop: '5px'}}>Хочу</p>

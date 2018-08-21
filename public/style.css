@@ -406,7 +406,7 @@ a:hover {
     left: 0;
     text-overflow: ellipsis;
     box-sizing: border-box;
-    padding: 40px 0 20px 0;
+    padding: 80px 0 20px 0;
     position: relative;
     z-index: 99;
     text-align: center;
@@ -420,6 +420,30 @@ a:hover {
     font-weight: normal;
 }
 
+#vendor-admin #main-detail.wishlist_container {
+    min-width:800px;
+}
+
+#wishlist {border-top: 1px solid #ccc;}
+@media only screen and (max-width: 640px) {
+
+}
+
+#wishlist .item_txt_div {margin:0 5px;}
+#wishlist .product_div {flex:3;}
+#wishlist .product_div.mobile {flex-basis:100%;}
+#wishlist .product_div_buttons {justify-content:flex-end;}
+.mobile #wishlist .product_div_buttons {justify-content: center;}
+
+.wishlist_container .mobile.hyatt-points-sec {display:block;}
+.wishlist_container .mobile.hyatt-points-sec .hyatt-points-wrapper {position:static;}
+
+#wishlist .secondaryButton {min-width: 150px;}
+.mobile #wishlist .secondaryButton {min-width: 140px;}
+
+.css-placeholder::placeholder {color: #00a94f; font-weight: 900;}
+.css-row-con {margin: 10px 0;}
+
 .discovery.normal_marquee.for_category {
     height: 160px;
 }
@@ -429,6 +453,18 @@ a:hover {
 
 .pageframe_div.discovery {
     margin: 0 auto 90px auto;
+}
+
+#wishlist li.inactive .cover {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: #FFFFFF;
+    opacity: 0.8;
+    -moz-opacity:0.8;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
 }
 
 .pageframe_div {
@@ -1739,7 +1775,7 @@ span.err {
     opacity: 1;
 }
 
-#vendor-admin #main-detail {
+#main-detail {
     width: 730px;
     margin: 0 auto;
     max-width: 90%;
@@ -1749,8 +1785,16 @@ span.err {
     min-height: 500px;
 }
 
+#main-detail.wishlist_container {
+    min-width: 800px;
+}
+
 #account-content {
     margin-top: 40px;
+}
+
+.listed_heart_img {
+    background-image: url('icon_heart_green.png');
 }
 
 #main-detail.account-page .account-header {

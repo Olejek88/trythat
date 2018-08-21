@@ -18,6 +18,8 @@ import Category from "./Category";
 import Orders from "./Orders";
 import Cart from "./Cart";
 import AddActivity from "./AddActivity";
+import WishList from "./WishList";
+
 
 @inject('userStore', 'commonStore', 'activityStore')
 @withRouter
@@ -52,6 +54,7 @@ export default class App extends React.Component {
                         <Route path="/activity/:id" component={Activity}/>
                         <Route path="/category/:id" component={Category}/>
                         <Route path="/sell" component={Sell}/>
+                        <Route path="/wishlist" component={WishList}/>
                         <Route path="/about" component={About}/>
                         <Route path="/orders" component={Orders}/>
                         <Route path="/cart" component={Cart}/>
