@@ -1801,6 +1801,10 @@ span.err {
     padding: 17px 0;
 }
 
+.auth-page {
+    padding-top: 80px;
+}
+
 .sg-f-dspl-m {
     font-family: georgia, serif;
     font-size: 32px;

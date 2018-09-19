@@ -39,7 +39,7 @@ export default class Cart extends React.Component {
                                                 <div className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                                     style={{padding: '20px 15px', width: '100%', boxSizing: 'border-box'}}>
                                                     <div className="vendor-img">
-                                                        <img src={"luminary2.jpg"} style={{width: '100%'}}/>
+                                                        <img src={"luminary2.jpg"} style={{width: '100%'}} alt={""}/>
                                                     </div>
                                                     <p className="vendor-name sg-f-ttl sg-inline-middle sg-inline-flex-grow"
                                                        style={{margin:'0 10px'}}>Продавец
@@ -56,7 +56,7 @@ export default class Cart extends React.Component {
                                                     <div className="main sg-inline-top">
                                                         <div className="two-col-1 col sg-inline-top sg-f-ttl" style={{margin: '10px 0'}}>
                                                             <div><a href="/" className="sg-c-1">
-                                                                <img src={"exp1.jpg"} style={{width: '140px'}} />
+                                                                <img src={"exp1.jpg"} style={{width: '140px'}}  alt={""}/>
                                                                 </a>
                                                             </div>
                                                             <div style={{margin: '0 10px', width: '50%'}}>

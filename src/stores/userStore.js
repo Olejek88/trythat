@@ -18,7 +18,7 @@ class UserStore {
   @action updateUser(newUser) {
     this.updatingUser = true;
     return agent.Auth.save(newUser)
-      .then(action(({ user }) => { this.currentUser = newUser; }))
+      .then(action(({ user }) => { this.currentUser = user; }))
       .finally(action(() => { this.updatingUser = false; }))
   }
 
