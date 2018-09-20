@@ -1,4 +1,3 @@
-//import ActivityList from './ActivityList';
 import React from 'react';
 import LoadingSpinner from './LoadingSpinner';
 import RedError from './RedError';
@@ -143,7 +142,6 @@ export default class Profile extends React.Component {
 
                 <img src={profile.image} className="user-img" alt="" />
                 <h4>{profile.username}</h4>
-                <p>{profile.bio}</p>
 
                 <EditProfileSettings isUser={isUser} />
                 <FollowUserButton
@@ -161,26 +159,13 @@ export default class Profile extends React.Component {
 
         <div className="container">
           <div className="row">
-
             <div className="col-xs-12 col-md-10 offset-md-1">
-
               <div className="articles-toggle">
                 {this.renderTabs()}
               </div>
-
-{/*
-              <ActivityList
-                activities={activityStore.activities}
-                totalPagesCount={activityStore.totalPagesCount}
-                onSetPage={this.handleSetPage}
-                loading={activityStore.isLoading}
-              />
-*/}
             </div>
-
           </div>
         </div>
-
       </div>
     );
   }

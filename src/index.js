@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom';
 import promiseFinally from 'promise.prototype.finally';
 import React from 'react';
-import { HashRouter } from 'react-router-dom';
-import { useStrict } from 'mobx';
-import { Provider } from 'mobx-react';
+import {HashRouter} from 'react-router-dom';
+import {useStrict} from 'mobx';
+import {Provider} from 'mobx-react';
 
 import App from './components/App';
 
@@ -13,18 +13,20 @@ import commonStore from './stores/commonStore';
 import editorStore from './stores/editorStore';
 import userStore from './stores/userStore';
 import countryStore from './stores/countryStore';
+import locationStore from './stores/locationStore';
 import profileStore from './stores/profileStore';
 import activityStore from "./stores/activityStore";
 
 const stores = {
-  activityStore,
-  commentsStore,
-  authStore,
-  commonStore,
-  editorStore,
-  userStore,
-  countryStore,
-  profileStore,
+    activityStore,
+    commentsStore,
+    authStore,
+    commonStore,
+    editorStore,
+    userStore,
+    locationStore,
+    countryStore,
+    profileStore,
 };
 
 // For easier debugging
@@ -34,9 +36,9 @@ promiseFinally.shim();
 useStrict(true);
 
 ReactDOM.render((
-  <Provider {...stores}>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </Provider>
+    <Provider {...stores}>
+        <HashRouter>
+            <App/>
+        </HashRouter>
+    </Provider>
 ), document.getElementById('root'));

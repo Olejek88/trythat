@@ -2,8 +2,11 @@ import ListErrors from './ListErrors';
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
+import Select from 'react-select';
+import countryStore from "../stores/countryStore";
+import locationStore from "../stores/locationStore";
 
-@inject('userStore')
+@inject('userStore', 'countryStore', 'locationStore')
 @observer
 class SettingsForm extends React.Component {
     constructor() {
@@ -125,11 +128,20 @@ class SettingsForm extends React.Component {
                                     <div className="sibs">
                                         <label htmlFor="location">Ваша локация</label></div>
                                     <div className="sibs">
+                                        <Select
+                                            style={{width: '280px'}}
+                                            name="location"
+                                            value={this.state.location}
+                                            className="language_select desktop"
+                                            options={locationStore.loadLocations()}
+                                        />
+                                        {/*
                                         <select name="location" className="language_select desktop"
                                                 value={this.state.location}>
                                             <option value="1">Челябинск</option>
                                             <option value="2">Екатеринбург</option>
                                         </select>
+*/}
                                     </div>
                                 </div>
 
@@ -299,12 +311,13 @@ class SettingsForm extends React.Component {
                                     <div className="sibs">
                                         <label htmlFor="UserEx_countryId">Страна</label></div>
                                     <div className="sibs">
-                                        <select name="countryId" className="country_select desktop"
-                                                style={{display: 'block'}}
-                                                value={this.state.country}>
-                                            <option value="181">Россия</option>
-                                            <option value="228">Украина</option>
-                                        </select>
+                                        <Select
+                                            style={{width: '280px'}}
+                                            name="countryId"
+                                            value={this.state.country}
+                                            className="country_select desktop"
+                                            options={countryStore.loadCountries()}
+                                        />
                                     </div>
                                 </div>
 

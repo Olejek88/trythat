@@ -4,13 +4,16 @@ import agent from '../agent';
 class ProfileStore {
 
   @observable profile = undefined;
-  @observable isLoadingProfile = false;
+  @observable currentProfile;
+  @observable loadingProfile;
+  @observable updatingProfile;
+  @observable updatingProfileErrors;
 
   @action loadProfile(username) {
-    this.isLoadingProfile = true;
+    this.loadingProfile = true;
     agent.Profile.get(username)
       .then(action(({ profile }) => { this.profile = profile; }))
-      .finally(action(() => { this.isLoadingProfile = false; }))
+      .finally(action(() => { this.loadingProfile = false; }))
   }
 
   @action follow() {
@@ -28,6 +31,21 @@ class ProfileStore {
         .catch(action(() => { this.profile.following = true }));
     }
   }
+
+    @action pullProfile() {
+        this.loadingProfile = true;
+        return agent.Auth.current()
+            .then(action(({ user }) => { this.currentUser = user; }))
+            .finally(action(() => { this.loadingProfile = false; }))
+    }
+
+    @action updateProfile(profile) {
+        this.updatingProfile = true;
+        return agent.Auth.save(profile)
+            .then(action(({ user }) => { this.currentUser = user; }))
+            .finally(action(() => { this.updatingProfile = false; }))
+    }
+
 }
 
 export default new ProfileStore();

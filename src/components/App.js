@@ -21,7 +21,7 @@ import AddActivity from "./AddActivity";
 import WishList from "./WishList";
 
 
-@inject('userStore', 'commonStore', 'activityStore')
+@inject('userStore', 'commonStore', 'activityStore', 'locationStore')
 @withRouter
 @observer
 export default class App extends React.Component {

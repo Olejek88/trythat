@@ -2,7 +2,6 @@ import superagentPromise from 'superagent-promise';
 import _superagent from 'superagent';
 import commonStore from './stores/commonStore';
 import authStore from './stores/authStore';
-import activityStore from './stores/activityStore';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
@@ -113,10 +112,26 @@ const Profile = {
     requests.del(`/profiles/${username}/follow`)
 };
 
+const Countries = {
+    all: () =>
+        requests.get(`/countries`),
+    get: slug =>
+        requests.get(`/countries/${slug}`),
+};
+
+const Locations = {
+    all: () =>
+        requests.get(`/locations`),
+    get: slug =>
+        requests.get(`/locations/${slug}`),
+};
+
 export default {
-  Activities,
-  Auth,
-  Comments,
-  Profile,
-  Tags,
+    Activities,
+    Auth,
+    Comments,
+    Countries,
+    Locations,
+    Profile,
+    Tags,
 };

@@ -2,7 +2,6 @@ import { observable, action } from 'mobx';
 import agent from '../agent';
 
 class UserStore {
-
   @observable currentUser;
   @observable loadingUser;
   @observable updatingUser;
@@ -18,7 +17,7 @@ class UserStore {
   @action updateUser(newUser) {
     this.updatingUser = true;
     return agent.Auth.save(newUser)
-      .then(action(({ user }) => { this.currentUser = user; }))
+      .then(action(({ user }) => { this.currentUser = user; console.log (user);}))
       .finally(action(() => { this.updatingUser = false; }))
   }
 
