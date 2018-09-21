@@ -52,15 +52,17 @@ const requests = {
 };
 
 const Auth = {
-  current: () =>
-    requests.get('/user'),
-  login: (email, password) =>
-    requests.post('/users/login', { user: { email, password } }),
-  register: (username, email, password) =>
-    requests.post('/users', { user: { username, email, password } }),
-  save: user =>
-    requests.put('/user', { user })
-};
+    current: () =>
+        requests.get('/user'),
+    login: (email, password) =>
+        requests.post('/users/login', {user: {email, password}}),
+    register: (username, email, password) =>
+        requests.post('/users', {user: {username, email, password}}),
+    password: (user, password, newPassword) =>
+        requests.post('/user/password', {user: {password}, newPassword}),
+    save: user => requests.put('/user', {user})
+}
+;
 
 const Tags = {
   getAll: () => requests.get('/tags')
@@ -126,6 +128,27 @@ const Locations = {
         requests.get(`/locations/${slug}`),
 };
 
+const ActivityCategories = {
+    all: () =>
+        requests.get(`/activity-categories`),
+};
+
+const Categories = {
+    all: () =>
+        requests.get(`/categories`),
+};
+
+const Occasions = {
+    all: () =>
+        requests.get(`/occasions`),
+};
+
+const Trending = {
+    all: () =>
+        requests.get(`/trending`),
+};
+
+
 export default {
     Activities,
     Auth,
@@ -134,4 +157,8 @@ export default {
     Locations,
     Profile,
     Tags,
+    ActivityCategories,
+    Categories,
+    Occasions,
+    Trending
 };

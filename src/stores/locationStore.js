@@ -7,15 +7,6 @@ class LocationStore {
     @observable isLoading = false;
     @observable locationsRegistry = observable.map();
 
-    @observable staticData = [
-        {_id: 1, title: 'Челябинск'},
-        {_id: 2, title: 'Екатеринбург'}
-    ];
-
-    @computed get staticDataOptions() {
-        return this.staticData.map(x => ({ label: x.title, value: x._id }))
-    };
-
     $req() {
         return agent.Locations.all();
     }
@@ -40,11 +31,6 @@ class LocationStore {
 
     @action loadLocations() {
         this.isLoading = true;
-        return this.staticDataOptions;
-    }
-/*
-    @action loadLocations() {
-        this.isLoading = true;
         return this.$req()
             .then(action(({ locations }) => {
                 this.locationsRegistry.clear();
@@ -52,7 +38,6 @@ class LocationStore {
             }))
             .finally(action(() => { this.isLoading = false; }));
     }
-*/
 }
 
 export default new LocationStore();

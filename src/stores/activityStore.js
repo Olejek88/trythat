@@ -72,14 +72,22 @@ export class ActivityStore {
     }
 
     @action makeFavorite(slug) {
-        const activity = this.getArticle(slug);
+        const activity = this.getActivity(slug);
         if (activity && !activity.favorited) {
             activity.favorited = true;
-            activity.favoritesCount++;
-            return agent.Articles.favorite(slug)
+            return agent.favorite(slug)
                 .catch(action(err => {
                     activity.favorited = false;
-                    activity.favoritesCount--;
+                    throw err;
+                }));
+        }
+        return Promise.resolve();
+    }
+
+    @action storeActivity(activity) {
+        if (activity) {
+            return agent.Activities.create(activity)
+                .catch(action(err => {
                     throw err;
                 }));
         }
@@ -87,14 +95,12 @@ export class ActivityStore {
     }
 
     @action unmakeFavorite(slug) {
-        const activity = this.getArticle(slug);
+        const activity = this.getActivity(slug);
         if (activity && activity.favorited) {
             activity.favorited = false;
-            activity.favoritesCount--;
             return agent.Activities.unfavorite(slug)
                 .catch(action(err => {
                     activity.favorited = true;
-                    activity.favoritesCount++;
                     throw err;
                 }));
         }
@@ -102,15 +108,15 @@ export class ActivityStore {
     }
 
     @action createActivity(activity) {
-        return agent.Articles.create(activity)
+        return agent.create(activity)
             .then(({activity}) => {
-                this.articlesRegistry.set(activity.slug, activity);
+                this.activitiesRegistry.set(activity.slug, activity);
                 return activity;
             })
     }
 
     @action updateActivity(data) {
-        return agent.Activity.update(data)
+        return agent.update(data)
             .then(({activity}) => {
                 this.activitiesRegistry.set(activity.slug, activity);
                 return activity;

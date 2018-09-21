@@ -11,29 +11,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-input-range/lib/css/index.css';
 import InputRange from 'react-input-range';
 import {inject} from "mobx-react/index";
-
-//var Select = require('react-select');
-
-let optionsCategory = [
-    {value: '1', label: 'Еда и кулинария'},
-    {value: '2', label: 'Туризм'}
-];
-
-let optionsActitvityCategory = [
-    {value: '1', label: 'Индивидуальные занятия'},
-    {value: '2', label: 'Корпоративные события'}
-];
-
-let occasionCategory = [
-    {value: '1', label: 'На свадьбу'},
-    {value: '2', label: 'Юбилей'}
-];
-
-let trendingCategory = [
-    {value: '1', label: 'Недорогие'},
-    {value: '2', label: 'Новые'},
-    {value: '3', label: 'Популярные'}
-];
+import ImagesUploader from 'react-images-uploader';
+import 'react-images-uploader/styles.css';
+import 'react-images-uploader/font.css';
+import activityStore from "../../stores/activityStore";
+import activityCategoryStore from "../../stores/activityCategoryStore";
+import categoryStore from "../../stores/categoryStore";
+import occasionStore from "../../stores/occasionStore";
+import trendingStore from "../../stores/trendingStore";
 
 let durations = [
     {value: '1', label: '1 Час'},
@@ -45,7 +30,7 @@ let maxCustomers = 20;
 
 @observer
 @withRouter
-@inject('activityStore')
+@inject('activityStore', 'activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')
 class AddActivity extends React.Component {
     constructor() {
         super();
@@ -64,7 +49,7 @@ class AddActivity extends React.Component {
                 min: minCustomers,
                 max: maxCustomers
             },
-            images: '',
+            images: [],
             image: null,
             duration: ''
         };
@@ -75,15 +60,33 @@ class AddActivity extends React.Component {
             this.setState(newState);
         };
 
+        this.onLoadPictures = this.handleChange.bind(this);
+        this.handleTagsChange = this.handleTagsChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleStartDateChange = this.handleStartDateChange.bind(this);
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
         this.click = this.click.bind(this);
 
+        this.handleSelectCategoryChange = (event) => {
+            this.setState({ category: event.value });
+        };
+
+        this.handleSelectActivityCategoryChange = (event) => {
+            this.setState({ activityCategory: event.value });
+        };
+
+        this.handleSelectTrendingChange = (event) => {
+            this.setState({ trending: event.value });
+        };
+
+        this.handleSelectOccasionChange = (event) => {
+            this.setState({ occasion: event.value });
+        };
+
         this.submitForm = ev => {
             ev.preventDefault();
-
+            activityStore.store
             //const activity = Object.assign({}, this.state);
             //this.props.onSubmitForm(activity);
         };
@@ -98,12 +101,10 @@ class AddActivity extends React.Component {
     }
 
     handleStartDateChange(date) {
-        console.log(date);
         this.setState({ startDate: date });
     }
 
     handleEndDateChange(date) {
-        console.log(date);
         this.setState({ endDate: date });
     }
 
@@ -112,6 +113,7 @@ class AddActivity extends React.Component {
             image: URL.createObjectURL(event.target.files[0])
         })
     }
+
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
         //file: URL.createObjectURL(event.target.files[0]);
@@ -124,21 +126,14 @@ class AddActivity extends React.Component {
     }
 
     componentWillMount() {
-        /*
-                if (this.props.) {
+                if (this.state) {
                     Object.assign(this.state, {
-                        image: this.props.userStore.currentUser.image || '',
-                        firstName: this.props.userStore.currentUser.firstName || '',
-                        lastName: this.props.userStore.currentUser.lastName || '',
-                        birthDate: this.props.userStore.currentUser.birthDate || '',
-                        email: this.props.userStore.currentUser.email || '',
-                        location: this.props.userStore.currentUser.location || '',
-                        country: this.props.userStore.currentUser.country || '',
-                        phone: this.props.userStore.currentUser.phone || '',
-                        password: this.props.userStore.currentUser.password || ''
+                        category: '1',
+                        activityCategory: '1',
+                        occasion: '1',
+                        trending: '1'
                     });
                 }
-        */
     }
 
     componentDidMount() {
@@ -204,7 +199,8 @@ class AddActivity extends React.Component {
                                                     <label htmlFor="tags" className="required">Теги</label>
                                                 </div>
                                                 <div className="sibs">
-                                                    <TagsInput id="tags" value={this.state.tags}
+                                                    <TagsInput id="tags"
+                                                               value={this.state.tags}
                                                                placeholder={"Добавьте теги, характеризующие ваше предложение"}
                                                                onChange={this.handleTagsChange}/>
                                                 </div>
@@ -215,11 +211,12 @@ class AddActivity extends React.Component {
                                                 </div>
                                                 <div className="sibs">
                                                     <Select
+                                                        style={{width: '280px'}}
                                                         name="category"
-                                                        clearable={false}
-                                                        value="1"
-                                                        style={{width: '300px'}}
-                                                        options={optionsCategory}
+                                                        value={this.state.category}
+                                                        className="language_select desktop"
+                                                        onChange={this.handleSelectCategoryChange}
+                                                        options={categoryStore.loadCategories()}
                                                     />
                                                 </div>
                                             </div>
@@ -230,11 +227,12 @@ class AddActivity extends React.Component {
                                                 </div>
                                                 <div className="sibs">
                                                     <Select
+                                                        style={{width: '280px'}}
                                                         name="activityCategory"
-                                                        style={{width: '300px'}}
-                                                        clearable={false}
-                                                        value="1"
-                                                        options={optionsActitvityCategory}
+                                                        value={this.state.activityCategory}
+                                                        className="language_select desktop"
+                                                        onChange={this.handleSelectActivityCategoryChange}
+                                                        options={activityCategoryStore.loadActivityCategories()}
                                                     />
                                                 </div>
                                             </div>
@@ -244,11 +242,12 @@ class AddActivity extends React.Component {
                                                 </div>
                                                 <div className="sibs">
                                                     <Select
+                                                        style={{width: '280px'}}
                                                         name="occasion"
-                                                        style={{width: '300px'}}
-                                                        value="1"
-                                                        clearable={false}
-                                                        options={occasionCategory}
+                                                        value={this.state.occasion}
+                                                        className="language_select desktop"
+                                                        onChange={this.handleSelectOccasionChange}
+                                                        options={occasionStore.loadOccasions()}
                                                     />
                                                 </div>
                                             </div>
@@ -258,11 +257,12 @@ class AddActivity extends React.Component {
                                                 </div>
                                                 <div className="sibs">
                                                     <Select
+                                                        style={{width: '280px'}}
                                                         name="trending"
-                                                        style={{width: '300px'}}
-                                                        value="1"
-                                                        clearable={false}
-                                                        options={trendingCategory}
+                                                        value={this.state.trending}
+                                                        className="language_select desktop"
+                                                        onChange={this.handleSelectTrendingChange}
+                                                        options={trendingStore.loadTrending()}
                                                     />
                                                 </div>
                                             </div>
@@ -293,8 +293,7 @@ class AddActivity extends React.Component {
 
                                             <div className="row-flow">
                                                 <div className="sibs">
-                                                    <label htmlFor="customers" className="required">Количество
-                                                        участников</label>
+                                                    <label htmlFor="customers" className="required">Количество участников</label>
                                                 </div>
                                                 <div className="sibs" style={{width: '300px'}}>
                                                     <InputRange
@@ -324,9 +323,19 @@ class AddActivity extends React.Component {
 
                                             <div className="row-flow">
                                                 <div className="sibs">
-                                                    <label htmlFor="" className="required">Изображение</label>
+                                                    <label htmlFor="" className="required">Изображения</label>
                                                 </div>
                                                 <div className="sibs">
+                                                    <ImagesUploader
+                                                        url="http://localhost:9090/multiple"
+                                                        optimisticPreviews
+                                                        images={this.state.images}
+                                                        onLoadEnd={
+                                                            console.log("finished")
+                                                        }
+                                                        label="Загрузить изображения"
+                                                    />
+{/*
                                                     <input type='file' id="file" style={{display: 'none'}} />
                                                     <button className="medium primaryButton button title-container"
                                                             style={{height:'30px'}}
@@ -334,6 +343,7 @@ class AddActivity extends React.Component {
                                                         <p className="title">Добавить изображение</p>
                                                     </button>
                                                     <img style={{maxWidth: '500px'}} src={this.state.image} />
+*/}
                                                 </div>
                                             </div>
 

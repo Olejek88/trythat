@@ -1,27 +1,46 @@
 import ListErrors from './ListErrors';
 import React from 'react';
+import ImageUploader from 'react-images-upload';
 import {withRouter} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import Select from 'react-select';
 import countryStore from "../stores/countryStore";
-import locationStore from "../stores/locationStore";
+import cityStore from "../stores/cityStore";
 
-@inject('userStore', 'countryStore', 'locationStore')
+@inject('userStore', 'countryStore', 'cityStore')
 @observer
 class SettingsForm extends React.Component {
     constructor() {
         super();
 
+        this.avatar = "luminary2.jpg";
+
         this.state = {
             firstName: '',
             lastName: '',
             birthDate: '',
-            location: '',
+            city: '',
             country: '',
             phone: '',
             email: '',
             image: '',
             password: ''
+        };
+
+        this.passwordState = {
+            password: '',
+            repeatPassword: '',
+            newPassword: ''
+        };
+
+        this.onDrop = this.onDrop.bind(this);
+
+        this.handleSelectCityChange = (event) => {
+            this.setState({ city: event.value });
+        };
+
+        this.handleSelectCountryChange = (event) => {
+            this.setState({ country: event.value });
         };
 
         this.updateState = field => ev => {
@@ -32,13 +51,25 @@ class SettingsForm extends React.Component {
 
         this.submitForm = ev => {
             ev.preventDefault();
-
             const user = Object.assign({}, this.state);
             if (!user.password) {
                 delete user.password;
             }
             this.props.onSubmitForm(user);
         };
+
+        this.changePasswordForm = ev => {
+            ev.preventDefault();
+            this.props.onSubmitPasswordForm(this.passwordState);
+        };
+    }
+
+    onDrop(picture) {
+        console.log(picture[0]);
+        this.avatar =  picture[0].name;
+        this.setState({
+            image: this.state.image.concat(picture[0]),
+        });
     }
 
     componentWillMount() {
@@ -49,7 +80,7 @@ class SettingsForm extends React.Component {
                 lastName: this.props.userStore.currentUser.lastName || '',
                 birthDate: this.props.userStore.currentUser.birthDate || '',
                 email: this.props.userStore.currentUser.email || '',
-                location: this.props.userStore.currentUser.location || '',
+                city: this.props.userStore.currentUser.city || '',
                 country: this.props.userStore.currentUser.country || '',
                 phone: this.props.userStore.currentUser.phone || '',
                 password: this.props.userStore.currentUser.password || ''
@@ -73,11 +104,15 @@ class SettingsForm extends React.Component {
                                         <label className="required">Фотография</label>
                                     </div>
                                     <div className="sibs emailInput">
-                                        <img src={"luminary2.jpg"} style={{width: '200px'}} alt={"luminary"}/>
-                                        <input style={{background: '#FFF'}}
-                                               name="image"
-                                               type="hidden"
-                                               value={this.state.image}/>
+                                        <img src={this.avatar} style={{width: '200px'}} alt={"luminary"}/>
+                                        <ImageUploader
+                                            withIcon={true}
+                                            buttonText='Выберите аватар'
+                                            onChange={this.onDrop}
+                                            singleImage={true}
+                                            imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                                            maxFileSize={5242880}
+                                        />
                                     </div>
                                 </div>
                                 <div className="row-flow">
@@ -121,27 +156,6 @@ class SettingsForm extends React.Component {
                                                id="lastName"
                                                value={this.state.lastName}
                                                onChange={this.updateState('lastName')}/>
-                                    </div>
-                                </div>
-
-                                <div className="row-flow">
-                                    <div className="sibs">
-                                        <label htmlFor="location">Ваша локация</label></div>
-                                    <div className="sibs">
-                                        <Select
-                                            style={{width: '280px'}}
-                                            name="location"
-                                            value={this.state.location}
-                                            className="language_select desktop"
-                                            options={locationStore.loadLocations()}
-                                        />
-                                        {/*
-                                        <select name="location" className="language_select desktop"
-                                                value={this.state.location}>
-                                            <option value="1">Челябинск</option>
-                                            <option value="2">Екатеринбург</option>
-                                        </select>
-*/}
                                     </div>
                                 </div>
 
@@ -304,7 +318,16 @@ class SettingsForm extends React.Component {
                                 <div className="row-flow">
                                     <div className="sibs">
                                         <label htmlFor="city">Город проживания</label></div>
-                                    <div className="sibs"><input id="city" name="city" type="text"/></div>
+                                    <div className="sibs">
+                                        <Select
+                                            style={{width: '280px'}}
+                                            name="city"
+                                            value={this.state.city}
+                                            className="language_select desktop"
+                                            onChange={this.handleSelectCityChange}
+                                            options={cityStore.loadCities()}
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="row-flow">
@@ -314,6 +337,7 @@ class SettingsForm extends React.Component {
                                         <Select
                                             style={{width: '280px'}}
                                             name="countryId"
+                                            onChange={this.handleSelectCountryChange}
                                             value={this.state.country}
                                             className="country_select desktop"
                                             options={countryStore.loadCountries()}
@@ -402,8 +426,8 @@ class SettingsForm extends React.Component {
                         </div>
 
                         <div id="changePassword" className="shadow-pwdbox row-flow">
-                            <form name="passwordForm" id="passwordForm" action="/" method="POST"
-                                  className="ng-pristine ng-valid">
+                            <form onSubmit={this.changePasswordForm} name="passwordForm" id="passwordForm" action="/"
+                                  method="POST" className="ng-pristine ng-valid">
                                 <input value="23b7350934910f2efee698549c46e03563907c7c" name="stk" type="hidden"/>
                                 <div className="row-flow" style={{marginBottom: '0px'}}>
                                     <div className="sibs">
@@ -505,7 +529,11 @@ class Settings extends React.Component {
 
                     <SettingsForm
                         currentUser={this.props.userStore.currentUser}
-                        onSubmitForm={user => this.props.userStore.updateUser(user)}/>
+                        onSubmitForm={user => this.props.userStore.updateUser(user)}
+                        onSubmitPasswordForm={user => this.props.userStore.changeUserPassword(user,
+                            this.passwordState.password,
+                            this.passwordState.repeatPassword,
+                            this.passwordState.newPassword)}/>
 
                     <hr/>
 

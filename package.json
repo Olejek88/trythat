@@ -21,14 +21,19 @@
     "react": "^16.0.0",
     "react-datepicker": "^1.6.0",
     "react-dom": "^16.0.0",
+    "react-images-upload": "^1.2.3",
+    "react-images-uploader": "^1.2.0-rc1",
+    "react-input-range": "latest",
     "react-input-range-minmax-label": "^0.9.3",
+    "react-native": "^0.57.0",
+    "react-native-photo-upload": "^1.3.0",
+    "react-progress-button": "^5.1.0",
     "react-router-dom": "4.2.2",
     "react-select": "^1.2.1",
     "react-select-2": "^2.0.11",
     "react-tagsinput": "^3.19.0",
     "superagent": "^3.6.0",
-    "superagent-promise": "^1.1.0",
-    "react-input-range": "latest"
+    "superagent-promise": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

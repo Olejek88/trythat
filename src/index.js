@@ -16,6 +16,11 @@ import countryStore from './stores/countryStore';
 import locationStore from './stores/locationStore';
 import profileStore from './stores/profileStore';
 import activityStore from "./stores/activityStore";
+import cityStore from "./stores/cityStore";
+import activityCategoryStore from "./stores/activityCategoryStore";
+import categoryStore from "./stores/categoryStore";
+import occasionStore from "./stores/occasionStore";
+import trendingStore from "./stores/trendingStore";
 
 const stores = {
     activityStore,
@@ -26,7 +31,12 @@ const stores = {
     userStore,
     locationStore,
     countryStore,
+    cityStore,
     profileStore,
+    activityCategoryStore,
+    categoryStore,
+    occasionStore,
+    trendingStore
 };
 
 // For easier debugging
