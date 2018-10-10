@@ -112,6 +112,7 @@ class SettingsForm extends React.Component {
                                             singleImage={true}
                                             imgExtension={['.jpg', '.gif', '.png', '.gif']}
                                             maxFileSize={5242880}
+                                            label={'Максимальный размер файла: 5Мб [gif,jpg,png]'}
                                         />
                                     </div>
                                 </div>

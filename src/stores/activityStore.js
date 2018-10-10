@@ -1,5 +1,11 @@
 import {observable, action, computed} from 'mobx';
 import agent from '../agent';
+import imageStore from "./imageStore";
+import categoryStore from "./categoryStore";
+import luminaryStore from "./luminaryStore";
+import tagStore from "./tagStore";
+import activityCategoryStore from "./activityCategoryStore";
+import durationStore from "./durationStore";
 
 const LIMIT = 10;
 
@@ -9,7 +15,30 @@ export class ActivityStore {
     @observable page = 0;
     @observable totalPagesCount = 0;
     @observable activitiesRegistry = observable.map();
+    @observable addActivityErrors;
     @observable predicate = {};
+
+    @observable images = imageStore.getTestImage();
+
+    @observable staticData = [
+        {   _id: '1',
+            title: 'Путешествие к центру Земли на воздушном шаре',
+            images: this.images,
+            luminary: luminaryStore.getTestLuminary(),
+            description: 'Слушай: ни ты, ни поученее тебя, никто не знает достоверно, что творится во внутренности земного шара. Ведь до сих пор людям удалось проникнуть в глубь земли менее чем на мили под поверхностью моря! Помни, что наука идет вперед и что одна теория заменяется другою! Разве не полагали до Фурье, что температура планетных пространств постепенно уменьшается? А вот теперь дознано, что самые большие холода в области эфира не превосходят 40° или 50° ниже нуля! Почему ж ты не хочешь допустить, что и относительно внутреннего жара земли не может быть промахов? Почему ты не хочешь допустить, что на известной глубине ты достигнешь до предела, дальше которого жар уже не увеличивается? Почему?',
+            tags: tagStore.getTestTags(),
+            category: categoryStore.loadTestCategory,
+            activityCategory: activityCategoryStore.loadTestActivityCategory(),
+            occasion: null,
+            trending: null,
+            startDate: new Date(),
+            endDate: new Date(),
+            minCustomers: '1',
+            maxCustomers: '10',
+            durations: durationStore.getTestDuration()
+        }
+    ];
+
 
     @computed get activities() {
         return this.activitiesRegistry.values();
@@ -42,17 +71,8 @@ export class ActivityStore {
         return agent.Activities.all(this.page, LIMIT, this.predicate);
     }
 
-    @action loadActivities() {
-        this.isLoading = true;
-        return this.$req()
-            .then(action(({activities, activitiesCount}) => {
-                this.activitiesRegistry.clear();
-                activities.forEach(activity => this.activitiesRegistry.set(activity.slug, activity));
-                this.totalPagesCount = Math.ceil(activitiesCount / LIMIT);
-            }))
-            .finally(action(() => {
-                this.isLoading = false;
-            }));
+    @action loadTestActivity() {
+        return this.staticData;
     }
 
     @action loadActivity(slug, {acceptCached = false} = {}) {
@@ -65,6 +85,22 @@ export class ActivityStore {
             .then(action(({activity}) => {
                 this.activitiesRegistry.set(activity.slug, activity);
                 return activity;
+            }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
+    }
+
+    @action loadActivities(slug, param, {acceptCached = false} = {}) {
+        if (acceptCached) {
+            const activities = this.getActivities(slug,param);
+            if (activities) return Promise.resolve(activities);
+        }
+        this.isLoading = true;
+        return agent.Activities.get(slug,param)
+            .then(action(({activities}) => {
+                //this.activitiesRegistry.set(activity.slug, activity);
+                return activities;
             }))
             .finally(action(() => {
                 this.isLoading = false;

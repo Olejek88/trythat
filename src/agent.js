@@ -61,8 +61,33 @@ const Auth = {
     password: (user, password, newPassword) =>
         requests.post('/user/password', {user: {password}, newPassword}),
     save: user => requests.put('/user', {user})
-}
-;
+};
+
+const ActivityCategories = {
+    all: () =>
+        requests.get(`/activity-categories`),
+};
+
+const Categories = {
+    all: () =>
+        requests.get(`/categories`),
+};
+
+const Comments = {
+    create: (slug, comment) =>
+        requests.post(`/activities/${slug}/comments`, { comment }),
+    delete: (slug, commentId) =>
+        requests.del(`/activities/${slug}/comments/${commentId}`),
+    forActivity: slug =>
+        requests.get(`/activities/${slug}/comments`)
+};
+
+const Countries = {
+    all: () =>
+        requests.get(`/countries`),
+    get: slug =>
+        requests.get(`/countries/${slug}`),
+};
 
 const Tags = {
   getAll: () => requests.get('/tags')
@@ -96,29 +121,13 @@ const Activities = {
     requests.post('/activities', { activity })
 };
 
-const Comments = {
-  create: (slug, comment) =>
-    requests.post(`/activities/${slug}/comments`, { comment }),
-  delete: (slug, commentId) =>
-    requests.del(`/activities/${slug}/comments/${commentId}`),
-  forActivity: slug =>
-    requests.get(`/activities/${slug}/comments`)
-};
-
-const Profile = {
-  follow: username =>
-    requests.post(`/profiles/${username}/follow`),
-  get: username =>
-    requests.get(`/profiles/${username}`),
-  unfollow: username =>
-    requests.del(`/profiles/${username}/follow`)
-};
-
-const Countries = {
-    all: () =>
-        requests.get(`/countries`),
-    get: slug =>
-        requests.get(`/countries/${slug}`),
+const Image = {
+    get: image =>
+        requests.get(`/image/${image}`),
+    create: (image) =>
+        requests.post(`/image/${image}`),
+    del: (slug, imageId) =>
+        requests.del(`/image/${slug}/${imageId}`),
 };
 
 const Locations = {
@@ -128,14 +137,26 @@ const Locations = {
         requests.get(`/locations/${slug}`),
 };
 
-const ActivityCategories = {
-    all: () =>
-        requests.get(`/activity-categories`),
+const Luminary = {
+    follow: luminary =>
+        requests.post(`/luminary/${luminary}/follow`),
+    get: luminary =>
+        requests.get(`/luminary/${luminary}`),
+    unfollow: luminary =>
+        requests.post(`/luminary/${luminary}/unfollow`),
+    create: (luminary) =>
+        requests.post(`/luminary/${luminary}`),
+    del: (slug, luminaryId) =>
+        requests.del(`/luminary/${slug}/${luminaryId}`),
 };
 
-const Categories = {
-    all: () =>
-        requests.get(`/categories`),
+const Profile = {
+  follow: username =>
+    requests.post(`/profiles/${username}/follow`),
+  get: username =>
+    requests.get(`/profiles/${username}`),
+  unfollow: username =>
+    requests.del(`/profiles/${username}/follow`)
 };
 
 const Occasions = {
@@ -151,14 +172,16 @@ const Trending = {
 
 export default {
     Activities,
+    ActivityCategories,
     Auth,
+    Categories,
     Comments,
     Countries,
+    Image,
     Locations,
+    Luminary,
     Profile,
-    Tags,
-    ActivityCategories,
-    Categories,
     Occasions,
+    Tags,
     Trending
 };

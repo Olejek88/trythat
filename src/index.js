@@ -11,6 +11,8 @@ import commentsStore from './stores/commentsStore';
 import authStore from './stores/authStore';
 import commonStore from './stores/commonStore';
 import editorStore from './stores/editorStore';
+import imageStore from './stores/imageStore';
+import luminaryStore from "./stores/luminaryStore";
 import userStore from './stores/userStore';
 import countryStore from './stores/countryStore';
 import locationStore from './stores/locationStore';
@@ -21,22 +23,28 @@ import activityCategoryStore from "./stores/activityCategoryStore";
 import categoryStore from "./stores/categoryStore";
 import occasionStore from "./stores/occasionStore";
 import trendingStore from "./stores/trendingStore";
+import durationStore from "./stores/durationStore";
+import tagStore from "./stores/tagStore";
 
 const stores = {
     activityStore,
-    commentsStore,
-    authStore,
-    commonStore,
-    editorStore,
-    userStore,
-    locationStore,
-    countryStore,
-    cityStore,
-    profileStore,
     activityCategoryStore,
+    authStore,
     categoryStore,
+    cityStore,
+    commentsStore,
+    commonStore,
+    countryStore,
+    durationStore,
+    editorStore,
+    imageStore,
+    locationStore,
+    luminaryStore,
+    profileStore,
     occasionStore,
-    trendingStore
+    tagStore,
+    trendingStore,
+    userStore
 };
 
 // For easier debugging

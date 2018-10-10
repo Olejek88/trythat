@@ -1,4 +1,5 @@
 import React from 'react';
+import ListErrors from './../ListErrors';
 import {observer} from 'mobx-react';
 import {withRouter} from "react-router-dom";
 import TagsInput from 'react-tagsinput'
@@ -31,7 +32,7 @@ let maxCustomers = 20;
 @observer
 @withRouter
 @inject('activityStore', 'activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')
-class AddActivity extends React.Component {
+class AddActivityForm extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -86,7 +87,9 @@ class AddActivity extends React.Component {
 
         this.submitForm = ev => {
             ev.preventDefault();
-            activityStore.store
+            const activity = Object.assign({}, this.state);
+            this.props.onSubmitForm(activity);
+
             //const activity = Object.assign({}, this.state);
             //this.props.onSubmitForm(activity);
         };
@@ -366,6 +369,27 @@ class AddActivity extends React.Component {
                             </div>
                         </form>
                     </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+@inject('activityStore')
+@withRouter
+@observer
+class AddActivity extends React.Component {
+    render() {
+
+        return (
+            <div className="container page">
+                <div className="row">
+
+                    <ListErrors errors={this.props.activityStore.addActivityErrors}/>
+
+                    <AddActivityForm
+                        onSubmitForm={activity => this.props.activityStore.updateActivity(activity)}/>
+                    <hr/>
                 </div>
             </div>
         );
