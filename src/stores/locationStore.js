@@ -1,6 +1,5 @@
 import { observable, action } from 'mobx';
 import agent from '../agent';
-import {computed} from "mobx/lib/mobx";
 
 class LocationStore {
     @observable currentLocation;

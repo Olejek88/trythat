@@ -123,7 +123,7 @@ export default class Profile extends React.Component {
   }
 
   render() {
-    const { profileStore, activityStore, userStore } = this.props;
+    const { profileStore, userStore } = this.props;
     const { profile, isLoadingProfile } = profileStore;
     const { currentUser } = userStore;
 

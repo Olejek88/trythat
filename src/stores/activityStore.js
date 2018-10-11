@@ -18,12 +18,10 @@ export class ActivityStore {
     @observable addActivityErrors;
     @observable predicate = {};
 
-    @observable images = imageStore.getTestImage();
-
-    @observable staticData = [
+    staticData =
         {   _id: '1',
             title: 'Путешествие к центру Земли на воздушном шаре',
-            images: this.images,
+            images: imageStore.getTestImages(),
             luminary: luminaryStore.getTestLuminary(),
             description: 'Слушай: ни ты, ни поученее тебя, никто не знает достоверно, что творится во внутренности земного шара. Ведь до сих пор людям удалось проникнуть в глубь земли менее чем на мили под поверхностью моря! Помни, что наука идет вперед и что одна теория заменяется другою! Разве не полагали до Фурье, что температура планетных пространств постепенно уменьшается? А вот теперь дознано, что самые большие холода в области эфира не превосходят 40° или 50° ниже нуля! Почему ж ты не хочешь допустить, что и относительно внутреннего жара земли не может быть промахов? Почему ты не хочешь допустить, что на известной глубине ты достигнешь до предела, дальше которого жар уже не увеличивается? Почему?',
             tags: tagStore.getTestTags(),
@@ -36,8 +34,7 @@ export class ActivityStore {
             minCustomers: '1',
             maxCustomers: '10',
             durations: durationStore.getTestDuration()
-        }
-    ];
+        };
 
 
     @computed get activities() {
@@ -71,7 +68,7 @@ export class ActivityStore {
         return agent.Activities.all(this.page, LIMIT, this.predicate);
     }
 
-    @action loadTestActivity() {
+    loadTestActivity() {
         return this.staticData;
     }
 

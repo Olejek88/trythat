@@ -48,7 +48,7 @@ const TeamMember = ({appName, token}) => {
                     </div>
 
                     <div className="member_social_links">
-                        <a href="https://www.linkedin.com/" target="_blank">
+                        <a href="https://www.linkedin.com/">
                             <img src={"icon_instagram.png"} alt="Opens In New Window"/>
                         </a>
                     </div>

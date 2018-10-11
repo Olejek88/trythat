@@ -12,11 +12,11 @@ class ActivityReview extends React.Component {
                         <div className="product_sec_title sg-f-ttl">Отзывы клиентов
                             <div className="review_stars_div " data-average-rating="4.00">
                                 <div className="review_stars_inner_div sg-inline-middle">
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
+                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
+                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
+                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
+                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
+                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
                                     <span className="total_reviews_span sg-f-bdy">(1)</span></div>
                             </div></div>
                     </div>
@@ -25,11 +25,11 @@ class ActivityReview extends React.Component {
                         <div className="review_item">
                             <div className="review_stars_div " data-average-rating="4.00">
                                 <div className="review_stars_inner_div sg-inline-middle">
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
+                                    <img className="review_star" src={"icon_star_filled.png"} alt={""} />
+                                    <img className="review_star" src={"icon_star_filled.png"} alt={""} />
+                                    <img className="review_star" src={"icon_star_filled.png"} alt={""} />
+                                    <img className="review_star" src={"icon_star_filled.png"} alt={""} />
+                                    <img className="review_star" src={"icon_star_filled.png"} alt={""} />
                                     <span className="review_date sg-f-subttl fs-1 sg-c-2">16.06.18</span>
                                 </div>
                             </div>

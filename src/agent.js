@@ -89,6 +89,13 @@ const Countries = {
         requests.get(`/countries/${slug}`),
 };
 
+const Cities = {
+    all: () =>
+        requests.get(`/cities`),
+    get: slug =>
+        requests.get(`/cities/${slug}`),
+};
+
 const Tags = {
   getAll: () => requests.get('/tags')
 };
@@ -175,6 +182,7 @@ export default {
     ActivityCategories,
     Auth,
     Categories,
+    Cities,
     Comments,
     Countries,
     Image,

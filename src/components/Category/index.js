@@ -3,8 +3,6 @@ import {inject, observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import Experiences from "./Experiences";
 import Banner from "./Banner";
-import ExperienceRow from "../ExperienceRow";
-import AboutCategory from "./AboutCategory";
 
 @inject('commonStore')
 @withRouter

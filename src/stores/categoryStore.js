@@ -8,15 +8,13 @@ class CategoryStore {
         {_id: '2', label: 'Туризм'}
     ];
 
-    @observable testData = [
-        {_id: '2', title: 'Туризм'}
-    ];
+    testData = {_id: '2', title: 'Туризм'};
 
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))
     };
 
-    @computed get loadTestCategory() {
+    loadTestCategory() {
         return this.testData;
     };
 

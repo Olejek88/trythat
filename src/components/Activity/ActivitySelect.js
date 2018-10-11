@@ -4,12 +4,14 @@ import {observer} from 'mobx-react';
 @observer
 class ActivitySelect extends React.Component {
     render() {
+        const activity = this.props.activity;
+        const luminary = activity.luminary;
         return (
             <div className="right-box action-box" style={{marginBottom: '40px'}}>
                 <div className="p-attributes " data-productid="325">
-                    <h2 className="lum-name sg-f-dspl-s ">Alice Waters</h2>
+                    <h2 className="lum-name sg-f-dspl-s ">{luminary.user.firstName} {luminary.user.lastName}</h2>
                     <p className="charity-name sg-f-bdy sg-c-2 ">
-                        <img src={"icon_ribbon.png"} style={{width: '12.5px'}}/>
+                        <img src={"icon_ribbon.png"} style={{width: '12.5px'}}  alt={""}/>
                         <span>Benefiting The Edible Schoolyard Project</span>
                     </p>
                     <div className="name-group" style={{float: 'left', width: '100%', marginTop: '34px'}}>
@@ -39,12 +41,12 @@ class ActivitySelect extends React.Component {
                                         style={{padding: '10px', boxSizing: 'border-box', width: '100%'}}>
                                         <td className="attr-field loc js-attr-row attr-geographic sg-inline-flex-grow">
                                             <div>
-                                                <img src={"icon_loc.png"}/><p>Berkeley, California</p>
+                                                <img src={"icon_loc.png"}  alt={""}/><p>Berkeley, California</p>
                                             </div>
                                         </td>
                                         <td className="attr-field js-attr-row attr-guests attr-guest2 sg-inline-flex-grow">
                                             <div>
-                                                <img src={"icon_manypeeps.png"}/>
+                                                <img src={"icon_manypeeps.png"}  alt={""}/>
                                                 <div>
                                                     <p style={{maxWidth: 'none'}}>2 people</p>
                                                     <p style={{display: 'none'}}>2 people</p>
@@ -54,7 +56,7 @@ class ActivitySelect extends React.Component {
                                         </td>
                                         <td className="attr-field js-attr-row attr-duration attr-duration2 sg-inline-flex-grow">
                                             <div>
-                                                <img src={"icon_clock.png"}/>
+                                                <img src={"icon_clock.png"} alt={""}/>
                                                 <div>
                                                     <p>2.5 hours</p>
                                                 </div>
@@ -182,11 +184,11 @@ class ActivitySelect extends React.Component {
                             </div>
                             <div className="review_stars_div " data-average-rating="5.00">
                                 <div className="review_stars_inner_div sg-inline-middle">
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_filled.png"} />
-                                    <img className="review_star" src={"icon_star_half.png"} />
-                                    <img className="review_star" src={"icon_star_outline.png"} />
+                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
+                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
+                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
+                                    <img className="review_star" src={"icon_star_half.png"}  alt={""}/>
+                                    <img className="review_star" src={"icon_star_outline.png"}  alt={""}/>
                                     <span className="total_reviews_span sg-f-bdy">(1)</span></div>
                             </div>
                             <table className="btn_table sg-bd-2 sg-no-bd-bottom sg-no-bd-left sg-no-bd-right">
@@ -195,14 +197,14 @@ class ActivitySelect extends React.Component {
                                     <td className="left_td share_td sg-bd-3 sg-no-bd-left sg-no-bd-bottom">
                                         <a href="#" className="button sg-inline-middle" style={{justifyContent: 'center'}}>
                                             <img style={{width: '28px', verticalAlign: 'middle'}}
-                                                 src={"icon_share_green.png"}/>
+                                                 src={"icon_share_green.png"} alt={""}/>
                                             <span className="sg-text-transform txt-ovr-2 sg-hover-primary">Поделиться</span>
                                         </a>
                                     </td>
                                     <td className="right_td question_td sg-bd-3 sg-no-bd-right sg-no-bd-bottom">
                                         <a href="#" className="button sg-inline-middle" style={{justifyContent: 'center'}}>
                                             <img style={{width: '20px', verticalAlign: 'middle', paddingTop: '8px'}}
-                                                 src={"icon_chatbubble_green.png"}/>
+                                                 src={"icon_chatbubble_green.png"} alt={""}/>
                                             <span className="sg-text-transform txt-ovr-2 sg-hover-primary span-right">Задать вопрос</span>
                                         </a>
                                     </td>

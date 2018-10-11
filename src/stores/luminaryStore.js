@@ -1,18 +1,19 @@
 import {observable, action} from 'mobx';
 import agent from '../agent';
+import userStore from "./userStore";
 
 class LuminaryStore {
     @observable luminaryErrors;
     @observable updatingLuminary;
     @observable updatingLuminaryErrors;
 
-    @observable luminary = [
+    luminary =
         {   _id: '1',
             verified: true,
             verifiedDate: new Date(),
-            rating: 5.0
-        }
-    ];
+            rating: 5.0,
+            user: userStore.getTestUser()
+        };
 
     @action getTestLuminary() {
         return this.luminary;

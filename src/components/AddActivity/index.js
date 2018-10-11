@@ -31,7 +31,7 @@ let maxCustomers = 20;
 
 @observer
 @withRouter
-@inject('activityStore', 'activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')
+@inject('activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')
 class AddActivityForm extends React.Component {
     constructor() {
         super();

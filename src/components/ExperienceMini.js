@@ -32,11 +32,11 @@ class ExperienceMini extends React.Component {
                                     <img className="product_img lazyloaded"
                                          data-src="alicewaters__market.jpg"
                                          alt="Alice Waters-Led Tour" title="Alice Waters-Led Tour"
-                                         src={"alicewaters__market.jpg"}/>
+                                         src={"alicewaters__market.jpg"}  alt={""}/>
                                 </div>
                             </div>
                             <img className="celeb_img js-lazyload sg-bg-3"
-                                 data-src="waters_350px__L.jpg" src={"waters_350px__L.jpg"}/>
+                                 data-src="waters_350px__L.jpg" src={"waters_350px__L.jpg"}  alt={""}/>
                             <div className="heart_img wishlist " tabIndex="0" pid="324" title="Wishlist">
                             </div>
                             <div className="wishlist-main-con"

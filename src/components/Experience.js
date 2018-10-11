@@ -34,12 +34,12 @@ class Experience extends React.Component {
                                      src={"example_experience.jpg"}/>
                             </div>
                         </div>
-                        <img className="celeb_img" src={"luminary2.jpg"} />
+                        <img className="celeb_img" src={"luminary2.jpg"} alt={""}/>
                             <div className="heart_img" tabIndex="0" title="Wishlist">
                             </div>
                             <div className="wishlist-main-con"
                                  style={{zIndex: '1', position: 'absolute', right: '5px', textAlign: 'right', top: '40px'}}>
-                                <img className="wishlist-carrot" src="/arrow_up_white_border.png"/>
+                                <img className="wishlist-carrot" src="/arrow_up_white_border.png"  alt={""}/>
                                     <div className="wishlist-text-con sg-bg-3 sg-bd-2 ">
                                         <p className="wishlist-text sg-f-bdy sg-c-primary sg-text-transform"
                                            style={{textAlign: 'center'}}>add to wishlist</p>

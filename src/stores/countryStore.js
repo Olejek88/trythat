@@ -3,6 +3,11 @@ import agent from '../agent';
 
 class CountryStore {
 
+    testData = {_id: 1, title: 'Россия'};
+    @action loadTestCountry() {
+        return this.testData;
+    }
+
     @observable staticData = [
         {_id: 1, title: 'Россия'}
     ];

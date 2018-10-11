@@ -33,9 +33,9 @@ class Activity extends React.Component {
                         <div className="p-top-sec">
                             <React.Fragment>
                                 <ActivityPhoto activity={activity}/>
-                                <ActivitySelect/>
+                                <ActivitySelect activity={activity}/>
                                 <ActivityDescription activity={activity}/>
-                                <ActivityDetails/>
+                                <ActivityDetails activity={activity}/>
                             </React.Fragment>
                         </div>
                     </div>

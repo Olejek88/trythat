@@ -3,6 +3,12 @@ import {computed} from "mobx/lib/mobx";
 
 class CityStore {
 
+    testData = {_id: 1, title: 'Челябинск'};
+
+    @action loadTestCity() {
+        return this.testData;
+    }
+
     @observable staticData = [
         {_id: 1, title: 'Челябинск'},
         {_id: 2, title: 'Екатеринбург'}

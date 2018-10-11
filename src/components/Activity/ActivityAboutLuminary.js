@@ -35,7 +35,7 @@ class ActivityInfo extends React.Component {
                             <div lvl="2" data-id="36" style={{margin: '10px 0 0 2px'}}
                                  className="follow following wide primaryButton button" tabIndex="0">
                                 <div className="title-container"><p className="title">
-                                    <img className="greenCheck" src="icon_checkmark_green.png" style={{display: 'none'}}/>
+                                    <img className="greenCheck" src="icon_checkmark_green.png" style={{display: 'none'}} alt={""}/>
                                     <span className="title following-text sg-text-transform">FOLLOW</span></p></div>
                             </div>
                         </div>
