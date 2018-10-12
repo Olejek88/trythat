@@ -5,6 +5,8 @@ import Experience from "../Experience";
 @observer
 class ActivityYouMayLike extends React.Component {
     render() {
+        const activity = this.props.activity;
+        // TODO добавить выборку по понравившимся
         return (
             <div className="p-otherExp-section " data-html="">
                 <div className="otherExp-section">
@@ -15,10 +17,10 @@ class ActivityYouMayLike extends React.Component {
                             </div>
                             <div className="experience">
                                 <React.Fragment>
-                                    <Experience id={1}/>
-                                    <Experience id={2}/>
-                                    <Experience id={3}/>
-                                    <Experience id={4}/>
+                                    <Experience activity={activity}/>
+                                    <Experience activity={activity}/>
+                                    <Experience activity={activity}/>
+                                    <Experience activity={activity}/>
                                 </React.Fragment>
                             </div>
                         </div>

@@ -43,8 +43,8 @@ class Activity extends React.Component {
                 <React.Fragment>
                     <ActivityHowItWorks/>
                     <ActivityReview/>
-                    <ActivityAboutLuminary/>
-                    <ActivityYouMayLike/>
+                    <ActivityAboutLuminary luminary={activity.luminary}/>
+                    <ActivityYouMayLike activity={activity}/>
                 </React.Fragment>
             </div>
         );

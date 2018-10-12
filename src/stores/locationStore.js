@@ -1,10 +1,23 @@
 import { observable, action } from 'mobx';
 import agent from '../agent';
+import imageStore from "./imageStore";
 
 class LocationStore {
     @observable currentLocation;
     @observable isLoading = false;
     @observable locationsRegistry = observable.map();
+
+    testData = {
+        _id: 1,
+        title: 'Челябинская обл., вулкан Свердловский',
+        latitude: 55.66,
+        longitude: 56.44,
+        image: imageStore.getTestUserImage()
+    };
+
+    @action loadTestLocation() {
+        return this.testData;
+    }
 
     $req() {
         return agent.Locations.all();

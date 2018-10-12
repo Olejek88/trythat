@@ -6,22 +6,19 @@ class ActivitySelect extends React.Component {
     render() {
         const activity = this.props.activity;
         const luminary = activity.luminary;
+         console.log(activity);
         return (
             <div className="right-box action-box" style={{marginBottom: '40px'}}>
                 <div className="p-attributes " data-productid="325">
                     <h2 className="lum-name sg-f-dspl-s ">{luminary.user.firstName} {luminary.user.lastName}</h2>
                     <p className="charity-name sg-f-bdy sg-c-2 ">
                         <img src={"icon_ribbon.png"} style={{width: '12.5px'}}  alt={""}/>
-                        <span>Benefiting The Edible Schoolyard Project</span>
+                        <span>{luminary.description}</span>
                     </p>
                     <div className="name-group" style={{float: 'left', width: '100%', marginTop: '34px'}}>
-                        <h1 className="p-name sg-f-ttl">Dine in the Heart of the Chez Panisse Kitchen</h1>
-                        <div className="p-shortDesc body-text  sg-f-bdy" data-limit="68" data-height="132"
-                             style={{height: '68px'}}>
-                            <p>Journey to the Berkeley restaurant where the farm-to-table and&nbsp;locally sourced
-                                ingredients movement was invented. A special table is set just for you in the
-                                kitchen,&nbsp;many consider the best seat in the house, and until now, one that was
-                                impossible to reserve.</p>
+                        <h1 className="p-name sg-f-ttl">{activity.title}</h1>
+                        <div className="p-shortDesc body-text sg-f-bdy" data-limit="68" data-height="132" style={{height: '68px'}}>
+                            <p>{activity.shortDescription}</p>
                         </div>
                     </div>
                     <div style={{clear: 'both'}}>
@@ -29,36 +26,30 @@ class ActivitySelect extends React.Component {
                 </div>
 
                 <form name="orderDetail" id="order-detail" className="form" action="/" method="POST">
-                    <input value="b60fb209b081b7f23b80dcd03d362bf01cfd1b3a" name="stk" type="hidden"/>
-                    <input id="guest-checkout" name="guest-checkout" value="0" type="hidden"/>
                     <div className="p-form" data-view="_preCheckoutForm_new" style={{border: 'none', background: 'none'}}>
                         <div className="js-p-form product-section-p-form sg-bg-2 sg-bd-3 ">
                             <div className="info-box js-err-con ">
-                                <table className="sg-bg-2 sg-bd-3 sg-no-bd-left sg-no-bd-right sg-no-bd-top"
-                                       style={{width: '100%'}}>
+                                <table className="sg-bg-2 sg-bd-3 sg-no-bd-left sg-no-bd-right sg-no-bd-top" style={{width: '100%'}}>
                                     <tbody>
-                                    <tr className="sg-inline-top sg-f-hdr"
-                                        style={{padding: '10px', boxSizing: 'border-box', width: '100%'}}>
+                                    <tr className="sg-inline-top sg-f-hdr" style={{padding: '10px', boxSizing: 'border-box', width: '100%'}}>
                                         <td className="attr-field loc js-attr-row attr-geographic sg-inline-flex-grow">
                                             <div>
-                                                <img src={"icon_loc.png"}  alt={""}/><p>Berkeley, California</p>
+                                                <img src={"icon_loc.png"}  alt={""}/><p>Челябинск</p>
                                             </div>
                                         </td>
                                         <td className="attr-field js-attr-row attr-guests attr-guest2 sg-inline-flex-grow">
                                             <div>
                                                 <img src={"icon_manypeeps.png"}  alt={""}/>
                                                 <div>
-                                                    <p style={{maxWidth: 'none'}}>2 people</p>
-                                                    <p style={{display: 'none'}}>2 people</p>
+                                                    <p style={{maxWidth: 'none'}}>{activity.minCustomers}-{activity.maxCustomers} человек</p>
                                                 </div>
                                             </div>
-
                                         </td>
                                         <td className="attr-field js-attr-row attr-duration attr-duration2 sg-inline-flex-grow">
                                             <div>
                                                 <img src={"icon_clock.png"} alt={""}/>
                                                 <div>
-                                                    <p>2.5 hours</p>
+                                                    <p>{activity.durations[0].period}</p>
                                                 </div>
                                             </div>
                                         </td>
@@ -75,9 +66,9 @@ class ActivitySelect extends React.Component {
                                             <div className="sg-inline-middle displayonly_title "
                                                  style={{paddingLeft: '30px', boxSizing: 'border-box'}}>
                                             </div>
-                                            <p style={{lineHeight: '22px'}}>Chez Panisse
+                                            <p style={{lineHeight: '22px'}}>Челябинск
                                                 <a className="google-map-address-link " href="/"
-                                                   target="_blank" title="Opens In New Window">Map it</a>
+                                                   target="_blank" title="Opens In New Window">На карте</a>
                                             </p>
                                         </div>
                                         <div className="displayonly_content">
@@ -87,18 +78,17 @@ class ActivitySelect extends React.Component {
                                         <select className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                         style={{width: '100%'}} name="numGuests" id="numGuests">
                                             <option value="1" selected="selected">1 человек</option>
-                                            <option value="2">2 people</option>
-                                            <option value="3">3 people</option>
-                                            <option value="4">4 people</option>
-                                            <option value="5">5 people</option>
+                                            <option value="2">2 человек</option>
+                                            <option value="3">3 человек</option>
+                                            <option value="4">4 человек</option>
+                                            <option value="5">5 человек</option>
                                         </select>
                                         <input className="js-ori-numGuests" value="1" data-exceptionguestprice="" type="hidden"/>
                                         <div className="row" id="addPeopleError"
                                              style={{display: 'none', color: '#FD6340 !important', fontFamily: 'georgia',
                                                  fontStyle: 'italic', fontSize: '13px', boxSizing: 'border-box', padding: '5px 10px'}}>
                                             <p style={{color: '#FD6340 !important', fontFamily: 'georgia',
-                                                fontStyle: 'italic', fontSize: '13px'}}>
-                                                Incorrect Number Of People</p>
+                                                fontStyle: 'italic', fontSize: '13px'}}>Неправильное количество людей</p>
                                         </div>
                                     </div>
                                     <div className="preCheckOutField sg-bg-3" id="addDuration">
@@ -114,8 +104,8 @@ class ActivitySelect extends React.Component {
                                             <input className="sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right
                                                 sg-placeholder-primary js-display-date js-schedule calender-field
                                                 negotiate-schedule-picker preffered_time"
-                                                placeholder="Preferred Date And Time"
-                                                data-error="Please select date and time" readOnly="" value=""
+                                                placeholder="Предпочитаемая дата и время"
+                                                data-error="Пожалуйста выберите дату и время" readOnly="" value=""
                                                 tabIndex="0" type="text"/>
                                         </a>
                                         <input className="js-date-1" name="Schedule[date][0]" value="" type="hidden"/>
@@ -124,28 +114,6 @@ class ActivitySelect extends React.Component {
                                         <input className="js-ori-date-2" value="" type="hidden"/>
                                     </div>
                                     <input value="0" name="optionsError" id="optionsError" type="hidden"/>
-                                    <div className="row sub-prods-row clearfix">
-                                        <input id="customRadioBoxInput" value="105048" name="sub_option" type="hidden"/>
-                                        <ul className="optionProducts"
-                                            style={{float: 'left', marginTop: '8px', marginLeft: '6px', width: '100%'}}>
-                                            <li className="customRadioBox optionProduct"
-                                                data-gc="0" data-sellerid="2269" data-pid="105048"
-                                                data-vid="36" data-dm="150" data-blm="40320" data-mbld="365"
-                                                data-mbb="0" data-num="0" data-oii="0"
-                                                data-inc-price-per-person="0" data-inc-price-per-hour="0">
-                                                <span className="radio" tabIndex="0"></span>
-                                                <span className="label">8:30pm</span>
-                                            </li>
-                                            <li className="customRadioBox optionProduct" pid="105049"
-                                                data-gc="0" data-sellerid="2269" data-pid="105049"
-                                                data-vid="36" data-dm="150" data-blm="40320" data-mbld="365"
-                                                data-mbb="0" data-num="0" data-oii="0"
-                                                data-inc-price-per-person="0" data-inc-price-per-hour="0">
-                                                <span className="radio" tabIndex="0"></span>
-                                                <span className="label">6:00pm</span>
-                                            </li>
-                                        </ul>
-                                    </div>
                                     <div className="clearAll">
                                     </div>
                                 </div>

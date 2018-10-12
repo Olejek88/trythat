@@ -1010,6 +1010,17 @@ a:hover {
     clear: both;
 }
 
+.luminary_image {
+    position: absolute;
+    width: 177px;
+    height: 177px;
+    border-radius: 88px;
+    display: none;
+    opacity: 0.6;
+    z-index: 0;
+    background-color: #e1e1e1;
+}
+
 .p-form .buyBox .price-sec .price {
     padding: 5px 0;
     width: 100%;

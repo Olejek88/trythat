@@ -3,7 +3,7 @@ import {computed} from "mobx/lib/mobx";
 
 class DurationStore {
 
-    @observable staticData = [
+    staticData = [
         {_id: '1', period: '1час'},
         {_id: '2', period: '2часа'},
         {_id: '3', period: '3часа'},

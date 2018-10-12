@@ -82,11 +82,11 @@ const Comments = {
         requests.get(`/activities/${slug}/comments`)
 };
 
-const Countries = {
+const Country = {
     all: () =>
-        requests.get(`/countries`),
+        requests.get(`/country`),
     get: slug =>
-        requests.get(`/countries/${slug}`),
+        requests.get(`/country/${slug}`),
 };
 
 const Cities = {
@@ -184,7 +184,7 @@ export default {
     Categories,
     Cities,
     Comments,
-    Countries,
+    Country,
     Image,
     Locations,
     Luminary,

@@ -12,6 +12,8 @@ class LuminaryStore {
             verified: true,
             verifiedDate: new Date(),
             rating: 5.0,
+            description: 'Гуру-йог 15ой категории по воздухоплаванию на глубине',
+            fullDescription: 'Признанный как один из самых важных йогов в Челябинске, Олег возглавлял центр выращивания еды на сезонном и местном уровне, поддерживая местную продовольственную экономику',
             user: userStore.getTestUser()
         };
 

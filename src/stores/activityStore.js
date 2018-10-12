@@ -6,6 +6,7 @@ import luminaryStore from "./luminaryStore";
 import tagStore from "./tagStore";
 import activityCategoryStore from "./activityCategoryStore";
 import durationStore from "./durationStore";
+import locationStore from "./locationStore";
 
 const LIMIT = 10;
 
@@ -23,11 +24,13 @@ export class ActivityStore {
             title: 'Путешествие к центру Земли на воздушном шаре',
             images: imageStore.getTestImages(),
             luminary: luminaryStore.getTestLuminary(),
+            shortDescription: 'Вы увидите все слои Земли во время полета сквозь жерло действующего уральского вулкана в самом экстремальном путешествии Вашей жизни',
             description: 'Слушай: ни ты, ни поученее тебя, никто не знает достоверно, что творится во внутренности земного шара. Ведь до сих пор людям удалось проникнуть в глубь земли менее чем на мили под поверхностью моря! Помни, что наука идет вперед и что одна теория заменяется другою! Разве не полагали до Фурье, что температура планетных пространств постепенно уменьшается? А вот теперь дознано, что самые большие холода в области эфира не превосходят 40° или 50° ниже нуля! Почему ж ты не хочешь допустить, что и относительно внутреннего жара земли не может быть промахов? Почему ты не хочешь допустить, что на известной глубине ты достигнешь до предела, дальше которого жар уже не увеличивается? Почему?',
             tags: tagStore.getTestTags(),
             category: categoryStore.loadTestCategory,
             activityCategory: activityCategoryStore.loadTestActivityCategory(),
             occasion: null,
+            location: locationStore.loadTestLocation(),
             trending: null,
             startDate: new Date(),
             endDate: new Date(),

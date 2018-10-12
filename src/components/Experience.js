@@ -1,72 +1,72 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import {observer} from 'mobx-react';
 
 @observer
 class Experience extends React.Component {
-  render() {
-    return (
-        <div className="experience-tile tile1 discovery">
-            <a className="tile_product tile js-product-title desktop" href="/#/activity/1">
-                <div>
-                    <div className="product_img_container">
-                        <div className="buy_type black sg-inline-middle" style={{direction:'ltr', display:'none'}}>
-                            <div className="buy_type_text sg-text-transform sg-f-bdy-s sg-inline-middle"
-                                 style={{backgroundColor: '#000000'}}>
+    render() {
+        const activity = this.props.activity;
+        return (
+            <div className="experience-tile tile1 discovery">
+                <a className="tile_product tile js-product-title desktop" href={"/#/activity/" + activity.id}>
+                    <div>
+                        <div className="product_img_container">
+                            <div className="buy_type black sg-inline-middle" style={{direction: 'ltr', display: 'none'}}>
+                                <div className="buy_type_text sg-text-transform sg-f-bdy-s sg-inline-middle"
+                                     style={{backgroundColor: '#000000'}}>
                             <span>
                             </span>
+                                </div>
+                                <svg style={{marginLeft: '-1px', width: '1em', height: '2em'}}>
+                                    <polygon points="0,0 12,0 0,25" style={{fill: '#000000'}}>
+                                    </polygon>
+                                </svg>
                             </div>
-                            <svg style={{marginLeft: '-1px', width:'1em', height:'2em'}}>
-                                <polygon points="0,0 12,0 0,25" style={{fill: '#000000'}}>
-                                </polygon>
-                            </svg>
-                        </div>
-                        <div className="auction_type" style={{display: 'none'}}>
-                            <div className="auction_text sg-text-transform sg-inline-middle">
+                            <div className="auction_type" style={{display: 'none'}}>
+                                <div className="auction_text sg-text-transform sg-inline-middle">
                                 <span>
                                 </span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="product_image_wrapper">
-                            <div className="product_image_viewport">
-                                <img className="product_img" data-src="/example_experience.jpg"
-                                     alt="Dine in the Heart Kitchen" title="Dine in the Heart California"
-                                     src={"example_experience.jpg"}/>
+                            <div className="product_image_wrapper">
+                                <div className="product_image_viewport">
+                                    <img className="product_img" data-src={activity.images[0].path} alt={activity.images[0].title}
+                                         title={activity.images[0].title} src={activity.images[0].path} />
+                                </div>
                             </div>
-                        </div>
-                        <img className="celeb_img" src={"luminary2.jpg"} alt={""}/>
-                            <div className="heart_img" tabIndex="0" title="Wishlist">
+                            <img className="celeb_img" src={activity.luminary.user.image.path} alt={activity.luminary.user.firstName}/>
+                            <div className="heart_img" tabIndex="0" title="Список желаний">
                             </div>
-                            <div className="wishlist-main-con"
-                                 style={{zIndex: '1', position: 'absolute', right: '5px', textAlign: 'right', top: '40px'}}>
-                                <img className="wishlist-carrot" src="/arrow_up_white_border.png"  alt={""}/>
-                                    <div className="wishlist-text-con sg-bg-3 sg-bd-2 ">
-                                        <p className="wishlist-text sg-f-bdy sg-c-primary sg-text-transform"
-                                           style={{textAlign: 'center'}}>add to wishlist</p>
-                                    </div>
+                            <div className="wishlist-main-con wishlist_spec">
+                                <img className="wishlist-carrot" src={"/arrow_up_white_border.png"} alt={""}/>
+                                <div className="wishlist-text-con sg-bg-3 sg-bd-2 ">
+                                    <p className="wishlist-text sg-f-bdy sg-c-primary sg-text-transform"
+                                       style={{textAlign: 'center'}}>хочу!</p>
+                                </div>
                             </div>
                             <div className="occasion_banner_container ">
                             </div>
-                    </div>
-                </div>
-                <div className="product_text_container">
-                    <div className="details_div">
-                        <div className="min_height_placeholder"></div>
-                        <div className="product_celeb_name sg-c-2">Alice Waters</div>
-                        <div className="product_stars">
                         </div>
-                        <div style={{clear: 'both'}}></div>
                     </div>
-                    <div className="product_location sg-c-2">Berkeley, California</div>
-                    <div className="product_title sg-c-1">
-                        <p style={{margin: '0 0 2px 0'}}>Dine in the Heart of the Chez Panisse Kitchen: A Convivial Supper at an Iconic Restaurant</p>
+                    <div className="product_text_container">
+                        <div className="details_div">
+                            <div className="min_height_placeholder"></div>
+                            <div className="product_celeb_name sg-c-2">
+                                {activity.luminary.user.firstName + " " + activity.luminary.user.lastName}</div>
+                            <div className="product_stars">
+                            </div>
+                            <div style={{clear: 'both'}}></div>
+                        </div>
+                        <div className="product_location sg-c-2">{activity.location.title}</div>
+                        <div className="product_title sg-c-1">
+                            <p style={{margin: '0 0 2px 0'}}>{activity.title}</p>
+                        </div>
+                        <div className="product_price sg-c-2">US$1,000/person</div>
                     </div>
-                    <div className="product_price sg-c-2">US$1,000/person</div>
-                </div>
-            </a>
-        </div>
-    );
-  }
+                </a>
+            </div>
+        );
+    }
 }
 
 export default Experience;

@@ -113,5 +113,18 @@
     width: 100%;
 }
 
+.wishlist_spec {
+    z-index: 1;
+    position: absolute;
+    right: 5px;
+    text-align: right;
+    top: 40px;
+}
+
+.cb .cb-box .img-box img {
+    height: 170px;
+    width: 170px;
+}
+
 .sg-f-bdy
 .sg-c-2
