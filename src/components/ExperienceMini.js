@@ -32,7 +32,7 @@ class ExperienceMini extends React.Component {
                                     <img className="product_img lazyloaded"
                                          data-src="alicewaters__market.jpg"
                                          alt="Alice Waters-Led Tour" title="Alice Waters-Led Tour"
-                                         src={"alicewaters__market.jpg"}  alt={""}/>
+                                         src={"alicewaters__market.jpg"}/>
                                 </div>
                             </div>
                             <img className="celeb_img js-lazyload sg-bg-3"
@@ -44,7 +44,7 @@ class ExperienceMini extends React.Component {
                                      zIndex: '1', position: 'absolute', right: '5px', textAlign: 'right',
                                      top: '40px'
                                  }}>
-                                <img className="wishlist-carrot" src={"arrow_up_white_border.png"}/>
+                                <img className="wishlist-carrot" src={"arrow_up_white_border.png"} alt={""}/>
                                 <div className="wishlist-text-con sg-bg-3 sg-bd-2 ">
                                     <p className="wishlist-text sg-f-bdy sg-c-primary sg-text-transform"
                                        style={{textAlign: 'center'}}>add to wishlist</p>

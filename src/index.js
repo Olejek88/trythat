@@ -25,6 +25,8 @@ import occasionStore from "./stores/occasionStore";
 import trendingStore from "./stores/trendingStore";
 import durationStore from "./stores/durationStore";
 import tagStore from "./stores/tagStore";
+import orderStore from "./stores/orderStore";
+import orderStatusStore from "./stores/orderStatusStore";
 
 const stores = {
     activityStore,
@@ -42,6 +44,8 @@ const stores = {
     luminaryStore,
     profileStore,
     occasionStore,
+    orderStore,
+    orderStatusStore,
     tagStore,
     trendingStore,
     userStore

@@ -7,10 +7,6 @@ import {inject} from "mobx-react/index";
 @withRouter
 @inject('activityStore')
 class WishList extends React.Component {
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div id="content">

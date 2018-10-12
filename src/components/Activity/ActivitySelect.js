@@ -1,12 +1,48 @@
 import React from 'react';
 import {observer} from 'mobx-react';
+import Select from 'react-select';
+import activityListingStore from "../../stores/activityListingStore";
+import orderStatusStore from "../../stores/orderStatusStore";
+import userStore from "../../stores/userStore";
+import orderStore from "../../stores/orderStore";
 
 @observer
 class ActivitySelect extends React.Component {
+    constructor() {
+        super();
+        let order;
+
+        this.state = {
+            selectedQuantity: 1,
+            selectedDuration: 1,
+            selectedPrice: 'не выбрано'
+        };
+
+        this.makeOrder = () => {
+            order = {
+                listing: activityListingStore.loadTestActivityListing(),
+                orderStatus: orderStatusStore.getTestOrderStatus(),
+                created: new Date(),
+                customer: userStore.getTestUser(),
+                startDate: new Date()
+            };
+            orderStore.createOrder(order);
+        };
+
+        this.handleSelectActivityQuantityChange = (event) => {
+            this.setState({selectedQuantity: event.value});
+            this.setState({selectedPrice: event.cost});
+        };
+        this.handleSelectActivityDurationChange = (event) => {
+            this.setState({selectedDuration: event.value});
+            this.setState({selectedPrice: event.cost});
+        };
+
+    }
+
     render() {
         const activity = this.props.activity;
         const luminary = activity.luminary;
-         console.log(activity);
         return (
             <div className="right-box action-box" style={{marginBottom: '40px'}}>
                 <div className="p-attributes " data-productid="325">
@@ -34,7 +70,7 @@ class ActivitySelect extends React.Component {
                                     <tr className="sg-inline-top sg-f-hdr" style={{padding: '10px', boxSizing: 'border-box', width: '100%'}}>
                                         <td className="attr-field loc js-attr-row attr-geographic sg-inline-flex-grow">
                                             <div>
-                                                <img src={"icon_loc.png"}  alt={""}/><p>Челябинск</p>
+                                                <img src={"icon_loc.png"}  alt={""}/><p>{activity.location.title}</p>
                                             </div>
                                         </td>
                                         <td className="attr-field js-attr-row attr-guests attr-guest2 sg-inline-flex-grow">
@@ -56,7 +92,7 @@ class ActivitySelect extends React.Component {
                                     </tr>
                                     </tbody>
                                 </table>
-                                <div className="widget-row">
+                                <div>
                                     <input value="" name="scenario" id="scenario" type="hidden"/>
                                     <input name="userId" id="userId" type="hidden"/>
                                     <div className="sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right
@@ -66,7 +102,7 @@ class ActivitySelect extends React.Component {
                                             <div className="sg-inline-middle displayonly_title "
                                                  style={{paddingLeft: '30px', boxSizing: 'border-box'}}>
                                             </div>
-                                            <p style={{lineHeight: '22px'}}>Челябинск
+                                            <p style={{lineHeight: '22px'}}>{activity.location.title}
                                                 <a className="google-map-address-link " href="/"
                                                    target="_blank" title="Opens In New Window">На карте</a>
                                             </p>
@@ -74,23 +110,45 @@ class ActivitySelect extends React.Component {
                                         <div className="displayonly_content">
                                         </div>
                                     </div>
-                                    <div className="preCheckOutField sg-bg-3" id="addPeople">
-                                        <select className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
-                                        style={{width: '100%'}} name="numGuests" id="numGuests">
-                                            <option value="1" selected="selected">1 человек</option>
-                                            <option value="2">2 человек</option>
-                                            <option value="3">3 человек</option>
-                                            <option value="4">4 человек</option>
-                                            <option value="5">5 человек</option>
-                                        </select>
-                                        <input className="js-ori-numGuests" value="1" data-exceptionguestprice="" type="hidden"/>
+                                    <div className="preCheckOutField sg-bg-3" id="addDuration">
+                                        <Select
+                                            style={{width: '100%', top: '5px'}}
+                                            name="duration"
+                                            id="duration"
+                                            value={this.state.selectedDuration}
+                                            cost={this.state.selectedPrice}
+                                            className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
+                                            onChange={(e) => this.handleSelectActivityDurationChange(e)}
+                                            options={activityListingStore.loadTestDurationByActivityListing()}
+                                        />
                                         <div className="row" id="addPeopleError"
+                                             style={{display: 'none', color: '#FD6340 !important', fontFamily: 'georgia',
+                                                 fontStyle: 'italic', fontSize: '13px', boxSizing: 'border-box', padding: '5px 10px'}}>
+                                            <p style={{color: '#FD6340 !important', fontFamily: 'georgia',
+                                                fontStyle: 'italic', fontSize: '13px'}}>Неправильная продолжительность мероприятия</p>
+                                        </div>
+                                    </div>
+                                    <div className="clearAll">
+                                    </div>
+                                    <div className="preCheckOutField sg-bg-3" id="addQuantity" style={{paddingTop: '5px', paddingBottom:'10px'}}>
+                                        <Select
+                                            style={{width: '100%', top: '5px'}}
+                                            value={this.state.selectedQuantity}
+                                            cost={this.state.selectedPrice}
+                                            name="quantity"
+                                            id="quantity"
+                                            className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
+                                            onChange={(e) => this.handleSelectActivityQuantityChange(e)}
+                                            options={activityListingStore.loadTestCustomersByActivityListing()}
+                                        />
+                                        <div className="row" id="addQuantityError"
                                              style={{display: 'none', color: '#FD6340 !important', fontFamily: 'georgia',
                                                  fontStyle: 'italic', fontSize: '13px', boxSizing: 'border-box', padding: '5px 10px'}}>
                                             <p style={{color: '#FD6340 !important', fontFamily: 'georgia',
                                                 fontStyle: 'italic', fontSize: '13px'}}>Неправильное количество людей</p>
                                         </div>
                                     </div>
+{/*
                                     <div className="preCheckOutField sg-bg-3" id="addDuration">
                                         <input name="durationMinutes" className="js-durationMinutes"
                                                data-exceptiontime="" data-exceptiondurationprice=""
@@ -114,33 +172,33 @@ class ActivitySelect extends React.Component {
                                         <input className="js-ori-date-2" value="" type="hidden"/>
                                     </div>
                                     <input value="0" name="optionsError" id="optionsError" type="hidden"/>
+*/}
                                     <div className="clearAll">
                                     </div>
                                 </div>
                                 <div className="errorSummary js-error-summary"
                                      style={{display: 'none', padding: '5px 15px', background: 'white'}}>
-                                    * Please select an option
+                                    * Пожалуйста выберите вариант
                                 </div>
                             </div>
 
                             <div className="buyBox  desktop " style={{clear: 'both'}}>
                                 <div className="price-sec sg-f-hdr  desktop">
                                     <p className="sg-inline-middle price " style={{justifyContent: 'space-between'}}>
-                                        <span className="priceText">US$1,000/person</span>
-                                        <span id="travelCostDisplay"></span>
-                                        <span className="totalPriceText">Total
-                                            <font id="totalPrice" price="2000.00" incrementalprice="0">US$2,000</font></span>
-                                        <span className="soldout celeb-color sg-c-1"></span>
+                                        <span className="priceText">{this.state.selectedPrice}</span>
                                     </p>
                                     <div className="clearAll"></div>
                                 </div>
 
                                 <div className="buy-button-row desktop">
-                                    <div id="buynow-button" style={{width: '100%'}}
-                                         className=" sg-text-transform  primaryButton button" data-pid="325"
-                                         tabIndex="0">
-                                        <div className="title-container"><p className="title">заказать</p></div>
-                                    </div>
+                                    <button
+                                        id="buynow-button"
+                                        className="sg-text-transform primaryButton button title-container"
+                                        type="submit"
+                                        style={{width: '100%'}}
+                                        onClick={this.makeOrder}>
+                                        <p className="title">Заказать</p>
+                                    </button>
                                 </div>
                                 <div className="clearAll"></div>
                             </div>

@@ -50,15 +50,15 @@ class SiteMenu extends React.Component {
                     <ul id="stay-connected" className="footer-menu-item" style={{margin: '0'}}>
                         <p>Stay Connected</p>
                         <li style={{display: 'inline'}}>
-                            <a href="https://www.facebook.com/" target="_blank" className="allowAllUsers">
+                            <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="allowAllUsers">
                             <img className="social-media-icons" src={"icon_facebook.png"} alt="fb"/></a>
                         </li>
                         <li style={{display: 'inline'}}>
-                            <a href="https://twitter.com/" target="_blank" className="allowAllUsers">
+                            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="allowAllUsers">
                                 <img className="social-media-icons" src={"icon_twitter.png"} alt="twitter"/></a>
                         </li>
                         <li style={{display: 'inline'}}>
-                            <a href="https://www.instagram.com/" target="_blank" className="allowAllUsers">
+                            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="allowAllUsers">
                                 <img className="social-media-icons" src={"icon_instagram.png"} alt="inst" /></a>
                         </li>
                     </ul>

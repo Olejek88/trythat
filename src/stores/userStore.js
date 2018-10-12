@@ -2,7 +2,6 @@ import {observable, action} from 'mobx';
 import agent from '../agent';
 import imageStore from "./imageStore";
 import cityStore from "./cityStore";
-import countryStore from "./countryStore";
 
 class UserStore {
     @observable currentUser;

@@ -1,5 +1,4 @@
 import {observable, action} from 'mobx';
-import agent from '../agent';
 
 class ImageStore {
     @observable loadingImage;

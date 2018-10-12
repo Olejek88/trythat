@@ -128,6 +128,19 @@ const Activities = {
     requests.post('/activities', { activity })
 };
 
+const ActivityListing = {
+    byActivity: (activity_id) =>
+        requests.get(`/activity-listing/activity?${activity_id}`),
+    del: (activity_listing_id) =>
+        requests.del(`/activity-listing/del?${activity_listing_id}`),
+    get: (activity_listing_id) =>
+        requests.get(`/activity-listing/${activity_listing_id}`),
+    update: (activity_listing_id, activity) =>
+        requests.put(`/activity-listing/update?${activity_listing_id}`, { activity: omitSlug(activity) }),
+    create: activity =>
+        requests.post('/activity-listing/create', { activity })
+};
+
 const Image = {
     get: image =>
         requests.get(`/image/${image}`),
@@ -157,6 +170,25 @@ const Luminary = {
         requests.del(`/luminary/${slug}/${luminaryId}`),
 };
 
+const Order = {
+    all: (page, lim = 10) =>
+        requests.get(`/orders?${limit(lim, page)}`),
+    byUser: (user, page) =>
+        requests.get(`/orders?user=${encode(user)}&${limit(5, page)}`),
+    get: orderId =>
+        requests.get(`/order/${orderId}`),
+    create: (order) =>
+        requests.post(`/order/${order}`),
+    del: (slug, orderId) =>
+        requests.del(`/order/${slug}/${orderId}`),
+};
+
+const OrderStatus = {
+    all: () => requests.get(`/order-status}`),
+    get: statusId =>
+        requests.get(`/order-status/${statusId}`),
+};
+
 const Profile = {
   follow: username =>
     requests.post(`/profiles/${username}/follow`),
@@ -179,6 +211,7 @@ const Trending = {
 
 export default {
     Activities,
+    ActivityListing,
     ActivityCategories,
     Auth,
     Categories,
@@ -190,6 +223,8 @@ export default {
     Luminary,
     Profile,
     Occasions,
+    Order,
+    OrderStatus,
     Tags,
     Trending
 };

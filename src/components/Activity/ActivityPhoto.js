@@ -13,7 +13,6 @@ class ActivityPhoto extends React.Component {
         return (
             <div className="left-box product-slider-box" style={{marginBottom: '40px'}}>
                 <div className="pImgContainer">
-                    <a className="prev p-arrow disabled" id="pImages_left" tabIndex="0"></a>
                     <div className="scroll" style={{display: 'block'}}>
                         <div className="inner-container items"
                              style={{width: '100000px', left: '-714px', height: '470px'}}>

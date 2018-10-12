@@ -15,7 +15,7 @@ class Experiences extends React.Component {
                         </p>
                     </div>
                 </div>
-                <img style={{display: 'none'}} src={"icon_filter_fff.png"} />
+                <img style={{display: 'none'}} src={"icon_filter_fff.png"} alt={""}/>
             </div>
             <div></div>
             <div></div>

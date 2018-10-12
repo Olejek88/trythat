@@ -15,7 +15,6 @@ import {inject} from "mobx-react/index";
 import ImagesUploader from 'react-images-uploader';
 import 'react-images-uploader/styles.css';
 import 'react-images-uploader/font.css';
-import activityStore from "../../stores/activityStore";
 import activityCategoryStore from "../../stores/activityCategoryStore";
 import categoryStore from "../../stores/categoryStore";
 import occasionStore from "../../stores/occasionStore";
