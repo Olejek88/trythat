@@ -7,6 +7,7 @@ import tagStore from "./tagStore";
 import activityCategoryStore from "./activityCategoryStore";
 import durationStore from "./durationStore";
 import locationStore from "./locationStore";
+import activityListingStore from "./activityListingStore";
 
 const LIMIT = 10;
 
@@ -39,6 +40,16 @@ export class ActivityStore {
             durations: durationStore.getTestDuration()
         };
 
+    @action loadTestActivitiesLuminary(luminary) {
+        this.isLoading = true;
+        return this.staticData
+            .then(action(({ activities, activitiesCount }) => {
+                this.activitiesRegistry.clear();
+                activities.forEach(activity => this.activitiesRegistry.set(activity.slug, activity));
+                this.totalPagesCount = Math.ceil(activitiesCount / LIMIT);
+            }))
+            .finally(action(() => { this.isLoading = false; }));
+    }
 
     @computed get activities() {
         return this.activitiesRegistry.values();
@@ -67,12 +78,21 @@ export class ActivityStore {
         if (this.predicate.myFeed) return agent.Activities.feed(this.page, LIMIT);
         if (this.predicate.favoritedBy) return agent.Activities.favoritedBy(this.predicate.favoritedBy, this.page, LIMIT);
         if (this.predicate.tag) return agent.Activities.byTag(this.predicate.tag, this.page, LIMIT);
-        if (this.predicate.author) return agent.Activities.byLuminary(this.predicate.author, this.page, LIMIT);
+        if (this.predicate.user) return agent.Activities.byLuminary(this.predicate.author, this.page, LIMIT);
         return agent.Activities.all(this.page, LIMIT, this.predicate);
+    }
+
+    $reqLuminary(luminary) {
+        return agent.Activities.byLuminary(luminary, LIMIT);
     }
 
     loadTestActivity() {
         return this.staticData;
+    }
+
+    loadTestActivityMininumPrice(activity) {
+        const activityListingMinimumPrice = activityListingStore.loadTestActivityListingMininunPrice(activity);
+        return activityListingMinimumPrice;
     }
 
     @action loadActivity(slug, {acceptCached = false} = {}) {
@@ -91,20 +111,15 @@ export class ActivityStore {
             }));
     }
 
-    @action loadActivities(slug, param, {acceptCached = false} = {}) {
-        if (acceptCached) {
-            const activities = this.getActivities(slug,param);
-            if (activities) return Promise.resolve(activities);
-        }
+    @action loadActivitiesLuminary(luminary) {
         this.isLoading = true;
-        return agent.Activities.get(slug,param)
-            .then(action(({activities}) => {
-                //this.activitiesRegistry.set(activity.slug, activity);
-                return activities;
+        return this.$reqLuminary(luminary)
+            .then(action(({ activities, activitiesCount }) => {
+                this.activitiesRegistry.clear();
+                activities.forEach(activity => this.activitiesRegistry.set(activity.slug, activity));
+                this.totalPagesCount = Math.ceil(activitiesCount / LIMIT);
             }))
-            .finally(action(() => {
-                this.isLoading = false;
-            }));
+            .finally(action(() => { this.isLoading = false; }));
     }
 
     @action makeFavorite(slug) {
@@ -163,7 +178,7 @@ export class ActivityStore {
         this.activitiesRegistry.delete(slug);
         return agent.Activities.del(slug)
             .catch(action(err => {
-                this.loadActivities();
+                this.loadActivitiesLuminary();
                 throw err;
             }));
     }

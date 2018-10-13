@@ -32,6 +32,10 @@ export class ActivityListingStore {
         return this.staticData;
     }
 
+    loadTestActivityListingMininunPrice(activity) {
+        return this.staticData[1].cost + " " + this.staticData[1].currency.title;
+    }
+
     @computed get staticDataDurations() {
         return this.staticData.map(x => ({ label: x.title, value: x._id }))
     };

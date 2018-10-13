@@ -1,12 +1,15 @@
 import React from 'react';
 import {observer} from 'mobx-react';
+import activityStore from "../stores/activityStore";
 
 @observer
 class ExperienceMini extends React.Component {
     render() {
+        const activity = this.props.activity;
+        const activityPrice = activityStore.loadTestActivityMininumPrice(activity);
         return (
-            <div className="productTile product default" pid="324" displayorder="20.000000">
-                <a className="tile_product tile js-product-title   desktop" href="/" pid="324">
+            <div className="productTile product default">
+                <a className="tile_product tile js-product-title   desktop" href="/">
                     <div>
                         <div className="product_img_container sg-c-3">
                             <div className="buy_type black sg-inline-middle"
@@ -30,14 +33,16 @@ class ExperienceMini extends React.Component {
                             <div className="product_image_wrapper">
                                 <div className="product_image_viewport">
                                     <img className="product_img lazyloaded"
-                                         data-src="alicewaters__market.jpg"
-                                         alt="Alice Waters-Led Tour" title="Alice Waters-Led Tour"
-                                         src={"alicewaters__market.jpg"}/>
+                                         data-src={activity.image[0].path}
+                                         alt={activity.title}
+                                         title={activity.title}
+                                         src={activity.image[0].path}/>
                                 </div>
                             </div>
                             <img className="celeb_img js-lazyload sg-bg-3"
-                                 data-src="waters_350px__L.jpg" src={"waters_350px__L.jpg"}  alt={""}/>
-                            <div className="heart_img wishlist " tabIndex="0" pid="324" title="Wishlist">
+                                 data-src={activity.luminary.image.path} src={activity.luminary.image.path}
+                                 alt={activity.luminary.user.firstName + " " + activity.luminary.user.lastName} />
+                            <div className="heart_img wishlist " tabIndex="0" title="Список желаний">
                             </div>
                             <div className="wishlist-main-con"
                                  style={{
@@ -47,7 +52,7 @@ class ExperienceMini extends React.Component {
                                 <img className="wishlist-carrot" src={"arrow_up_white_border.png"} alt={""}/>
                                 <div className="wishlist-text-con sg-bg-3 sg-bd-2 ">
                                     <p className="wishlist-text sg-f-bdy sg-c-primary sg-text-transform"
-                                       style={{textAlign: 'center'}}>add to wishlist</p>
+                                       style={{textAlign: 'center'}}>хочу!</p>
                                 </div>
                             </div>
                             <div className="occasion_banner_container ">
@@ -59,18 +64,19 @@ class ExperienceMini extends React.Component {
                         <div className="details_div">
                             <div className="min_height_placeholder">
                             </div>
-                            <div className="product_celeb_name sg-c-2">Alice Waters</div>
+                            <div className="product_celeb_name sg-c-2">
+                                {activity.luminary.user.firstName + " " + activity.luminary.user.lastName}</div>
                             <div className="product_stars">
                             </div>
                             <div style={{clear: 'both'}}>
                             </div>
                         </div>
 
-                        <div className="product_location sg-c-2">Berkeley, California</div>
+                        <div className="product_location sg-c-2">{activity.location.title}</div>
                         <div className="product_title sg-c-1">
-                            <p>Alice Waters-Led Tour of the Farmers Market and Seasonal Lunch at Chez Panisse Cafe</p>
+                            <p>{activity.title}</p>
                         </div>
-                        <div className="product_price sg-c-2">US$5,000/person</div>
+                        <div className="product_price sg-c-2">{activityPrice}</div>
                     </div>
                 </a>
             </div>

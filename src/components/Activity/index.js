@@ -25,6 +25,7 @@ class Activity extends React.Component {
 
     render() {
         const activity = this.props.activityStore.loadTestActivity();
+        const activities = this.props.activityStore.loadTestActivitiesLuminary();
         return (
             <div id="content">
                 <div className="product-section ">
@@ -43,7 +44,7 @@ class Activity extends React.Component {
                 <React.Fragment>
                     <ActivityHowItWorks/>
                     <ActivityReview/>
-                    <ActivityAboutLuminary luminary={activity.luminary}/>
+                    <ActivityAboutLuminary luminary={activity.luminary} activities={activities}/>
                     <ActivityYouMayLike activity={activity}/>
                 </React.Fragment>
             </div>
