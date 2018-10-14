@@ -6,6 +6,7 @@ import activityStore from "../stores/activityStore";
 class ExperienceMini extends React.Component {
     render() {
         const activity = this.props.activity;
+        console.log(activity);
         const activityPrice = activityStore.loadTestActivityMininumPrice(activity);
         return (
             <div className="productTile product default">
@@ -33,14 +34,14 @@ class ExperienceMini extends React.Component {
                             <div className="product_image_wrapper">
                                 <div className="product_image_viewport">
                                     <img className="product_img lazyloaded"
-                                         data-src={activity.image[0].path}
+                                         data-src={activity.images[0].path}
                                          alt={activity.title}
                                          title={activity.title}
-                                         src={activity.image[0].path}/>
+                                         src={activity.images[0].path}/>
                                 </div>
                             </div>
                             <img className="celeb_img js-lazyload sg-bg-3"
-                                 data-src={activity.luminary.image.path} src={activity.luminary.image.path}
+                                 data-src={activity.luminary.user.image.path} src={activity.luminary.user.image.path}
                                  alt={activity.luminary.user.firstName + " " + activity.luminary.user.lastName} />
                             <div className="heart_img wishlist " tabIndex="0" title="Список желаний">
                             </div>

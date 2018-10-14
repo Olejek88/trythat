@@ -42,13 +42,7 @@ export class ActivityStore {
 
     @action loadTestActivitiesLuminary(luminary) {
         this.isLoading = true;
-        return this.staticData
-            .then(action(({ activities, activitiesCount }) => {
-                this.activitiesRegistry.clear();
-                activities.forEach(activity => this.activitiesRegistry.set(activity.slug, activity));
-                this.totalPagesCount = Math.ceil(activitiesCount / LIMIT);
-            }))
-            .finally(action(() => { this.isLoading = false; }));
+        return this.staticData;
     }
 
     @computed get activities() {

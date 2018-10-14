@@ -42,8 +42,8 @@ class ActivityAboutLuminary extends React.Component {
                             <a className="sg-f-bdy sg-c-1 sg-text-transform sg-inline-middle" href="/">смотреть все</a>
                         </div>
                         <div className="list mini_product_list">
-                            <ExperienceMini activity={activity_from_luminary[0]}/>
-                            <ExperienceMini activity={activity_from_luminary[0]}/>
+                            <ExperienceMini activity={activity_from_luminary}/>
+                            <ExperienceMini activity={activity_from_luminary}/>
                         </div>
                         <a href="/">
                             <div className="custom-exp sg-bg-1" style={{textAlign: 'center'}}>
