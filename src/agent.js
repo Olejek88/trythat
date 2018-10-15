@@ -141,6 +141,17 @@ const ActivityListing = {
         requests.post('/activity-listing/create', { activity })
 };
 
+const Customer = {
+    forUser: user =>
+        requests.get(`/customer/?user=${user}`),
+    get: customer =>
+        requests.get(`/customer/${customer}`),
+    create: (customer) =>
+        requests.post(`/customer/${customer}`),
+    del: (slug, customerId) =>
+        requests.del(`/customer/${slug}/${customerId}`),
+};
+
 const Image = {
     get: image =>
         requests.get(`/image/${image}`),
@@ -198,6 +209,18 @@ const Profile = {
     requests.del(`/profiles/${username}/follow`)
 };
 
+const WishList = {
+    byCustomer: (customer_id) =>
+        requests.get(`/wish-list/customer?${customer_id}`),
+    del: (activity_id, customer_id) =>
+        requests.del(`/wish-list/?customer=${customer_id}&activity=${activity_id}`),
+    get: (activity_id, customer_id) =>
+        requests.get(`/wish-list/?customer=${customer_id}&activity=${activity_id}`),
+    create: (activity_id, customer_id) =>
+        requests.post(`/wish-list/?customer=${customer_id}&activity=${activity_id})
+};
+
+
 const Occasions = {
     all: () =>
         requests.get(`/occasions`),
@@ -218,6 +241,7 @@ export default {
     Cities,
     Comments,
     Country,
+    Customer,
     Image,
     Locations,
     Luminary,
@@ -226,5 +250,6 @@ export default {
     Order,
     OrderStatus,
     Tags,
-    Trending
+    Trending,
+    WishList
 };

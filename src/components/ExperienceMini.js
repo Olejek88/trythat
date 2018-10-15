@@ -43,7 +43,7 @@ class ExperienceMini extends React.Component {
                             <img className="celeb_img js-lazyload sg-bg-3"
                                  data-src={activity.luminary.user.image.path} src={activity.luminary.user.image.path}
                                  alt={activity.luminary.user.firstName + " " + activity.luminary.user.lastName} />
-                            <div className="heart_img wishlist " tabIndex="0" title="Список желаний">
+                            <div className="heart_img wishlist" onClick={} tabIndex="0" title="Список желаний">
                             </div>
                             <div className="wishlist-main-con"
                                  style={{
@@ -77,7 +77,7 @@ class ExperienceMini extends React.Component {
                         <div className="product_title sg-c-1">
                             <p>{activity.title}</p>
                         </div>
-                        <div className="product_price sg-c-2">{activityPrice}</div>
+                        <div className="product_price sg-c-2">от {activityPrice}</div>
                     </div>
                 </a>
             </div>

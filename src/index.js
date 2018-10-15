@@ -10,6 +10,7 @@ import App from './components/App';
 import commentsStore from './stores/commentsStore';
 import authStore from './stores/authStore';
 import commonStore from './stores/commonStore';
+import customerStore from "./stores/customerStore";
 import editorStore from './stores/editorStore';
 import imageStore from './stores/imageStore';
 import luminaryStore from "./stores/luminaryStore";
@@ -37,6 +38,7 @@ const stores = {
     commentsStore,
     commonStore,
     countryStore,
+    customerStore,
     durationStore,
     editorStore,
     imageStore,
