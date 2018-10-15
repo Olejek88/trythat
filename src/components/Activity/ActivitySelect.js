@@ -5,6 +5,8 @@ import activityListingStore from "../../stores/activityListingStore";
 import orderStatusStore from "../../stores/orderStatusStore";
 import userStore from "../../stores/userStore";
 import orderStore from "../../stores/orderStore";
+import activityStore from "../../stores/activityStore";
+import customerStore from "../../stores/customerStore";
 
 @observer
 class ActivitySelect extends React.Component {
@@ -15,7 +17,18 @@ class ActivitySelect extends React.Component {
         this.state = {
             selectedQuantity: 1,
             selectedDuration: 1,
-            selectedPrice: 'не выбрано'
+            selectedPrice: 'не выбрано',
+            favoredClass: "heart_img",
+            favored: false
+        };
+
+        this.onFavored = () => {
+            this.setState({favored: !this.state.favored});
+            if (this.state.favored)
+                this.setState({favoredClass:'pdp heart_img listed'});
+            else
+                this.setState({favoredClass:'pdp heart_img'});
+            console.log(this.state.favoredClass);
         };
 
         this.makeOrder = () => {
@@ -38,6 +51,18 @@ class ActivitySelect extends React.Component {
             this.setState({selectedPrice: event.cost});
         };
 
+    }
+
+    componentWillMount() {
+        if (this.props.activity) {
+            const customer = customerStore.getTestCustomer();
+            const favored = activityStore.isFavorite(this.props.activity._id, customer._id);
+            this.setState(favored);
+            if (favored)
+                this.setState({favoredClass: "pdp heart_img listed"});
+            else
+                this.setState({favoredClass: 'pdp heart_img'});
+        }
     }
 
     render() {
@@ -205,7 +230,7 @@ class ActivitySelect extends React.Component {
                         </div>
                         <div className="social_wiget_div sg-f-hdr sg-bd-3 desktop " style={{textAlign: 'center'}}>
                             <div className="wishlist  secondaryButton sg-cursor " tabIndex="0">
-                                <div className="pdp heart_img" pid="325"></div>
+                                <div className={this.state.favoredClass} style={{marginBottom: '18px'}} onClick={this.onFavored}></div>
                                 <p className="pdp wishlist-text title sg-text-transform">Добавить в список желаний</p>
                             </div>
                             <div className="review_stars_div " data-average-rating="5.00">

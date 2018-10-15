@@ -130,16 +130,23 @@ a:hover {
 }
 
 .heart_img {
+    background-image: url('icon_heart.png');
+}
+
+.sg-cursor {
+    cursor: pointer;
+}
+
+.tile_product .heart_img {
     position: absolute;
     right: 0;
     top: 0;
     width: 60px;
     height: 0;
     padding-top: 60px;
-    background-size: 50% 50%;
     background-repeat: no-repeat;
+    background-size: 50% 50%;
     background-position: center center;
-    background-image: url('icon_heart.png');
     z-index: 2;
 }
 

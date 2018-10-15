@@ -126,5 +126,25 @@
     width: 170px;
 }
 
+.heart_img.listed, .wishlist.listed .heart_img {
+    background-image: url('icon_heart_green.png');
+}
+
+.social_wiget_div .wishlist .heart_img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+.product-section .heart_img {
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.social_wiget_div .wishlist > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .sg-f-bdy
 .sg-c-2

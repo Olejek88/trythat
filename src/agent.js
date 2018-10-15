@@ -112,10 +112,8 @@ const Activities = {
     requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
   del: slug =>
     requests.del(`/activities/${slug}`),
-  favorite: slug =>
-    requests.post(`/activities/${slug}/favorite`),
-  favoredBy: (luminary, page) =>
-    requests.get(`/activities?favored=${encode(luminary)}&${limit(5, page)}`),
+  favorite: (activity,customer_id) =>
+    requests.post(`/activities/${customer_id}/favorite`, {activity}),
   feed: () =>
     requests.get('/activities/feed?limit=10&offset=0'),
   get: slug =>
@@ -129,7 +127,7 @@ const Activities = {
 };
 
 const ActivityListing = {
-    byActivity: (activity_id) =>
+    forActivity: (activity_id) =>
         requests.get(`/activity-listing/activity?${activity_id}`),
     del: (activity_listing_id) =>
         requests.del(`/activity-listing/del?${activity_listing_id}`),
@@ -184,7 +182,7 @@ const Luminary = {
 const Order = {
     all: (page, lim = 10) =>
         requests.get(`/orders?${limit(lim, page)}`),
-    byUser: (user, page) =>
+    forUser: (user, page) =>
         requests.get(`/orders?user=${encode(user)}&${limit(5, page)}`),
     get: orderId =>
         requests.get(`/order/${orderId}`),
@@ -209,17 +207,29 @@ const Profile = {
     requests.del(`/profiles/${username}/follow`)
 };
 
+const Review = {
+    forCustomer: (customer_id) =>
+        requests.get(`/review/customer?${customer_id}`),
+    forActivity: (activity_id) =>
+        requests.get(`/review/activity?${activity_id}`),
+    del: (review_id) =>
+        requests.del(`/review/?review=${review_id}`),
+    get: (review_id) =>
+        requests.get(`/review/${review_id}`),
+    create: (review) =>
+        requests.post(`/review/${review}`)
+};
+
 const WishList = {
-    byCustomer: (customer_id) =>
+    forCustomer: (customer_id) =>
         requests.get(`/wish-list/customer?${customer_id}`),
     del: (activity_id, customer_id) =>
         requests.del(`/wish-list/?customer=${customer_id}&activity=${activity_id}`),
     get: (activity_id, customer_id) =>
         requests.get(`/wish-list/?customer=${customer_id}&activity=${activity_id}`),
     create: (activity_id, customer_id) =>
-        requests.post(`/wish-list/?customer=${customer_id}&activity=${activity_id})
+        requests.post(`/wish-list/?customer=${customer_id}&activity=${activity_id}`)
 };
-
 
 const Occasions = {
     all: () =>
@@ -249,6 +259,7 @@ export default {
     Occasions,
     Order,
     OrderStatus,
+    Review,
     Tags,
     Trending,
     WishList

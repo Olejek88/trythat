@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx';
-import {computed} from "mobx/lib/mobx";
 import activityStore from "./activityStore";
 import customerStore from "./customerStore";
 
@@ -13,9 +12,11 @@ class WishListStore {
         },
     ];
 
-    @action loadOccasions() {
-        return this.staticDataOptions;
+    @action loadTestWishList() {
+        return this.staticData;
     }
+
+
 }
 
 export default new WishListStore();

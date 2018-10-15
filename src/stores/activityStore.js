@@ -8,6 +8,7 @@ import activityCategoryStore from "./activityCategoryStore";
 import durationStore from "./durationStore";
 import locationStore from "./locationStore";
 import activityListingStore from "./activityListingStore";
+import wishListStore from "./wishListStore";
 
 const LIMIT = 10;
 
@@ -85,8 +86,18 @@ export class ActivityStore {
     }
 
     loadTestActivityMininumPrice(activity) {
-        const activityListingMinimumPrice = activityListingStore.loadTestActivityListingMininunPrice(activity);
-        return activityListingMinimumPrice;
+        return activityListingStore.loadTestActivityListingMininunPrice(activity);
+    }
+
+    @action loadActivities() {
+        this.isLoading = true;
+        return this.$req()
+            .then(action(({ activities, activitiesCount }) => {
+                this.activitiesRegistry.clear();
+                activities.forEach(activity => this.activitiesRegistry.set(activity.slug, activity));
+                this.totalPagesCount = Math.ceil(activitiesCount / LIMIT);
+            }))
+            .finally(action(() => { this.isLoading = false; }));
     }
 
     @action loadActivity(slug, {acceptCached = false} = {}) {
@@ -116,13 +127,35 @@ export class ActivityStore {
             .finally(action(() => { this.isLoading = false; }));
     }
 
-    @action makeFavorite(slug) {
-        const activity = this.getActivity(slug);
-        if (activity && !activity.favorited) {
-            activity.favorited = true;
-            return agent.favorite(slug)
+    @action isFavorite(activity_id, customer_id) {
+        const activity = this.getActivity(activity_id);
+        if (activity) {
+            const wishListActivity = wishListStore.loadTestWishList();
+            return !!wishListActivity;
+        }
+        return Promise.resolve();
+    }
+
+    @action makeFavorite(activity_id) {
+        const activity = this.getActivity(activity_id);
+        if (activity) {
+            const wishListActivity = wishListStore.loadTestWishList();
+            if (!wishListActivity) {
+                return agent.favorite(activity_id)
+                    .catch(action(err => {
+                        throw err;
+                    }));
+            }
+        }
+        return Promise.resolve();
+    }
+
+    @action unmakeFavorite(activity_id) {
+        const activity = this.getActivity(activity_id);
+        if (activity) {
+            return agent.Activities.unmakeFavorite(activity_id)
                 .catch(action(err => {
-                    activity.favorited = false;
+                    activity.favorited = true;
                     throw err;
                 }));
         }
@@ -133,19 +166,6 @@ export class ActivityStore {
         if (activity) {
             return agent.Activities.create(activity)
                 .catch(action(err => {
-                    throw err;
-                }));
-        }
-        return Promise.resolve();
-    }
-
-    @action unmakeFavorite(slug) {
-        const activity = this.getActivity(slug);
-        if (activity && activity.favorited) {
-            activity.favorited = false;
-            return agent.Activities.unfavorite(slug)
-                .catch(action(err => {
-                    activity.favorited = true;
                     throw err;
                 }));
         }
