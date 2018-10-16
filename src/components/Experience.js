@@ -35,7 +35,7 @@ class Experience extends React.Component {
 
     render() {
         const activity = this.props.activity;
-        const activityPrice = activityStore.loadTestActivityMininumPrice(activity);
+        const activityPrice = activityStore.loadTestActivityMinimumPrice(activity);
         if (!activity)
             return null;
         else

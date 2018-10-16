@@ -7,6 +7,9 @@ import {Provider} from 'mobx-react';
 
 import App from './components/App';
 
+import activityStore from "./stores/activityStore";
+import activityCategoryStore from "./stores/activityCategoryStore";
+import activityListingStore from "./stores/activityListingStore";
 import commentsStore from './stores/commentsStore';
 import authStore from './stores/authStore';
 import commonStore from './stores/commonStore';
@@ -18,9 +21,7 @@ import userStore from './stores/userStore';
 import countryStore from './stores/countryStore';
 import locationStore from './stores/locationStore';
 import profileStore from './stores/profileStore';
-import activityStore from "./stores/activityStore";
 import cityStore from "./stores/cityStore";
-import activityCategoryStore from "./stores/activityCategoryStore";
 import categoryStore from "./stores/categoryStore";
 import occasionStore from "./stores/occasionStore";
 import trendingStore from "./stores/trendingStore";
@@ -31,6 +32,7 @@ import orderStatusStore from "./stores/orderStatusStore";
 
 const stores = {
     activityStore,
+    activityListingStore,
     activityCategoryStore,
     authStore,
     categoryStore,

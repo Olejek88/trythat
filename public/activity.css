@@ -187,6 +187,18 @@ div.reviews .review_stars_div .review_star, .row.reviews .review_stars_div .revi
     font-style: italic;
 }
 
+.product_img_container .heart_img {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 60px;
+    height: 0;
+    padding-top: 60px;
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
+    background-position: center center;
+    z-index: 2;
+}
 
 .sg-f-bdy
 .sg-c-2

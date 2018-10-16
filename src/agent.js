@@ -10,45 +10,45 @@ const API_ROOT = 'https://conduit.productionready.io/api';
 const encode = encodeURIComponent;
 
 const handleErrors = err => {
-  if (err && err.response && err.response.status === 401) {
-    authStore.logout();
-  }
-  return err;
+    if (err && err.response && err.response.status === 401) {
+        authStore.logout();
+    }
+    return err;
 };
 
 const responseBody = res => res.body;
 
 const tokenPlugin = req => {
-  if (commonStore.token) {
-    req.set('authorization', `Token ${commonStore.token}`);
-  }
+    if (commonStore.token) {
+        req.set('authorization', `Token ${commonStore.token}`);
+    }
 };
 
 const requests = {
-  del: url =>
-    superagent
-      .del(`${API_ROOT}${url}`)
-      .use(tokenPlugin)
-      .end(handleErrors)
-      .then(responseBody),
-  get: url =>
-    superagent
-      .get(`${API_ROOT}${url}`)
-      .use(tokenPlugin)
-      .end(handleErrors)
-      .then(responseBody),
-  put: (url, body) =>
-    superagent
-      .put(`${API_ROOT}${url}`, body)
-      .use(tokenPlugin)
-      .end(handleErrors)
-      .then(responseBody),
-  post: (url, body) =>
-    superagent
-      .post(`${API_ROOT}${url}`, body)
-      .use(tokenPlugin)
-      .end(handleErrors)
-      .then(responseBody),
+    del: url =>
+        superagent
+            .del(`${API_ROOT}${url}`)
+            .use(tokenPlugin)
+            .end(handleErrors)
+            .then(responseBody),
+    get: url =>
+        superagent
+            .get(`${API_ROOT}${url}`)
+            .use(tokenPlugin)
+            .end(handleErrors)
+            .then(responseBody),
+    put: (url, body) =>
+        superagent
+            .put(`${API_ROOT}${url}`, body)
+            .use(tokenPlugin)
+            .end(handleErrors)
+            .then(responseBody),
+    post: (url, body) =>
+        superagent
+            .post(`${API_ROOT}${url}`, body)
+            .use(tokenPlugin)
+            .end(handleErrors)
+            .then(responseBody),
 };
 
 const Auth = {
@@ -75,7 +75,7 @@ const Categories = {
 
 const Comments = {
     create: (slug, comment) =>
-        requests.post(`/activities/${slug}/comments`, { comment }),
+        requests.post(`/activities/${slug}/comments`, {comment}),
     delete: (slug, commentId) =>
         requests.del(`/activities/${slug}/comments/${commentId}`),
     forActivity: slug =>
@@ -97,33 +97,35 @@ const Cities = {
 };
 
 const Tags = {
-  getAll: () => requests.get('/tags')
+    getAll: () => requests.get('/tags')
 };
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
-const omitSlug = activity => Object.assign({}, activity, { slug: undefined })
+const omitSlug = activity => Object.assign({}, activity, {slug: undefined})
 
 const Activities = {
-  all: (page, lim = 10) =>
-    requests.get(`/activities?${limit(lim, page)}`),
-  byLuminary: (luminary, page, query) =>
-    requests.get(`/activities?luminary=${encode(luminary)}&${limit(5, page)}`),
-  byTag: (tag, page, lim = 10) =>
-    requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
-  del: slug =>
-    requests.del(`/activities/${slug}`),
-  favorite: (activity,customer_id) =>
-    requests.post(`/activities/${customer_id}/favorite`, {activity}),
-  feed: () =>
-    requests.get('/activities/feed?limit=10&offset=0'),
-  get: slug =>
-    requests.get(`/activities/${slug}`),
-  unfavore: slug =>
-    requests.del(`/activities/${slug}/favorite`),
-  update: activity =>
-    requests.put(`/activities/${activity.slug}`, { activity: omitSlug(activity) }),
-  create: activity =>
-    requests.post('/activities', { activity })
+    all: (page, lim = 10) =>
+        requests.get(`/activities?${limit(lim, page)}`),
+    byLuminary: (luminary, page, query) =>
+        requests.get(`/activities?luminary=${encode(luminary)}&${limit(5, page)}`),
+    wished: (customer) =>
+        requests.get(`/activities?customer=${encode(customer)}&wish=1`),
+    byTag: (tag, page, lim = 10) =>
+        requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
+    del: slug =>
+        requests.del(`/activities/${slug}`),
+    favorite: (activity, customer_id) =>
+        requests.post(`/activities/${customer_id}/favorite`, {activity}),
+    feed: () =>
+        requests.get('/activities/feed?limit=10&offset=0'),
+    get: slug =>
+        requests.get(`/activities/${slug}`),
+    unfavore: slug =>
+        requests.del(`/activities/${slug}/favorite`),
+    update: activity =>
+        requests.put(`/activities/${activity.slug}`, {activity: omitSlug(activity)}),
+    create: activity =>
+        requests.post('/activities', {activity})
 };
 
 const ActivityListing = {
@@ -134,9 +136,9 @@ const ActivityListing = {
     get: (activity_listing_id) =>
         requests.get(`/activity-listing/${activity_listing_id}`),
     update: (activity_listing_id, activity) =>
-        requests.put(`/activity-listing/update?${activity_listing_id}`, { activity: omitSlug(activity) }),
-    create: activity =>
-        requests.post('/activity-listing/create', { activity })
+        requests.put(`/activity-listing/update?${activity_listing_id}`, {activity: omitSlug(activity)}),
+    create: (activity, customer) =>
+        requests.post('/activity-listing/create', {activity}, {customer})
 };
 
 const Customer = {
@@ -199,12 +201,12 @@ const OrderStatus = {
 };
 
 const Profile = {
-  follow: username =>
-    requests.post(`/profiles/${username}/follow`),
-  get: username =>
-    requests.get(`/profiles/${username}`),
-  unfollow: username =>
-    requests.del(`/profiles/${username}/follow`)
+    follow: username =>
+        requests.post(`/profiles/${username}/follow`),
+    get: username =>
+        requests.get(`/profiles/${username}`),
+    unfollow: username =>
+        requests.del(`/profiles/${username}/follow`)
 };
 
 const Review = {

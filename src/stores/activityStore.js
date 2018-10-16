@@ -1,4 +1,4 @@
-import {observable, action, computed} from 'mobx';
+import {observable, action} from 'mobx';
 import agent from '../agent';
 import imageStore from "./imageStore";
 import categoryStore from "./categoryStore";
@@ -46,7 +46,17 @@ export class ActivityStore {
         return this.staticData;
     }
 
-    @computed get activities() {
+    @action loadTestActivity() {
+        return this.staticData;
+    }
+
+    getTestWishActivities() {
+        let tempArray = [];
+        tempArray.push(this.staticData);
+        return tempArray;
+    }
+
+    get activities() {
         return this.activitiesRegistry.values();
     };
 
@@ -81,12 +91,8 @@ export class ActivityStore {
         return agent.Activities.byLuminary(luminary, LIMIT);
     }
 
-    loadTestActivity() {
-        return this.staticData;
-    }
-
-    loadTestActivityMininumPrice(activity) {
-        return activityListingStore.loadTestActivityListingMininunPrice(activity);
+    loadTestActivityMinimumPrice(activity) {
+        return activityListingStore.loadTestActivityListingMinimumPrice(activity);
     }
 
     @action loadActivities() {
