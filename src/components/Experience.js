@@ -25,7 +25,7 @@ class Experience extends React.Component {
         if (this.props.activity) {
             const customer = customerStore.getTestCustomer();
             const favored = activityStore.isFavorite(this.props.activity._id, customer._id);
-            this.state.favored = favored;
+            this.setState({favored: "favored"});
             if (favored)
                 this.setState({favoredClass: "heart_img wishlist listed"});
             else

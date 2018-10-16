@@ -6,8 +6,8 @@ class ActivityDetails extends React.Component {
   render() {
     return (
         <div className="right-box details-box" style={{minHeight: 'initial'}}>
+{/*
             <div className="pdp-product-details ">
-                <h4 className="sg-f-ttl">Подробнее</h4>
                 <div className="product-desc  sg-f-bdy ">
                     <div className="content celeb-color-anchor">
                         <div className="buy-as-a-gift js-how-to-buy-gift sg-bd-2 buy_as_gift_div">
@@ -20,16 +20,18 @@ class ActivityDetails extends React.Component {
             </div>
             <div style={{clear: 'both'}}>
             </div>
+*/}
             <div className="finePrint-sec " style={{display: 'none'}}>
                 <div className="product-desc ">
                     <div className="content celeb-color-anchor">
                         <ul>
-                            <li>Will be scheduled on a mutually agreeable date and time, based on luminary’s availability</li>
-                            <li><p className="p1">This experience is non-refundable after scheduling is complete</p></li>
+                            <li>Точная дата и время будут уточнены после покупки вашего впечатления</li>
+                            <li><p className="p1">Возврат и обмен будут невозможны после заявленной даты и самого события</p></li>
                         </ul>
                         <ul>
-                            <li>By clicking Buy Now, you agree to all our <a
-                                href="/" target="_blank" title="Opens In New Window">Terms Of Use</a></li>
+                            <li>Нажимая "Купить сейчас" Вы соглашаетесь с
+                                <a href="/" target="_blank" title="Opens In New Window">условиями использования сервиса</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

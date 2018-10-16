@@ -10,7 +10,7 @@ class CountryStore {
 
     @observable staticData = {_id: 1, title: 'Россия'};
 
-    @computed get staticDataOptions() {
+    staticDataOptions() {
         return this.staticData.map(x => ({ label: x.title, value: x._id }))
     };
 

@@ -233,15 +233,6 @@ class ActivitySelect extends React.Component {
                                 <div className={this.state.favoredClass} style={{marginBottom: '18px'}} onClick={this.onFavored}></div>
                                 <p className="pdp wishlist-text title sg-text-transform">Добавить в список желаний</p>
                             </div>
-                            <div className="review_stars_div " data-average-rating="5.00">
-                                <div className="review_stars_inner_div sg-inline-middle">
-                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
-                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
-                                    <img className="review_star" src={"icon_star_filled.png"}  alt={""}/>
-                                    <img className="review_star" src={"icon_star_half.png"}  alt={""}/>
-                                    <img className="review_star" src={"icon_star_outline.png"}  alt={""}/>
-                                    <span className="total_reviews_span sg-f-bdy">(1)</span></div>
-                            </div>
                             <table className="btn_table sg-bd-2 sg-no-bd-bottom sg-no-bd-left sg-no-bd-right">
                                 <tbody>
                                 <tr>

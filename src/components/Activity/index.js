@@ -8,21 +8,13 @@ import ActivityHowItWorks from "./ActivityHowItWorks";
 import ActivityAboutLuminary from "./ActivityAboutLuminary";
 import ActivityYouMayLike from "./ActivityYouMayLike";
 import {withRouter} from "react-router-dom";
-import ActivityReview from "./ActivityReview";
+import ActivityReviews from "./ActivityReviews";
 import {inject} from "mobx-react/index";
 
 @observer
 @withRouter
 @inject('activityStore')
 class Activity extends React.Component {
-    componentDidMount() {
-        //const slug = this.props.match.params.id;
-        this.props.activityStore.loadTestActivity();
-        //this.props.articlesStore.loadArticle(slug, { acceptCached: true });
-        //this.props.commentsStore.setArticleSlug(slug);
-        //this.props.commentsStore.loadComments();
-    }
-
     render() {
         const activity = this.props.activityStore.loadTestActivity();
         const activities = this.props.activityStore.loadTestActivitiesLuminary();
@@ -43,7 +35,7 @@ class Activity extends React.Component {
                 </div>
                 <React.Fragment>
                     <ActivityHowItWorks/>
-                    <ActivityReview/>
+                    <ActivityReviews activity={activity}/>
                     <ActivityAboutLuminary luminary={activity.luminary} activities={activities}/>
                     <ActivityYouMayLike activity={activity}/>
                 </React.Fragment>

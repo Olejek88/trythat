@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx';
-import {computed} from "mobx/lib/mobx";
 import activityStore from "./activityStore";
 import customerStore from "./customerStore";
 
@@ -25,6 +24,19 @@ class ReviewStore {
 
     @action loadTestReviews() {
         return this.staticData;
+    }
+
+    getTestAverageMark(activity) {
+        let markArray=[0,0];
+        this.staticData.forEach(function(review) {
+            markArray[0]+=review.rate;
+            markArray[1]++;
+        });
+        if (markArray[1]>0) {
+            markArray[0]=markArray[0]/markArray[1];
+            return markArray;
+        }
+        return markArray;
     }
 }
 
