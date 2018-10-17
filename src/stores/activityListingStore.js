@@ -28,8 +28,22 @@ export class ActivityListingStore {
             isGroup: false
         }];
 
+    oneStaticData =
+        {   _id: '1',
+            customers: 1,
+            activity: activityStore.loadTestActivity(),
+            duration: durationStore.getTestDurationOne(),
+            cost: 2500,
+            currency: currencyStore.loadTestCurrency(),
+            isGroup: false
+        };
+
     loadTestActivityListing() {
         return this.staticData;
+    }
+
+    loadTestOneActivityListing() {
+        return this.oneStaticData;
     }
 
     loadTestActivityListingMinimumPrice(activity) {

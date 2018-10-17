@@ -6,7 +6,6 @@ import {withRouter} from "react-router-dom";
 @withRouter
 class Activity extends React.Component {
     componentDidMount() {
-        //this.props.commonStore.loadTags();
     }
 
     render() {

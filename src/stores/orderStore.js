@@ -2,7 +2,7 @@ import {observable, action} from 'mobx';
 import agent from '../agent';
 import activityListingStore from "./activityListingStore";
 import orderStatusStore from "./orderStatusStore";
-import userStore from "./userStore";
+import customerStore from "./customerStore";
 
 const LIMIT = 10;
 
@@ -15,15 +15,15 @@ export class OrderStore {
     @observable addOrderErrors;
 
     staticData =
-        {   _id: '1',
-            listing: activityListingStore.loadTestActivityListing(),
+        [{   _id: '1',
+            listing: activityListingStore.loadTestOneActivityListing(),
             orderStatus: orderStatusStore.getTestOrderStatus(),
             created: new Date(),
-            customer: userStore.getTestUser(),
+            customer: customerStore.getTestCustomer(),
             startDate: new Date()
-        };
+        }];
 
-    loadTestOrder() {
+    loadTestOrders() {
         return this.staticData;
     }
 
