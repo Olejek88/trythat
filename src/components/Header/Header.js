@@ -82,7 +82,7 @@ const LoggedInView = props => {
                     <div id="cart" style={{height: '100%'}}>
                         <Link to="/cart" className="shopping access-join js-shopping-bag js-signUp sg-inline-middle filled">
                             <img src={"icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
-                            <span id="cart-item-count" className="sg-c-1 sg-bg-3" style={{display: 'inline'}}>1</span>
+                            <span id="cart-item-count" className="sg-c-1 sg-bg-3" style={{display: 'inline'}}>{props.orders}</span>
                         </Link>
                         <PopCart />
                     </div>
@@ -93,10 +93,11 @@ const LoggedInView = props => {
     return null;
 };
 
-@inject('userStore', 'commonStore')
+@inject('userStore', 'commonStore', 'orderStore')
 @observer
 class Header extends React.Component {
     render() {
+        const orders = this.props.orderStore.loadTestOrdersCount();
         return (
             <div id="header-fixed" className="sg-bg-1" style={{top: '0'}}>
                 <div id="header-wrap">
@@ -116,7 +117,7 @@ class Header extends React.Component {
                         <MenuNew/>
                         <LoggedOutView currentUser={this.props.userStore.currentUser}/>
 
-                        <LoggedInView currentUser={this.props.userStore.currentUser}/>
+                        <LoggedInView currentUser={this.props.userStore.currentUser} orders={orders}/>
                     </div>
                 </div>
             </div>

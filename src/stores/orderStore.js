@@ -27,6 +27,10 @@ export class OrderStore {
         return this.staticData;
     }
 
+    loadTestOrdersCount() {
+        return this.staticData.length;
+    }
+
     getOrder(slug) {
         return this.ordersRegistry.get(slug);
     }
