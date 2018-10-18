@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 import agent from '../agent';
 import imageStore from "./imageStore";
+import cityStore from "./cityStore";
 
 class LocationStore {
     @observable currentLocation;
@@ -9,6 +10,7 @@ class LocationStore {
 
     testData = {
         _id: 1,
+        city: cityStore.loadTestCity(),
         title: 'Челябинская обл., вулкан Свердловский',
         latitude: 55.66,
         longitude: 56.44,

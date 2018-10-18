@@ -100,7 +100,8 @@ const Tags = {
     getAll: () => requests.get('/tags')
 };
 
-const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+//const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+const limit = (count, start) => `limit=${count}&offset=${start}`;
 const omitSlug = activity => Object.assign({}, activity, {slug: undefined})
 
 const Activities = {
@@ -125,7 +126,10 @@ const Activities = {
     update: activity =>
         requests.put(`/activities/${activity.slug}`, {activity: omitSlug(activity)}),
     create: activity =>
-        requests.post('/activities', {activity})
+        requests.post('/activities', {activity}),
+
+    filter: (filter, id, lim, start) =>
+        requests.get(`/activities/${filter}/${id}?${limit(lim, start)}`),
 };
 
 const ActivityListing = {

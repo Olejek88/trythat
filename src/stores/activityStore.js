@@ -16,7 +16,6 @@ export class ActivityStore {
 
     @observable isLoading = false;
     @observable page = 0;
-    @observable totalPagesCount = 0;
     @observable activitiesRegistry = observable.map();
     @observable addActivityErrors;
     @observable predicate = {};
@@ -42,8 +41,16 @@ export class ActivityStore {
         };
 
     @action loadTestActivitiesLuminary(luminary) {
-        this.isLoading = true;
         return this.staticData;
+    }
+
+    @action loadTestActivities(count) {
+        let tempArray = [];
+        while (count > 0) {
+            tempArray.push(this.staticData);
+            count--;
+        }
+        return tempArray;
     }
 
     @action loadTestActivity() {
@@ -80,15 +87,14 @@ export class ActivityStore {
     }
 
     $req() {
-        if (this.predicate.myFeed) return agent.Activities.feed(this.page, LIMIT);
+        console.log(this.predicate.filter + ' ' + this.predicate.id);
+        return agent.Activities.filter(this.predicate.filter, this.predicate.id);
+/*
         if (this.predicate.favoritedBy) return agent.Activities.favoritedBy(this.predicate.favoritedBy, this.page, LIMIT);
         if (this.predicate.tag) return agent.Activities.byTag(this.predicate.tag, this.page, LIMIT);
         if (this.predicate.user) return agent.Activities.byLuminary(this.predicate.author, this.page, LIMIT);
-        return agent.Activities.all(this.page, LIMIT, this.predicate);
-    }
-
-    $reqLuminary(luminary) {
-        return agent.Activities.byLuminary(luminary, LIMIT);
+        return agent.Activities.all(this.page, LIMIT);
+*/
     }
 
     loadTestActivityMinimumPrice(activity) {
@@ -98,10 +104,9 @@ export class ActivityStore {
     @action loadActivities() {
         this.isLoading = true;
         return this.$req()
-            .then(action(({ activities, activitiesCount }) => {
+            .then(action(({ activities}) => {
                 this.activitiesRegistry.clear();
                 activities.forEach(activity => this.activitiesRegistry.set(activity.slug, activity));
-                this.totalPagesCount = Math.ceil(activitiesCount / LIMIT);
             }))
             .finally(action(() => { this.isLoading = false; }));
     }
@@ -120,17 +125,6 @@ export class ActivityStore {
             .finally(action(() => {
                 this.isLoading = false;
             }));
-    }
-
-    @action loadActivitiesLuminary(luminary) {
-        this.isLoading = true;
-        return this.$reqLuminary(luminary)
-            .then(action(({ activities, activitiesCount }) => {
-                this.activitiesRegistry.clear();
-                activities.forEach(activity => this.activitiesRegistry.set(activity.slug, activity));
-                this.totalPagesCount = Math.ceil(activitiesCount / LIMIT);
-            }))
-            .finally(action(() => { this.isLoading = false; }));
     }
 
     @action isFavorite(activity_id, customer_id) {
@@ -198,7 +192,7 @@ export class ActivityStore {
         this.activitiesRegistry.delete(slug);
         return agent.Activities.del(slug)
             .catch(action(err => {
-                this.loadActivitiesLuminary();
+                this.loadActivities();
                 throw err;
             }));
     }

@@ -8,13 +8,55 @@ import ExperienceRow from "../Experience/ExperienceRow";
 @inject('activityStore', 'userStore')
 @withRouter
 export default class ActivityView extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            activitiesRows: []
+        };
+    }
 
     componentWillMount() {
-        this.props.activityStore.setPredicate(this.getPredicate());
+        let predicate = {
+            filter: this.props.filter,
+            id: this.props.id
+        };
+        this.props.activityStore.setPredicate(predicate);
     }
 
     componentDidMount() {
-        this.props.activityStore.loadActivities();
+        let activities = this.props.activityStore.loadTestActivities(12);
+        let my = this;
+        let activitiesRow = [];
+        let activitiesRows = my.state.activitiesRows;
+        let count = 0;
+        if (activities && activities.length>0) {
+            switch (my.props.filter) {
+                case 'city':
+                    activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления в Вашем городе '+ activities[0].location.city.title}/>);
+                    break;
+                case 'occasion':
+                    activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления на случай '+ activities[0].occasion.title}/>);
+                    break;
+                case 'trends':
+                    activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления для '+ activities[0].trending.title}/>);
+                    break;
+                default:
+                    activitiesRows.push(<ExperienceTitle key={1} title="Лучшие впечатления для Вас"/>);
+                    break;
+            }
+        }
+        console.log(activitiesRows);
+        activities.forEach(function (activity, i) {
+            activitiesRow.push(activity);
+            count++;
+            if (count % 4 === 0) {
+                activitiesRows = my.state.activitiesRows;
+                activitiesRows.push(<ExperienceRow activities={activitiesRow} key={i}/>);
+                my.setState({activitiesRows: activitiesRows});
+                activitiesRow = [];
+            }
+        });
+        console.log(my.state.activitiesRows);
     }
 
     componentDidUpdate(previousProps) {
@@ -49,9 +91,7 @@ export default class ActivityView extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <ExperienceTitle/>
-                <ExperienceRow category={1}/>
-                <ExperienceRow category={2}/>
+                {this.state.activitiesRows}
             </React.Fragment>
         );
     }
