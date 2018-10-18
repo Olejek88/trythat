@@ -19,7 +19,7 @@ import Orders from "./Orders";
 import Cart from "./Cart";
 import AddActivity from "./AddActivity";
 import WishList from "./WishList";
-
+import Activities from "./Activities";
 
 @inject('userStore', 'commonStore', 'activityStore', 'locationStore')
 @withRouter
@@ -45,6 +45,7 @@ export default class App extends React.Component {
                 <div>
                     <Header/>
                     <Switch>
+                        <Route path="/activities/:filter/:id" component={Activities}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
                         <Route path="/editor/:slug?" component={Editor}/>
