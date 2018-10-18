@@ -4,13 +4,13 @@ class FooterCategories extends React.Component {
   render() {
     return (
         <div className="footer_div">
-            <h2 className="footer_header" style={{marginBottom: '20px'}}>Shop more experiences that give back</h2>
+            <h2 className="footer_header" style={{marginBottom: '20px'}}>Выбирайте впечатления на любой вкус</h2>
             <div className="pageframe_content_container">
                 <table className="tile_table discovery-footer catch_all_footer_table" data-cols="5">
                     <tbody>
                     <tr>
                         <td className="sg-bd-2">
-                            <div className="catch_all_footer_subtitle">CATEGORIES</div>
+                            <div className="catch_all_footer_subtitle">Категории</div>
                             <table className="catch_all_footer_lists_table">
                                 <tbody>
                                 <tr>
@@ -77,9 +77,7 @@ class FooterCategories extends React.Component {
                             </table>
                         </td>
                         <td className="sg-bd-2">
-                            <div
-                                className="catch_all_footer_subtitle">LOCATIONS
-                            </div>
+                            <div className="catch_all_footer_subtitle">Локации</div>
                             <table className="catch_all_footer_lists_table">
                                 <tbody>
                                 <tr>

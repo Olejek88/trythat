@@ -130,7 +130,7 @@ a:hover {
 }
 
 .heart_img {
-    background-image: url('icon_heart.png');
+    background-image: url('images/icon_heart.png');
 }
 
 .sg-cursor {
@@ -151,7 +151,7 @@ a:hover {
 }
 
 .heart_img_green {
-    background-image: url('icon_heart_on_white.png');
+    background-image: url('images/icon_heart_on_white.png');
 }
 
 @media only screen and (min-width:1200px) {
@@ -751,7 +751,7 @@ a:hover {
 }
 
 .event_venue_row .displayonly_title, .location_row .displayonly_title {
-    background-image: url(icon_signpost.png);
+    background-image: url('images/icon_signpost.png');
 }
 
 .product_sec_title .review_stars_div {
@@ -955,7 +955,7 @@ a:hover {
     margin-top: 1px;
     width: 15px;
     height: 15px;
-    background: url(radio_button.png) no-repeat 0 0;
+    background: url('images/radio_button.png') no-repeat 0 0;
 }
 
 .customCheckBox, .customRadioBox {
@@ -1000,7 +1000,7 @@ a:hover {
 }
 
 .sg-chatbubble {
-    background-image: url('icon_chatbubble_green.png');
+    background-image: url('images/icon_chatbubble_green.png');
 }
 
 #footer {
@@ -1169,13 +1169,13 @@ div.p-top-sec .p-form .info-box {
     cursor: pointer;
     width: 100%;
     height: 50px;
-    background: url("buyasagift.jpg");
+    background: url("images/buyasagift.jpg");
     background-size: auto 100%;
     background-repeat: no-repeat;
 }
 
 .preffered_time {
-    background-image: url(icon_cal.png);
+    background-image: url('images/icon_cal.png');
     background-repeat: no-repeat;
     background-size: 22px;
     height: 44px;
@@ -1328,7 +1328,7 @@ div.p-top-sec .p-form .info-box {
 }
 
 .p-top-sec #pImages_left {
-    background: url(marquee_scroll_left.png);
+    background: url('images/marquee_scroll_left.png');
     background-size: auto auto;
     z-index: 2;
     position: absolute;
@@ -1382,7 +1382,7 @@ a {
 }
 
 .p-top-sec #pImages_right {
-    background: url(/marquee_scroll_right.png);
+    background: url('/public/images/marquee_scroll_right.png');
     background-size: auto auto;
     z-index: 2;
     position: absolute;
@@ -1404,7 +1404,7 @@ a {
     position: absolute;
     top: 0;
     left: 0;
-    background: url(/banner_grey_big.png) 0 0 no-repeat;
+    background: url('/public/images/banner_grey_big.png') 0 0 no-repeat;
     background-size: auto auto;
     height: 30px;
 }
@@ -1812,7 +1812,7 @@ span.err {
 }
 
 .listed_heart_img {
-    background-image: url('icon_heart_green.png');
+    background-image: url('images/icon_heart_green.png');
 }
 
 #main-detail.account-page .account-header {
@@ -1935,7 +1935,7 @@ input[type="text"], input[type="email"], input[type="password"], select, textare
 }
 
 select {
-    background: url(mobile-dropdown.png) no-repeat scroll 100% 8px / 35px auto white;
+    background: url('images/mobile-dropdown.png') no-repeat scroll 100% 8px / 35px auto white;
     padding: 10px;
     width: 100%;
     -webkit-appearance: none;
@@ -2583,14 +2583,14 @@ span {text-decoration: underline; padding-left: 10px; cursor:pointer;}
 .band-banner {
     min-height:400px;
     min-width: 900px;
-    background:url("marketplace.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
+    background:url("images/marketplace.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
     position:relative;
 }
 
 .band-about {
     min-height: 400px;
     min-width: 900px;
-    background: url("chelyabinsk.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
+    background: url("images/chelyabinsk.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
     position: relative;
 }
 
@@ -2598,7 +2598,7 @@ span {text-decoration: underline; padding-left: 10px; cursor:pointer;}
     position: relative;
     height: 620px;
     min-width: 960px;
-    background: url("steps.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
+    background: url("images/steps.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
 }
 
 .center {
@@ -2944,7 +2944,7 @@ span {text-decoration: underline; padding-left: 10px; cursor:pointer;}
 .help_dialog.crowdbuy_help_dialog.right .close {left:0;}
 
 .level-menu .l-menu.holiday {
-    background: url('holiday_nav_bg_green.png') no-repeat scroll 6px -1px / 75px auto rgba(0, 0, 0, 0);
+    background: url('images/holiday_nav_bg_green.png') no-repeat scroll 6px -1px / 75px auto rgba(0, 0, 0, 0);
 }
 
 .level-menu .l-menu .highlight-bar{
@@ -3306,7 +3306,7 @@ input[type="search"]#top-nav-search::-webkit-search-cancel-button {
     -webkit-appearance: none;
     height: 15px;
     width: 15px;
-    background-image: url("X---close.png");
+    background-image: url('images/X---close.png');
     background-size: 15px 15px;
 }
 
@@ -3632,7 +3632,7 @@ input[type="search"]#top-nav-search::-webkit-search-cancel-button {
 }
 
 .overlay.foyer .close {
-    background: url('icon_close.png') no-repeat center;
+    background: url('images/icon_close.png') no-repeat center;
     height: 15px;
     width: 15px;
     right: 20px;

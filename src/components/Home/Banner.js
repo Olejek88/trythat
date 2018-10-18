@@ -7,7 +7,7 @@ const Banner = ({ appName, token }) => {
   return (
       <div className="discovery">
           <div className="sy-slide"
-               style={{display: 'block', transitionDuration: '500ms', opacity: '1', backgroundImage: 'url("bucket.jpg")'}}>
+               style={{display: 'block', transitionDuration: '500ms', opacity: '1', backgroundImage: 'url("images/bucket.jpg")'}}>
               <div className="text_header_overlay" style={{display: 'block'}}>
                   <span className="static_text" style={{textTransform: 'none'}}>Незабываемые впечатления для</span>
                   <span className="moving_text">

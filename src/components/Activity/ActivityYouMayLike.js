@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import Experience from "../Experience";
+import Experience from "../Experience/Experience";
 
 @observer
 class ActivityYouMayLike extends React.Component {

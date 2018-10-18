@@ -1,6 +1,6 @@
 import React from 'react';
-import LoadingSpinner from './LoadingSpinner';
-import RedError from './RedError';
+import LoadingSpinner from './Elements/LoadingSpinner';
+import RedError from './Elements/RedError';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import activityStore from "../stores/activityStore";
-import customerStore from "../stores/customerStore";
+import activityStore from "../../stores/activityStore";
+import customerStore from "../../stores/customerStore";
 
 @observer
 class ExperienceMini extends React.Component {

@@ -21,10 +21,10 @@ const LoggedOutView = props => {
                     <div className="title-container"><p className="title">Войти</p></div>
                 </Link>
                 <Link to="/" className="sg-inline-middle">
-                    <img src={"icon_search.png"} style={{width: '30px'}} alt="поиск"/>
+                    <img src={"images/icon_search.png"} style={{width: '30px'}} alt="поиск"/>
                 </Link>
                 <Link to="/" className="shopping access-join js-shopping-bag js-signUp sg-inline-middle">
-                    <img src={"icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
+                    <img src={"images/icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
                 </Link>
             </div>
         );
@@ -61,7 +61,7 @@ const LoggedInView = props => {
                      style={{flexWrap: 'nowrap', order: '4'}}>
                     <div id="profile_settings" className={"profile_icon"}>
                         <Link to="/settings" className="myaccount sg-inline-middle" id="settings">
-                            <img src={"icon_peep_fff.png"} style={{height: '28px'}} alt={"none"}/>
+                            <img src={"images/icon_peep_fff.png"} style={{height: '28px'}} alt={"none"}/>
                         </Link>
                         <p className="caption sg-c-4" style={{textAlign: 'center'}}>Вы</p>
                         <div className="bubble notification unread txt-ovr-4 bg-ovr-3"
@@ -71,17 +71,17 @@ const LoggedInView = props => {
                     </div>
                     <div id="wish" className={"profile_icon"}>
                         <Link to="/wishlist" className="settings" style={{textAlign: 'center'}}>
-                            <img src={"icon_heart_on_white.png"} style={{height: '28px'}} alt="хочу" />
+                            <img src={"images/icon_heart_on_white.png"} style={{height: '28px'}} alt="хочу" />
                         </Link>
                         <p className="caption sg-c-4" style={{textAlign: 'center', marginTop: '5px'}}>Хочу</p>
                         <PopWish />
                     </div>
                     <Link to="/" className="sg-inline-middle">
-                        <img src={"icon_search.png"} style={{width: '30px'}} alt="поиск"/>
+                        <img src={"images/icon_search.png"} style={{width: '30px'}} alt="поиск"/>
                     </Link>
                     <div id="cart" style={{height: '100%'}}>
                         <Link to="/cart" className="shopping access-join js-shopping-bag js-signUp sg-inline-middle filled">
-                            <img src={"icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
+                            <img src={"images/icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
                             <span id="cart-item-count" className="sg-c-1 sg-bg-3" style={{display: 'inline'}}>{props.orders}</span>
                         </Link>
                         <PopCart />

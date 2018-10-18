@@ -1,6 +1,6 @@
 import React from 'react';
-import activityStore from "../stores/activityStore";
-import customerStore from "../stores/customerStore";
+import activityStore from "../../stores/activityStore";
+import customerStore from "../../stores/customerStore";
 
 class Experience extends React.Component {
     constructor() {

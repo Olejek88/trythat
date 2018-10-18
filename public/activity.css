@@ -20,7 +20,7 @@
 }
 
 .pImgContainer #pImages_left{
-    background: url(marquee_scroll_left.png);
+    background: url(images/marquee_scroll_left.png);
     z-index: 2;
     position: absolute;
     top: 195px;
@@ -31,7 +31,7 @@
 }
 
 .pImgContainer #pImages_right{
-    background: url(marquee_scroll_right.png);
+    background: url(images/marquee_scroll_right.png);
     z-index: 2;
     position: absolute;
     top: 195px;
@@ -70,7 +70,7 @@
     width: 8px;
     height: 8px;
     float: left;
-    background: url(/navigator.png) 0 0 no-repeat;
+    background: url(/public/images/navigator.png) 0 0 no-repeat;
     background-position-x: 0;
     background-position-y: 0;
     display: block;
