@@ -10,7 +10,6 @@ class PopWish extends React.Component {
         let wishList = '';
         const activities = this.props.activityStore.getTestWishActivities();
         const activityStore = this.props.activityStore;
-        console.log (activities);
         if (activities) {
             wishList = activities.map(function (activity,i) {
                 let price = activityStore.loadTestActivityMinimumPrice(activity);

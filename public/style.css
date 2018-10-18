@@ -3611,6 +3611,26 @@ input[type="search"]#top-nav-search::-webkit-search-cancel-button {
     cursor: pointer;
 }
 
+.overlay .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    height: 17px;
+    width: 17px;
+    z-index: 10;
+}
+
+.luminary_answer {
+    font-family: 'source-sans-pro-n4';
+    font-size: 14px;
+    color: #888;
+    width: 235px;
+    display: block;
+    margin-top: 3px;
+    padding-left: 5px;
+    line-height: 18px;
+}
+
 .overlay.foyer .close {
     background: url('icon_close.png') no-repeat center;
     height: 15px;

@@ -1,9 +1,7 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import {inject} from "mobx-react/index";
 
 @inject('commonStore')
-@observer
 class SiteInfo extends React.Component {
   render() {
     return (

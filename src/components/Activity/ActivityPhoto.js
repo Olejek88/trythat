@@ -27,7 +27,7 @@ class ActivityPhoto extends React.Component {
 
                 <div style={{width: '100%', position: 'absolute', bottom: '0px'}}>
                     <div className="pImgSlide" style={{margin: '0 auto', width: '14px'}}>
-                        <a href="#" className="active">
+                        <a href="/" className="active">
                         </a>
                     </div>
                 </div>

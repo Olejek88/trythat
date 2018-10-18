@@ -1,7 +1,5 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 
-@observer
 class FooterCategories extends React.Component {
   render() {
     return (

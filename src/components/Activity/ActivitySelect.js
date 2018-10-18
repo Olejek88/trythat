@@ -237,14 +237,14 @@ class ActivitySelect extends React.Component {
                                 <tbody>
                                 <tr>
                                     <td className="left_td share_td sg-bd-3 sg-no-bd-left sg-no-bd-bottom">
-                                        <a href="#" className="button sg-inline-middle" style={{justifyContent: 'center'}}>
+                                        <a href="/" className="button sg-inline-middle" style={{justifyContent: 'center'}}>
                                             <img style={{width: '28px', verticalAlign: 'middle'}}
                                                  src={"icon_share_green.png"} alt={""}/>
                                             <span className="sg-text-transform txt-ovr-2 sg-hover-primary">Поделиться</span>
                                         </a>
                                     </td>
                                     <td className="right_td question_td sg-bd-3 sg-no-bd-right sg-no-bd-bottom">
-                                        <a href="#" className="button sg-inline-middle" style={{justifyContent: 'center'}}>
+                                        <a href="/" className="button sg-inline-middle" style={{justifyContent: 'center'}}>
                                             <img style={{width: '20px', verticalAlign: 'middle', paddingTop: '8px'}}
                                                  src={"icon_chatbubble_green.png"} alt={""}/>
                                             <span className="sg-text-transform txt-ovr-2 sg-hover-primary span-right">Задать вопрос</span>

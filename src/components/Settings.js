@@ -516,12 +516,7 @@ class SettingsForm extends React.Component {
 @withRouter
 @observer
 class Settings extends React.Component {
-    handleClickLogout = () =>
-        this.props.authStore.logout()
-            .then(() => this.props.history.replace('/'));
-
     render() {
-
         return (
             <div className="container page">
                 <div className="row">

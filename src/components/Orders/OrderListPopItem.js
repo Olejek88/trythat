@@ -15,7 +15,7 @@ class OrderListPopItem extends React.Component {
         };
         return (
             <li className="item sg-inline-middle sg-f-bdy">
-                <a className="img-box-wrapper" href="/" style={{flex: '3'}}>
+                <a className="img-box-wrapper" href={order_link} style={{flex: '3'}}>
                     <div className="img-box"
                          style={activity_image}>
                     </div>

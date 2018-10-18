@@ -1,5 +1,5 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
+import { inject} from 'mobx-react';
 import { withRouter} from 'react-router-dom'
 import { parse as qsParse } from 'query-string';
 import Banner from "./Banner";
@@ -10,7 +10,6 @@ import FooterCategories from "../FooterCategories";
 
 @inject('activityStore', 'commonStore', 'userStore')
 @withRouter
-@observer
 export default class MainView extends React.Component {
 
   componentWillMount() {

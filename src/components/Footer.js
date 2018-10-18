@@ -1,8 +1,6 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
 import SiteMenu from "./SiteMenu";
 import SiteInfo from "./SiteInfo";
-//import FooterCategories from "./FooterCategories";
 
 const FooterView = props => {
     return (
@@ -13,8 +11,6 @@ const FooterView = props => {
     );
 };
 
-@inject('userStore', 'commonStore')
-@observer
 class Footer extends React.Component {
   render() {
     return (

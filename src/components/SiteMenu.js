@@ -1,10 +1,8 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import Link from "react-router-dom/es/Link";
 import {inject} from "mobx-react/index";
 
 @inject('commonStore')
-@observer
 class SiteMenu extends React.Component {
   render() {
     return (

@@ -1,29 +1,37 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import {withRouter} from "react-router-dom";
+import {inject} from "mobx-react/index";
 
-@observer
+@inject('orderStore')
 class OrderListItem extends React.Component {
     constructor() {
         super();
+        this.onClick = this.onClick.bind(this);
         this.state = {
-            showQuestionDialog: false
-        }
+            showQuestionDialog: false,
+            showOrderItem: true
+        };
+
+        this.onRemove = (e) => {
+            console.log ('remove');
+            this.props.orderStore.deleteOrder(e);
+            this.setState({showOrderItem: false})
+        };
+
+        this.clickHandler = (component) => {
+            console.log ('clickHandler');
+            component.setState({ showQuestionDialog: false });
+        };
     }
 
     onClick(e) {
         e.preventDefault();
+        console.log ('onClick');
         this.setState({showQuestionDialog: !this.state.showQuestionDialog})
     }
 
-    clickHandler(component) {
-        component.setState({ showQuestionDialog: false });
+    componentWillMount() {
     }
-
-    remove(e) {
-
-    }
-
 
     render() {
         const activity = this.props.activity;
@@ -33,14 +41,15 @@ class OrderListItem extends React.Component {
         let order_duration = order.listing.duration.period;
         let order_quantity = order.listing.customers;
         let activity_image = this.props.activity.images[0].path;
-        let luminary_image = order.customer.user.image.path;
-        let luminary_name = order.customer.user.firstName + " " + order.customer.user.lastName;
+        let luminary_image = activity.luminary.user.image.path;
+        let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
         return (
             <React.Fragment>
-                {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}/>}
+                {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}
+                                                                  luminary={activity.luminary} />}
+                {this.state.showOrderItem &&
                 <div className="vendorBlock sg-bd-3">
-                    <div
-                        className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
+                    <div className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                         style={{padding: '20px 15px', width: '100%', boxSizing: 'border-box'}}>
                         <div className="vendor-img">
                             <img src={luminary_image} style={{width: '100%'}} alt={""}/>
@@ -60,19 +69,20 @@ class OrderListItem extends React.Component {
                     <div className="body-row">
                         <div className="main sg-inline-top">
                             <div className="two-col-1 col sg-inline-top sg-f-ttl" style={{margin: '10px 0'}}>
-                                <div><a href="/" className="sg-c-1">
+                                <div><a href={order_link} className="sg-c-1">
                                     <img src={activity_image} style={{width: '140px'}} alt={""}/>
                                 </a>
                                 </div>
                                 <div style={{margin: '0 10px', width: '50%'}}>
-                                    <div><a href="/" className="js-pdpDetails sg-c-1">
+                                    <div><a href={order_link} className="js-pdpDetails sg-c-1">
                                         {activity.title}</a></div>
                                     <div className="sg-c-2" style={{display: 'none'}}>
                                         {activity.description}
                                     </div>
-                                    <div className="sg-c-2"></div>
+                                    <div className="sg-c-2">
+                                    </div>
                                     <div className="convert" style={{marginTop: '10px'}}>
-                                        <a className="sg-inline-middle" href="/">
+                                        <a className="sg-inline-middle" href={order_link}>
                                             <div className="heart_img"
                                                  style={{width: '22px', height: '22px', backgroundSize: 'cover'}}>
                                             </div>
@@ -97,10 +107,8 @@ class OrderListItem extends React.Component {
                                     <div className="remove-convert"
                                          style={{width: '28px', position: 'relative', top: '-6px'}}>
                                         <div className="remove">
-                                            <a href="/">
-                                                <img src={"icon_close.png"} alt="remove" style={{width: '28px'}}
-                                                onClick={}/>
-                                            </a>
+                                            <img src={"icon_close.png"} alt="remove" style={{width: '28px'}}
+                                                onClick={() => { this.onRemove(order._id) }} />
                                         </div>
                                     </div>
                                 </div>
@@ -130,15 +138,27 @@ class OrderListItem extends React.Component {
                         <div style={{padding: '0 20px'}}>
                         </div>
                     </div>
-                </div>
+                </div>}
             </React.Fragment>
         );
     }
 }
 
-@observer
 @withRouter
 class QuestionDialog extends React.Component {
+    constructor() {
+        super();
+
+        this.clickHandler = (component) => {
+            console.log ('clickHandler');
+            component.setState({ showQuestionDialog: false });
+        };
+
+        this.sendAnswer = (component) => {
+            component.setState({ showQuestionDialog: false });
+        }
+    }
+
     render() {
         const clickHandler = this.props.clickHandler;
         return (
@@ -149,48 +169,43 @@ class QuestionDialog extends React.Component {
                 <div className="overlayContent">
                     <div className="form">
                         <div className="dialog_header" style={{margin: '0px'}}>
-                            <p className="header-text"
-                               style={{width: 'auto', textAlign: 'center', fontSize: '24px'}}>Вопросы?</p>
+                            <p className="header-text" style={{width: 'auto', textAlign: 'center', fontSize: '24px'}}>Вопросы?</p>
                         </div>
                         <div className="dialog_body" style={{margin: '0 60px', width: '300px'}}>
                             <div className="dialog_content" style={{textAlign: 'left', width: '300px'}}>
                                 <div className="row" style={{marginTop: '36px', textAlign: 'left'}}>
-                                    <img src="https://d5xydlzdo08s0.cloudfront.net/media/frames/61/elizabeth__L.jpg"
-                                         alt="concierge-img"
+                                    <img src={this.props.luminary.user.image.path} alt="{this.props.luminary.user.firstName}"
                                          style={{width: '44px', height: '44px', float: 'left', borderRadius: '22px'}}/>
-                                    <font
-                                        style={{fontFamily: 'source-sans-pro-n4', fontSize: '14px', color: '#888', width: '235px', display: 'block', marginTop: '3px',
-                                            paddingLeft: '56px', lineHeight: '18px'}}>Elizabeth and our concierge team would be delighted to assist you.</font>
-
+                                    <div className="luminary_answer">{this.props.luminary.user.firstName} и его команда будут рад помочь Вам и ответить на Ваши вопросы.
+                                    </div>
                                 </div>
                                 <div style={{borderBottom: '1px solid #e1e1e1', width: '100%', float: 'left', marginTop: '10px'}}></div>
                                 <div className="row" style={{marginTop: '36px'}}>
-                                    <p style={{fontFamily: 'source-sans-pro-n4',fontSize: '18px', color: '#000', margin: '0px', marginBottom: '5px'}}>Call</p>
-                                    <p style={{fontFamily: 'source-sans-pro-n3',fontSize: '14px', color: '#888', margin: '0px', lineHeight: '20px'}}>
-                                        <font class="sg-c-primary"
-                                              style={{fontFamily: 'source-sans-pro-n3', fontSize: '18px'}}>(415) 376-4640</font>
-                                        <br/>
-                                        Monday through Friday, 9am–6pm PT</p>
+                                    <div style={{fontFamily: 'source-sans-pro-n4',fontSize: '18px', color: '#000', margin: '0px', marginBottom: '5px'}}>
+                                        Звоните
+                                        <div className="sg-c-primary" style={{fontFamily: 'source-sans-pro-n3', fontSize: '18px'}}>
+                                            <p style={{fontFamily: 'source-sans-pro-n3',fontSize: '16px', color: '#008800', margin: '0px', lineHeight: '20px'}}>
+                                            {this.props.luminary.user.phone}</p>
+                                        </div>
+                                        <div style={{fontFamily: 'source-sans-pro-n3',fontSize: '14px', color: '#888', margin: '0px', lineHeight: '25px'}}>
+                                            В рабочее время с 9 до 18
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="row" style={{marginTop: '28px', marginBottom: '36px'}}>
                                     <p style={{fontFamily: 'source-sans-pro-n4', fontSize: '18px', color: '#000', marginBottom: '5px'}}>
                                         Отправить сообщение</p>
-                                    <form className="concierge-overlay" style={{position: 'relative'}} action="/cart" method="POST">
-                                        <input className="js-email"
-                                               placeholder="Your email address"
-                                               aria-label="Your email address" style={{width: '100%'}}
-                                               id="email" value="olejek8@yandex.ru" name="email"
-                                               type="text" />
+                                    <form className="concierge-overlay" style={{position: 'relative'}}
+                                          onSubmit={this.sendAnswer}
+                                          action="/" method="POST">
+                                        <input className="js-email" placeholder="Ваш е-мэйл адрес" style={{width: '100%'}}
+                                               id="email" name="email" type="text" />
                                         <input className="js-phone"
-                                               name="Suggestion[phoneNumber]"
-                                               aria-label="Your phone (optional)"
-                                               placeholder="Your phone (optional)"
-                                               style={{width: '100%', margin: '5px 0'}}
-                                               type="text" />
-                                        <textarea className="js-suggestion" name="Suggestion[request]"
+                                               name="phone" placeholder="Номер телефона (дополнительно)"
+                                               style={{width: '100%', margin: '5px 0'}} type="text" />
+                                        <textarea className="js-suggestion" name="request"
                                                   style={{height: '70px', width: '100%', resize: 'none', boxSizing: 'border-box'}}
-                                                  aria-label="How can we help you?"
-                                                  placeholder="How can we help you?">
+                                                  placeholder="Чем можем помочь?">
                                         </textarea>
                                         <p className="errorSummary">
                                         </p>

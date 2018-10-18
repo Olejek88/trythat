@@ -5,9 +5,6 @@ import {withRouter} from "react-router-dom";
 @observer
 @withRouter
 class Activity extends React.Component {
-    componentDidMount() {
-    }
-
     render() {
         return (
             <div className="page-right-col" style={{width: '85%', marginTop: '50px', marginLeft: '15%'}}>

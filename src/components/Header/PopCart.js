@@ -15,7 +15,6 @@ class PopCart extends React.Component {
             orderList = orders.map(function (order, i) {
                 let activity = order.listing.activity;
                 sum += order.listing.cost;
-                console.log (order);
                 return (<OrderListPopItem activity={activity} key={i} order={order}/>);
             });
         }

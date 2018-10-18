@@ -1,8 +1,6 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import Experience from "./Experience";
 
-@observer
 class ExperienceRow extends React.Component {
   render() {
     return (
