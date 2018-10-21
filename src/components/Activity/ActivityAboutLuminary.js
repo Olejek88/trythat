@@ -1,12 +1,23 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import ExperienceMini from "../Experience/ExperienceMini";
+import followListStore from "../../stores/followListStore";
 
 @observer
 class ActivityAboutLuminary extends React.Component {
+    constructor() {
+        super();
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick() {
+        //followListStore.follow(this.props.luminary, this.props.userStore.currentUser);
+    }
+
     render() {
         const luminary = this.props.luminary;
         const activity_from_luminary = this.props.activities;
+
         return (
             <div className="luminary-section sg-bd-2 sg-bg-2" data-html="">
                 <div className="cb" data-celebid="36">
@@ -24,8 +35,9 @@ class ActivityAboutLuminary extends React.Component {
                             <div data-id="36" style={{margin: '10px 0 0 2px'}}
                                  className="follow following wide primaryButton button" tabIndex="0">
                                 <div className="title-container"><p className="title">
-                                    <img className="greenCheck" src={"icon_checkmark_green.png"} style={{display: 'none'}} alt={""}/>
-                                    <span className="title following-text sg-text-transform">Подписаться</span></p></div>
+                                    <img className="greenCheck" src={"images/icon_checkmark_green.png"} style={{display: 'none'}} alt={""}/>
+                                    <span className="title following-text sg-text-transform"
+                                          onClick={this.onClick.bind(this)}>Подписаться</span></p></div>
                             </div>
                         </div>
                     </div>

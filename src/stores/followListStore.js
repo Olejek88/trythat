@@ -1,42 +1,41 @@
 import { observable, action } from 'mobx';
-import activityStore from "./activityStore";
+import luminaryStore from "./luminaryStore";
 import customerStore from "./customerStore";
 import agent from "../agent";
 
-class WishListStore {
+class FollowListStore {
     @observable staticData = [
         {
             _id: '1',
-            activity: activityStore.loadTestActivity(),
             customer: customerStore.getTestCustomer(),
-            date: new Date()
+            luminary: luminaryStore.getTestLuminary()
         },
     ];
 
-    @action loadTestWishList() {
+    @action loadTestFollowList() {
         return this.staticData;
     }
 
-    @action isWished(customer, activity) {
-        return agent.isWished(customer, activity)
+    @action isFollow(customer, luminary) {
+        return agent.isFollow(customer, luminary)
             .then(({answer}) => {
                 return answer;
             })
     }
 
-    @action wish(customer, activity) {
-        return agent.wish(customer, activity)
+    @action follow(customer, luminary) {
+        return agent.follow(customer, luminary)
             .then(({answer}) => {
                 return answer;
             })
     }
 
-    @action unWish(customer, activity) {
-        return agent.unWish(customer, activity)
+    @action unFollow(customer, luminary) {
+        return agent.unFollow(customer, luminary)
             .then(({answer}) => {
                 return answer;
             });
     }
 }
 
-export default new WishListStore();
+export default new FollowListStore();

@@ -226,15 +226,24 @@ const Review = {
         requests.post(`/review/${review}`)
 };
 
+const FollowList = {
+    isFollow: (customer,luminary) =>
+        requests.get(`/follow/get?${customer}&${luminary}`),
+    follow: (customer,luminary) =>
+        requests.get(`/customer/follow?${customer}&${luminary}`),
+    unFollow: (customer,luminary) =>
+        requests.get(`/customer/unfollow?${customer}&${luminary}`),
+};
+
 const WishList = {
-    forCustomer: (customer_id) =>
-        requests.get(`/wish-list/customer?${customer_id}`),
-    del: (activity_id, customer_id) =>
-        requests.del(`/wish-list/?customer=${customer_id}&activity=${activity_id}`),
-    get: (activity_id, customer_id) =>
-        requests.get(`/wish-list/?customer=${customer_id}&activity=${activity_id}`),
-    create: (activity_id, customer_id) =>
-        requests.post(`/wish-list/?customer=${customer_id}&activity=${activity_id}`)
+    forCustomer: (customer) =>
+        requests.get(`/wish-list/customer?${customer}`),
+    isWished: (activity, customer) =>
+        requests.get(`/wish-list/get?customer=${customer}&activity=${activity}`),
+    wish: (activity, customer) =>
+        requests.get(`/wish-list/wish?customer=${customer}&activity=${activity}`),
+    unWish: (activity, customer) =>
+        requests.get(`/wish-list/unwish?customer=${customer}&activity=${activity}`)
 };
 
 const Occasions = {
@@ -259,6 +268,7 @@ export default {
     Country,
     Customer,
     Image,
+    FollowList,
     Locations,
     Luminary,
     Profile,

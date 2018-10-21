@@ -39,7 +39,7 @@ class Experience extends React.Component {
         else
         return (
             <div className="experience-tile tile1 discovery">
-                <a className="tile_product tile js-product-title desktop" href={"/#/activity/" + activity.id}>
+                <a className="tile_product tile js-product-title desktop" href={"/#/activity/" + activity._id}>
                     <div>
                         <div className="product_img_container">
                             <div className="buy_type black sg-inline-middle" style={{direction: 'ltr', display: 'none'}}>

@@ -11,7 +11,7 @@ class ActivityHowItWorks extends React.Component {
                 <table className="elements-list">
                     <tbody><tr>
                         <td>
-                            <img src={"steps_schedule.jpg"} alt="" />
+                            <img src={"images/steps_schedule.jpg"} alt="" />
                                 <p className="fo-18-n-s4">Предоставьте детали</p>
                                 <p className="fo-15-n-s4">
                                 </p>
@@ -21,7 +21,7 @@ class ActivityHowItWorks extends React.Component {
                                     </div>
                                 </div></td>
                         <td>
-                            <img src={"steps_confirm.jpg"} alt="" />
+                            <img src={"images/steps_confirm.jpg"} alt="" />
                                 <p className="fo-18-n-s4">Подтвердите выбор</p>
                                 <p className="fo-15-n-s4"></p>
                                 <div style={{padding: '0 60px 0 60px'}}>Исполнитель подтвердит и запланирует услугу или
@@ -29,7 +29,7 @@ class ActivityHowItWorks extends React.Component {
                                 <p></p>
                         </td>
                         <td>
-                            <img src={"steps_enjoy.jpg"} alt="" />
+                            <img src={"images/steps_enjoy.jpg"} alt="" />
                                 <p className="fo-18-n-s4">Вперед к впечатлениям! </p>
                                 <p className="fo-15-n-s4">
                                 </p>

@@ -10,8 +10,6 @@ import locationStore from "./locationStore";
 import activityListingStore from "./activityListingStore";
 import wishListStore from "./wishListStore";
 
-const LIMIT = 10;
-
 export class ActivityStore {
 
     @observable isLoading = false;
@@ -87,7 +85,7 @@ export class ActivityStore {
     }
 
     $req() {
-        console.log(this.predicate.filter + ' ' + this.predicate.id);
+        //console.log(this.predicate.filter + ' ' + this.predicate.id);
         return agent.Activities.filter(this.predicate.filter, this.predicate.id);
 /*
         if (this.predicate.favoritedBy) return agent.Activities.favoritedBy(this.predicate.favoritedBy, this.page, LIMIT);

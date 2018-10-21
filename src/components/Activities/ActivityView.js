@@ -45,7 +45,6 @@ export default class ActivityView extends React.Component {
                     break;
             }
         }
-        console.log(activitiesRows);
         activities.forEach(function (activity, i) {
             activitiesRow.push(activity);
             count++;
@@ -56,7 +55,6 @@ export default class ActivityView extends React.Component {
                 activitiesRow = [];
             }
         });
-        console.log(my.state.activitiesRows);
     }
 
     componentDidUpdate(previousProps) {

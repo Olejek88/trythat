@@ -10,8 +10,8 @@ class ActivityReviews extends React.Component {
         const activity = this.props.activity;
         const reviews = reviewStore.loadTestReviews();
         const averageMark = reviewStore.getTestAverageMark(activity);
-        let reviewsFragments = reviews.map(review => {
-            return (<ActivityReview review={review} />);
+        let reviewsFragments = reviews.map(function (review, i) {
+            return (<ActivityReview review={review} key={i}/>);
         });
 
         return (

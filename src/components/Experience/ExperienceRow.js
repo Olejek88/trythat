@@ -5,10 +5,11 @@ class ExperienceRow extends React.Component {
     render() {
         let activitiesList = Array.of(undefined);
         let activities = this.props.activities;
-        console.log('row=' + activities);
-        activities.forEach(function (activity,i) {
-            activitiesList.push(<Experience activity={activity} key={i}/>);
-        });
+        if (activities) {
+            activities.forEach(function (activity, i) {
+                activitiesList.push(<Experience activity={activity} key={i}/>);
+            });
+        }
         return (
             <div className="experience">
                 <React.Fragment>

@@ -4,9 +4,9 @@ import {observer} from 'mobx-react';
 @observer
 class ActivityStarAverage extends React.Component {
     static getStarImg (filled) {
-        if (filled===1) return 'icon_star_filled_green.png';
-        if (filled===0.5) return 'icon_star_half_green.png';
-        if (filled===0) return 'icon_star_outline_green.png';
+        if (filled===1) return 'images/icon_star_filled_green.png';
+        if (filled===0.5) return 'images/icon_star_half_green.png';
+        if (filled===0) return 'images/icon_star_outline_green.png';
     }
 
     render() {
@@ -24,8 +24,8 @@ class ActivityStarAverage extends React.Component {
         if (rate>=4.25) stars[4] = ActivityStarAverage.getStarImg(0.5);
         if (rate>=4.75) stars[4] = ActivityStarAverage.getStarImg(1);
 
-        let images = stars.map(image => {
-            return (<img src={image} className="review_star" alt="" />);
+        let images = stars.map(function (image, i) {
+            return (<img src={image} className="review_star" alt="" key={i}/>);
         });
         return (
             <div className="review_stars_div " data-average-rating={rate}>

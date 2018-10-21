@@ -20,7 +20,7 @@
 }
 
 .pImgContainer #pImages_left{
-    background: url(images/marquee_scroll_left.png);
+    background: url('images/marquee_scroll_left.png');
     z-index: 2;
     position: absolute;
     top: 195px;
@@ -127,7 +127,7 @@
 }
 
 .heart_img.listed, .wishlist.listed .heart_img {
-    background-image: url('icon_heart_green.png');
+    background-image: url('images/icon_heart_green.png');
 }
 
 .social_wiget_div .wishlist .heart_img {

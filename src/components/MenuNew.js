@@ -33,7 +33,7 @@ class SiteMenu extends React.Component {
         if (occasions) {
             occasions.forEach(function (occasion,i) {
                 occasionList.push(<div className="topNavCat" key={i}>
-                    <a href={"/#/occasion/category/" + occasion.value} title={occasion.label}>
+                    <a href={"/#/activities/occasion/" + occasion.value} title={occasion.label}>
                         <p className="level-link fo-14-n-s4">{occasion.label}</p></a></div>);
             });
         }
@@ -42,7 +42,7 @@ class SiteMenu extends React.Component {
         if (trends) {
             trends.forEach(function (trend,i) {
                 trendsList.push(<div className="topNavCat" key={i}>
-                    <a href={"/#/trend/category/" + trend.value} title={trend.label}>
+                    <a href={"/#/activities/trend/" + trend.value} title={trend.label}>
                         <p className="level-link fo-14-n-s4">{trend.label}</p></a></div>);
             });
         }
