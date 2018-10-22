@@ -21,19 +21,19 @@ const HowItWorks = ({ appName, token }) => {
                       <div className="step123">
                           <ul>
                               <li className="sg-inline-top">
-                                  <div className="number" style={{flex: '0.2'}}><img src={"step1.png"} alt={"Шаг 1"} />
+                                  <div className="number" style={{flex: '0.2'}}><img src={"images/step1.png"} alt={"Шаг 1"} />
                                   </div>
                                   <p className="text" style={{flex: '0.8'}}>Заполните свой профиль и создайте свой набор
                                       впечатлений и услуг, используя наши шаблоны.</p>
                               </li>
                               <li className="sg-inline-top">
-                                  <div className="number" style={{flex: '0.2'}}><img src={"step2.png"} alt={"Шаг 2"} />
+                                  <div className="number" style={{flex: '0.2'}}><img src={"images/step2.png"} alt={"Шаг 2"} />
                                   </div>
                                   <p className="text" style={{flex: '0.8'}}>Наш менеджер поможет Вам настроить ваш
                                       магазин услуг так, чтобы он был максимально привлекательным для клиентов.</p>
                               </li>
                               <li className="sg-inline-top">
-                                  <div className="number" style={{flex: '0.2'}}><img src={"step3.png"} alt={"Шаг 3"} />
+                                  <div className="number" style={{flex: '0.2'}}><img src={"images/step3.png"} alt={"Шаг 3"} />
                                   </div>
                                   <p className="text" style={{flex: '0.8'}}>Продавайте ваши услуги на нашей платформе,
                                       отвечайте на заявки, отмечайте ваше время работы и получайте свои деньги.</p>

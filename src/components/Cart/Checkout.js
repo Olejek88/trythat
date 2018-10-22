@@ -60,7 +60,7 @@ export default class Checkout extends React.Component {
                 let activity = order.listing.activity;
                 sum += order.listing.cost;
                 orders_count++;
-                return (<OrderListItem activity={activity} key={i} order={order}/>);
+                return (<OrderListItem activity={activity} key={i} order={order} checkout={true}/>);
             });
         }
         else orderList = 'Корзина пуста';
@@ -276,7 +276,7 @@ export default class Checkout extends React.Component {
                                             </div>
 
                                             <div id="payment-method" className="sg-bg-2 sg-bd-5 record"
-                                                 style={{boxSizing: 'border-box'}}>
+                                                 style={{boxSizing: 'border-box', padding: '8px'}}>
                                                 <div id="credit-card" className="checkout-panel">
                                                     <div id="paymentType-CreditCard"
                                                          className="payment-option js-p-option sg-inline-middle"
@@ -296,6 +296,109 @@ export default class Checkout extends React.Component {
                                                                  style={{height: '32px'}}/>
                                                         </div>
                                                     </div>
+                                                    <div id="payment-by-creditcard" className="desktop">
+                                                        <div className="row sg-f-bdy-s" id="cc-edit-form"
+                                                             style={{marginTop: '10px'}}>
+                                                            <div className="form js-parent"
+                                                                 style={{
+                                                                     width: '100%',
+                                                                     paddingRight: '1px',
+                                                                     boxSizing: 'border-box'
+                                                                 }}>
+                                                                <input name="type" value="creditCard" type="hidden"/>
+                                                                <div className="sg-inline-top"
+                                                                     style={{width: '100%', margin: '10px 0'}}>
+                                                                    <div className="sec sg-inline-flex-grow">
+                                                                        <label className="input-label">Владелец
+                                                                            карты</label>
+                                                                        <input style={{width: '100%'}} maxLength="100"
+                                                                               aria-required="true" required="required"
+                                                                               autoComplete="off"
+                                                                               name="cardHolderName" id="cardHolderName"
+                                                                               value="" type="text"/>
+                                                                    </div>
+                                                                    <div style={{padding: '0 5px'}}>
+                                                                    </div>
+                                                                    <div className="sec sg-inline-flex-grow">
+                                                                        <label className="input-label">Номер
+                                                                            карты</label>
+                                                                        <input style={{width: '100%'}} maxLength="30"
+                                                                               aria-required="true" required="required"
+                                                                               autoComplete="off"
+                                                                               name="cardNumber" id="cardNumber"
+                                                                               value="" type="text"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div style={{margin: '10px 0'}}>
+                                                                    <div className="sec sg-inline-flex-grow">
+                                                                        <label className="input-label">Срок действия</label>
+                                                                        <div className="sg-inline-top exp-div"
+                                                                             style={{width: '100%'}}>
+                                                                            <div className="sg-inline-flex-grow">
+                                                                                <select style={{width: '100%'}}
+                                                                                        aria-required="true"
+                                                                                        required="required"
+                                                                                        className="sg-bg-3 sg-inline-flex-grow"
+                                                                                        name="expirationMonth"
+                                                                                        id="expirationMonth">
+                                                                                    <option value="">Месяц</option>
+                                                                                    <option value="1">01</option>
+                                                                                    <option value="2">02</option>
+                                                                                    <option value="3">03</option>
+                                                                                    <option value="4">04</option>
+                                                                                    <option value="5">05</option>
+                                                                                    <option value="6">06</option>
+                                                                                    <option value="7">07</option>
+                                                                                    <option value="8">08</option>
+                                                                                    <option value="9">09</option>
+                                                                                    <option value="10">10</option>
+                                                                                    <option value="11">11</option>
+                                                                                    <option value="12">12</option>
+                                                                                </select></div>
+                                                                            <div style={{padding: '0 5px'}}>
+                                                                            </div>
+                                                                            <div className="sg-inline-flex-grow">
+                                                                                <select style={{width: '100%'}}
+                                                                                        aria-required="true"
+                                                                                        className="sg-bg-3 sg-inline-flex-grow"
+                                                                                        name="expirationYear"
+                                                                                        id="expirationYear">
+                                                                                    <option value="">Год</option>
+                                                                                    <option value="2018">2018</option>
+                                                                                    <option value="2019">2019</option>
+                                                                                    <option value="2020">2020</option>
+                                                                                    <option value="2021">2021</option>
+                                                                                    <option value="2022">2022</option>
+                                                                                    <option value="2023">2023</option>
+                                                                                    <option value="2024">2024</option>
+                                                                                    <option value="2025">2025</option>
+                                                                                    <option value="2026">2026</option>
+                                                                                    <option value="2027">2027</option>
+                                                                                    <option value="2028">2028</option>
+                                                                                    <option value="2029">2029</option>
+                                                                                    <option value="2030">2030</option>
+                                                                                </select></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div style={{padding: '0 5px'}}>
+                                                                    </div>
+                                                                    <div className="sec sg-inline-flex-grow"
+                                                                         style={{margin: '10px 0'}}>
+                                                                        <label className="input-label">CVV</label>
+                                                                        <div className="sg-inline-middle" style={{width: '100%'}}>
+                                                                            <input style={{width: '60px', display: 'block'}}
+                                                                                maxLength="4" aria-required="true"
+                                                                                required="required"
+                                                                                autoComplete="off" name="cvc" id="cvc"
+                                                                                type="text" />
+                                                                                <div className="cvv-img cvv">
+                                                                                </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -306,7 +409,8 @@ export default class Checkout extends React.Component {
                                                     <div className="sg-inline-middle checkout_step_title">
                                                         <p className="step-num">4</p>
                                                     </div>
-                                                    <p className="step-label" style={{margin:'0 5px'}}>Посмотрите на свой
+                                                    <p className="step-label" style={{margin: '0 5px'}}>Посмотрите на
+                                                        свой
                                                         заказ еще раз</p>
                                                 </div>
                                             </div>
@@ -371,18 +475,12 @@ export default class Checkout extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div style={{marginTop: '10px', width: '100%'}}>
-                                        <div className="place-order gc primaryButton button"
-                                             style={{width: '100%'}} tabIndex="0">
-                                            <div className="title-container"><p className="title">Заказать</p></div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        );
+    );
     }
-}
+    }

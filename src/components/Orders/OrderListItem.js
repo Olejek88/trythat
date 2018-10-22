@@ -1,9 +1,8 @@
 import React from 'react';
 import {inject} from "mobx-react/index";
 import QuestionDialog from "./QuestionDialog";
-import wishListStore from "../../stores/wishListStore";
 
-@inject('orderStore')
+@inject('orderStore','wishListStore')
 class OrderListItem extends React.Component {
     constructor() {
         super();
@@ -12,7 +11,8 @@ class OrderListItem extends React.Component {
             showQuestionDialog: false,
             favoredClass: "heart_img",
             favored: false,
-            showOrderItem: true
+            showOrderItem: true,
+            checkout: true
         };
 
         this.onRemove = (e) => {
@@ -27,7 +27,8 @@ class OrderListItem extends React.Component {
                 this.setState({favoredClass: 'heart_img listed'});
             else
                 this.setState({favoredClass: 'heart_img'});
-            wishListStore.console.log(this.state.favoredClass);
+            console.log(this.state.favoredClass);
+            //this.props.wishListStore.
         };
 
         this.clickHandler = (component) => {
@@ -43,11 +44,14 @@ class OrderListItem extends React.Component {
     }
 
     componentWillMount() {
+        if (this.props.checkout)
+            this.setState({checkout: false});
     }
 
     render() {
         const activity = this.props.activity;
         const order = this.props.order;
+
         let order_link = "/#/activity/" + activity._id;
         let order_price = order.listing.cost + order.listing.currency.title;
         let order_duration = order.listing.duration.period;
@@ -141,7 +145,8 @@ class OrderListItem extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
+                            {this.state.checkout &&
+                            <div className="row" id="checkout">
                                 <div className="start-checkout  primaryButton button" style={{width: '200px'}}
                                      tabIndex="0">
                                     <div className="title-container">
@@ -150,7 +155,7 @@ class OrderListItem extends React.Component {
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div>}
                         </div>
                         <div style={{padding: '0 20px'}}>
                         </div>

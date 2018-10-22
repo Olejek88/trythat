@@ -14,15 +14,15 @@ const Become = ({ appName, token }) => {
               <p className="mk-home-title">Станьте участником клуба TryThat - поделитесь вашими знаниями, умениями и впечатлениями с другими</p>
               <ul className="talent-imgs">
                   <li>
-                      <div style={{backgroundImage: 'url(health.jpg)'}}>
+                      <div style={{backgroundImage: 'url(images/hockey.jpg)'}}>
                       </div>
                   </li>
                   <li>
-                      <div style={{backgroundImage: 'url(dinner.jpg)'}}>
+                      <div style={{backgroundImage: 'url(images/dinner.jpg)'}}>
                       </div>
                   </li>
                   <li>
-                      <div style={{backgroundImage: 'url(tasting.jpg)'}}>
+                      <div style={{backgroundImage: 'url(images/tasting.jpg)'}}>
                       </div>
                   </li>
               </ul>

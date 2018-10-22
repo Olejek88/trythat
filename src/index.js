@@ -11,6 +11,7 @@ import activityStore from "./stores/activityStore";
 import activityCategoryStore from "./stores/activityCategoryStore";
 import activityListingStore from "./stores/activityListingStore";
 import commentsStore from './stores/commentsStore';
+import wishListStore from './stores/wishListStore';
 import authStore from './stores/authStore';
 import commonStore from './stores/commonStore';
 import customerStore from "./stores/customerStore";
@@ -52,7 +53,8 @@ const stores = {
     orderStatusStore,
     tagStore,
     trendingStore,
-    userStore
+    userStore,
+    wishListStore
 };
 
 // For easier debugging
