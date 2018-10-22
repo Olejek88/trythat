@@ -75,7 +75,9 @@ export default class Cart extends React.Component {
                                             <div className="start-checkout  primaryButton button"
                                                  style={{width: '100%'}} tabIndex="0">
                                                 <div className="title-container">
-                                                    <p className="title">Оформить</p>
+                                                    <a href={"/#/cart/checkout"}>
+                                                        <p className="title">Оформить</p>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

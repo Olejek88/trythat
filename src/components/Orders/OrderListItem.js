@@ -16,7 +16,7 @@ class OrderListItem extends React.Component {
         };
 
         this.onRemove = (e) => {
-            console.log ('remove');
+            console.log('remove');
             this.props.orderStore.deleteOrder(e);
             this.setState({showOrderItem: false})
         };
@@ -27,19 +27,18 @@ class OrderListItem extends React.Component {
                 this.setState({favoredClass: 'heart_img listed'});
             else
                 this.setState({favoredClass: 'heart_img'});
-            wishListStore.
-            console.log(this.state.favoredClass);
+            wishListStore.console.log(this.state.favoredClass);
         };
 
         this.clickHandler = (component) => {
-            console.log ('clickHandler');
-            component.setState({ showQuestionDialog: false });
+            console.log('clickHandler');
+            component.setState({showQuestionDialog: false});
         };
     }
 
     onClick(e) {
         e.preventDefault();
-        console.log ('onClick');
+        console.log('onClick');
         this.setState({showQuestionDialog: !this.state.showQuestionDialog})
     }
 
@@ -59,10 +58,11 @@ class OrderListItem extends React.Component {
         return (
             <React.Fragment>
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}
-                                                                  luminary={activity.luminary} />}
+                                                                  luminary={activity.luminary}/>}
                 {this.state.showOrderItem &&
                 <div className="vendorBlock sg-bd-3">
-                    <div className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
+                    <div
+                        className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                         style={{padding: '20px 15px', width: '100%', boxSizing: 'border-box'}}>
                         <div className="vendor-img">
                             <img src={luminary_image} style={{width: '100%'}} alt={""}/>
@@ -121,7 +121,9 @@ class OrderListItem extends React.Component {
                                          style={{width: '28px', position: 'relative', top: '-6px'}}>
                                         <div className="remove">
                                             <img src={"images/icon_close.png"} alt="remove" style={{width: '28px'}}
-                                                onClick={() => { this.onRemove(order._id) }} />
+                                                 onClick={() => {
+                                                     this.onRemove(order._id)
+                                                 }}/>
                                         </div>
                                     </div>
                                 </div>
@@ -143,7 +145,9 @@ class OrderListItem extends React.Component {
                                 <div className="start-checkout  primaryButton button" style={{width: '200px'}}
                                      tabIndex="0">
                                     <div className="title-container">
-                                        <p className="title">Оформить</p>
+                                        <a href={"cart/checkout"}>
+                                            <p className="title">Оформить</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
