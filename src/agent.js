@@ -51,6 +51,8 @@ const requests = {
             .then(responseBody),
 };
 
+const limit = (count, start) => `limit=${count}&offset=${start}`;
+
 const Auth = {
     current: () =>
         requests.get('/user'),
@@ -68,32 +70,63 @@ const ActivityCategories = {
         requests.get(`/activity-categories`),
 };
 
+const ActivityListing = {
+    forActivity: (activity_id) =>
+        requests.get(`/activity-listing/activity?${activity_id}`),
+    del: (activity_listing_id) =>
+        requests.del(`/activity-listing/del?${activity_listing_id}`),
+
+    get: (activity_listing_id) =>
+        requests.get(`/activity-listing/${activity_listing_id}`),
+    update: (activity_listing_id, activity) =>
+        requests.put(`/activity-listing/${activity_listing_id}`, {activity: activity}),
+    create: (activity_listing) =>
+        requests.post('/activity-listing/create', {activity_listing})
+};
+
+const Activities = {
+    // wish / customer._id
+    // luminary / luminary._id
+    filter: (filter, id, lim = 3, start = 0) =>
+        requests.get(`/activities/${filter}/${id}?${limit(lim, start)}`),
+    get: id =>
+        requests.get(`/activities/${id}`),
+    all: (page = 0, lim = 10) =>
+        requests.get(`/activities/all?${limit(lim, page)}`),
+    isFavorite: (activity_id, customer_id) =>
+        requests.get(`/activities/is_favorite/${customer_id}&${activity_id}`),
+    favorite: (activity_id, customer_id) =>
+        requests.get(`/activities/favorite/${customer_id}&${activity_id}`),
+    unFavorite: (activity_id, customer_id) =>
+        requests.get(`/activities/un_favorite/${customer_id}&${activity_id}`),
+    create: activity =>
+        requests.post('/activities', {activity}),
+    del: id =>
+        requests.del(`/activities/${id}`),
+    update: activity =>
+        requests.put(`/activities/update`, {activity}),
+
+    byTag: (tag, page, lim = 10) =>
+        requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
+};
+
 const Categories = {
     all: () =>
         requests.get(`/categories`),
 };
 
-const Comments = {
-    create: (slug, comment) =>
-        requests.post(`/activities/${slug}/comments`, {comment}),
-    delete: (slug, commentId) =>
-        requests.del(`/activities/${slug}/comments/${commentId}`),
-    forActivity: slug =>
-        requests.get(`/activities/${slug}/comments`)
-};
-
 const Country = {
     all: () =>
         requests.get(`/country`),
-    get: slug =>
-        requests.get(`/country/${slug}`),
+    get: id =>
+        requests.get(`/country/${id}`),
 };
 
 const Cities = {
     all: () =>
         requests.get(`/cities`),
-    get: slug =>
-        requests.get(`/cities/${slug}`),
+    get: id =>
+        requests.get(`/cities/${id}`),
 };
 
 const Tags = {
@@ -101,49 +134,8 @@ const Tags = {
 };
 
 //const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
-const limit = (count, start) => `limit=${count}&offset=${start}`;
 const omitSlug = activity => Object.assign({}, activity, {slug: undefined})
 
-const Activities = {
-    all: (page, lim = 10) =>
-        requests.get(`/activities?${limit(lim, page)}`),
-    byLuminary: (luminary, page, query) =>
-        requests.get(`/activities?luminary=${encode(luminary)}&${limit(5, page)}`),
-    wished: (customer) =>
-        requests.get(`/activities?customer=${encode(customer)}&wish=1`),
-    byTag: (tag, page, lim = 10) =>
-        requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
-    del: slug =>
-        requests.del(`/activities/${slug}`),
-    favorite: (activity, customer_id) =>
-        requests.post(`/activities/${customer_id}/favorite`, {activity}),
-    feed: () =>
-        requests.get('/activities/feed?limit=10&offset=0'),
-    get: slug =>
-        requests.get(`/activities/${slug}`),
-    unfavore: slug =>
-        requests.del(`/activities/${slug}/favorite`),
-    update: activity =>
-        requests.put(`/activities/${activity.slug}`, {activity: omitSlug(activity)}),
-    create: activity =>
-        requests.post('/activities', {activity}),
-
-    filter: (filter, id, lim, start) =>
-        requests.get(`/activities/${filter}/${id}?${limit(lim, start)}`),
-};
-
-const ActivityListing = {
-    forActivity: (activity_id) =>
-        requests.get(`/activity-listing/activity?${activity_id}`),
-    del: (activity_listing_id) =>
-        requests.del(`/activity-listing/del?${activity_listing_id}`),
-    get: (activity_listing_id) =>
-        requests.get(`/activity-listing/${activity_listing_id}`),
-    update: (activity_listing_id, activity) =>
-        requests.put(`/activity-listing/update?${activity_listing_id}`, {activity: omitSlug(activity)}),
-    create: (activity, customer) =>
-        requests.post('/activity-listing/create', {activity}, {customer})
-};
 
 const Customer = {
     forUser: user =>
@@ -214,12 +206,10 @@ const Profile = {
 };
 
 const Review = {
-    forCustomer: (customer_id) =>
-        requests.get(`/review/customer?${customer_id}`),
-    forActivity: (activity_id) =>
-        requests.get(`/review/activity?${activity_id}`),
+    filter: (filter, id, lim = 3, start = 0) =>
+        requests.get(`/review/${filter}/${id}?${limit(lim, start)}`),
     del: (review_id) =>
-        requests.del(`/review/?review=${review_id}`),
+        requests.del(`/review/${review_id}`),
     get: (review_id) =>
         requests.get(`/review/${review_id}`),
     create: (review) =>
@@ -264,7 +254,6 @@ export default {
     Auth,
     Categories,
     Cities,
-    Comments,
     Country,
     Customer,
     Image,

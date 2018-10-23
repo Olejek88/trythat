@@ -8,7 +8,6 @@ import orderStore from "../../stores/orderStore";
 import activityStore from "../../stores/activityStore";
 import customerStore from "../../stores/customerStore";
 import QuestionDialog from "../Orders/QuestionDialog";
-import wishListStore from "../../stores/wishListStore";
 
 @observer
 class ActivitySelect extends React.Component {
@@ -41,10 +40,10 @@ class ActivitySelect extends React.Component {
 
         this.makeOrder = () => {
             order = {
-                listing: activityListingStore.loadTestActivityListing(),
+                listing: activityListingStore.loadActivityListing(this.props.activity),
                 orderStatus: orderStatusStore.getTestOrderStatus(),
                 created: new Date(),
-                customer: userStore.getTestUser(),
+                customer: userStore.getUser(),
                 startDate: new Date()
             };
             orderStore.createOrder(order);

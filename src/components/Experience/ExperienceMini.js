@@ -4,6 +4,7 @@ import activityStore from "../../stores/activityStore";
 import customerStore from "../../stores/customerStore";
 
 @observer
+@inject('activityListingStore')
 class ExperienceMini extends React.Component {
     constructor() {
         super();
@@ -37,7 +38,8 @@ class ExperienceMini extends React.Component {
 
     render() {
         const activity = this.props.activity;
-        const activityPrice = activityStore.loadTestActivityMinimumPrice(activity);
+        this.props.activityListingStore.loadActivityListing(activity);
+        const activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
         return (
             <div className="productTile product default">
                 <div>

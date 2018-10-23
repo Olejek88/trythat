@@ -1,7 +1,10 @@
 import { observable, action } from 'mobx';
 import {computed} from "mobx/lib/mobx";
+import agent from "../agent";
 
 class CategoryStore {
+    @observable categoryRegistry = observable.map();
+    @observable isLoading = true;
 
     @observable staticData = [
         {_id: '1', label: 'Еда и кулинария'},
@@ -14,12 +17,32 @@ class CategoryStore {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))
     };
 
-    loadTestCategory() {
-        return this.testData;
-    };
-
     @action loadCategories() {
+        agent.Categories.all()
+            .then(action(({ categories}) => {
+                this.categoryRegistry.clear();
+                categories.forEach(category =>
+                    this.categoryRegistry.set(category._id, category));
+            }))
+            .finally(action(() => { this.isLoading = false; }));
         return this.staticDataOptions;
+    }
+
+    @action loadCategory(id, {acceptCached = false} = {}) {
+        if (acceptCached) {
+            const category = this.categoryRegistry.get(id);
+            if (category) return Promise.resolve(category);
+        }
+        this.isLoading = true;
+        agent.Categories.get(id)
+            .then(action(({category}) => {
+                this.categoryRegistry.set(id, category);
+                return category;
+            }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
+        return this.testData;
     }
 }
 

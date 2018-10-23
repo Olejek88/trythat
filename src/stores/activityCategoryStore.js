@@ -1,7 +1,10 @@
 import { observable, action } from 'mobx';
 import {computed} from "mobx/lib/mobx";
+import agent from "../agent";
 
 class ActivityCategoryStore {
+    @observable activityCategoryRegistry = observable.map();
+    @observable isLoading = true;
 
     @observable staticData = [
         {_id: '1', label: 'Индивидуальные занятия'},
@@ -14,10 +17,30 @@ class ActivityCategoryStore {
     };
 
     @action loadActivityCategories() {
+        agent.ActivityCategories.all()
+            .then(action(({ activityCategories}) => {
+                this.activityCategoryRegistry.clear();
+                activityCategories.forEach(activityCategory =>
+                    this.activityCategoryRegistry.set(activityCategory._id,activityCategory));
+            }))
+            .finally(action(() => { this.isLoading = false; }));
         return this.staticDataOptions;
     }
 
-    @action loadTestActivityCategory() {
+    @action loadActivityCategory(id, {acceptCached = false} = {}) {
+        if (acceptCached) {
+            const activityCategory = this.activityCategoryRegistry.get(id);
+            if (activityCategory) return Promise.resolve(activityCategory);
+        }
+        this.isLoading = true;
+        agent.ActivityCategories.get(id)
+            .then(action(({activityCategory}) => {
+                this.activityCategoryRegistry.set(id, activityCategory);
+                return activityCategory;
+            }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
         return this.testData;
     }
 }

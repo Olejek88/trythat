@@ -16,7 +16,16 @@ class ActivityAboutLuminary extends React.Component {
 
     render() {
         const luminary = this.props.luminary;
-        const activity_from_luminary = this.props.activities;
+        let activity_from_luminary = [];
+        let predicate = {
+            filter: 'luminary',
+            id: luminary._id
+        };
+        this.props.activityStore.setPredicate(predicate);
+        const activities = this.props.activityStore.loadActivities();
+        activities.forEach(function (activity) {
+            activity_from_luminary.push(activity);
+        });
 
         return (
             <div className="luminary-section sg-bd-2 sg-bg-2" data-html="">
@@ -54,8 +63,8 @@ class ActivityAboutLuminary extends React.Component {
                             <a className="sg-f-bdy sg-c-1 sg-text-transform sg-inline-middle" href="/">смотреть все</a>
                         </div>
                         <div className="list mini_product_list">
-                            <ExperienceMini activity={activity_from_luminary}/>
-                            <ExperienceMini activity={activity_from_luminary}/>
+                            {activity_from_luminary[0] && <ExperienceMini activity={activity_from_luminary[0]}/>}
+                            {activity_from_luminary[1] && <ExperienceMini activity={activity_from_luminary[1]}/>}
                         </div>
                         <a href="/">
                             <div className="custom-exp sg-bg-1" style={{textAlign: 'center'}}>

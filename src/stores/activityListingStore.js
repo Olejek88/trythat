@@ -5,23 +5,21 @@ import currencyStore from "./currencyStore";
 import durationStore from "./durationStore";
 
 export class ActivityListingStore {
-
     @observable isLoading = false;
     @observable activityListingRegistry = observable.map();
     @observable addActivityErrors;
-    @observable predicate = {};
 
     staticData =
         [{   _id: '1',
             customers: 1,
-            activity: activityStore.loadTestActivity(),
+            activity: activityStore.loadActivity(1),
             duration: durationStore.getTestDurationOne(),
             cost: 2500,
             currency: currencyStore.loadTestCurrency(),
             isGroup: false
         },{   _id: '2',
             customers: 2,
-            activity: activityStore.loadTestActivity(),
+            activity: activityStore.loadActivity(1),
             duration: durationStore.getTestDurationTwo(),
             cost: 2000,
             currency: currencyStore.loadTestCurrency(),
@@ -31,14 +29,24 @@ export class ActivityListingStore {
     oneStaticData =
         {   _id: '1',
             customers: 1,
-            activity: activityStore.loadTestActivity(),
+            activity: activityStore.loadActivity(1),
             duration: durationStore.getTestDurationOne(),
             cost: 2500,
             currency: currencyStore.loadTestCurrency(),
             isGroup: false
         };
 
-    loadTestActivityListing() {
+    @action loadActivityListing(activity) {
+        agent.ActivityListing.forActivity(activity._id)
+            .then(action(({ activityListing}) => {
+                this.activityListingRegistry.clear();
+                activityListing.forEach(activityListing =>
+                    this.activityListingRegistry.set(activityListing._id, activityListing));
+            }))
+            .finally(action(() => { this.isLoading = false; }));
+
+        this.staticData.forEach(activityListing =>
+            this.activityListingRegistry.set(activityListing._id,activityListing));
         return this.staticData;
     }
 
@@ -46,17 +54,22 @@ export class ActivityListingStore {
         return this.oneStaticData;
     }
 
-    loadTestActivityListingMinimumPrice(activity) {
-        return this.staticData[1].cost + " " + this.staticData[1].currency.title;
+    loadActivityListingMinimumPrice() {
+        let minimum_cost = 0;
+        let current_currency = '';
+        this.activityListingRegistry.forEach(function(activityListing) {
+            if (activityListing.cost < minimum_cost)
+                minimum_cost = activityListing.cost;
+            current_currency = activityListing.currency.title;
+        });
+        return minimum_cost + " " + current_currency;
+        //return this.staticData[1].cost + " " + this.staticData[1].currency.title;
     }
-
-    get staticDataDurations() {
-        return this.staticData.map(x => ({ label: x.title, value: x._id }))
-    };
 
     loadTestDurationByActivityListing() {
         let arrayDurations = [];
-        this.staticData.forEach(function (activityListing) {
+        //this.staticData.forEach(function (activityListing) {
+        this.activityListingRegistry.forEach(function (activityListing) {
             arrayDurations.push({ label: activityListing.duration.period,
                 value: activityListing.duration._id,
                 cost: 'Стоимость: ' + activityListing.cost + activityListing.currency.title});
@@ -66,7 +79,8 @@ export class ActivityListingStore {
 
     loadTestCustomersByActivityListing() {
         let arrayCustomers = [];
-        this.staticData.forEach(function (activityListing) {
+        //this.staticData.forEach(function (activityListing) {
+        this.activityListingRegistry.forEach(function (activityListing) {
             if (activityListing.customers>=2 && activityListing.customers<5)
                 arrayCustomers.push({ label: activityListing.customers + ' человека',
                     value: activityListing.customers,
@@ -93,18 +107,17 @@ export class ActivityListingStore {
         this.predicate = predicate;
     }
 
-    @action createActivityListing(activity, customer) {
-        return agent.create(activity, customer)
-            .then(({activityListing}) => {
-                this.activityListingRegistry.set(activityListing.slug, activityListing);
-                return activityListing;
+    @action createActivityListing(activity_listing) {
+        return agent.ActivityListing.create(activity_listing)
+            .then(({answer}) => {
+                return answer;
             })
     }
 
-    @action updateActivityListing(data) {
-        return agent.update(data)
+    @action updateActivityListing(activity_listing_id,activity_listing) {
+        return agent.ActivityListing.update(activity_listing_id,activity_listing)
             .then(({activity_listing}) => {
-                this.activityListingRegistry.set(activity_listing);
+                this.activityListingRegistry. set(activity_listing_id,activity_listing);
                 return activity_listing;
             })
     }

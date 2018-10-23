@@ -4,16 +4,21 @@ import WishListPopItem from "../WishList/WishListPopItem";
 import {inject} from "mobx-react/index";
 
 @observer
-@inject('activityStore')
+@inject('activityStore', 'activityListingStore', 'userStore')
 class PopWish extends React.Component {
     render() {
         let wishList = '';
-        const activities = this.props.activityStore.getTestWishActivities();
-        const activityStore = this.props.activityStore;
+        let predicate = {
+            filter: 'wish',
+            id: this.props.userStore.currentUser._id
+        };
+        this.props.activityStore.setPredicate(predicate);
+        const activities = this.props.activityStore.loadActivities();
         if (activities) {
             wishList = activities.map(function (activity,i) {
-                let price = activityStore.loadTestActivityMinimumPrice(activity);
-                return (<WishListPopItem activity={activity} key={i} price={price}/>);
+                this.props.activityListingStore.loadActivityListing(activity);
+                const activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
+                return (<WishListPopItem activity={activity} key={i} price={activityPrice}/>);
             });
         }
         else wishList = 'Список желаний пуст';

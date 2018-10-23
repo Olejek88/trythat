@@ -9,6 +9,11 @@ class UserStore {
     @observable loadingUser;
     @observable updatingUser;
     @observable updatingUserErrors;
+
+    constructor() {
+        this.currentUser = this.testData;
+    }
+
     testData =
         {   _id: '1',
             username: 'olejek',
@@ -16,13 +21,14 @@ class UserStore {
             firstName: 'Олег',
             lastName: 'Иванов',
             birthDate: new Date(1978,8,28,0,0,0),
-            city: cityStore.loadTestCity(),
+            city: cityStore.loadCity(1),
             country: countryStore.loadTestCountry(),
             phone: '+79000242832',
             image: imageStore.getTestUserImage(),
             password: '123456'
         };
-    @action getTestUser() {
+
+    @action getUser() {
         return this.testData;
     }
 

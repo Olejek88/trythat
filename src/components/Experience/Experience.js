@@ -1,7 +1,9 @@
 import React from 'react';
 import activityStore from "../../stores/activityStore";
 import customerStore from "../../stores/customerStore";
+import {inject} from "mobx-react/index";
 
+@inject('activityListingStore')
 class Experience extends React.Component {
     constructor() {
         super();
@@ -33,7 +35,8 @@ class Experience extends React.Component {
 
     render() {
         const activity = this.props.activity;
-        const activityPrice = activityStore.loadTestActivityMinimumPrice(activity);
+        this.props.activityListingStore.loadActivityListing(activity);
+        const activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
         if (!activity)
             return null;
         else
@@ -82,12 +85,14 @@ class Experience extends React.Component {
                     </div>
                     <div className="product_text_container">
                         <div className="details_div">
-                            <div className="min_height_placeholder"></div>
+                            <div className="min_height_placeholder">
+                            </div>
                             <div className="product_celeb_name sg-c-2">
                                 {activity.luminary.user.firstName + " " + activity.luminary.user.lastName}</div>
                             <div className="product_stars">
                             </div>
-                            <div style={{clear: 'both'}}></div>
+                            <div style={{clear: 'both'}}>
+                            </div>
                         </div>
                         <div className="product_location sg-c-2">{activity.location.title}</div>
                         <div className="product_title sg-c-1">

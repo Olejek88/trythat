@@ -8,8 +8,8 @@ import ActivityReview from "./ActivityReview";
 class ActivityReviews extends React.Component {
     render() {
         const activity = this.props.activity;
-        const reviews = reviewStore.loadTestReviews();
-        const averageMark = reviewStore.getTestAverageMark(activity);
+        const reviews = reviewStore.loadReviews();
+        const averageMark = reviewStore.getAverageMark(activity);
         let reviewsFragments = reviews.map(function (review, i) {
             return (<ActivityReview review={review} key={i}/>);
         });

@@ -16,8 +16,13 @@ import {inject} from "mobx-react/index";
 @inject('activityStore')
 class Activity extends React.Component {
     render() {
-        const activity = this.props.activityStore.loadTestActivity();
-        const activities = this.props.activityStore.loadTestActivitiesLuminary();
+        const activity = this.props.activityStore.loadActivity(this.props.activity._id);
+        let predicate = {
+            filter: 'luminary',
+            id: this.props.activity.luminary._id
+        };
+        this.props.activityStore.setPredicate(predicate);
+        const activities = this.props.activityStore.loadActivities();
         return (
             <div id="content">
                 <div className="product-section ">

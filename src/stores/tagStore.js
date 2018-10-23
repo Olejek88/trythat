@@ -1,25 +1,33 @@
 import { observable, action } from 'mobx';
 import {computed} from "mobx/lib/mobx";
 import categoryStore from "./categoryStore";
+import agent from "../agent";
 
 class TagStore {
+    @observable tagsRegistry = observable.map();
+    @observable isLoading = true;
 
     @observable staticData = [
-        {_id: '1', title: 'Земля', category: categoryStore.loadTestCategory},
-        {_id: '2', title: 'Воздушный шар', category: categoryStore.loadTestCategory},
-        {_id: '3', title: 'Путешествие', category: categoryStore.loadTestCategory},
-        {_id: '4', title: 'Экстрим', category: categoryStore.loadTestCategory}
+        {_id: '1', title: 'Земля', category: categoryStore.loadCategory(1)},
+        {_id: '2', title: 'Воздушный шар', category: categoryStore.loadCategory(2)},
+        {_id: '3', title: 'Путешествие', category: categoryStore.loadCategory(2)},
+        {_id: '4', title: 'Экстрим', category: categoryStore.loadCategory(2)}
     ];
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))
     };
 
-    @action loadTag() {
-        return this.staticDataOptions;
-    }
-
-    @action getTestTags() {
+    @action loadTags() {
+        this.isLoading = true;
+        agent.Tags.all()
+            .then(action(({ tags}) => {
+                this.tagsRegistry.clear();
+                tags.forEach(tag =>
+                    this.tagsRegistry.set(tag._id, tag));
+            }))
+            .finally(action(() => { this.isLoading = false; }));
         return this.staticData;
+        //return this.staticDataOptions;
     }
 }
 

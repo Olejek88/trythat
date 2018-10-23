@@ -38,7 +38,7 @@ class SiteMenu extends React.Component {
             });
         }
 
-        let trends = trendingStore.loadTrending();
+        let trends = trendingStore.loadTrends();
         if (trends) {
             trends.forEach(function (trend,i) {
                 trendsList.push(<div className="topNavCat" key={i}>

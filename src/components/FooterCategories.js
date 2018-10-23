@@ -49,7 +49,7 @@ class FooterCategories extends React.Component {
             });
         }
 
-        let trends = trendingStore.loadTrending();
+        let trends = trendingStore.loadTrends();
         if (trends) {
             let half = trends.length/2;
             let index=0;

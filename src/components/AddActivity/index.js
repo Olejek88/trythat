@@ -264,7 +264,7 @@ class AddActivityForm extends React.Component {
                                                         value={this.state.trending}
                                                         className="language_select desktop"
                                                         onChange={this.handleSelectTrendingChange}
-                                                        options={trendingStore.loadTrending()}
+                                                        options={trendingStore.loadTrends()}
                                                     />
                                                 </div>
                                             </div>
@@ -318,7 +318,7 @@ class AddActivityForm extends React.Component {
                                                         value="1"
                                                         style={{width: '300px'}}
                                                         clearable={false}
-                                                        options={durations}
+                                                        options={this.state.durations}
                                                     />
                                                 </div>
                                             </div>

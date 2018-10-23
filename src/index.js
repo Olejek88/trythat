@@ -10,7 +10,6 @@ import App from './components/App';
 import activityStore from "./stores/activityStore";
 import activityCategoryStore from "./stores/activityCategoryStore";
 import activityListingStore from "./stores/activityListingStore";
-import commentsStore from './stores/commentsStore';
 import wishListStore from './stores/wishListStore';
 import authStore from './stores/authStore';
 import commonStore from './stores/commonStore';
@@ -38,7 +37,6 @@ const stores = {
     authStore,
     categoryStore,
     cityStore,
-    commentsStore,
     commonStore,
     countryStore,
     customerStore,

@@ -10,7 +10,7 @@ class LocationStore {
 
     testData = {
         _id: 1,
-        city: cityStore.loadTestCity(),
+        city: cityStore.loadCity(1),
         title: 'Челябинская обл., вулкан Свердловский',
         latitude: 55.66,
         longitude: 56.44,

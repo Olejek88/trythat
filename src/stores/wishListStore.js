@@ -4,16 +4,29 @@ import customerStore from "./customerStore";
 import agent from "../agent";
 
 class WishListStore {
+    @observable isLoading = false;
+    @observable wishListRegistry = observable.map();
+
     @observable staticData = [
         {
             _id: '1',
-            activity: activityStore.loadTestActivity(),
+            activity: activityStore.loadActivity(1),
             customer: customerStore.getTestCustomer(),
             date: new Date()
         },
     ];
 
-    @action loadTestWishList() {
+    @action loadTestWishList(customer) {
+        agent.WishList.forCustomer(customer._id)
+            .then(action(({ activities}) => {
+                this.wishListRegistry.clear();
+                activities.forEach(activity =>
+                    this.wishListRegistry.set(activity._id, activity));
+            }))
+            .finally(action(() => { this.isLoading = false; }));
+
+        this.staticData.forEach(activity =>
+            this.wishListRegistry.set(activity._id, activity));
         return this.staticData;
     }
 

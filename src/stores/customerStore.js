@@ -9,7 +9,7 @@ class CustomerStore {
 
     customer =
         {   _id: '1',
-            user: userStore.getTestUser(),
+            user: userStore.getUser(),
             positive: 1,
             negative: 2,
             active: true

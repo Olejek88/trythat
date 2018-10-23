@@ -6,16 +6,21 @@ import WishListItem from "./WishListItem";
 
 @observer
 @withRouter
-@inject('activityStore')
+@inject('activityStore', 'activityListingStore')
 class WishList extends React.Component {
     render() {
         let wishList = '';
-        const activities = this.props.activityStore.getTestWishActivities();
-        const activityStore = this.props.activityStore;
+        let predicate = {
+            filter: 'wish',
+            id: this.props.userStore.currentUser._id
+        };
+        this.props.activityStore.setPredicate(predicate);
+        const activities = this.props.activityStore.loadActivities();
         if (activities) {
             wishList = activities.map(function (activity,i) {
-                let price = activityStore.loadTestActivityMinimumPrice(activity);
-                return (<WishListItem activity={activity} key={i} price={price}/>);
+                this.props.activityListingStore.loadActivityListing(activity);
+                const activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
+                return (<WishListItem activity={activity} key={i} price={activityPrice}/>);
             });
         }
         else wishList = 'Список желаний пуст';
