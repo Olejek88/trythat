@@ -2,31 +2,38 @@ import { observable, action } from 'mobx';
 import agent from '../agent';
 
 class CurrencyStore {
-
-    testData = {_id: 1, title: 'р.'};
-    @action loadTestCurrency() {
-        return this.testData;
-    }
-
     @observable isLoading = false;
     @observable currencyRegistry = observable.map();
 
-    getCurrency(slug) {
-        return this.currencyRegistry.get(slug);
+    testData = {_id: 1, title: 'р.'};
+
+    @action loadCurrencies() {
+        this.isLoading = true;
+        agent.Currency.all()
+            .then(action(({ currencies}) => {
+                this.currencyRegistry.clear();
+                currencies.forEach(currency =>
+                    this.currencyRegistry.set(currency._id, currency));
+            }))
+            .finally(action(() => { this.isLoading = false; }));
+        return this.testData;
     }
 
-    @action loadCurrency(slug, { acceptCached = false } = {}) {
+    @action loadCurrency(id, {acceptCached = false} = {}) {
         if (acceptCached) {
-            const currency = this.getCurrency(slug);
+            const currency = this.currencyRegistry.get(id);
             if (currency) return Promise.resolve(currency);
         }
         this.isLoading = true;
-        return agent.Currency.get(slug)
-            .then(action(({ currency }) => {
-                this.currencyRegistry.set(currency.slug, currency);
+        agent.Currency.get(id)
+            .then(action(({currency}) => {
+                this.currencyRegistry.set(id, currency);
                 return currency;
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
+        return this.testData;
     }
 }
 

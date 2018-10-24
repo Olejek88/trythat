@@ -12,7 +12,7 @@ class ReviewStore {
         {
             _id: '1',
             activity: activityStore.loadActivity(1),
-            customer: customerStore.getTestCustomer(),
+            customer: customerStore.getCustomer(),
             date: new Date(),
             rate: 4,
             description: 'Все в целом хорошо, но когда шар пролетает через магму очень жарко'
@@ -20,7 +20,7 @@ class ReviewStore {
         {
             _id: '2',
             activity: activityStore.loadActivity(1),
-            customer: customerStore.getTestCustomer(),
+            customer: customerStore.getCustomer(),
             date: new Date(),
             rate: 5,
             description: 'Отлично! И кормят хорошо и йога на уровне. Стоит добавить только мини бар и развлечений на время поездки.'

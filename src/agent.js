@@ -68,6 +68,8 @@ const Auth = {
 const ActivityCategories = {
     all: () =>
         requests.get(`/activity-categories`),
+    get: (id) =>
+        requests.get(`/activity-categories/${id}`)
 };
 
 const ActivityListing = {
@@ -129,32 +131,54 @@ const Cities = {
         requests.get(`/cities/${id}`),
 };
 
+const Currency = {
+    all: () =>
+        requests.get(`/currency`),
+    get: id =>
+        requests.get(`/currency/${id}`),
+};
+
+const Duration = {
+    all: () =>
+        requests.get(`/duration`),
+    get: id =>
+        requests.get(`/duration/${id}`),
+};
+
+const FollowList = {
+    get: customer_id =>
+        requests.get(`/follow-list/${customer_id}`),
+    isFollow: (customer,luminary) =>
+        requests.get(`/follow-list/get?${customer}&${luminary}`),
+    follow: (customer,luminary) =>
+        requests.get(`/follow-list/follow?${customer}&${luminary}`),
+    unFollow: (customer,luminary) =>
+        requests.get(`/follow-list/unfollow?${customer}&${luminary}`),
+};
+
 const Tags = {
     getAll: () => requests.get('/tags')
 };
 
-//const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
-const omitSlug = activity => Object.assign({}, activity, {slug: undefined})
-
-
 const Customer = {
     forUser: user =>
-        requests.get(`/customer/?user=${user}`),
-    get: customer =>
-        requests.get(`/customer/${customer}`),
+        requests.get(`/customer/${user}`),
     create: (customer) =>
         requests.post(`/customer/${customer}`),
-    del: (slug, customerId) =>
-        requests.del(`/customer/${slug}/${customerId}`),
 };
 
 const Image = {
+    // чисто формальный метод - возвращать 5-10 последних фото, не должен вызываться
+    all: () =>
+        requests.get(`/image/`),
     get: image =>
         requests.get(`/image/${image}`),
+    filter: (filter, id) =>
+        requests.get(`/image/${filter}/${id}`),
     create: (image) =>
         requests.post(`/image/${image}`),
-    del: (slug, imageId) =>
-        requests.del(`/image/${slug}/${imageId}`),
+    del: (image_id) =>
+        requests.del(`/image/${image_id}`),
 };
 
 const Locations = {
@@ -165,16 +189,10 @@ const Locations = {
 };
 
 const Luminary = {
-    follow: luminary =>
-        requests.post(`/luminary/${luminary}/follow`),
     get: luminary =>
         requests.get(`/luminary/${luminary}`),
-    unfollow: luminary =>
-        requests.post(`/luminary/${luminary}/unfollow`),
-    create: (luminary) =>
+    create: luminary =>
         requests.post(`/luminary/${luminary}`),
-    del: (slug, luminaryId) =>
-        requests.del(`/luminary/${slug}/${luminaryId}`),
 };
 
 const Order = {
@@ -216,15 +234,6 @@ const Review = {
         requests.post(`/review/${review}`)
 };
 
-const FollowList = {
-    isFollow: (customer,luminary) =>
-        requests.get(`/follow/get?${customer}&${luminary}`),
-    follow: (customer,luminary) =>
-        requests.get(`/customer/follow?${customer}&${luminary}`),
-    unFollow: (customer,luminary) =>
-        requests.get(`/customer/unfollow?${customer}&${luminary}`),
-};
-
 const WishList = {
     forCustomer: (customer) =>
         requests.get(`/wish-list/customer?${customer}`),
@@ -255,7 +264,9 @@ export default {
     Categories,
     Cities,
     Country,
+    Currency,
     Customer,
+    Duration,
     Image,
     FollowList,
     Locations,

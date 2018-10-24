@@ -9,7 +9,7 @@ export default class Cart extends React.Component {
     render() {
         let orderList = '';
         const orderStore = this.props.orderStore;
-        const orders = orderStore.loadTestOrders();
+        const orders = orderStore.loadOrders();
         let orders_count = 0;
         let sum = 0;
         if (orders) {

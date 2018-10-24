@@ -8,49 +8,43 @@ class LocationStore {
     @observable isLoading = false;
     @observable locationsRegistry = observable.map();
 
-    testData = {
+    testData = [{
         _id: 1,
         city: cityStore.loadCity(1),
         title: 'Челябинская обл., вулкан Свердловский',
         latitude: 55.66,
         longitude: 56.44,
-        image: imageStore.getTestUserImage()
-    };
+        image: imageStore.loadImage(1)
+    }];
 
-    @action loadTestLocation() {
-        return this.testData;
+    getLocation(id) {
+        return this.locationsRegistry.get(id);
     }
 
-    $req() {
-        return agent.Locations.all();
-    }
-
-    getLocation(slug) {
-        return this.locationsRegistry.get(slug);
-    }
-
-    @action loadLocation(slug, { acceptCached = false } = {}) {
+    @action loadLocation(id, { acceptCached = false } = {}) {
         if (acceptCached) {
-            const location = this.getLocation(slug);
+            const location = this.getLocation(id);
             if (location) return Promise.resolve(location);
         }
         this.isLoading = true;
-        return agent.Locations.get(slug)
+        agent.Locations.get(id)
             .then(action(({ location }) => {
                 this.locationsRegistry.set(location.slug, location);
                 return location;
             }))
             .finally(action(() => { this.isLoading = false; }));
+        return this.testData[0];
     }
 
     @action loadLocations() {
         this.isLoading = true;
-        return this.$req()
+        agent.Locations.all()
             .then(action(({ locations }) => {
                 this.locationsRegistry.clear();
                 locations.forEach(location => this.locationsRegistry.set(locations.slug, location));
             }))
             .finally(action(() => { this.isLoading = false; }));
+        return this.testData;
     }
 }
 

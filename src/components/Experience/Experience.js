@@ -23,7 +23,7 @@ class Experience extends React.Component {
 
     componentWillMount() {
         if (this.props.activity) {
-            const customer = customerStore.getTestCustomer();
+            const customer = customerStore.getCustomer();
             const favored = activityStore.isFavorite(this.props.activity._id, customer._id);
             this.setState({favored: "favored"});
             if (favored)

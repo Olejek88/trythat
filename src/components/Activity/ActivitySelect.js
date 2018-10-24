@@ -41,7 +41,7 @@ class ActivitySelect extends React.Component {
         this.makeOrder = () => {
             order = {
                 listing: activityListingStore.loadActivityListing(this.props.activity),
-                orderStatus: orderStatusStore.getTestOrderStatus(),
+                orderStatus: orderStatusStore.loadOrderStatus(1),
                 created: new Date(),
                 customer: userStore.getUser(),
                 startDate: new Date()
@@ -74,7 +74,7 @@ class ActivitySelect extends React.Component {
 
     componentDidMount() {
         if (this.props.activity) {
-            const customer = customerStore.getTestCustomer();
+            const customer = customerStore.getCustomer();
             const favored = activityStore.isFavorite(this.props.activity._id, customer._id);
             this.setState(favored);
             if (favored)

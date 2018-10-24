@@ -9,7 +9,7 @@ class PopCart extends React.Component {
     render() {
         let orderList = '';
         const orderStore = this.props.orderStore;
-        const orders = orderStore.loadTestOrders();
+        const orders = orderStore.loadOrders();
         let sum = 0;
         if (orders) {
             orderList = orders.map(function (order, i) {

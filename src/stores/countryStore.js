@@ -2,56 +2,46 @@ import { observable, action } from 'mobx';
 import agent from '../agent';
 
 class CountryStore {
+    @observable currentCountry;
+    @observable isLoading = false;
+    @observable countryRegistry = observable.map();
 
     testData = {_id: 1, title: 'Россия'};
-    @action loadTestCountry() {
-        return this.testData;
-    }
-
     @observable staticData = {_id: 1, title: 'Россия'};
 
     staticDataOptions() {
         return this.staticData.map(x => ({ label: x.title, value: x._id }))
     };
-
-    @observable currentCountry;
-    @observable isLoading = false;
-    @observable countriesRegistry = observable.map();
-
-    $req() {
-        return agent.Countries.all();
+    
+    @action loadCountries() {
+        this.isLoading = true;
+        agent.Country.all()
+            .then(action(({ cities}) => {
+                this.countryRegistry.clear();
+                cities.forEach(country =>
+                    this.countryRegistry.set(country._id, country));
+            }))
+            .finally(action(() => { this.isLoading = false; }));
+        return this.staticDataOptions;
     }
 
-    getCountry(slug) {
-        return this.countriesRegistry.get(slug);
-    }
-
-    @action loadCountry(slug, { acceptCached = false } = {}) {
+    @action loadCountry(id, {acceptCached = false} = {}) {
         if (acceptCached) {
-            const country = this.getCountry(slug);
+            const country = this.countryRegistry.get(id);
             if (country) return Promise.resolve(country);
         }
         this.isLoading = true;
-        return agent.Countries.get(slug)
-            .then(action(({ country }) => {
-                this.countriesRegistry.set(country.slug, country);
+        agent.Country.get(id)
+            .then(action(({country}) => {
+                this.countryRegistry.set(id, country);
                 return country;
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
+        return this.testData;
     }
 
-    @action loadCountries() {
-        this.isLoading = true;
-        return this.staticDataOptions;
-/*
-        return this.$req()
-            .then(action(({ countries }) => {
-                this.countriesRegistry.clear();
-                countries.forEach(country => this.countriesRegistry.set(countries.slug, country));
-            }))
-            .finally(action(() => { this.isLoading = false; }));
-*/
-    }
 }
 
 export default new CountryStore();

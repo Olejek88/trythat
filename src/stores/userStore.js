@@ -22,9 +22,9 @@ class UserStore {
             lastName: 'Иванов',
             birthDate: new Date(1978,8,28,0,0,0),
             city: cityStore.loadCity(1),
-            country: countryStore.loadTestCountry(),
+            country: countryStore.loadCountry(1),
             phone: '+79000242832',
-            image: imageStore.getTestUserImage(),
+            image: imageStore.loadImage(1),
             password: '123456'
         };
 

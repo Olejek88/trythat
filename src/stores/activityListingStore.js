@@ -13,16 +13,16 @@ export class ActivityListingStore {
         [{   _id: '1',
             customers: 1,
             activity: activityStore.loadActivity(1),
-            duration: durationStore.getTestDurationOne(),
+            duration: durationStore.loadDuration(1),
             cost: 2500,
-            currency: currencyStore.loadTestCurrency(),
+            currency: currencyStore.loadCurrency(1),
             isGroup: false
         },{   _id: '2',
             customers: 2,
             activity: activityStore.loadActivity(1),
-            duration: durationStore.getTestDurationTwo(),
+            duration: durationStore.loadDuration(2),
             cost: 2000,
-            currency: currencyStore.loadTestCurrency(),
+            currency: currencyStore.loadCurrency(1),
             isGroup: false
         }];
 
@@ -30,9 +30,9 @@ export class ActivityListingStore {
         {   _id: '1',
             customers: 1,
             activity: activityStore.loadActivity(1),
-            duration: durationStore.getTestDurationOne(),
+            duration: durationStore.loadDuration(1),
             cost: 2500,
-            currency: currencyStore.loadTestCurrency(),
+            currency: currencyStore.loadCurrency(1),
             isGroup: false
         };
 

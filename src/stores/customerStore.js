@@ -15,19 +15,15 @@ class CustomerStore {
             active: true
         };
 
-    @action getTestCustomer() {
-        return this.customer;
-    }
-
     @action getCustomer() {
         this.customerErrors = undefined;
-        return agent.Customer.forUser(this.customer.user._id)
+        agent.Customer.forUser(this.customer.user._id)
             .catch(action(err => {
                 this.customerErrors = err.response && err.response.body && err.response.body.errors;
                 throw err;
             }));
+        return this.customer;
     }
-
 
     @action createCustomer(customer) {
         return agent.Customer.create(customer);

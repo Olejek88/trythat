@@ -13,17 +13,38 @@ export class OrderStore {
     @observable totalPagesCount = 0;
     @observable ordersRegistry = observable.map();
     @observable addOrderErrors;
+    @observable predicate = {};
 
     staticData =
         [{   _id: '1',
             listing: activityListingStore.loadTestOneActivityListing(),
-            orderStatus: orderStatusStore.getTestOrderStatus(),
+            orderStatus: orderStatusStore.loadOrderStatus(1),
             created: new Date(),
-            customer: customerStore.getTestCustomer(),
+            customer: customerStore.getCustomer(),
             startDate: new Date()
         }];
 
-    loadTestOrders() {
+    @action setPredicate(predicate) {
+        if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
+        this.clear();
+        this.predicate = predicate;
+    }
+
+    $req(count = 10, start = 0) {
+        if (this.predicate.filter && this.predicate.id)
+            return agent.Order.filter(this.predicate.filter, this.predicate.id, this.predicate.limit, this.predicate.start);
+        return agent.Order.all(count, start);
+    }
+
+    @action loadOrders() {
+        this.isLoading = true;
+        this.$req()
+            .then(action(({ orders, ordersCount }) => {
+                this.ordersRegistry.clear();
+                orders.forEach(order => this.ordersRegistry.set(order.slug, order));
+                this.totalPagesCount = Math.ceil(ordersCount / LIMIT);
+            }))
+            .finally(action(() => { this.isLoading = false; }));
         return this.staticData;
     }
 
@@ -31,19 +52,19 @@ export class OrderStore {
         return this.staticData.length;
     }
 
-    getOrder(slug) {
-        return this.ordersRegistry.get(slug);
+    getOrder(id) {
+        return this.ordersRegistry.get(id);
     }
 
-    @action loadOrder(slug, {acceptCached = false} = {}) {
+    @action loadOrder(id, {acceptCached = false} = {}) {
         if (acceptCached) {
-            const order = this.getOrder(slug);
+            const order = this.getOrder(id);
             if (order) return Promise.resolve(order);
         }
         this.isLoading = true;
-        return agent.Order.get(slug)
+        return agent.Order.get(id)
             .then(action(({order}) => {
-                this.ordersRegistry.set(order.slug, order);
+                this.ordersRegistry.set(order._id, order);
                 return order;
             }))
             .finally(action(() => {
@@ -51,30 +72,15 @@ export class OrderStore {
             }));
     }
 
-    $req() {
-        return agent.Order.all(this.page, LIMIT);
-    }
-
     clear() {
         this.ordersRegistry.clear();
         this.page = 0;
     }
 
-    @action loadOrders() {
-        this.isLoading = true;
-        return this.$req()
-            .then(action(({ orders, ordersCount }) => {
-                this.ordersRegistry.clear();
-                orders.forEach(order => this.ordersRegistry.set(order.slug, order));
-                this.totalPagesCount = Math.ceil(ordersCount / LIMIT);
-            }))
-            .finally(action(() => { this.isLoading = false; }));
-    }
-
     @action createOrder(order) {
         return agent.create(order)
             .then(({order}) => {
-                this.ordersRegistry.set(order.slug, order);
+                this.ordersRegistry.set(order._id, order);
                 return order;
             })
     }
@@ -82,14 +88,14 @@ export class OrderStore {
     @action updateOrder(data) {
         return agent.update(data)
             .then(({order}) => {
-                this.ordersRegistry.set(order.slug, order);
+                this.ordersRegistry.set(order._id, order);
                 return order;
             })
     }
 
-    @action deleteOrder(slug) {
-        this.ordersRegistry.delete(slug);
-        return agent.Order.del(slug)
+    @action deleteOrder(id) {
+        this.ordersRegistry.delete(id);
+        return agent.Order.del(id)
             .catch(action(err => {
                 this.loadOrders();
                 throw err;

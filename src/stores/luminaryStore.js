@@ -17,29 +17,18 @@ class LuminaryStore {
             user: userStore.getUser()
         };
 
-    @action getTestLuminary() {
-        return this.luminary;
-    }
-
-    @action setActivitySlug(activitySlug) {
-        if (this.activitySlug !== activitySlug) {
-            this.comments = [];
-            this.activitySlug = activitySlug;
-        }
-    }
-
-    @action getLuminary() {
+    @action getLuminary(user_id) {
         this.luminaryErrors = undefined;
-        return agent.Luminary.forUser(this.userSlug)
+        agent.Luminary.forUser(user_id)
             .catch(action(err => {
                 this.luminaryErrors = err.response && err.response.body && err.response.body.errors;
                 throw err;
             }));
+        return this.luminary;
     }
 
-
     @action createLuminary(luminary) {
-        return agent.Luminary.create(this.activitySlug, luminary);
+        return agent.Luminary.create(luminary);
     }
 }
 

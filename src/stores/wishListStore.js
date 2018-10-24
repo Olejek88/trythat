@@ -11,7 +11,7 @@ class WishListStore {
         {
             _id: '1',
             activity: activityStore.loadActivity(1),
-            customer: customerStore.getTestCustomer(),
+            customer: customerStore.getCustomer(),
             date: new Date()
         },
     ];

@@ -1,7 +1,10 @@
 import { action } from 'mobx';
 import {computed} from "mobx/lib/mobx";
+import agent from "../agent";
 
 class DurationStore {
+    @observable isLoading = false;
+    @observable durationsRegistry = observable.map();
 
     staticData = [
         {_id: '1', period: '1 час'},
@@ -15,20 +18,34 @@ class DurationStore {
     };
 
     @action loadDurations() {
-        return this.staticDataOptions;
-    }
-
-    @action getTestDuration() {
+        this.isLoading = true;
+        agent.Duration.all()
+            .then(action(({ durations}) => {
+                this.durationsRegistry.clear();
+                durations.forEach(duration =>
+                    this.durationsRegistry.set(duration._id, duration));
+            }))
+            .finally(action(() => { this.isLoading = false; }));
         return this.staticData;
     }
 
-    @action getTestDurationOne() {
-        return this.staticData[0];
+    @action loadDuration(id, {acceptCached = false} = {}) {
+        if (acceptCached) {
+            const duration = this.durationsRegistry.get(id);
+            if (duration) return Promise.resolve(duration);
+        }
+        this.isLoading = true;
+        agent.duration.get(id)
+            .then(action(({duration}) => {
+                this.durationsRegistry.set(id, duration);
+                return duration;
+            }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
+        return this.staticData;
     }
 
-    @action getTestDurationTwo() {
-        return this.staticData[1];
-    }
 }
 
 export default new DurationStore();
