@@ -1,17 +1,17 @@
 import {observable, action} from 'mobx';
-import agent from "../agent";
+import agent from '../agent';
 
-class ImageStore {
+export class ImageStore {
     @observable loadingImage;
     @observable isLoading = false;
     @observable predicate = {};
 
-    userImage = {
+    @observable userImage = {
         _id: '3',
         title: 'Олег Иванов',
         path: 'images/luminary2.jpg'};
 
-    images = [
+    @observable images = [
         {   _id: '1',
             title: 'Путшествие к центру Земли',
             path: 'images/example_experience.jpg'},
@@ -31,22 +31,11 @@ class ImageStore {
         return agent.Image.all();
     }
 
-    @action pullImage() {
-        this.loadingImage = true;
-        agent.Image.get(id);
-    }
-
     @action createImage(image) {
         return agent.Image.create(image)
             .then(({image}) => {
                 return image;
             })
-    }
-
-    @action loadImage(id) {
-        this.isLoading = true;
-        agent.Image.get(id);
-        return this.userImage;
     }
 
     @action loadImages() {
@@ -61,6 +50,12 @@ class ImageStore {
             .catch(action(err => {
                 throw err;
             }));
+    }
+
+    @action loadImage(id) {
+        this.isLoading = true;
+        agent.Image.get(id);
+        return this.userImage;
     }
 }
 

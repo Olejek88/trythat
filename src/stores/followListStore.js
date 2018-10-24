@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
+import agent from "../agent";
 import luminaryStore from "./luminaryStore";
 import customerStore from "./customerStore";
-import agent from "../agent";
 
 class FollowListStore {
     @observable isLoading = false;

@@ -1,6 +1,5 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
-import OrderListItem from "./OrderListItem";
 
 @withRouter
 class QuestionDialog extends React.Component {

@@ -117,7 +117,7 @@ export class ActivityListingStore {
     @action updateActivityListing(activity_listing_id,activity_listing) {
         return agent.ActivityListing.update(activity_listing_id,activity_listing)
             .then(({activity_listing}) => {
-                this.activityListingRegistry. set(activity_listing_id,activity_listing);
+                this.activityListingRegistry.set(activity_listing_id,activity_listing);
                 return activity_listing;
             })
     }

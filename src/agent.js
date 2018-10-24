@@ -108,13 +108,17 @@ const Activities = {
     update: activity =>
         requests.put(`/activities/update`, {activity}),
 
+/*
     byTag: (tag, page, lim = 10) =>
         requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
+*/
 };
 
 const Categories = {
     all: () =>
-        requests.get(`/categories`),
+        requests.get(`/category`),
+    get: id =>
+        requests.get(`/category/${id}`),
 };
 
 const Country = {
@@ -157,10 +161,12 @@ const FollowList = {
 };
 
 const Tags = {
-    getAll: () => requests.get('/tags')
+    all: () => requests.get('/tags')
 };
 
 const Customer = {
+    get: customer_id =>
+        requests.get(`/customer/${customer_id}`),
     forUser: user =>
         requests.get(`/customer/${user}`),
     create: (customer) =>
@@ -189,7 +195,9 @@ const Locations = {
 };
 
 const Luminary = {
-    get: luminary =>
+    get: luminary_id =>
+        requests.get(`/luminary/${luminary_id}`),
+    forUser: luminary =>
         requests.get(`/luminary/${luminary}`),
     create: luminary =>
         requests.post(`/luminary/${luminary}`),
@@ -255,6 +263,13 @@ const Trending = {
         requests.get(`/trending`),
 };
 
+const User = {
+    get: luminary =>
+        requests.get(`/luminary/${luminary}`),
+    create: luminary =>
+        requests.post(`/luminary/${luminary}`),
+};
+
 
 export default {
     Activities,
@@ -278,5 +293,6 @@ export default {
     Review,
     Tags,
     Trending,
+    User,
     WishList
 };

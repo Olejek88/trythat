@@ -1,4 +1,4 @@
-import { action } from 'mobx';
+import { observable, action } from 'mobx';
 import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
@@ -35,7 +35,7 @@ class DurationStore {
             if (duration) return Promise.resolve(duration);
         }
         this.isLoading = true;
-        agent.duration.get(id)
+        agent.Duration.get(id)
             .then(action(({duration}) => {
                 this.durationsRegistry.set(id, duration);
                 return duration;

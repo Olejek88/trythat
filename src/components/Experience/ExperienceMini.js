@@ -1,5 +1,5 @@
 import React from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import activityStore from "../../stores/activityStore";
 import customerStore from "../../stores/customerStore";
 

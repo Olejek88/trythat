@@ -1,7 +1,7 @@
-import { observable, action } from 'mobx';
+import {observable, action} from 'mobx';
+import agent from "../agent";
 import activityStore from "./activityStore";
 import customerStore from "./customerStore";
-import agent from "../agent";
 
 class ReviewStore {
     @observable reviewRegistry = observable.map();
@@ -47,12 +47,14 @@ class ReviewStore {
     @action loadReviews() {
         this.isLoading = true;
         this.$req()
-            .then(action(({ reviews}) => {
+            .then(action(({reviews}) => {
                 this.reviewRegistry.clear();
                 reviews.forEach(review =>
                     this.reviewRegistry.set(review._id, review));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
         return this.staticData;
     }
 
@@ -74,19 +76,19 @@ class ReviewStore {
     }
 
     getAverageMark(activity) {
-        let markArray=[0,0];
+        let markArray = [0, 0];
         let predicate = {
             filter: 'activity',
             id: activity._id
         };
         this.setPredicate(predicate);
         let reviews = this.loadReviews();
-        reviews.forEach(function(review) {
-            markArray[0]+=review.rate;
+        reviews.forEach(function (review) {
+            markArray[0] += review.rate;
             markArray[1]++;
         });
-        if (markArray[1]>0) {
-            markArray[0]=markArray[0]/markArray[1];
+        if (markArray[1] > 0) {
+            markArray[0] = markArray[0] / markArray[1];
             return markArray;
         }
         return markArray;
@@ -100,10 +102,10 @@ class ReviewStore {
             })
     }
 
-    @action updateReview(review_id,review) {
-        return agent.reviewRegistry.update(review_id,review)
+    @action updateReview(review_id, review) {
+        return agent.reviewRegistry.update(review_id, review)
             .then(({review}) => {
-                this.reviewRegistry. set(review_id,review);
+                this.reviewRegistry.set(review_id, review);
                 return review;
             })
     }

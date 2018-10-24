@@ -5,7 +5,7 @@ import {withRouter} from "react-router-dom";
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+//import 'react-select/dist/react-select.css';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -19,11 +19,6 @@ import activityCategoryStore from "../../stores/activityCategoryStore";
 import categoryStore from "../../stores/categoryStore";
 import occasionStore from "../../stores/occasionStore";
 import trendingStore from "../../stores/trendingStore";
-
-let durations = [
-    {value: '1', label: '1 Час'},
-    {value: '2', label: '2 Часа'}
-];
 
 let minCustomers = 1;
 let maxCustomers = 20;

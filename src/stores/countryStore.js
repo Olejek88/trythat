@@ -41,7 +41,6 @@ class CountryStore {
             }));
         return this.testData;
     }
-
 }
 
 export default new CountryStore();

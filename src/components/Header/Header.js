@@ -97,7 +97,8 @@ const LoggedInView = props => {
 @observer
 class Header extends React.Component {
     render() {
-        const orders = this.props.orderStore.loadTestOrdersCount();
+        //const orders = this.props.orderStore.loadTestOrdersCount();
+        const orders = 1;
         return (
             <div id="header-fixed" className="sg-bg-1" style={{top: '0'}}>
                 <div id="header-wrap">

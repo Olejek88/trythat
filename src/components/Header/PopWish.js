@@ -14,10 +14,11 @@ class PopWish extends React.Component {
         };
         this.props.activityStore.setPredicate(predicate);
         const activities = this.props.activityStore.loadActivities();
+        const activityListingStore = this.props.activityListingStore;
         if (activities) {
             wishList = activities.map(function (activity,i) {
-                this.props.activityListingStore.loadActivityListing(activity);
-                const activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
+                activityListingStore.loadActivityListing(activity);
+                const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
                 return (<WishListPopItem activity={activity} key={i} price={activityPrice}/>);
             });
         }

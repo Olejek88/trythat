@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import {computed} from "mobx/lib/mobx";
-import categoryStore from "./categoryStore";
 import agent from "../agent";
+import categoryStore from "./categoryStore";
 
 class TagStore {
     @observable tagsRegistry = observable.map();

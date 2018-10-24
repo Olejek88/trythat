@@ -8,7 +8,7 @@ import OrderListItem from "../Orders/OrderListItem";
 export default class Checkout extends React.Component {
     constructor() {
         super();
-        let order;
+        //let order;
 
         this.state = {
             'balanceZero': "Your balance is zero. You can place order now.",

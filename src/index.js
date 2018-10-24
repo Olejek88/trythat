@@ -12,16 +12,17 @@ import activityCategoryStore from "./stores/activityCategoryStore";
 import activityListingStore from "./stores/activityListingStore";
 import wishListStore from './stores/wishListStore';
 import authStore from './stores/authStore';
+import cityStore from './stores/cityStore';
 import commonStore from './stores/commonStore';
-import customerStore from "./stores/customerStore";
+import customerStore from './stores/customerStore';
 import editorStore from './stores/editorStore';
 import imageStore from './stores/imageStore';
+import followListStore from "./stores/followListStore";
 import luminaryStore from "./stores/luminaryStore";
 import userStore from './stores/userStore';
 import countryStore from './stores/countryStore';
 import locationStore from './stores/locationStore';
 import profileStore from './stores/profileStore';
-import cityStore from "./stores/cityStore";
 import categoryStore from "./stores/categoryStore";
 import occasionStore from "./stores/occasionStore";
 import trendingStore from "./stores/trendingStore";
@@ -43,6 +44,7 @@ const stores = {
     durationStore,
     editorStore,
     imageStore,
+    followListStore,
     locationStore,
     luminaryStore,
     profileStore,
@@ -59,7 +61,7 @@ const stores = {
 window._____APP_STATE_____ = stores;
 
 promiseFinally.shim();
-useStrict(true);
+//useStrict(true);
 
 ReactDOM.render((
     <Provider {...stores}>

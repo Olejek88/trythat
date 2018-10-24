@@ -1,34 +1,35 @@
 import {observable, action} from 'mobx';
-import agent from '../agent';
-import imageStore from "./imageStore";
+import agent from "../agent";
 import cityStore from "./cityStore";
+import imageStore from "./imageStore";
 import countryStore from "./countryStore";
 
-class UserStore {
+export class UserStore {
     @observable currentUser;
     @observable loadingUser;
     @observable updatingUser;
     @observable updatingUserErrors;
 
     constructor() {
-        this.currentUser = this.testData;
+        //this.currentUser = this.testData;
     }
 
-    testData =
+    @observable testData =
         {   _id: '1',
             username: 'olejek',
             email: 'olejek8@yandex.ru',
             firstName: 'Олег',
             lastName: 'Иванов',
             birthDate: new Date(1978,8,28,0,0,0),
-            city: cityStore.loadCity(1),
-            country: countryStore.loadCountry(1),
             phone: '+79000242832',
             image: imageStore.loadImage(1),
+            city: cityStore.loadCity(1),
+            country: countryStore.loadCountry(1),
             password: '123456'
         };
 
     @action getUser() {
+        //return this.pullUser();
         return this.testData;
     }
 
@@ -40,12 +41,13 @@ class UserStore {
             }))
             .finally(action(() => {
                 this.loadingUser = false;
-            }))
+            }));
+        //return this.testData;
     }
 
     @action updateUser(newUser) {
         this.updatingUser = true;
-        return agent.Auth.save(newUser)
+        agent.Auth.save(newUser)
             .then(action(({user}) => {
                 this.currentUser = user;
                 console.log(newUser);
@@ -53,7 +55,8 @@ class UserStore {
             }))
             .finally(action(() => {
                 this.updatingUser = false;
-            }))
+            }));
+        return this.testData;
     }
 
     @action changeUserPassword(user, password, repeatPassword, newPassword) {
@@ -73,7 +76,6 @@ class UserStore {
     @action forgetUser() {
         this.currentUser = undefined;
     }
-
 }
 
 export default new UserStore();

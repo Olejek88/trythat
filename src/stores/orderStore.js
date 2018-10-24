@@ -48,10 +48,6 @@ export class OrderStore {
         return this.staticData;
     }
 
-    loadTestOrdersCount() {
-        return this.staticData.length;
-    }
-
     getOrder(id) {
         return this.ordersRegistry.get(id);
     }
