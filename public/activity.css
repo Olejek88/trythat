@@ -200,5 +200,19 @@ div.reviews .review_stars_div .review_star, .row.reviews .review_stars_div .revi
     z-index: 2;
 }
 
+.follow img {
+    width: 14px;
+    vertical-align: sub;
+    margin-right: 5px;
+}
+
+.display_none {
+    display: none;
+}
+
+.display_initial {
+    display: initial;
+}
+
 .sg-f-bdy
 .sg-c-2

@@ -96,11 +96,11 @@ const Activities = {
     all: (page = 0, lim = 10) =>
         requests.get(`/activities/all?${limit(lim, page)}`),
     isFavorite: (activity_id, customer_id) =>
-        requests.get(`/activities/is_favorite/${customer_id}&${activity_id}`),
+        requests.get(`/activities/is_favorite/${activity_id}&customer=${customer_id}`),
     favorite: (activity_id, customer_id) =>
-        requests.get(`/activities/favorite/${customer_id}&${activity_id}`),
+        requests.get(`/activities/favorite/${activity_id}&customer=${customer_id}`),
     unFavorite: (activity_id, customer_id) =>
-        requests.get(`/activities/un_favorite/${customer_id}&${activity_id}`),
+        requests.get(`/activities/un_favorite/${activity_id}&customer=${customer_id}`),
     create: activity =>
         requests.post('/activities', {activity}),
     del: id =>
@@ -239,7 +239,9 @@ const Review = {
     get: (review_id) =>
         requests.get(`/review/${review_id}`),
     create: (review) =>
-        requests.post(`/review/${review}`)
+        requests.post(`/review/${review}`),
+    all: () =>
+        requests.get(`/review}`)
 };
 
 const WishList = {

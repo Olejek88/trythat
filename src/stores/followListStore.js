@@ -29,21 +29,21 @@ class FollowListStore {
 
 
     @action isFollow(customer, luminary) {
-        return agent.isFollow(customer, luminary)
+        return agent.FollowList.isFollow(customer, luminary)
             .then(({answer}) => {
                 return answer;
             })
     }
 
     @action follow(customer, luminary) {
-        return agent.follow(customer, luminary)
+        return agent.FollowList.follow(customer, luminary)
             .then(({answer}) => {
                 return answer;
             })
     }
 
     @action unFollow(customer, luminary) {
-        return agent.unFollow(customer, luminary)
+        return agent.FollowList.unFollow(customer, luminary)
             .then(({answer}) => {
                 return answer;
             });

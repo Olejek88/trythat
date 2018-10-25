@@ -6,7 +6,8 @@ import Experience from "./Experience";
 class ExperienceRow extends React.Component {
     render() {
         let activitiesList = Array.of(undefined);
-        let activities = this.props.activityStore.loadActivities();
+        //let activities = this.props.activityStore.loadActivities();
+        let activities = this.props.activityStore.loadTestActivities(4);
         if (activities) {
             activities.forEach(function (activity, i) {
                 activitiesList.push(<Experience activity={activity} key={i}/>);

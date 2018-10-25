@@ -1,15 +1,10 @@
 import React from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import Select from 'react-select';
-import activityListingStore from "../../stores/activityListingStore";
-import orderStatusStore from "../../stores/orderStatusStore";
-import userStore from "../../stores/userStore";
-import orderStore from "../../stores/orderStore";
-import activityStore from "../../stores/activityStore";
-import customerStore from "../../stores/customerStore";
 import QuestionDialog from "../Orders/QuestionDialog";
 
 @observer
+@inject('activityStore','activityListingStore','orderStatusStore','customerStore','orderStore')
 class ActivitySelect extends React.Component {
     constructor() {
         super();
@@ -40,21 +35,21 @@ class ActivitySelect extends React.Component {
 
         this.makeOrder = () => {
             order = {
-                listing: activityListingStore.loadActivityListing(this.props.activity),
-                orderStatus: orderStatusStore.loadOrderStatus(1),
+                listing: this.props.activityListingStore.loadActivityListing(this.props.activity),
+                orderStatus: this.props.orderStatusStore.loadOrderStatus(1),
                 created: new Date(),
-                customer: userStore.getUser(),
+                customer: this.props.userStore.getUser(),
                 startDate: new Date()
             };
-            orderStore.createOrder(order);
+            this.props.orderStore.createOrder(order);
         };
 
         this.handleSelectActivityQuantityChange = (event) => {
-            this.setState({selectedQuantity: event.value});
+            this.setState({selectedQuantity: event});
             this.setState({selectedPrice: event.cost});
         };
         this.handleSelectActivityDurationChange = (event) => {
-            this.setState({selectedDuration: event.value});
+            this.setState({selectedDuration: event});
             this.setState({selectedPrice: event.cost});
         };
 
@@ -74,10 +69,10 @@ class ActivitySelect extends React.Component {
 
     componentDidMount() {
         if (this.props.activity) {
-            const customer = customerStore.getCustomer();
-            const favored = activityStore.isFavorite(this.props.activity._id, customer._id);
-            this.setState(favored);
-            if (favored)
+            const customer = this.props.customerStore.getCustomer();
+            const favor = this.props.activityStore.isFavorite(this.props.activity._id, customer._id);
+            this.setState({favored: favor});
+            if (favor)
                 this.setState({favoredClass: "pdp heart_img listed"});
             else
                 this.setState({favoredClass: 'pdp heart_img'});
@@ -164,7 +159,8 @@ class ActivitySelect extends React.Component {
                                             <div className="displayonly_content">
                                             </div>
                                         </div>
-                                        <div className="preCheckOutField sg-bg-3" id="addDuration">
+                                        <div className="preCheckOutField sg-bg-3" id="addDuration"
+                                             style={{paddingTop: '5px', paddingBottom: '10px'}}>
                                             <Select
                                                 style={{width: '100%', top: '5px'}}
                                                 name="duration"
@@ -173,7 +169,7 @@ class ActivitySelect extends React.Component {
                                                 cost={this.state.selectedPrice}
                                                 className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                                 onChange={(e) => this.handleSelectActivityDurationChange(e)}
-                                                options={activityListingStore.loadTestDurationByActivityListing()}
+                                                options={this.props.activityListingStore.loadTestDurationByActivityListing()}
                                             />
                                             <div className="row" id="addPeopleError"
                                                  style={{
@@ -203,7 +199,7 @@ class ActivitySelect extends React.Component {
                                                 id="quantity"
                                                 className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                                 onChange={(e) => this.handleSelectActivityQuantityChange(e)}
-                                                options={activityListingStore.loadTestCustomersByActivityListing()}
+                                                options={this.props.activityListingStore.loadTestCustomersByActivityListing()}
                                             />
                                             <div className="row" id="addQuantityError"
                                                  style={{

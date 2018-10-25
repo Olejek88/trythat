@@ -15,9 +15,9 @@ class CustomerStore {
             active: true
         };
 
-    @action getCustomer() {
+    @action getCustomer(user_id) {
         this.customerErrors = undefined;
-        agent.Customer.forUser(this.customer.user._id)
+        agent.Customer.forUser(user_id)
             .catch(action(err => {
                 this.customerErrors = err.response && err.response.body && err.response.body.errors;
                 throw err;

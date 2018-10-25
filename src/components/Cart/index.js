@@ -22,6 +22,10 @@ export default class Cart extends React.Component {
         }
         else orderList = 'Корзина пуста';
 
+        this.onSubmit = () => {
+            this.props.history.push("/cart/checkout");
+        };
+
         return (
             <div id="shopping-cart">
                 <div className="body">
@@ -73,11 +77,9 @@ export default class Cart extends React.Component {
                                         </div>
                                         <div className="row">
                                             <div className="start-checkout  primaryButton button"
-                                                 style={{width: '100%'}} tabIndex="0">
+                                                 style={{width: '100%'}} tabIndex="0" onClick={this.onSubmit}>
                                                 <div className="title-container">
-                                                    <a href={"/#/cart/checkout"}>
-                                                        <p className="title">Оформить</p>
-                                                    </a>
+                                                    <p className="title">Оформить</p>
                                                 </div>
                                             </div>
                                         </div>

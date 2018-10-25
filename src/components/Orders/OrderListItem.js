@@ -1,6 +1,7 @@
 import React from 'react';
 import {inject} from "mobx-react/index";
 import QuestionDialog from "./QuestionDialog";
+import {Redirect} from "react-router-dom";
 
 @inject('orderStore','wishListStore')
 class OrderListItem extends React.Component {
@@ -27,7 +28,7 @@ class OrderListItem extends React.Component {
                 this.setState({favoredClass: 'heart_img listed'});
             else
                 this.setState({favoredClass: 'heart_img'});
-            console.log(this.state.favoredClass);
+            //console.log(this.state.favoredClass);
             //this.props.wishListStore.
         };
 
@@ -59,6 +60,11 @@ class OrderListItem extends React.Component {
         let activity_image = this.props.activity.images[0].path;
         let luminary_image = activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
+
+        this.onSubmit = () => {
+            return <Redirect to='/cart/checkout' />
+        };
+
         return (
             <React.Fragment>
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}
@@ -148,11 +154,9 @@ class OrderListItem extends React.Component {
                             {this.state.checkout &&
                             <div className="row" id="checkout">
                                 <div className="start-checkout  primaryButton button" style={{width: '200px'}}
-                                     tabIndex="0">
+                                     tabIndex="0"  onClick={this.onSubmit}>
                                     <div className="title-container">
-                                        <a href={"cart/checkout"}>
-                                            <p className="title">Оформить</p>
-                                        </a>
+                                        <p className="title">Оформить</p>
                                     </div>
                                 </div>
                             </div>}

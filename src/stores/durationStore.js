@@ -43,7 +43,7 @@ class DurationStore {
             .finally(action(() => {
                 this.isLoading = false;
             }));
-        return this.staticData;
+        return this.staticData[id];
     }
 
 }

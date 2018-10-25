@@ -1,9 +1,7 @@
 import React from 'react';
-import {withRouter} from "react-router-dom";
 import {inject} from "mobx-react/index";
 import ActivityPhotoDiv from "./ActivityPhotoDiv";
 
-@withRouter
 @inject('activityStore')
 class ActivityPhoto extends React.Component {
     render() {

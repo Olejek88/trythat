@@ -1,7 +1,6 @@
 import React from 'react';
 import {inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom'
-import {parse as qsParse} from 'query-string';
 import ExperienceTitle from "../Experience/ExperienceTitle";
 import ExperienceRow from "../Experience/ExperienceRow";
 
@@ -18,13 +17,14 @@ export default class ActivityView extends React.Component {
     componentWillMount() {
         let predicate = {
             filter: this.props.filter,
-            id: this.props.id
+            id: this.props.id,
+            limit: 12
         };
         this.props.activityStore.setPredicate(predicate);
     }
 
     componentDidMount() {
-        let activities = this.props.activityStore.loadTestActivities(12);
+        let activities = this.props.activityStore.loadActivities();
         let my = this;
         let activitiesRow = [];
         let activitiesRows = my.state.activitiesRows;
@@ -32,13 +32,16 @@ export default class ActivityView extends React.Component {
         if (activities && activities.length>0) {
             switch (my.props.filter) {
                 case 'city':
-                    activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления в Вашем городе '+ activities[0].location.city.title}/>);
+                    if (activities[0].location)
+                        activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления в Вашем городе '+ activities[0].location.city.title}/>);
                     break;
                 case 'occasion':
-                    activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления на случай '+ activities[0].occasion.title}/>);
+                    if (activities[0].occasion)
+                        activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления на случай '+ activities[0].occasion.title}/>);
                     break;
                 case 'trends':
-                    activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления для '+ activities[0].trending.title}/>);
+                    if (activities[0].trending)
+                        activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления для '+ activities[0].trending.title}/>);
                     break;
                 default:
                     activitiesRows.push(<ExperienceTitle key={1} title="Лучшие впечатления для Вас"/>);
@@ -55,35 +58,6 @@ export default class ActivityView extends React.Component {
                 activitiesRow = [];
             }
         });
-    }
-
-    componentDidUpdate(previousProps) {
-        if (
-            this.getTab(this.props) !== this.getTab(previousProps) ||
-            this.getTag(this.props) !== this.getTag(previousProps)
-        ) {
-            this.props.activityStore.setPredicate(this.getPredicate());
-            this.props.activityStore.loadActivity();
-        }
-    }
-
-    getTag(props = this.props) {
-        return qsParse(props.location.search).tag || "";
-    }
-
-    getTab(props = this.props) {
-        return qsParse(props.location.search).tab || 'all';
-    }
-
-    getPredicate(props = this.props) {
-        switch (this.getTab(props)) {
-            case 'feed':
-                return {myFeed: true};
-            case 'tag':
-                return {tag: qsParse(props.location.search).tag};
-            default:
-                return {};
-        }
     }
 
     render() {

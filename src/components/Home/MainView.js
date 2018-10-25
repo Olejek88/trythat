@@ -46,16 +46,6 @@ export default class MainView extends React.Component {
     }
   }
 
-  handleTabChange = (tab) => {
-    if (this.props.location.query.tab === tab) return;
-    this.props.router.push({ ...this.props.location, query: { tab } })
-  };
-
-  handleSetPage = page => {
-    this.props.activityStore.setPage(page);
-    this.props.activityStore.loadActivity();
-  };
-
   render() {
 
     return (

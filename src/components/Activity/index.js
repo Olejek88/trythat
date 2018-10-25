@@ -13,15 +13,16 @@ import {inject} from "mobx-react/index";
 
 @observer
 @withRouter
-@inject('activityStore')
+@inject('activityStore','activityListingStore')
 class Activity extends React.Component {
     render() {
-        const activity = this.props.activityStore.loadActivity(this.props.activity._id);
+        const activity = this.props.activityStore.loadActivity(this.props.id);
         let predicate = {
             filter: 'luminary',
-            id: this.props.activity.luminary._id
+            id: activity.luminary._id
         };
         this.props.activityStore.setPredicate(predicate);
+        this.props.activityListingStore.loadActivityListing(activity);
         const activities = this.props.activityStore.loadActivities();
         return (
             <div id="content">

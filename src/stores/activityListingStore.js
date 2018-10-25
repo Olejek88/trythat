@@ -30,7 +30,7 @@ export class ActivityListingStore {
         {   _id: '1',
             customers: 1,
             activity: activityStore.loadActivity(1),
-            duration: durationStore.loadDuration(1),
+            duration: durationStore.loadDuration(3),
             cost: 2500,
             currency: currencyStore.loadCurrency(1),
             isGroup: false
@@ -43,10 +43,13 @@ export class ActivityListingStore {
                 activityListing.forEach(activityListing =>
                     this.activityListingRegistry.set(activityListing._id, activityListing));
             }))
+            .catch(action(err => {
+                throw err;
+            }))
             .finally(action(() => { this.isLoading = false; }));
-
         this.staticData.forEach(activityListing =>
             this.activityListingRegistry.set(activityListing._id,activityListing));
+        //console.log(this.activityListingRegistry);
         return this.staticData;
     }
 
@@ -55,7 +58,7 @@ export class ActivityListingStore {
     }
 
     loadActivityListingMinimumPrice() {
-        let minimum_cost = 0;
+        let minimum_cost = 1000000;
         let current_currency = '';
         this.activityListingRegistry.forEach(function(activityListing) {
             if (activityListing.cost < minimum_cost)
