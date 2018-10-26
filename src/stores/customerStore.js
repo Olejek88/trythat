@@ -7,7 +7,7 @@ class CustomerStore {
     @observable updatingCustomer;
     @observable updatingCustomerErrors;
 
-    customer =
+    @observable customer =
         {   _id: '1',
             user: userStore.getUser(),
             positive: 1,

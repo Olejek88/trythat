@@ -74,7 +74,7 @@ export class OrderStore {
     }
 
     @action createOrder(order) {
-        return agent.create(order)
+        return agent.Order.create(order)
             .then(({order}) => {
                 this.ordersRegistry.set(order._id, order);
                 return order;
@@ -82,7 +82,7 @@ export class OrderStore {
     }
 
     @action updateOrder(data) {
-        return agent.update(data)
+        return agent.Order.update(data)
             .then(({order}) => {
                 this.ordersRegistry.set(order._id, order);
                 return order;

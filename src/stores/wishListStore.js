@@ -31,21 +31,21 @@ class WishListStore {
     }
 
     @action isWished(customer, activity) {
-        return agent.isWished(customer, activity)
+        return agent.WishList.isWished(customer, activity)
             .then(({answer}) => {
                 return answer;
             })
     }
 
     @action wish(customer, activity) {
-        return agent.wish(customer, activity)
+        return agent.WishList.wish(customer, activity)
             .then(({answer}) => {
                 return answer;
             })
     }
 
     @action unWish(customer, activity) {
-        return agent.unWish(customer, activity)
+        return agent.WishList.unWish(customer, activity)
             .then(({answer}) => {
                 return answer;
             });

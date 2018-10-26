@@ -7,7 +7,7 @@ class LuminaryStore {
     @observable updatingLuminary;
     @observable updatingLuminaryErrors;
 
-    luminary =
+    @observable luminary =
         {   _id: '1',
             verified: true,
             verifiedDate: new Date(),

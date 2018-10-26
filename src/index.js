@@ -32,6 +32,7 @@ import orderStore from "./stores/orderStore";
 import orderStatusStore from "./stores/orderStatusStore";
 
 const stores = {
+    userStore,
     activityStore,
     activityListingStore,
     activityCategoryStore,
@@ -53,7 +54,6 @@ const stores = {
     orderStatusStore,
     tagStore,
     trendingStore,
-    userStore,
     wishListStore
 };
 

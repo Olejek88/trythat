@@ -13,16 +13,16 @@ class PopWish extends React.Component {
                     <div id="acct-popup-carrot" className="io-arrow-popup-carrot">
                     </div>
                     <ul id="acct-popup" style={{paddingLeft: 0}}>
-                        <a href="/#/settings" tabIndex="2401">
+                        <a href="/settings" tabIndex="2401">
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Профиль</p>
                             </li>
                         </a>
-                        <a href="/#/orders" tabIndex="2404">
+                        <a href="/orders" tabIndex="2404">
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Заказы</p></li>
                         </a>
-                        <a href="/#/wishlist" tabIndex="2406">
+                        <a href={"/#/wish_list"} tabIndex="2406">
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3"><p>Список желаний</p></li>
                         </a>
                         <a href="/follows" tabIndex="2407">
@@ -39,6 +39,12 @@ class PopWish extends React.Component {
                                                 }}>
                             </span></p>
                             </li>
+                        </a>
+                        <li style={{borderBottom: '1px solid #e1e1e1', paddingBottom: '5px'}}>
+                        </li>
+                        <a href={"/activity/my"} tabIndex="2404">
+                            <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
+                                <p>Мои предложения</p></li>
                         </a>
                         <li style={{borderBottom: '1px solid #e1e1e1', paddingBottom: '5px'}}>
                         </li>

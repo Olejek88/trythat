@@ -6,7 +6,7 @@ import WishListItem from "./WishListItem";
 
 @observer
 @withRouter
-@inject('activityStore', 'activityListingStore')
+@inject('activityStore', 'activityListingStore', 'userStore')
 class WishList extends React.Component {
     render() {
         let wishList = '';
@@ -16,10 +16,11 @@ class WishList extends React.Component {
         };
         this.props.activityStore.setPredicate(predicate);
         const activities = this.props.activityStore.loadActivities();
+        const activityListingStore = this.props.activityListingStore;
         if (activities) {
             wishList = activities.map(function (activity,i) {
-                this.props.activityListingStore.loadActivityListing(activity);
-                const activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
+                activityListingStore.loadActivityListing(activity);
+                const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
                 return (<WishListItem activity={activity} key={i} price={activityPrice}/>);
             });
         }
@@ -45,50 +46,6 @@ class WishList extends React.Component {
                                             {wishList}
                                         </React.Fragment>
                                     </ul>
-
-                                    {/*
-                                <script type="text/javascript">
-                                    $(document).ready(function (){
-                                    $("#wishlist .remove").click(function () {
-                                        var li = $(this).parent().parent();
-                                        var current = $(this).parent();
-                                        var undo = current.next();
-                                        var pid = $(this).attr('pid');
-                                        $.post("/wishlist/remove", {productId: pid},
-                                            function (data) {
-                                                if (data.result === 1) {
-                                                    current.hide();
-                                                    undo.show();
-                                                    undo.css('flex', '3');
-                                                    if (!g_is_mobile) {
-                                                        undo.css('text-align', 'right');
-                                                    }
-                                                    li.addClass('inactive');
-                                                } else {
-                                                    alertEx(data.msg);
-                                                }
-                                            }, 'json');
-                                        return false;
-                                    });
-                                    $("#wishlist .undo").click(function(){
-                                    var li      = $(this).parent().parent();
-                                    var current = $(this).parent();
-                                    var remove  = current.prev();
-                                    var pid     = $(this).attr('pid');
-                                    $.post( "/wishlist/undo", {productId:pid},
-                                    function (data){
-                                    if (data.result === 1) {
-                                    current.hide();
-                                    remove.show();
-                                    li.removeClass('inactive');
-                                }else{
-                                    alertEx(data.msg);
-                                }
-                                },'json');
-                                    return false;
-                                });
-                                </script>
-*/}
                                 </div>
                             </div>
                         </div>

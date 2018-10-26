@@ -17,7 +17,7 @@ class TrendingStore {
 
     @action loadTrends() {
         this.isLoading = true;
-        agent.Categories.all()
+        agent.Trending.all()
             .then(action(({ categories}) => {
                 this.trendingRegistry.clear();
                 categories.forEach(trending =>

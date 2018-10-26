@@ -3,9 +3,13 @@ import agent from "../agent";
 import cityStore from "./cityStore";
 import imageStore from "./imageStore";
 import countryStore from "./countryStore";
+import customerStore from "./customerStore";
+import luminaryStore from "./luminaryStore";
 
 export class UserStore {
     @observable currentUser;
+    @observable currentCustomer;
+    @observable currentLuminary;
     @observable loadingUser;
     @observable updatingUser;
     @observable updatingUserErrors;
@@ -38,7 +42,9 @@ export class UserStore {
         return agent.Auth.current()
             .then(action(({user}) => {
                 this.currentUser = user;
-            }))
+                this.currentCustomer = customerStore.getCustomer(user._id);
+                this.currentLuminary = luminaryStore.getLuminary(user._id);
+                }))
             .finally(action(() => {
                 this.loadingUser = false;
             }));
