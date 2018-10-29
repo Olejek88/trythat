@@ -69,6 +69,30 @@ export class ActivityListingStore {
         //return this.staticData[1].cost + " " + this.staticData[1].currency.title;
     }
 
+    loadActivityListingDuration() {
+        let arrayDurations = '';
+        let count=0;
+        this.activityListingRegistry.forEach(function (activityListing) {
+            count++;
+            if (count<5)
+                arrayDurations+=activityListing.duration.period+', ';
+        });
+        return arrayDurations;
+    }
+
+    loadActivityListingQuantity() {
+        let arrayQuantity = '';
+        let count=0;
+        this.activityListingRegistry.forEach(function (activityListing) {
+            count++;
+            if (count<5) {
+                if (count>1) arrayQuantity+=', ';
+                arrayQuantity += activityListing.customers;
+            }
+        });
+        return arrayQuantity;
+    }
+
     loadTestDurationByActivityListing() {
         let arrayDurations = [];
         //this.staticData.forEach(function (activityListing) {

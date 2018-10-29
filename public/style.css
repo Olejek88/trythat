@@ -3900,6 +3900,14 @@ input[type="search"]#top-nav-search::-webkit-search-cancel-button {
     width: 100%;
 }
 
+.vendorBlock {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.vendor-img {
+}
+
 #vendor-menu li a:hover{color: #00A94F}
 #vendor-menu .menu-li.header{ margin-top: 15px;}
 #vendor-menu .menu-li.header:first-child{margin-top: 0px;}

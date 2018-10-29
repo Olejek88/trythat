@@ -20,7 +20,7 @@ import Cart from "./Cart";
 import AddActivity from "./AddActivity";
 import WishList from "./WishList";
 import Activities from "./Activities";
-import MyActivities from "./Activities/MyActivities";
+import MyActivities from "./My/MyActivities";
 import Checkout from "./Cart/Checkout";
 
 @inject('userStore', 'commonStore', 'activityStore', 'locationStore')
@@ -57,7 +57,8 @@ export default class App extends React.Component {
                         <Route path="/@:username" component={Profile}/>
                         <Route path="/@:username/favorites" component={Profile}/>
                         <Route path="/activity/:id" component={Activity}/>
-                        <Route path="/activities/my" component={MyActivities}/>
+                        <Route path="/my/:filter/:listing" component={MyActivities}/>
+                        <Route path="/my/:filter" component={MyActivities}/>
                         <Route path="/category/:id" component={Category}/>
                         <Route path="/sell" component={Sell}/>
                         <Route path="/wish_list" component={WishList}/>

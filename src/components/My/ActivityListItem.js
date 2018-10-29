@@ -1,7 +1,8 @@
 import React from 'react';
 import {inject} from "mobx-react/index";
+import Link from "react-router-dom/es/Link";
 
-@inject('activityStore')
+@inject('activityStore','activityListingStore')
 class ActivityListItem extends React.Component {
     constructor() {
         super();
@@ -19,8 +20,15 @@ class ActivityListItem extends React.Component {
     render() {
         const activity = this.props.activity;
 
-        let activity_listing_link = "/#/activities/my/listing/" + activity._id;
+        let activity_listing_link = "/my/listing/" + activity._id;
         let activity_image = this.props.activity.images[0].path;
+
+        let activity_price = this.props.activityListingStore.loadActivityListingMinimumPrice();
+        let activity_quantity = this.props.activityListingStore.loadActivityListingQuantity();
+        let activity_duration = this.props.activityListingStore.loadActivityListingDuration();
+
+        //let activity_listing = this.props.activityListingStore.loadActivityListing(activity);
+
         let luminary_image = activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
 
@@ -28,8 +36,7 @@ class ActivityListItem extends React.Component {
             <React.Fragment>
                 {this.state.showActivityItem &&
                 <div className="vendorBlock sg-bd-3">
-                    <div
-                        className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
+                    <div className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                         style={{padding: '20px 15px', width: '100%', boxSizing: 'border-box'}}>
                         <div className="vendor-img">
                             <img src={luminary_image} style={{width: '100%'}} alt={""}/>
@@ -47,21 +54,20 @@ class ActivityListItem extends React.Component {
                                 </a>
                                 </div>
                                 <div style={{margin: '0 10px', width: '50%'}}>
-                                    <div><a href={activity_listing_link} className="js-pdpDetails sg-c-1">
+                                    <div><a className="js-pdpDetails sg-c-1">
                                         {activity.title}</a></div>
-                                    <div className="sg-c-2" style={{display: 'none'}}>
-                                        {activity.description}
-                                    </div>
+                                    <div className="sg-c-2">{activity.description.substr(0,88)}</div>
                                     <div className="sg-c-2">
                                     </div>
                                     <div className="convert" style={{marginTop: '10px', cursor: 'pointer'}}>
-                                        <a className="sg-inline-middle" onClick={this.onFavored}>
+                                        <Link className="sg-inline-middle"
+                                              to={activity_listing_link} params={{activity: activity}}>
                                             <div className={this.state.favoredClass}
                                                  style={{width: '22px', height: '22px', backgroundSize: 'cover'}}>
                                             </div>
                                             <span className="wishlist-text sg-c-2 sg-f-btn sg-text-transform"
-                                                  style={{margin: '2px 2px 2px 5px'}}>В избранное</span>
-                                        </a>
+                                                  style={{margin: '2px 2px 2px 5px'}}>Редактировать</span>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -85,6 +91,19 @@ class ActivityListItem extends React.Component {
                                                      this.onRemove(activity)
                                                  }}/>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="sg-inline-top sg-f-ttl" style={{width: '100%'}}>
+                                    <div className="sg-inline-flex-grow" style={{textAlign: 'center'}}>
+                                        <span className="js-quantity">{activity_quantity}</span>
+                                    </div>
+                                    <div className="sg-inline-flex-grow" style={{textAlign: 'center'}}>
+                                        <span className="js-quantity">{activity_duration}</span>
+                                    </div>
+                                    <div className="sg-inline-flex-grow" style={{textAlign: 'center'}}>
+                                        <span className="js-price">{activity_price}</span>
+                                    </div>
+                                    <div style={{width: '28px'}}>
                                     </div>
                                 </div>
                             </div>
