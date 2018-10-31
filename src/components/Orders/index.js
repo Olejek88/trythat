@@ -6,8 +6,8 @@ import OrderListItem from "./OrderListItem";
 import Link from "react-router-dom/es/Link";
 
 @observer
-@withRouter
 @inject('userStore', 'orderStore')
+@withRouter
 class Orders extends React.Component {
     constructor() {
         super();
@@ -30,7 +30,6 @@ class Orders extends React.Component {
     }
 
     componentWillMount() {
-        console.log('componentWillMount');
         this.fillList('close');
         this.fillList('cancel');
         this.fillList('open');
@@ -74,6 +73,8 @@ class Orders extends React.Component {
                 this.setState({selected_open: ''});
                 this.setState({selected_closed: ''});
                 this.setState({selected_canceled: 'selected'});
+                break;
+            default:
                 break;
         }
     }

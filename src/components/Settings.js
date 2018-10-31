@@ -442,7 +442,7 @@ class SettingsForm extends React.Component {
                                             type="password"
                                             required="required"
                                             placeholder="currentPassword"
-                                            value={this.state.password}
+                                            value={this.passwordState.password}
                                             onChange={this.updateState('password')}/>
                                         <div className="swapper" style={{float: 'right'}}>
                                         </div>
@@ -474,8 +474,7 @@ class SettingsForm extends React.Component {
                                             type="password"
                                             required="required"
                                             placeholder="newPassword"
-                                            value={this.state.password}
-                                            onChange={this.updateState('password')}/>
+                                            value={this.passwordState.newPassword} />
                                     </div>
                                 </div>
                                 <div className="row-flow" style={{marginTop: '27px'}}>
@@ -483,8 +482,14 @@ class SettingsForm extends React.Component {
                                         <label htmlFor="password2">Повторите пароль:</label>
                                     </div>
                                     <div className="sibs">
-                                        <input aria-required="true" autoComplete="off" required="required"
-                                               value="" name="password2" id="password2" type="password"/>
+                                        <input
+                                            maxLength="50"
+                                            name="repeatPassword"
+                                            id="repeatPassword"
+                                            type="password"
+                                            required="required"
+                                            placeholder="repeatPassword"
+                                            value={this.passwordState.repeatPassword}/>
                                     </div>
                                 </div>
                                 <div className="row-flow">

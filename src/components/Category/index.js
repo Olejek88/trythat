@@ -4,9 +4,9 @@ import {withRouter} from 'react-router-dom';
 import Experiences from "./Experiences";
 import Banner from "./Banner";
 
+@observer
 @inject('commonStore')
 @withRouter
-@observer
 export default class Category extends React.Component {
     componentDidMount() {
         this.props.commonStore.loadTags();

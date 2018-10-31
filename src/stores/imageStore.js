@@ -9,15 +9,20 @@ export class ImageStore {
     @observable userImage = {
         _id: '3',
         title: 'Олег Иванов',
-        path: 'images/luminary2.jpg'};
+        path: 'images/luminary2.jpg'
+    };
 
     @observable images = [
-        {   _id: '1',
+        {
+            _id: '1',
             title: 'Путшествие к центру Земли',
-            path: 'images/example_experience.jpg'},
-        {   _id: '2',
+            path: 'images/example_experience.jpg'
+        },
+        {
+            _id: '2',
             title: 'Путшествие к центру Земли',
-            path: 'images/example_experience.jpg'}
+            path: 'images/example_experience.jpg'
+        }
     ];
 
     @action setPredicate(predicate) {
@@ -41,7 +46,9 @@ export class ImageStore {
     @action loadImages() {
         this.isLoading = true;
         this.$req()
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
         return this.images;
     }
 
@@ -54,7 +61,11 @@ export class ImageStore {
 
     @action loadImage(id) {
         this.isLoading = true;
-        agent.Image.get(id);
+        agent.Image.get(id)
+            .catch(action(err => {
+                throw err;
+            }));
+
         return this.userImage;
     }
 }

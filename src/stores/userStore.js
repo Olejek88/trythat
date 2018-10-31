@@ -14,9 +14,9 @@ export class UserStore {
     @observable updatingUser;
     @observable updatingUserErrors;
 
-    constructor() {
-        //this.currentUser = this.testData;
-    }
+    // constructor() {
+    //     this.currentUser = this.testData;
+    // }
 
     @observable testData =
         {   _id: '1',
@@ -56,8 +56,6 @@ export class UserStore {
         agent.Auth.save(newUser)
             .then(action(({user}) => {
                 this.currentUser = user;
-                console.log(newUser);
-                console.log(user);
             }))
             .finally(action(() => {
                 this.updatingUser = false;

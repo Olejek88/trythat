@@ -3,10 +3,9 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 
-
+@observer
 @inject('editorStore')
 @withRouter
-@observer
 export default class Editor extends React.Component {
 
   state = {

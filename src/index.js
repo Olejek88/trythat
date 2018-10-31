@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom';
 import promiseFinally from 'promise.prototype.finally';
 import React from 'react';
 import {HashRouter} from 'react-router-dom';
-//import {useStrict} from 'mobx';
 import {Provider} from 'mobx-react';
 
 import App from './components/App';
@@ -27,6 +26,7 @@ import categoryStore from "./stores/categoryStore";
 import occasionStore from "./stores/occasionStore";
 import trendingStore from "./stores/trendingStore";
 import durationStore from "./stores/durationStore";
+import reviewStore from "./stores/reviewStore";
 import tagStore from "./stores/tagStore";
 import orderStore from "./stores/orderStore";
 import orderStatusStore from "./stores/orderStatusStore";
@@ -52,6 +52,7 @@ const stores = {
     occasionStore,
     orderStore,
     orderStatusStore,
+    reviewStore,
     tagStore,
     trendingStore,
     wishListStore

@@ -2,7 +2,7 @@ import React from 'react';
 import SiteMenu from "./SiteMenu";
 import SiteInfo from "./SiteInfo";
 
-const FooterView = props => {
+const FooterView = () => {
     return (
         <React.Fragment>
             <SiteMenu/>

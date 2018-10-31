@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import {observable, action} from 'mobx';
 import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
@@ -13,17 +13,19 @@ class ActivityCategoryStore {
     testData = {_id: '3', label: 'Экстрим'};
 
     @computed get staticDataOptions() {
-        return this.staticData.map(x => ({ label: x.label, value: x._id }))
+        return this.staticData.map(x => ({label: x.label, value: x._id}))
     };
 
     @action loadActivityCategories() {
         agent.ActivityCategories.all()
-            .then(action(({ activityCategories}) => {
+            .then(action(({activityCategories}) => {
                 this.activityCategoryRegistry.clear();
                 activityCategories.forEach(activityCategory =>
-                    this.activityCategoryRegistry.set(activityCategory._id,activityCategory));
+                    this.activityCategoryRegistry.set(activityCategory._id, activityCategory));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
         return this.staticDataOptions;
     }
 

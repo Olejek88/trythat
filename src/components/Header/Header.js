@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {inject, observer} from 'mobx-react';
+import {inject} from 'mobx-react';
 import MenuNew from "../MenuNew";
 import PopCart from "./PopCart";
 import PopWish from "./PopWish";
@@ -94,7 +94,6 @@ const LoggedInView = props => {
 };
 
 @inject('userStore', 'commonStore', 'orderStore')
-@observer
 class Header extends React.Component {
     render() {
         //const orders = this.props.orderStore.loadTestOrdersCount();

@@ -93,17 +93,6 @@ export class ActivityListingStore {
         return arrayQuantity;
     }
 
-    loadTestDurationByActivityListing() {
-        let arrayDurations = [];
-        //this.staticData.forEach(function (activityListing) {
-        this.activityListingRegistry.forEach(function (activityListing) {
-            arrayDurations.push({ label: activityListing.duration.period,
-                value: activityListing.duration._id,
-                cost: 'Стоимость: ' + activityListing.cost + activityListing.currency.title});
-        });
-        return arrayDurations;
-    }
-
     loadTestCustomersByActivityListing() {
         let arrayCustomers = [];
         //this.staticData.forEach(function (activityListing) {

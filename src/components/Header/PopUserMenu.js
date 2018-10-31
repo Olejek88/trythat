@@ -13,7 +13,7 @@ class PopWish extends React.Component {
                     <div id="acct-popup-carrot" className="io-arrow-popup-carrot">
                     </div>
                     <ul id="acct-popup" style={{paddingLeft: 0}}>
-                        <a href="/settings" tabIndex="2401">
+                        <a href={"/#/settings"} tabIndex="2401">
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Профиль</p>
                             </li>

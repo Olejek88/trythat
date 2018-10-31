@@ -2,14 +2,18 @@ import React from 'react';
 import {inject} from "mobx-react/index";
 import QuestionDialog from "./QuestionDialog";
 import {Redirect} from "react-router-dom";
+import ReviewDialog from "./ReviewDialog";
 
-@inject('orderStore','wishListStore')
+@inject('orderStore','wishListStore', 'userStore')
 class OrderListItem extends React.Component {
     constructor() {
         super();
         this.onClick = this.onClick.bind(this);
+        this.showReview = this.showReview.bind(this);
+
         this.state = {
             showQuestionDialog: false,
+            showReviewDialog: false,
             favoredClass: "heart_img",
             favored: false,
             showOrderItem: true,
@@ -17,7 +21,6 @@ class OrderListItem extends React.Component {
         };
 
         this.onRemove = (e) => {
-            console.log('remove');
             this.props.orderStore.deleteOrder(e);
             this.setState({showOrderItem: false})
         };
@@ -34,12 +37,20 @@ class OrderListItem extends React.Component {
             console.log('clickHandler');
             component.setState({showQuestionDialog: false});
         };
+
+        this.clickHandlerR = (component) => {
+            console.log('clickHandler');
+            component.setState({showReviewDialog: false});
+        };
     }
 
     onClick(e) {
         e.preventDefault();
-        console.log('onClick');
         this.setState({showQuestionDialog: !this.state.showQuestionDialog})
+    }
+
+    showReview() {
+        this.setState({showReviewDialog: !this.state.showReviewDialog})
     }
 
     componentWillMount() {
@@ -50,6 +61,7 @@ class OrderListItem extends React.Component {
     render() {
         const order = this.props.order;
         const activity = order.listing.activity;
+        const customer = this.props.userStore.currentCustomer;
         const status = order.orderStatus;
 
         let order_link = "/#/order/" + order._id;
@@ -68,6 +80,12 @@ class OrderListItem extends React.Component {
             <React.Fragment>
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}
                                                                   luminary={activity.luminary}/>}
+                {this.state.showReviewDialog && <ReviewDialog clickHandler={() => this.clickHandlerR(this)}
+/*
+                                                              sendReview={() => this.clickHandlerR(this)}
+*/
+                                                              luminary={activity.luminary} activity={activity}
+                                                              customer={customer} />}
                 {this.state.showOrderItem &&
                 <div className="vendorBlock sg-bd-3">
                     <div
@@ -88,6 +106,15 @@ class OrderListItem extends React.Component {
                                 <span className="txt-ovr-2 sg-hover-primary sg-text-transform"
                                       style={{padding: '0 0 0 5px'}}>задать вопрос</span>
                             </div>
+                        }
+                        {(status._id==='1') &&
+                        <div className="phone pdp_question_mark js-vendor-level button sg-inline-middle"
+                             onClick={this.showReview.bind(this)}>
+                            <div className="sg-review">
+                            </div>
+                            <span className="txt-ovr-2 sg-hover-primary sg-text-transform"
+                                  style={{padding: '0 0 0 5px'}}>оценить предложение</span>
+                        </div>
                         }
                     </div>
                     <div className="body-row">
@@ -155,10 +182,18 @@ class OrderListItem extends React.Component {
                             {this.state.checkout &&
                             <div className="row" id="checkout">
                                 {(status._id === '1') &&
-                                <div className="start-checkout  primaryButton button" style={{width: '200px'}}
+                                <div className="start-checkout  primaryButton button" style={{width: '200px', marginRight:'10px'}}
                                      tabIndex="0" onClick={this.onSubmit}>
                                     <div className="title-container">
                                         <p className="title">Оформить</p>
+                                    </div>
+                                </div>
+                                }
+                                {(status._id === '1') &&
+                                <div className="start-checkout reviewButton button" style={{width: '200px'}}
+                                     tabIndex="0" onClick={this.showReview.bind(this)}>
+                                    <div className="title-container">
+                                        <p className="title">Отзыв</p>
                                     </div>
                                 </div>
                                 }

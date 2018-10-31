@@ -1,9 +1,7 @@
 import React from 'react';
-import cityStore from "../stores/cityStore";
-import categoryStore from "../stores/categoryStore";
-import occasionStore from "../stores/occasionStore";
-import trendingStore from "../stores/trendingStore";
+import {inject} from 'mobx-react';
 
+@inject('cityStore', 'categoryStore', 'occasionStore', 'trendingStore')
 class FooterCategories extends React.Component {
     render() {
         let citiesList = '';
@@ -11,7 +9,7 @@ class FooterCategories extends React.Component {
         let occasionListFirst = Array.of(undefined), occasionListSecond = Array.of(undefined);
         let trendsListFirst = Array.of(undefined), trendsListSecond = Array.of(undefined);
 
-        let cities = cityStore.loadCities();
+        let cities = this.props.cityStore.loadCities();
         if (cities) {
             citiesList = cities.map(function (city,i) {
                 return (<li key={i}><a href={"/#/activities/city/" + city.value} className="sg-f-bdy"
@@ -19,7 +17,7 @@ class FooterCategories extends React.Component {
             });
         }
 
-        let categories = categoryStore.loadCategories();
+        let categories = this.props.categoryStore.loadCategories();
         if (categories) {
             let half = categories.length/2;
             let index=0;
@@ -34,7 +32,7 @@ class FooterCategories extends React.Component {
             });
         }
 
-        let occasions = occasionStore.loadOccasions();
+        let occasions = this.props.occasionStore.loadOccasions();
         if (occasions) {
             let half = occasions.length/2;
             let index=0;
@@ -49,7 +47,7 @@ class FooterCategories extends React.Component {
             });
         }
 
-        let trends = trendingStore.loadTrends();
+        let trends = this.props.trendingStore.loadTrends();
         if (trends) {
             let half = trends.length/2;
             let index=0;

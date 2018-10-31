@@ -1,9 +1,7 @@
 import React from 'react';
-import cityStore from "../stores/cityStore";
-import categoryStore from "../stores/categoryStore";
-import occasionStore from "../stores/occasionStore";
-import trendingStore from "../stores/trendingStore";
+import {inject} from 'mobx-react';
 
+@inject('cityStore', 'categoryStore', 'occasionStore', 'trendingStore')
 class SiteMenu extends React.Component {
     render() {
         let citiesList = '';
@@ -11,7 +9,7 @@ class SiteMenu extends React.Component {
         let occasionList = Array.of(undefined);
         let trendsList = Array.of(undefined);
 
-        let cities = cityStore.loadCities();
+        let cities = this.props.cityStore.loadCities();
         if (cities) {
             citiesList = cities.map(function (city, i) {
                 return (<div data-navmenuid="go-298" className="topNavCat" key={i}>
@@ -20,7 +18,7 @@ class SiteMenu extends React.Component {
             });
         }
 
-        let categories = categoryStore.loadCategories();
+        let categories = this.props.categoryStore.loadCategories();
         if (categories) {
             categories.forEach(function (category,i) {
                 categoriesList.push(<div className="topNavCat" key={i}>
@@ -29,7 +27,7 @@ class SiteMenu extends React.Component {
             });
         }
 
-        let occasions = occasionStore.loadOccasions();
+        let occasions = this.props.occasionStore.loadOccasions();
         if (occasions) {
             occasions.forEach(function (occasion,i) {
                 occasionList.push(<div className="topNavCat" key={i}>
@@ -38,7 +36,7 @@ class SiteMenu extends React.Component {
             });
         }
 
-        let trends = trendingStore.loadTrends();
+        let trends = this.props.trendingStore.loadTrends();
         if (trends) {
             trends.forEach(function (trend,i) {
                 trendsList.push(<div className="topNavCat" key={i}>

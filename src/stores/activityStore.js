@@ -15,7 +15,8 @@ export class ActivityStore {
     @observable predicate = {};
 
     staticData =
-        {   _id: '1',
+        {
+            _id: '1',
             title: 'Путешествие к центру Земли на воздушном шаре',
             images: imageStore.loadImages(),
             luminary: luminaryStore.getLuminary(1),
@@ -67,11 +68,13 @@ export class ActivityStore {
     @action loadActivities() {
         this.isLoading = true;
         this.$req()
-            .then(action(({ activities}) => {
+            .then(action(({activities}) => {
                 this.activitiesRegistry.clear();
                 activities.forEach(activity => this.activitiesRegistry.set(activity._id, activity));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => {
+                this.isLoading = false;
+            }));
         // [тест] возвращаем или н-ное количество или массив из одной статике
         if (this.predicate.limit)
             return this.loadTestActivities(this.predicate.limit);
@@ -102,7 +105,7 @@ export class ActivityStore {
             .then(action(({answer}) => {
                 return answer;
             }));
-        return (Math.random()>0.8);
+        return (Math.random() > 0.8);
     }
 
     @action makeFavorite(activity_id, customer_id) {

@@ -15,6 +15,7 @@ class ReviewStore {
             customer: customerStore.getCustomer(),
             date: new Date(),
             rate: 4,
+            title: 'Неплохо',
             description: 'Все в целом хорошо, но когда шар пролетает через магму очень жарко'
         },
         {
@@ -23,6 +24,7 @@ class ReviewStore {
             customer: customerStore.getCustomer(),
             date: new Date(),
             rate: 5,
+            title: 'Супер!',
             description: 'Отлично! И кормят хорошо и йога на уровне. Стоит добавить только мини бар и развлечений на время поездки.'
         }
     ];
