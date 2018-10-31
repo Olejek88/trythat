@@ -208,6 +208,8 @@ const Order = {
         requests.get(`/orders?${limit(lim, page)}`),
     forUser: (user, page) =>
         requests.get(`/orders?user=${encode(user)}&${limit(5, page)}`),
+    filter: (filter, id, lim = 10, start = 0) =>
+        requests.get(`/orders/${filter}/${id}?${limit(lim, start)}`),
     get: orderId =>
         requests.get(`/order/${orderId}`),
     create: (order) =>

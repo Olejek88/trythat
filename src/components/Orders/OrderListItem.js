@@ -28,8 +28,6 @@ class OrderListItem extends React.Component {
                 this.setState({favoredClass: 'heart_img listed'});
             else
                 this.setState({favoredClass: 'heart_img'});
-            //console.log(this.state.favoredClass);
-            //this.props.wishListStore.
         };
 
         this.clickHandler = (component) => {
@@ -50,14 +48,15 @@ class OrderListItem extends React.Component {
     }
 
     render() {
-        const activity = this.props.activity;
         const order = this.props.order;
+        const activity = order.listing.activity;
+        const status = order.orderStatus;
 
-        let order_link = "/#/activity/" + activity._id;
+        let order_link = "/#/order/" + order._id;
         let order_price = order.listing.cost + order.listing.currency.title;
         let order_duration = order.listing.duration.period;
         let order_quantity = order.listing.customers;
-        let activity_image = this.props.activity.images[0].path;
+        let activity_image = activity.images[0].path;
         let luminary_image = activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
 
@@ -81,13 +80,15 @@ class OrderListItem extends React.Component {
                            style={{margin: '0 10px'}}>{luminary_name}
                             <span className="sg-c-2" style={{margin: '0 5px'}}> 1 </span>
                         </p>
-                        <div className="phone pdp_question_mark js-vendor-level button sg-inline-middle"
-                             onClick={this.onClick.bind(this)}>
-                            <div className="sg-chatbubble">
+                        {(status._id==='1') &&
+                            <div className="phone pdp_question_mark js-vendor-level button sg-inline-middle"
+                                 onClick={this.onClick.bind(this)}>
+                                <div className="sg-chatbubble">
+                                </div>
+                                <span className="txt-ovr-2 sg-hover-primary sg-text-transform"
+                                      style={{padding: '0 0 0 5px'}}>задать вопрос</span>
                             </div>
-                            <span className="txt-ovr-2 sg-hover-primary sg-text-transform"
-                                  style={{padding: '0 0 0 5px'}}>задать вопрос</span>
-                        </div>
+                        }
                     </div>
                     <div className="body-row">
                         <div className="main sg-inline-top">
@@ -153,12 +154,14 @@ class OrderListItem extends React.Component {
                             </div>
                             {this.state.checkout &&
                             <div className="row" id="checkout">
+                                {(status._id === '1') &&
                                 <div className="start-checkout  primaryButton button" style={{width: '200px'}}
-                                     tabIndex="0"  onClick={this.onSubmit}>
+                                     tabIndex="0" onClick={this.onSubmit}>
                                     <div className="title-container">
                                         <p className="title">Оформить</p>
                                     </div>
                                 </div>
+                                }
                             </div>}
                         </div>
                         <div style={{padding: '0 20px'}}>

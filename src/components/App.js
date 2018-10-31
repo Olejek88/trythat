@@ -63,6 +63,7 @@ export default class App extends React.Component {
                         <Route path="/sell" component={Sell}/>
                         <Route path="/wish_list" component={WishList}/>
                         <Route path="/about" component={About}/>
+                        <Route path="/orders/:filter" component={Orders}/>
                         <Route path="/orders" component={Orders}/>
                         <Route path="/cart" component={Cart}/>
                         <Route path="/add" component={AddActivity}/>
