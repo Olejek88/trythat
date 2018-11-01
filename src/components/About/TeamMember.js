@@ -11,7 +11,7 @@ const TeamMember = ({appName, token}) => {
                     <div className="img-box">
                         <div className="img-overlay" style={{display: 'none'}}>
                         </div>
-                        <img className="luminary-img" src={"p1.png"} alt="Olejek"/>
+                        <img className="luminary-img" src={"images/p1.png"} alt="Olejek"/>
                     </div>
 
                 </div>
@@ -32,7 +32,7 @@ const TeamMember = ({appName, token}) => {
                     <div className="celebrityBox">
                         <div className="img-box-wrapper">
                             <div className="img-box">
-                                <img className="luminary-img" src={"p1.png"} alt={"team member"}/>
+                                <img className="luminary-img" src={"images/p1.png"} alt={"team member"}/>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ const TeamMember = ({appName, token}) => {
 
                     <div className="member_social_links">
                         <a href="https://www.linkedin.com/">
-                            <img src={"icon_instagram.png"} alt="Opens In New Window"/>
+                            <img src={"images/icon_instagram.png"} alt="Opens In New Window"/>
                         </a>
                     </div>
                 </div>

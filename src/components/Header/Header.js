@@ -10,7 +10,7 @@ const LoggedOutView = props => {
     if (!props.currentUser) {
         return (
             <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3', flexWrap: 'nowrap', float: 'right'}}>
-                <Link to="/" className="navButton button" id="sellBtn">
+                <Link to="/sell" className="navButton button" id="sellBtn">
                     <div className="title-container"><p className="title">Продать на TryThat</p></div>
                 </Link>
                 <Link to="/register" className="access-join allowAllUsers js-signUp primaryButton button"

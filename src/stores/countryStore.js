@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 import agent from '../agent';
+import {computed} from "mobx/lib/mobx";
 
 class CountryStore {
     @observable currentCountry;
@@ -7,12 +8,12 @@ class CountryStore {
     @observable countryRegistry = observable.map();
 
     testData = {_id: 1, title: 'Россия'};
-    @observable staticData = {_id: 1, title: 'Россия'};
+    @observable staticData = [{_id: 1, title: 'Россия'}];
 
-    staticDataOptions() {
+    @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.title, value: x._id }))
     };
-    
+
     @action loadCountries() {
         this.isLoading = true;
         agent.Country.all()

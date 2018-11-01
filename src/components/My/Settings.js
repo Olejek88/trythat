@@ -1,11 +1,12 @@
-import ListErrors from './ListErrors';
+import ListErrors from '../ListErrors';
 import React from 'react';
 import ImageUploader from 'react-images-upload';
 import {withRouter} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import Select from 'react-select';
-import countryStore from "../stores/countryStore";
-import cityStore from "../stores/cityStore";
+import countryStore from "../../stores/countryStore";
+import cityStore from "../../stores/cityStore";
+import MyMenu from "./MyMenu";
 
 @inject('userStore', 'countryStore', 'cityStore')
 @observer
@@ -14,7 +15,6 @@ class SettingsForm extends React.Component {
         super();
 
         this.avatar = "luminary2.jpg";
-
         this.state = {
             firstName: '',
             lastName: '',
@@ -28,7 +28,7 @@ class SettingsForm extends React.Component {
         };
 
         this.passwordState = {
-            password: '',
+            currentPassword: '',
             repeatPassword: '',
             newPassword: ''
         };
@@ -36,12 +36,14 @@ class SettingsForm extends React.Component {
         this.onDrop = this.onDrop.bind(this);
 
         this.handleSelectCityChange = (event) => {
-            this.setState({ city: event.value });
+            this.setState({city: event.value});
         };
 
         this.handleSelectCountryChange = (event) => {
-            this.setState({ country: event.value });
+            this.setState({country: event.value});
         };
+
+        this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this);
 
         this.updateState = field => ev => {
             const state = this.state;
@@ -64,9 +66,20 @@ class SettingsForm extends React.Component {
         };
     }
 
+    handleInputPasswordChange = (event) => {
+        //console.log([event.target.name]);
+        if (event.target.name === 'currentPassword')
+            this.passwordState.currentPassword = event.target.value;
+        if (event.target.name === 'repeatPassword')
+            this.passwordState.repeatPassword = event.target.value;
+        if (event.target.name === 'newPassword')
+            this.passwordState.newPassword = event.target.value;
+        //this.setState ({[event.target.name]: event.target.value });
+    };
+
     onDrop(picture) {
         console.log(picture[0]);
-        this.avatar =  picture[0].name;
+        this.avatar = picture[0].name;
         this.setState({
             image: this.state.image.concat(picture[0]),
         });
@@ -319,11 +332,12 @@ class SettingsForm extends React.Component {
                                 <div className="row-flow">
                                     <div className="sibs">
                                         <label htmlFor="city">Город проживания</label></div>
-                                    <div className="sibs">
+                                    <div className="sibs" style={{width: '280px'}}>
                                         <Select
                                             style={{width: '280px'}}
                                             name="city"
                                             value={this.state.city}
+                                            placeHolder={"Выберите город"}
                                             className="language_select desktop"
                                             onChange={this.handleSelectCityChange}
                                             options={cityStore.loadCities()}
@@ -334,10 +348,11 @@ class SettingsForm extends React.Component {
                                 <div className="row-flow">
                                     <div className="sibs">
                                         <label htmlFor="UserEx_countryId">Страна</label></div>
-                                    <div className="sibs">
+                                    <div className="sibs" style={{width: '280px'}}>
                                         <Select
                                             style={{width: '280px'}}
                                             name="countryId"
+                                            placeHolder={"Выберите страну"}
                                             onChange={this.handleSelectCountryChange}
                                             value={this.state.country}
                                             className="country_select desktop"
@@ -429,7 +444,6 @@ class SettingsForm extends React.Component {
                         <div id="changePassword" className="shadow-pwdbox row-flow">
                             <form onSubmit={this.changePasswordForm} name="passwordForm" id="passwordForm" action="/"
                                   method="POST" className="ng-pristine ng-valid">
-                                <input value="23b7350934910f2efee698549c46e03563907c7c" name="stk" type="hidden"/>
                                 <div className="row-flow" style={{marginBottom: '0px'}}>
                                     <div className="sibs">
                                         <label htmlFor="currentPassword">Текущий пароль:</label>
@@ -441,9 +455,9 @@ class SettingsForm extends React.Component {
                                             id="currentPassword"
                                             type="password"
                                             required="required"
-                                            placeholder="currentPassword"
-                                            value={this.passwordState.password}
-                                            onChange={this.updateState('password')}/>
+                                            placeholder="Текущий пароль"
+                                            value={this.passwordState.currentPassword}
+                                            onChange={this.handleInputPasswordChange}/>
                                         <div className="swapper" style={{float: 'right'}}>
                                         </div>
                                     </div>
@@ -471,10 +485,11 @@ class SettingsForm extends React.Component {
                                             maxLength="50"
                                             name="newPassword"
                                             id="newPassword"
-                                            type="password"
+                                            type="text"
                                             required="required"
-                                            placeholder="newPassword"
-                                            value={this.passwordState.newPassword} />
+                                            placeholder="Новый пароль"
+                                            value={this.passwordState.newPassword}
+                                            onChange={this.handleInputPasswordChange}/>
                                     </div>
                                 </div>
                                 <div className="row-flow" style={{marginTop: '27px'}}>
@@ -488,13 +503,13 @@ class SettingsForm extends React.Component {
                                             id="repeatPassword"
                                             type="password"
                                             required="required"
-                                            placeholder="repeatPassword"
+                                            placeholder="Повторите пароль"
+                                            onChange={this.handleInputPasswordChange}
                                             value={this.passwordState.repeatPassword}/>
                                     </div>
                                 </div>
                                 <div className="row-flow">
                                     <div className="sibs">
-                                        <label></label>
                                     </div>
                                     <div className="sibs">
                                         <button
@@ -525,19 +540,20 @@ class Settings extends React.Component {
         return (
             <div className="container page">
                 <div className="row">
-
-                    <ListErrors errors={this.props.userStore.updatingUserErrors}/>
-
-                    <SettingsForm
-                        currentUser={this.props.userStore.currentUser}
-                        onSubmitForm={user => this.props.userStore.updateUser(user)}
-                        onSubmitPasswordForm={user => this.props.userStore.changeUserPassword(user,
-                            this.passwordState.password,
-                            this.passwordState.repeatPassword,
-                            this.passwordState.newPassword)}/>
-
-                    <hr/>
-
+                    <div className="page-left-col" style={{width: '15%'}}>
+                        <MyMenu/>
+                    </div>
+                    <div className="page-right-col" style={{width: '85%', marginTop: '50px', marginLeft: '15%'}}>
+                        <ListErrors errors={this.props.userStore.updatingUserErrors}/>
+                        <SettingsForm
+                            currentUser={this.props.userStore.currentUser}
+                            onSubmitForm={user => this.props.userStore.updateUser(user)}
+                            onSubmitPasswordForm={user => this.props.userStore.changeUserPassword(user,
+                                this.passwordState.password,
+                                this.passwordState.repeatPassword,
+                                this.passwordState.newPassword)}/>
+                        <hr/>
+                    </div>
                 </div>
             </div>
         );

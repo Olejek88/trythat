@@ -80,6 +80,14 @@ export class ActivityListingStore {
         return arrayDurations;
     }
 
+    loadActivityListingSelectDuration() {
+        let arrayDurations=[];
+        this.activityListingRegistry.forEach(function (activityListing) {
+            arrayDurations.push(activityListing.duration);
+        });
+        return arrayDurations.map(x => ({ label: x.period, value: x._id }));
+    }
+
     loadActivityListingQuantity() {
         let arrayQuantity = '';
         let count=0;

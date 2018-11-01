@@ -3,6 +3,7 @@ import {inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import ActivityListItem from "./ActivityListItem";
 import ActivityListingItem from "./ActivityListingItem";
+import MyMenu from "./MyMenu";
 
 @withRouter
 @inject('userStore', 'activityStore', 'activityListingStore')
@@ -11,7 +12,8 @@ export default class MyActivities extends React.Component {
         super();
         this.state = {
             showSearch: true,
-            search: ''
+            search: '',
+            header: 'Предложения'
         };
         this.activitiesRows = [];
         this.inputChange = this.inputChange.bind(this);
@@ -71,6 +73,7 @@ export default class MyActivities extends React.Component {
                 if (filter !== '') {
                     let predicate = null;
                     if (filter === 'wish') {
+                        this.setState ({header: 'Отслеживаемые'});
                         predicate = {
                             filter: filter,
                             id: this.props.userStore.currentCustomer._id,
@@ -78,6 +81,7 @@ export default class MyActivities extends React.Component {
                         };
                     }
                     else {
+                        this.setState ({header: 'Предложения'});
                         predicate = {
                             filter: filter,
                             id: this.props.userStore.currentLuminary._id,
@@ -104,36 +108,14 @@ export default class MyActivities extends React.Component {
             }}>
                 <div id="vendor-admin" className="custom-form vendor-page">
                     <div className="page-left-col" style={{width: '15%'}}>
-                        <div className="menu-sec" style={{height: '650px'}}>
-                            <div className="menu-list main-menu first-level active">
-                                <ul id="vendor-menu" className="">
-                                    <li className="menu-li header sg-f-dspl-s">Мой аккаунт</li>
-                                    <li className="menu-li account sg-c-2">
-                                        <a href={"/my"}>Мои предложения</a>
-                                    </li>
-                                    <li className="menu-li sg-c-2">
-                                        <ul className="sub-menu">
-                                            <li className="menu-li orders purchases sg-c-2">
-                                                <a href={"/#/my/current"}>Текущие</a>
-                                            </li>
-                                            <li className="menu-li auctions sg-c-2">
-                                                <a href={"/#/my/closed"}>Завершенные</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li className="menu-li sg-c-2">
-                                        <a href={"/#/my/wish"}>Отслеживаемые</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                        <MyMenu/>
                     </div>
                     <div className="page-right-col" style={{width: '85%', marginTop: '0px', marginLeft: '15%'}}>
                         <div className="view-container">
                             <div className="view-frame">
                                 <div className="communication_div desktop">
                                     <div className="top_div">
-                                        <div className="conversation_title sg-f-dspl-m">Предложения</div>
+                                        <div className="conversation_title sg-f-dspl-m">{this.state.header}</div>
                                         <div style={{clear: 'both'}}>
                                         </div>
                                     </div>

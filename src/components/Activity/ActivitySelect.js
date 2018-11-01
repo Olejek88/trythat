@@ -169,7 +169,7 @@ class ActivitySelect extends React.Component {
                                                 cost={this.state.selectedPrice}
                                                 className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                                 onChange={(e) => this.handleSelectActivityDurationChange(e)}
-                                                options={this.props.activityListingStore.loadActivityListingDuration()}
+                                                options={this.props.activityListingStore.loadActivityListingSelectDuration(activity)}
                                             />
                                             <div className="row" id="addPeopleError"
                                                  style={{
