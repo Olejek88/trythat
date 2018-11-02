@@ -6,8 +6,8 @@ import OrderListItem from "./OrderListItem";
 import Link from "react-router-dom/es/Link";
 import MyMenu from "../My/MyMenu";
 
-@observer
 @inject('userStore', 'orderStore')
+@observer
 @withRouter
 class Orders extends React.Component {
     constructor() {

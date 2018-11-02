@@ -4,8 +4,8 @@ import {withRouter} from 'react-router-dom';
 import MyMenu from "./MyMenu";
 import FollowListItem from "./FollowListItem";
 
-@withRouter
 @inject('userStore', 'followListStore')
+@withRouter
 export default class MyFollows extends React.Component {
     constructor() {
         super();

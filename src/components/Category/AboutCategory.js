@@ -1,6 +1,5 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import ExperienceMini from "../Experience/ExperienceMini";
 
 @observer
 class AboutCategory extends React.Component {

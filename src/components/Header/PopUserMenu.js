@@ -25,11 +25,11 @@ class PopWish extends React.Component {
                         <a href={"/#/my/wish"}>
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3"><p>Список желаний</p></li>
                         </a>
-                        <a href={"/#/my/follows"} tabIndex="2407">
+                        <a href={"/#/follows"}>
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Предпочтения</p></li>
                         </a>
-                        <a href="/communication" tabIndex="2408">
+                        <a href="/communication">
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Общение<span className="bubble notification unread sg-c-3 bg-ovr-4"
                                                 style={{
@@ -42,7 +42,7 @@ class PopWish extends React.Component {
                         </a>
                         <li style={{borderBottom: '1px solid #e1e1e1', paddingBottom: '5px'}}>
                         </li>
-                        <a href={"/activity/my"} tabIndex="2404">
+                        <a href={"/#my/current"} tabIndex="2404">
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Мои предложения</p></li>
                         </a>

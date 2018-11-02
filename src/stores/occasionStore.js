@@ -21,7 +21,10 @@ class OccasionStore {
                 occasions.forEach(occasion =>
                     this.occasionRegistry.set(occasion._id,occasion));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticDataOptions;
     }
 
@@ -38,6 +41,9 @@ class OccasionStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.staticData;
     }

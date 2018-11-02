@@ -11,9 +11,9 @@ import {withRouter} from "react-router-dom";
 import ActivityReviews from "./ActivityReviews";
 import {inject} from "mobx-react/index";
 
+@inject('activityStore','activityListingStore')
 @observer
 @withRouter
-@inject('activityStore','activityListingStore')
 class Activity extends React.Component {
     render() {
         const activity = this.props.activityStore.loadActivity(this.props.id);

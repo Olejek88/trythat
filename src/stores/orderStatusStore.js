@@ -28,7 +28,10 @@ class OrderStatusStore {
                 statuses.forEach(status =>
                     this.orderStatusRegistry.set(status._id,status));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticDataOptions;
     }
 
@@ -45,6 +48,9 @@ class OrderStatusStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.staticData[0];
     }

@@ -15,7 +15,10 @@ class CurrencyStore {
                 currencies.forEach(currency =>
                     this.currencyRegistry.set(currency._id, currency));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.testData;
     }
 
@@ -32,6 +35,9 @@ class CurrencyStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.testData;
     }

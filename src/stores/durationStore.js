@@ -25,7 +25,10 @@ class DurationStore {
                 durations.forEach(duration =>
                     this.durationsRegistry.set(duration._id, duration));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticData;
     }
 
@@ -42,6 +45,9 @@ class DurationStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.staticData[id];
     }

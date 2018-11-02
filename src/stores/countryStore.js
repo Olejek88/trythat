@@ -22,7 +22,10 @@ class CountryStore {
                 cities.forEach(country =>
                     this.countryRegistry.set(country._id, country));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticDataOptions;
     }
 
@@ -39,6 +42,9 @@ class CountryStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.testData;
     }

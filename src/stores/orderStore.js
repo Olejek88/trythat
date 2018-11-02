@@ -44,7 +44,10 @@ export class OrderStore {
                 orders.forEach(order => this.ordersRegistry.set(order.slug, order));
                 this.totalPagesCount = Math.ceil(ordersCount / LIMIT);
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticData;
     }
 
@@ -65,6 +68,9 @@ export class OrderStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
     }
 
@@ -79,6 +85,9 @@ export class OrderStore {
                 this.ordersRegistry.set(order._id, order);
                 return order;
             })
+            .catch(action(err => {
+                throw err;
+            }))
     }
 
     @action updateOrder(data) {
@@ -87,6 +96,9 @@ export class OrderStore {
                 this.ordersRegistry.set(order._id, order);
                 return order;
             })
+            .catch(action(err => {
+                throw err;
+            }))
     }
 
     @action deleteOrder(id) {

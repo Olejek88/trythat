@@ -3,8 +3,8 @@ import {observer, inject} from 'mobx-react';
 import activityStore from "../../stores/activityStore";
 import customerStore from "../../stores/customerStore";
 
-@observer
 @inject('activityListingStore')
+@observer
 class ExperienceMini extends React.Component {
     constructor() {
         super();
@@ -12,7 +12,8 @@ class ExperienceMini extends React.Component {
             favored: false,
             favoredClass: "heart_img"
         };
-
+        this.activityPrice='0р.';
+        this.activity = '';
         this.onFavored = () => {
             this.setState({favored: !this.state.favored});
             if (this.state.favored)
@@ -26,6 +27,10 @@ class ExperienceMini extends React.Component {
         if (this.props.activity) {
             const customer = customerStore.getCustomer();
             const favored = activityStore.isFavorite(this.props.activity._id, customer._id);
+            this.activity = this.props.activity;
+            this.props.activityListingStore.loadActivityListing(this.activity);
+            this.activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
+
             Object.assign(this.state, {
                 favored: favored
             });
@@ -37,9 +42,6 @@ class ExperienceMini extends React.Component {
     }
 
     render() {
-        const activity = this.props.activity;
-        this.props.activityListingStore.loadActivityListing(activity);
-        const activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
         return (
             <div className="productTile product default">
                 <div>
@@ -66,16 +68,16 @@ class ExperienceMini extends React.Component {
                             <div className="product_image_wrapper">
                                 <div className="product_image_viewport">
                                     <img className="product_img lazyloaded"
-                                         data-src={activity.images[0].path}
-                                         alt={activity.title}
-                                         title={activity.title}
-                                         src={activity.images[0].path}/>
+                                         data-src={this.activity.images[0].path}
+                                         alt={this.activity.title}
+                                         title={this.activity.title}
+                                         src={this.activity.images[0].path}/>
                                 </div>
                             </div>
                         </a>
                         <img className="celeb_img js-lazyload sg-bg-3"
-                             data-src={activity.luminary.user.image.path} src={activity.luminary.user.image.path}
-                             alt={activity.luminary.user.firstName + " " + activity.luminary.user.lastName}/>
+                             data-src={this.activity.luminary.user.image.path} src={this.activity.luminary.user.image.path}
+                             alt={this.activity.luminary.user.firstName + " " + this.activity.luminary.user.lastName}/>
                         <div className={this.state.favoredClass} tabIndex="0" title="Список желаний" onClick={this.onFavored}>
                         </div>
                         <div className="wishlist-main-con"
@@ -99,18 +101,18 @@ class ExperienceMini extends React.Component {
                         <div className="min_height_placeholder">
                         </div>
                         <div className="product_celeb_name sg-c-2">
-                            {activity.luminary.user.firstName + " " + activity.luminary.user.lastName}</div>
+                            {this.activity.luminary.user.firstName + " " + this.activity.luminary.user.lastName}</div>
                         <div className="product_stars">
                         </div>
                         <div style={{clear: 'both'}}>
                         </div>
                     </div>
 
-                    <div className="product_location sg-c-2">{activity.location.title}</div>
+                    <div className="product_location sg-c-2">{this.activity.location.title}</div>
                     <div className="product_title sg-c-1">
-                        <p>{activity.title}</p>
+                        <p>{this.activity.title}</p>
                     </div>
-                    <div className="product_price sg-c-2">от {activityPrice}</div>
+                    <div className="product_price sg-c-2">от {this.activityPrice}</div>
                 </div>
             </div>
         );

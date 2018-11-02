@@ -25,7 +25,10 @@ class TagStore {
                 tags.forEach(tag =>
                     this.tagsRegistry.set(tag._id, tag));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticData;
         //return this.staticDataOptions;
     }

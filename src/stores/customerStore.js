@@ -21,12 +21,19 @@ class CustomerStore {
             .catch(action(err => {
                 this.customerErrors = err.response && err.response.body && err.response.body.errors;
                 throw err;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.customer;
     }
 
     @action createCustomer(customer) {
-        return agent.Customer.create(customer);
+        return agent.Customer
+            .create(customer)
+            .catch(action(err => {
+                throw err;
+            }));
     }
 }
 

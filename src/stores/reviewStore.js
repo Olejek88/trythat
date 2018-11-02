@@ -56,6 +56,9 @@ class ReviewStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.staticData;
     }
@@ -73,6 +76,9 @@ class ReviewStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.staticData[0];
     }
@@ -109,7 +115,9 @@ class ReviewStore {
             .then(({review}) => {
                 this.reviewRegistry.set(review_id, review);
                 return review;
-            })
+            }).catch(action(err => {
+                throw err;
+            }))
     }
 
     @action deleteReview(review_id) {

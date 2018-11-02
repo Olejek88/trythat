@@ -1,8 +1,8 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
 
-@observer
 @inject('wishListStore', 'userStore')
+@observer
 class WishListItem extends React.Component {
     constructor() {
         super();

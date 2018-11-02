@@ -2,8 +2,8 @@ import React from 'react';
 import {observer, inject} from 'mobx-react';
 import Experience from "../Experience/Experience";
 
-@observer
 @inject('activityStore')
+@observer
 class ActivityYouMayLike extends React.Component {
     render() {
         let predicate = {

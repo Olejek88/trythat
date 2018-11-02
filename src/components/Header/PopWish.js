@@ -3,11 +3,15 @@ import {observer} from 'mobx-react';
 import WishListPopItem from "../WishList/WishListPopItem";
 import {inject} from "mobx-react/index";
 
-@observer
 @inject('activityStore', 'activityListingStore', 'userStore')
+@observer
 class PopWish extends React.Component {
-    render() {
-        let wishList = '';
+    constructor() {
+        super();
+        this.wishList = '';
+    }
+
+    componentWillMount() {
         let predicate = {
             filter: 'wish',
             id: this.props.userStore.currentUser._id
@@ -16,14 +20,18 @@ class PopWish extends React.Component {
         const activities = this.props.activityStore.loadActivities();
         const activityListingStore = this.props.activityListingStore;
         if (activities) {
-            wishList = activities.map(function (activity,i) {
+            this.wishList = activities.map(function (activity,i) {
                 activityListingStore.loadActivityListing(activity);
+                //console.log(activityListingStore.activityListingRegistry);
                 const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
+                //const activityPrice ='hui';
                 return (<WishListPopItem activity={activity} key={i} price={activityPrice}/>);
             });
         }
-        else wishList = 'Список желаний пуст';
+        else this.wishList = 'Список желаний пуст';
+    }
 
+    render() {
         return (
             <div id="wish-popup-wrapper" className="io-popup-wrapper">
                 <div id="wish-popup-box" className="sg-bg-3 sg-bd-3">
@@ -41,7 +49,7 @@ class PopWish extends React.Component {
                                          style={{position: 'relative', top: '0'}}>
                                         <ul className="wish-popup-ul">
                                             <React.Fragment>
-                                                {wishList}
+                                                {this.wishList}
                                             </React.Fragment>
                                             <div
                                                 className="separator sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right">
@@ -52,7 +60,7 @@ class PopWish extends React.Component {
                             </div>
                             <div className="footer">
                                 <div style={{float: 'left', margin: '0px 0 0 20px'}}>
-                                    <a href={"wishlist"} className="goto-link">Смотреть весь список</a>
+                                    <a href={"/#/my/wish"} className="goto-link">Смотреть весь список</a>
                                 </div>
                             </div>
                         </div>

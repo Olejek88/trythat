@@ -40,7 +40,7 @@ export class ImageStore {
         return agent.Image.create(image)
             .then(({image}) => {
                 return image;
-            })
+            });
     }
 
     @action loadImages() {
@@ -48,6 +48,10 @@ export class ImageStore {
         this.$req()
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                //console.log(err);
+                throw err;
             }));
         return this.images;
     }
@@ -65,7 +69,6 @@ export class ImageStore {
             .catch(action(err => {
                 throw err;
             }));
-
         return this.userImage;
     }
 }

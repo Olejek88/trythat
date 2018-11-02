@@ -25,6 +25,9 @@ class ActivityCategoryStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.staticDataOptions;
     }
@@ -42,6 +45,9 @@ class ActivityCategoryStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.testData;
     }

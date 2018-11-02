@@ -533,8 +533,8 @@ class SettingsForm extends React.Component {
 }
 
 @inject('userStore', 'authStore')
-@withRouter
 @observer
+@withRouter
 class Settings extends React.Component {
     render() {
         return (

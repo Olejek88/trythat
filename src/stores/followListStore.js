@@ -23,16 +23,23 @@ class FollowListStore {
                 followList.forEach(follow =>
                     this.followListRegistry.set(follow._id, follow));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticData;
     }
 
 
     @action isFollow(customer, luminary) {
-        return agent.FollowList.isFollow(customer, luminary)
+        agent.FollowList.isFollow(customer, luminary)
             .then(({answer}) => {
                 return answer;
             })
+            .catch(action(err => {
+                throw err;
+            }));
+        return false;
     }
 
     @action follow(customer, luminary) {
@@ -40,13 +47,19 @@ class FollowListStore {
             .then(({answer}) => {
                 return answer;
             })
+            .catch(action(err => {
+                throw err;
+            }))
     }
 
     @action unFollow(customer, luminary) {
         return agent.FollowList.unFollow(customer, luminary)
             .then(({answer}) => {
                 return answer;
-            });
+            })
+            .catch(action(err => {
+                throw err;
+            }));
     }
 }
 

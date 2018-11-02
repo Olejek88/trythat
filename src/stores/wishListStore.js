@@ -23,8 +23,10 @@ class WishListStore {
                 activities.forEach(activity =>
                     this.wishListRegistry.set(activity._id, activity));
             }))
-            .finally(action(() => { this.isLoading = false; }));
-
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         this.staticData.forEach(activity =>
             this.wishListRegistry.set(activity._id, activity));
         return this.staticData;
@@ -32,6 +34,9 @@ class WishListStore {
 
     @action isWished(customer, activity) {
         return agent.WishList.isWished(customer, activity)
+            .catch(action(err => {
+                throw err;
+            }))
             .then(({answer}) => {
                 return answer;
             })
@@ -39,6 +44,9 @@ class WishListStore {
 
     @action wish(customer, activity) {
         return agent.WishList.wish(customer, activity)
+            .catch(action(err => {
+                throw err;
+            }))
             .then(({answer}) => {
                 return answer;
             })
@@ -46,6 +54,9 @@ class WishListStore {
 
     @action unWish(customer, activity) {
         return agent.WishList.unWish(customer, activity)
+            .catch(action(err => {
+                throw err;
+            }))
             .then(({answer}) => {
                 return answer;
             });

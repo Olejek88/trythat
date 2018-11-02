@@ -1,9 +1,9 @@
 import {observable, action} from 'mobx';
 import agent from '../agent';
 import imageStore from "./imageStore";
-import categoryStore from "./categoryStore";
 import luminaryStore from "./luminaryStore";
 import tagStore from "./tagStore";
+import categoryStore from "./categoryStore";
 import activityCategoryStore from "./activityCategoryStore";
 import durationStore from "./durationStore";
 import locationStore from "./locationStore";
@@ -74,6 +74,9 @@ export class ActivityStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         // [тест] возвращаем или н-ное количество или массив из одной статике
         if (this.predicate.limit)
@@ -96,6 +99,9 @@ export class ActivityStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.staticData;
     }
@@ -104,6 +110,9 @@ export class ActivityStore {
         agent.Activities.isFavorite(activity_id, customer_id)
             .then(action(({answer}) => {
                 return answer;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return (Math.random() > 0.8);
     }
@@ -112,6 +121,9 @@ export class ActivityStore {
         agent.Activities.favorite(activity_id, customer_id)
             .then(action(({answer}) => {
                 return answer;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
     }
 
@@ -119,6 +131,9 @@ export class ActivityStore {
         agent.Activities.unFavorite(activity_id, customer_id)
             .then(action(({answer}) => {
                 return answer;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
     }
 
@@ -128,6 +143,9 @@ export class ActivityStore {
                 this.activitiesRegistry.set(activity._id, activity);
                 return activity;
             })
+            .catch(action(err => {
+                throw err;
+            }))
     }
 
     @action updateActivity(activity) {
@@ -136,6 +154,9 @@ export class ActivityStore {
                 this.activitiesRegistry.set(activity._id, activity);
                 return activity;
             })
+            .catch(action(err => {
+                throw err;
+            }))
     }
 
     @action deleteActivity(activity) {

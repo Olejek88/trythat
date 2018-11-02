@@ -23,7 +23,10 @@ class TrendingStore {
                 categories.forEach(trending =>
                     this.trendingRegistry.set(trending._id, trending));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticDataOptions;
     }
 
@@ -40,6 +43,9 @@ class TrendingStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.staticData[0];
     }

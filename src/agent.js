@@ -197,7 +197,7 @@ const Locations = {
 const Luminary = {
     get: luminary_id =>
         requests.get(`/luminary/${luminary_id}`),
-    forUser: luminary =>
+    forUser: (luminary) =>
         requests.get(`/luminary/${luminary}`),
     create: luminary =>
         requests.post(`/luminary/${luminary}`),

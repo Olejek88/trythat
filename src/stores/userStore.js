@@ -18,6 +18,7 @@ export class UserStore {
     //     this.currentUser = this.testData;
     // }
 
+
     @observable testData =
         {   _id: '1',
             username: 'olejek',
@@ -26,8 +27,8 @@ export class UserStore {
             lastName: 'Иванов',
             birthDate: new Date(1978,8,28,0,0,0),
             phone: '+79000242832',
-            image: imageStore.loadImage(1),
             city: cityStore.loadCity(1),
+            image: imageStore.loadImage(1),
             country: countryStore.loadCountry(1),
             password: '123456'
         };
@@ -47,6 +48,9 @@ export class UserStore {
                 }))
             .finally(action(() => {
                 this.loadingUser = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         //return this.testData;
     }

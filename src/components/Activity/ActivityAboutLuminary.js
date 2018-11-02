@@ -2,8 +2,8 @@ import React from 'react';
 import {observer, inject} from 'mobx-react';
 import ExperienceMini from "../Experience/ExperienceMini";
 
+@inject('activityStore', 'followListStore', 'customerStore', 'userStore')
 @observer
-@inject('activityStore','followListStore', 'customerStore', 'userStore')
 class ActivityAboutLuminary extends React.Component {
     constructor() {
         super();
@@ -38,6 +38,7 @@ class ActivityAboutLuminary extends React.Component {
         if (this.props.luminary) {
             const customer = this.props.customerStore.getCustomer();
             const follow = this.props.followListStore.isFollow(customer._id, this.props.luminary._id);
+
             this.setState({following: follow});
             if (follow) {
                 this.setState({followClass: "follow following  wide  button primaryButton"});
@@ -82,14 +83,16 @@ class ActivityAboutLuminary extends React.Component {
                             <div data-id="36" style={{margin: '10px 0 0 2px'}}
                                  className={this.state.followClass} tabIndex="0">
                                 <div className="title-container"><p className="title">
-                                    <img src={"images/icon_checkmark_green.png"} className={this.props.checkStyle} alt={""}/>
+                                    <img src={"images/icon_checkmark_green.png"} className={this.props.checkStyle}
+                                         alt={""}/>
                                     <span className="title following-text sg-text-transform"
                                           onClick={this.onFollowed}>{this.state.followButtonText}</span></p></div>
                             </div>
                         </div>
                     </div>
                     <div className="cb-desc ">
-                        <a className="name" href="/" data-celebid="36"><h4 className="sg-f-ttl">{luminary.user.firstName} {luminary.user.lastName}</h4></a>
+                        <a className="name" href="/" data-celebid="36"><h4
+                            className="sg-f-ttl">{luminary.user.firstName} {luminary.user.lastName}</h4></a>
                         <p className="org">{luminary.description}</p>
                         <div className="desc body-text sg-f-bdy "><p>{luminary.fullDescription}</p>
                         </div>

@@ -3,8 +3,8 @@ import {observer} from 'mobx-react';
 import OrderListPopItem from "../Orders/OrderListPopItem";
 import {inject} from "mobx-react/index";
 
-@observer
 @inject('orderStore')
+@observer
 class PopCart extends React.Component {
     render() {
         let orderList = '';

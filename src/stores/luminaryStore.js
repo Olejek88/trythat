@@ -18,17 +18,19 @@ class LuminaryStore {
         };
 
     @action getLuminary(user_id) {
-        this.luminaryErrors = undefined;
         agent.Luminary.forUser(user_id)
             .catch(action(err => {
-                this.luminaryErrors = err.response && err.response.body && err.response.body.errors;
                 throw err;
             }));
         return this.luminary;
     }
 
     @action createLuminary(luminary) {
-        return agent.Luminary.create(luminary);
+        return agent.Luminary
+            .create(luminary)
+            .catch(action(err => {
+                throw err;
+            }));
     }
 }
 

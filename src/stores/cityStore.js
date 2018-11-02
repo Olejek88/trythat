@@ -23,15 +23,22 @@ class CityStore {
                 cities.forEach(city =>
                     this.cityRegistry.set(city._id, city));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticDataOptions;
     }
 
     @action loadCity(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const city = this.cityRegistry.get(id);
-            if (city) return Promise.resolve(city);
-        }
+            if (city)
+                return Promise.resolve(city)
+                    .catch(action(err => {
+                        throw err;
+                    }));
+            }
         this.isLoading = true;
         agent.Cities.get(id)
             .then(action(({city}) => {
@@ -40,6 +47,9 @@ class CityStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.testData;
     }

@@ -4,9 +4,9 @@ import {withRouter} from "react-router-dom";
 import {inject} from "mobx-react/index";
 import WishListItem from "./WishListItem";
 
+@inject('activityStore', 'activityListingStore', 'userStore')
 @observer
 @withRouter
-@inject('activityStore', 'activityListingStore', 'userStore')
 class WishList extends React.Component {
     render() {
         let wishList = '';

@@ -32,7 +32,10 @@ class LocationStore {
                 this.locationsRegistry.set(location.slug, location);
                 return location;
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.testData[0];
     }
 
@@ -43,7 +46,10 @@ class LocationStore {
                 this.locationsRegistry.clear();
                 locations.forEach(location => this.locationsRegistry.set(locations.slug, location));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.testData;
     }
 }

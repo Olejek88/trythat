@@ -3,13 +3,14 @@ import {observer, inject} from 'mobx-react';
 import Select from 'react-select';
 import QuestionDialog from "../Orders/QuestionDialog";
 
-@observer
 @inject('activityStore','activityListingStore','orderStatusStore','customerStore','orderStore')
+@observer
 class ActivitySelect extends React.Component {
     constructor() {
         super();
         let order;
-
+        this.activityListingDurations = [];
+        this.activityCustomers = [];
         this.state = {
             selectedQuantity: 1,
             selectedDuration: 1,
@@ -23,11 +24,11 @@ class ActivitySelect extends React.Component {
             // сначала меняем визуально, потом запускаем асинхронный setstate
             if (!this.state.favored) {
                 this.setState({favoredClass: 'pdp heart_img listed'});
-                //wishListStore.wish(customer._id, this.props.activity);
+                //this.props.wishListStore.wish(customer._id, this.props.activity);
             }
             else {
                 this.setState({favoredClass: 'pdp heart_img'});
-                //wishListStore.unwish(customer._id, this.props.activity);
+                //this.props.wishListStore.unWish(customer._id, this.props.activity);
             }
             this.setState({favored: !this.state.favored});
             console.log(this.state.favoredClass);
@@ -69,6 +70,11 @@ class ActivitySelect extends React.Component {
 
     componentDidMount() {
         if (this.props.activity) {
+            this.activityListingDurations =
+                this.props.activityListingStore.loadActivityListingSelectDuration(this.props.activity);
+            this.activityCustomers =
+                this.props.activityListingStore.loadTestCustomersByActivityListing();
+
             const customer = this.props.customerStore.getCustomer();
             const favor = this.props.activityStore.isFavorite(this.props.activity._id, customer._id);
             this.setState({favored: favor});
@@ -167,9 +173,10 @@ class ActivitySelect extends React.Component {
                                                 id="duration"
                                                 value={this.state.selectedDuration}
                                                 cost={this.state.selectedPrice}
+                                                placeholder={"Продолжительность"}
                                                 className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                                 onChange={(e) => this.handleSelectActivityDurationChange(e)}
-                                                options={this.props.activityListingStore.loadActivityListingSelectDuration(activity)}
+                                                options={this.activityListingDurations}
                                             />
                                             <div className="row" id="addPeopleError"
                                                  style={{
@@ -197,9 +204,10 @@ class ActivitySelect extends React.Component {
                                                 cost={this.state.selectedPrice}
                                                 name="quantity"
                                                 id="quantity"
+                                                placeholder={"Количество человек"}
                                                 className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                                 onChange={(e) => this.handleSelectActivityQuantityChange(e)}
-                                                options={this.props.activityListingStore.loadTestCustomersByActivityListing()}
+                                                options={this.activityCustomers}
                                             />
                                             <div className="row" id="addQuantityError"
                                                  style={{

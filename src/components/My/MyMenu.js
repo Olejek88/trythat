@@ -48,7 +48,7 @@ class MyMenu extends React.Component {
                                 </ul>
                             </li>
                             <li className="menu-li account sg-c-2">
-                                <a href={"/#/follow"}>Отслеживаемые</a>
+                                <a href={"/#/follows"}>Отслеживаемые</a>
                             </li>
                         </ul>
                     </div>

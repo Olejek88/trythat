@@ -22,9 +22,9 @@ import MyMenu from "./MyMenu";
 let minCustomers = 1;
 let maxCustomers = 20;
 
+@inject('activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')
 @observer
 @withRouter
-@inject('activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')
 class AddActivityForm extends React.Component {
     constructor() {
         super();
@@ -357,8 +357,8 @@ class AddActivityForm extends React.Component {
 }
 
 @inject('activityStore')
-@withRouter
 @observer
+@withRouter
 class AddActivity extends React.Component {
     render() {
 

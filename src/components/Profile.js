@@ -1,53 +1,53 @@
 import React from 'react';
 import LoadingSpinner from './Elements/LoadingSpinner';
 import RedError from './Elements/RedError';
-import { NavLink, Link, withRouter } from 'react-router-dom';
-import { inject, observer } from 'mobx-react';
+import {NavLink, Link, withRouter} from 'react-router-dom';
+import {inject, observer} from 'mobx-react';
 
 const EditProfileSettings = props => {
-  if (props.isUser) {
-    return (
-      <Link
-        to="/settings"
-        className="btn btn-sm btn-outline-secondary action-btn">
-        <i className="ion-gear-a" /> Edit Profile Settings
-      </Link>
-    );
-  }
-  return null;
+    if (props.isUser) {
+        return (
+            <Link
+                to="/settings"
+                className="btn btn-sm btn-outline-secondary action-btn">
+                <i className="ion-gear-a"/> Edit Profile Settings
+            </Link>
+        );
+    }
+    return null;
 };
 
 const FollowUserButton = props => {
-  if (props.isUser) {
-    return null;
-  }
-
-  let classes = 'btn btn-sm action-btn';
-  if (props.following) {
-    classes += ' btn-secondary';
-  } else {
-    classes += ' btn-outline-secondary';
-  }
-
-  const handleClick = ev => {
-    ev.preventDefault();
-    if (props.following) {
-      props.unfollow(props.username)
-    } else {
-      props.follow(props.username)
+    if (props.isUser) {
+        return null;
     }
-  };
 
-  return (
-    <button
-      className={classes}
-      onClick={handleClick}
-    >
-      <i className="ion-plus-round" />
-      &nbsp;
-      {props.following ? 'Unfollow' : 'Follow'} {props.username}
-    </button>
-  );
+    let classes = 'btn btn-sm action-btn';
+    if (props.following) {
+        classes += ' btn-secondary';
+    } else {
+        classes += ' btn-outline-secondary';
+    }
+
+    const handleClick = ev => {
+        ev.preventDefault();
+        if (props.following) {
+            props.unfollow(props.username)
+        } else {
+            props.follow(props.username)
+        }
+    };
+
+    return (
+        <button
+            className={classes}
+            onClick={handleClick}
+        >
+            <i className="ion-plus-round"/>
+            &nbsp;
+            {props.following ? 'Unfollow' : 'Follow'} {props.username}
+        </button>
+    );
 };
 
 
@@ -55,120 +55,122 @@ const FollowUserButton = props => {
 @withRouter
 @observer
 export default class Profile extends React.Component {
-  componentWillMount() {
-    this.props.activityStore.setPredicate(this.getPredicate());
-  }
-
-  componentDidMount() {
-    this.props.profileStore.loadProfile(this.props.match.params.username);
-    this.props.activityStore.loadActivities();
-  }
-
-  componentDidUpdate(previousProps) {
-    if (this.props.location !== previousProps.location) {
-      this.props.profileStore.loadProfile(this.props.match.params.username);
-      this.props.activityStore.setPredicate(this.getPredicate());
-      this.props.activityStore.loadActivities();
+    componentWillMount() {
+        this.props.activityStore.setPredicate(this.getPredicate());
     }
-  }
 
-  getTab() {
-    if (/\/favorites/.test(this.props.location.pathname)) return 'favorites';
-    return 'all'
-  }
-
-  getPredicate() {
-    switch (this.getTab()) {
-      case 'favorites': return { favoritedBy: this.props.match.params.username }
-      default: return { author: this.props.match.params.username }
+    componentDidMount() {
+        this.props.profileStore.loadProfile(this.props.match.params.username);
+        this.props.activityStore.loadActivities();
     }
-  }
 
-  handleFollow = () => this.props.profileStore.follow();
-  handleUnfollow = () => this.props.profileStore.unfollow();
+    componentDidUpdate(previousProps) {
+        if (this.props.location !== previousProps.location) {
+            this.props.profileStore.loadProfile(this.props.match.params.username);
+            this.props.activityStore.setPredicate(this.getPredicate());
+            this.props.activityStore.loadActivities();
+        }
+    }
 
-  handleSetPage = page => {
-    this.props.activityStore.setPage(page);
-    this.props.activityStore.loadActivities();
-  };
+    getTab() {
+        if (/\/favorites/.test(this.props.location.pathname)) return 'favorites';
+        return 'all'
+    }
 
-  renderTabs() {
-    const { profile } = this.props.profileStore;
-    return (
-      <ul className="nav nav-pills outline-active">
-        <li className="nav-item">
-          <NavLink
-            className="nav-link"
-            isActive={
-              (match, location) => {
-                return location.pathname.match("/favorites") ? 0 : 1;
-              }
-            }
-            to={`/@${profile.username}`}
-          >
-            Мои впечатления
-          </NavLink>
-        </li>
+    getPredicate() {
+        switch (this.getTab()) {
+            case 'favorites':
+                return {favoritedBy: this.props.match.params.username}
+            default:
+                return {author: this.props.match.params.username}
+        }
+    }
 
-        <li className="nav-item">
-          <NavLink
-            className="nav-link"
-            to={`/@${profile.username}/favorites`}
-          >
-            Избранные впечатления
-          </NavLink>
-        </li>
-      </ul>
-    );
-  }
+    handleFollow = () => this.props.profileStore.follow();
+    handleUnfollow = () => this.props.profileStore.unfollow();
 
-  render() {
-    const { profileStore, userStore } = this.props;
-    const { profile, isLoadingProfile } = profileStore;
-    const { currentUser } = userStore;
+    handleSetPage = page => {
+        this.props.activityStore.setPage(page);
+        this.props.activityStore.loadActivities();
+    };
 
-    if (isLoadingProfile && !profile) return <LoadingSpinner />;
-    if (!profile) return <RedError message="Can't load profile" />;
+    renderTabs() {
+        const {profile} = this.props.profileStore;
+        return (
+            <ul className="nav nav-pills outline-active">
+                <li className="nav-item">
+                    <NavLink
+                        className="nav-link"
+                        isActive={
+                            (match, location) => {
+                                return location.pathname.match("/favorites") ? 0 : 1;
+                            }
+                        }
+                        to={`/@${profile.username}`}
+                    >
+                        Мои впечатления
+                    </NavLink>
+                </li>
 
-    const isUser = currentUser && profile.username === currentUser.username;
+                <li className="nav-item">
+                    <NavLink
+                        className="nav-link"
+                        to={`/@${profile.username}/favorites`}
+                    >
+                        Избранные впечатления
+                    </NavLink>
+                </li>
+            </ul>
+        );
+    }
 
-    return (
-      <div className="profile-page">
+    render() {
+        const {profileStore, userStore} = this.props;
+        const {profile, isLoadingProfile} = profileStore;
+        const {currentUser} = userStore;
 
-        <div className="user-info">
-          <div className="container">
-            <div className="row">
-              <div className="col-xs-12 col-md-10 offset-md-1">
+        if (isLoadingProfile && !profile) return <LoadingSpinner/>;
+        if (!profile) return <RedError message="Can't load profile"/>;
 
-                <img src={profile.image} className="user-img" alt="" />
-                <h4>{profile.username}</h4>
+        const isUser = currentUser && profile.username === currentUser.username;
 
-                <EditProfileSettings isUser={isUser} />
-                <FollowUserButton
-                  isUser={isUser}
-                  username={profile.username}
-                  following={profile.following}
-                  follow={this.handleFollow}
-                  unfollow={this.handleUnfollow}
-                />
+        return (
+            <div className="profile-page">
 
-              </div>
+                <div className="user-info">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xs-12 col-md-10 offset-md-1">
+
+                                <img src={profile.image} className="user-img" alt=""/>
+                                <h4>{profile.username}</h4>
+
+                                <EditProfileSettings isUser={isUser}/>
+                                <FollowUserButton
+                                    isUser={isUser}
+                                    username={profile.username}
+                                    following={profile.following}
+                                    follow={this.handleFollow}
+                                    unfollow={this.handleUnfollow}
+                                />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="container">
+                    <div className="row">
+                        <div className="col-xs-12 col-md-10 offset-md-1">
+                            <div className="articles-toggle">
+                                {this.renderTabs()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-12 col-md-10 offset-md-1">
-              <div className="articles-toggle">
-                {this.renderTabs()}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
-export { Profile };
+export {Profile};

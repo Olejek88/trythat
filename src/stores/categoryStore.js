@@ -24,7 +24,10 @@ class CategoryStore {
                 categories.forEach(category =>
                     this.categoryRegistry.set(category._id, category));
             }))
-            .finally(action(() => { this.isLoading = false; }));
+            .finally(action(() => { this.isLoading = false; }))
+            .catch(action(err => {
+                throw err;
+            }));
         return this.staticDataOptions;
     }
 
@@ -41,6 +44,9 @@ class CategoryStore {
             }))
             .finally(action(() => {
                 this.isLoading = false;
+            }))
+            .catch(action(err => {
+                throw err;
             }));
         return this.testData;
     }

@@ -7,7 +7,6 @@ import durationStore from "./durationStore";
 export class ActivityListingStore {
     @observable isLoading = false;
     @observable activityListingRegistry = observable.map();
-    @observable addActivityErrors;
 
     staticData =
         [{   _id: '1',
@@ -43,13 +42,12 @@ export class ActivityListingStore {
                 activityListing.forEach(activityListing =>
                     this.activityListingRegistry.set(activityListing._id, activityListing));
             }))
+            .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
-            }))
-            .finally(action(() => { this.isLoading = false; }));
+            }));
         this.staticData.forEach(activityListing =>
             this.activityListingRegistry.set(activityListing._id,activityListing));
-        //console.log(this.activityListingRegistry);
         return this.staticData;
     }
 
@@ -136,6 +134,9 @@ export class ActivityListingStore {
             .then(({answer}) => {
                 return answer;
             })
+            .catch(action(err => {
+                throw err;
+            }))
     }
 
     @action updateActivityListing(activity_listing_id,activity_listing) {
@@ -144,6 +145,9 @@ export class ActivityListingStore {
                 this.activityListingRegistry.set(activity_listing_id,activity_listing);
                 return activity_listing;
             })
+            .catch(action(err => {
+                throw err;
+            }))
     }
 
     @action deleteActivityListing(activity_listing_id) {

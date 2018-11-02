@@ -9,37 +9,38 @@ import App from './components/App';
 import activityStore from "./stores/activityStore";
 import activityCategoryStore from "./stores/activityCategoryStore";
 import activityListingStore from "./stores/activityListingStore";
-import wishListStore from './stores/wishListStore';
+import commonStore from './stores/commonStore';
+import userStore from './stores/userStore';
 import authStore from './stores/authStore';
 import cityStore from './stores/cityStore';
-import commonStore from './stores/commonStore';
 import customerStore from './stores/customerStore';
+import countryStore from './stores/countryStore';
+import categoryStore from "./stores/categoryStore";
+import durationStore from "./stores/durationStore";
+import wishListStore from './stores/wishListStore';
 import editorStore from './stores/editorStore';
 import imageStore from './stores/imageStore';
 import followListStore from "./stores/followListStore";
 import luminaryStore from "./stores/luminaryStore";
-import userStore from './stores/userStore';
-import countryStore from './stores/countryStore';
 import locationStore from './stores/locationStore';
 import profileStore from './stores/profileStore';
-import categoryStore from "./stores/categoryStore";
 import occasionStore from "./stores/occasionStore";
 import trendingStore from "./stores/trendingStore";
-import durationStore from "./stores/durationStore";
 import reviewStore from "./stores/reviewStore";
 import tagStore from "./stores/tagStore";
 import orderStore from "./stores/orderStore";
 import orderStatusStore from "./stores/orderStatusStore";
 
+
 const stores = {
-    userStore,
     activityStore,
-    activityListingStore,
     activityCategoryStore,
+    activityListingStore,
+    commonStore,
+    userStore,
     authStore,
     categoryStore,
     cityStore,
-    commonStore,
     countryStore,
     customerStore,
     durationStore,
