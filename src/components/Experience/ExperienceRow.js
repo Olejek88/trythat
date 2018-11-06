@@ -5,14 +5,26 @@ import Experience from "./Experience";
 @inject('activityStore')
 class ExperienceRow extends React.Component {
     render() {
-        let activitiesList = Array.of(undefined);
-        //let activities = this.props.activityStore.loadActivities();
-        let activities = this.props.activityStore.loadTestActivities(4);
+        let activitiesList = [];
+/*
+        if (this.props.luminary) {
+            let predicate = {
+                filter: 'luminary',
+                id: this.props.luminary._id,
+                limit: 4
+            };
+            this.props.activityStore.setPredicate(predicate);
+        }
+        let activities = this.props.activityStore.loadActivities();
+*/
+        console.log (this.props.activities);
+        let activities = this.props.activities;
         if (activities) {
             activities.forEach(function (activity, i) {
                 activitiesList.push(<Experience activity={activity} key={i}/>);
             });
         }
+        console.log (activitiesList);
         return (
             <div className="experience">
                 <React.Fragment>

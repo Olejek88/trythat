@@ -17,8 +17,16 @@ class LuminaryStore {
             user: userStore.getUser()
         };
 
-    @action getLuminary(user_id) {
+    @action getLuminaryByUser(user_id) {
         agent.Luminary.forUser(user_id)
+            .catch(action(err => {
+                throw err;
+            }));
+        return this.luminary;
+    }
+
+    @action getLuminary(luminary_id) {
+        agent.Luminary.get(luminary_id)
             .catch(action(err => {
                 throw err;
             }));

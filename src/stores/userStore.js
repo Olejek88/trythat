@@ -44,7 +44,7 @@ export class UserStore {
             .then(action(({user}) => {
                 this.currentUser = user;
                 this.currentCustomer = customerStore.getCustomer(user._id);
-                this.currentLuminary = luminaryStore.getLuminary(user._id);
+                this.currentLuminary = luminaryStore.getLuminaryByUser(user._id);
                 }))
             .finally(action(() => {
                 this.loadingUser = false;

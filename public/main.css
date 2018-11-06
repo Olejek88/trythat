@@ -14,6 +14,14 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline;
 }
 
+#main {
+  float: left;
+  width: 960px;
+  margin: 0 82px;
+  padding-bottom: 50px;
+  position: relative;
+}
+
 html {
   font-family: source-sans-pro-n4;
   -ms-text-size-adjust: 100%;
@@ -5341,3 +5349,123 @@ footer {
   font-size: 0.6rem;
   margin-right: 5px;
   cursor: pointer; }
+
+#category-top-nav {
+  min-height: 420px;
+  width: 960px;
+  margin-top: 0;
+  position: relative;
+}
+
+.luminary .item {
+  min-height: 381px;
+  cursor: default;
+}
+
+.slick-slide {
+  float: left;
+  height: 100%;
+  min-height: 1px;
+}
+
+.luminary .marquee-img-wrapper {
+  border: 1px solid #ccc;
+}
+.luminary .marquee-img-wrapper {
+  float: left;
+  height: 310px;
+  width: 310px;
+  margin: 35px 0 0 0;
+  border-radius: 155px;
+}
+
+.luminary .marquee-img {
+  float: left;
+  height: 300px;
+  width: 300px;
+  margin: 5px 0 0 5px;
+  overflow: hidden;
+  border-radius: 150px;
+}
+
+.luminary .marquee-text {
+  float: left;
+  margin: 42px 0 0 60px;
+  width: 585px;
+}
+
+.luminary .marquee-text div.desc {
+  float: left;
+}
+.luminary .marquee-text .desc {
+  margin-top: 24px;
+}
+
+.sg-inline-flex-grow {
+  flex: 1;
+}
+
+.luminary .marquee-text .support {
+  margin-top: 32px;
+}
+.luminary .marquee-text p {
+  width: 100%;
+  float: left;
+}
+.sg-f-ttl {
+  font-family: georgia;
+  font-size: 16px;
+  line-height: 1.25em;
+  letter-spacing: 0.5px;
+  font-weight: normal;
+}
+
+f-style-ovr1 {
+  font-style: italic;
+}
+.sg-c-2 {
+  color: #999999;
+}
+
+.luminary .marquee-text .charity img {
+  width: 16px;
+  height: 16px;
+}
+
+.section-title {
+  width: 100%;
+  margin: 0 0 0 0;
+  height: 60px;
+}
+
+.section-title h3 {
+  position: relative;
+  top: 30px;
+  display: inline;
+  padding: 0 15px 5px;
+}
+
+.button .title {
+  width: 100%;
+  text-align: center;
+  max-height: 100%;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-family: Montserrat;
+  font-style: normal;
+  margin: 0 !important;
+}
+
+.widget-container{width:1000px; margin: 0 auto;}
+.charity-section .body-text{  font-family: source-sans-pro-n3; font-size: 15px; color: #333; line-height: 22px; letter-spacing: 0.0125em;}
+.charity-section .body-text p{font-family: source-sans-pro-n3; font-size: 15px; color: #333; line-height: 22px; letter-spacing: 0.0125em;}
+.charity-section .body-text em{ font-family: "source-sans-pro-i4",sans-serif;font-style: italic;font-weight: 400; font-size:14px; letter-spacing: 0.0125em; line-height: 22px;}
+.charity-section .body-text strong { font-family: "source-sans-pro-i4",sans-serif;font-size:14px; letter-spacing: 0.0125em; line-height: 22px;}
+/*.desc p{font-family: source-sans-pro-n3; font-size: 15px; color: #333; line-height: 22px; letter-spacing: 0.0125em;}*/
+
+.review_stars_div.at_celeb_top_nav { margin-top:3px;}
+.row.reviews{border-top: 1px solid #e1e1e1; margin-top:20px;}
+.row.reviews:empty{display:none;}
+.luminary .marquee-img-wrapper { border: 1px solid #ccc; }
+
+.rtl .celeb_support_div {position:relative; right:20px; }

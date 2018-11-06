@@ -1624,10 +1624,6 @@ a {
 }
 
 
-.button.wide {
-    width: 165px;
-}
-
 .productTile {
     float: left;
     width: 304px;
@@ -2074,10 +2070,6 @@ select {
     overflow: hidden;
 }
 
-.button.wide {
-    width: 165px;
-}
-
 .primaryButton {
     background-color: #00A94F;
 }
@@ -2088,17 +2080,6 @@ select {
 
 .reviewButton .title {
     color: #ffffff;
-}
-
-.button .title {
-    width: 100%;
-    text-align: center;
-    max-height: 100%;
-    letter-spacing: 0.14em;
-    font-size: 11px;
-    font-family: Montserrat, Tahoma, sans-serif;
-    font-style: normal;
-    margin: 0 !important;
 }
 
 .primaryButton .title {

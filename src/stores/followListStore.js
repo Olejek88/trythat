@@ -11,7 +11,7 @@ class FollowListStore {
         {
             _id: '1',
             customer: customerStore.getCustomer(),
-            luminary: luminaryStore.getLuminary(1)
+            luminary: luminaryStore.getLuminaryByUser(1)
         },
     ];
 
