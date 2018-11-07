@@ -30,6 +30,8 @@ import reviewStore from "./stores/reviewStore";
 import tagStore from "./stores/tagStore";
 import orderStore from "./stores/orderStore";
 import orderStatusStore from "./stores/orderStatusStore";
+import mailStore from "./stores/mailStore";
+import mailStatusStore from "./stores/mailStatusStore";
 
 
 const stores = {
@@ -49,6 +51,8 @@ const stores = {
     followListStore,
     locationStore,
     luminaryStore,
+    mailStore,
+    mailStatusStore,
     profileStore,
     occasionStore,
     orderStore,

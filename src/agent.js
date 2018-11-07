@@ -203,6 +203,23 @@ const Luminary = {
         requests.post(`/luminary/${luminary}`),
 };
 
+const MailStatus = {
+    all: () => requests.get(`/mail-status}`),
+    get: statusId =>
+        requests.get(`/mail-status/${statusId}`),
+};
+
+const Mail = {
+    filter: (filter, id, lim = 10, start = 0) =>
+        requests.get(`/mail/${filter}/${id}?${limit(lim, start)}`),
+    get: mail_id =>
+        requests.get(`/mail/${mail_id}`),
+    create: (mail) =>
+        requests.post(`/mail/${mail}`),
+    del: (slug, mail_id) =>
+        requests.del(`/mail/${slug}/${mail_id}`),
+};
+
 const Order = {
     all: (page, lim = 10) =>
         requests.get(`/orders?${limit(lim, page)}`),
@@ -292,6 +309,8 @@ export default {
     Luminary,
     Profile,
     Occasions,
+    Mail,
+    MailStatus,
     Order,
     OrderStatus,
     Review,

@@ -32,6 +32,9 @@ class MyMenu extends React.Component {
                                 <a href={"/#/my/wish"}>Список желаний</a>
                             </li>
                             <li className="menu-li account sg-c-2">
+                                <a href={"/#/follows"}>Отслеживаемые</a>
+                            </li>
+                            <li className="menu-li account sg-c-2">
                                 <a href={"/#/orders"}>Мои заказы</a>
                             </li>
                             <li className="menu-li sg-c-2">
@@ -48,7 +51,20 @@ class MyMenu extends React.Component {
                                 </ul>
                             </li>
                             <li className="menu-li account sg-c-2">
-                                <a href={"/#/follows"}>Отслеживаемые</a>
+                                <a href={"/#/mail"}>Переписка</a>
+                            </li>
+                            <li className="menu-li sg-c-2">
+                                <ul className="sub-menu">
+                                    <li className="menu-li orders purchases sg-c-2">
+                                        <Link to="/#/mail/create" params={{filter: "open"}}>Отправленные</Link>
+                                    </li>
+                                    <li className="menu-li auctions sg-c-2">
+                                        <Link to="/#/mail/inbox" params={{filter: "close"}}>Входящие</Link>
+                                    </li>
+                                    <li className="menu-li auctions sg-c-2">
+                                        <Link to="/#/mail/delete" params={{filter: "cancel"}}>Удаленные</Link>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>

@@ -24,6 +24,7 @@ import MyActivities from "./My/MyActivities";
 import Checkout from "./Cart/Checkout";
 import MyFollows from "./My/MyFollows";
 import LuminaryActivity from "./Activities/LuminaryActivity";
+import Conversation from "./My/Conversation";
 
 @inject('userStore', 'commonStore', 'activityStore', 'locationStore')
 @withRouter
@@ -60,6 +61,8 @@ export default class App extends React.Component {
                         <Route path="/activity/:id" component={Activity}/>
                         <Route path="/my/:filter/:listing" component={MyActivities}/>
                         <Route path="/my/:filter" component={MyActivities}/>
+                        <Route path="/mail/:filter/:by" component={Conversation}/>
+                        <Route path="/mail" component={Conversation}/>
                         <Route path="/follows" component={MyFollows}/>
                         <Route path="/category/:id" component={Category}/>
                         <Route path="/sell" component={Sell}/>

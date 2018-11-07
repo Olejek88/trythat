@@ -81,9 +81,6 @@ class OrderListItem extends React.Component {
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}
                                                                   luminary={activity.luminary}/>}
                 {this.state.showReviewDialog && <ReviewDialog clickHandler={() => this.clickHandlerR(this)}
-/*
-                                                              sendReview={() => this.clickHandlerR(this)}
-*/
                                                               luminary={activity.luminary} activity={activity}
                                                               customer={customer} />}
                 {this.state.showOrderItem &&
