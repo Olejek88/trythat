@@ -13,23 +13,27 @@ class ActivityCategoryStore {
     testData = {_id: '3', label: 'Экстрим'};
 
     @computed get staticDataOptions() {
-        return this.staticData.map(x => ({label: x.label, value: x._id}))
+        return this.staticData.map(x => ({label: x.label, value: x.id}))
     };
 
     @action loadActivityCategories() {
-        agent.ActivityCategories.all()
-            .then(action(({activityCategories}) => {
+        return agent.ActivityCategories.all()
+            .then(action((activityCategories) => {
                 this.activityCategoryRegistry.clear();
-                activityCategories.forEach(activityCategory =>
-                    this.activityCategoryRegistry.set(activityCategory._id, activityCategory));
+                activityCategories.forEach(activityCategory => {
+                    //console.log (activityCategory);
+                    this.activityCategoryRegistry.set(activityCategory.id, activityCategory)
+                });
+                //console.log(activityCategories);
             }))
             .finally(action(() => {
+                //console.log(this.activityCategoryRegistry.get(1).title);
                 this.isLoading = false;
             }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticDataOptions;
+        //return this.staticDataOptions;
     }
 
     @action loadActivityCategory(id, {acceptCached = false} = {}) {
@@ -38,7 +42,7 @@ class ActivityCategoryStore {
             if (activityCategory) return Promise.resolve(activityCategory);
         }
         this.isLoading = true;
-        agent.ActivityCategories.get(id)
+        return agent.ActivityCategories.get(id)
             .then(action(({activityCategory}) => {
                 this.activityCategoryRegistry.set(id, activityCategory);
                 return activityCategory;
@@ -49,7 +53,7 @@ class ActivityCategoryStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.testData;
+        //return this.testData;
     }
 }
 

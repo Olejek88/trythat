@@ -1,23 +1,30 @@
-import {withRouter, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import ListErrors from './ListErrors';
 import React from 'react';
 import {inject, observer} from 'mobx-react';
+import {action} from "mobx/lib/mobx";
 
 @inject('authStore')
 @observer
-@withRouter
 export default class Login extends React.Component {
 
     componentWillUnmount() {
         this.props.authStore.reset();
     }
 
-    handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
-    handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
+    handleEmailChange = e => {
+        this.props.authStore.setEmail(e.target.value);
+    };
+    handlePasswordChange = e => {
+        this.props.authStore.setPassword(e.target.value);
+    };
     handleSubmitForm = (e) => {
         e.preventDefault();
         this.props.authStore.login()
-            .then(() => this.props.history.replace('/'));
+            .then(() => { console.log('goto'); this.props.history.replace('/')})
+            .catch(action((err) => {
+                console.log('error '+err);
+            }));
     };
 
     render() {

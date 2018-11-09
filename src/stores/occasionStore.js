@@ -15,17 +15,17 @@ class OccasionStore {
     };
 
     @action loadOccasions() {
-        agent.Occasions.all()
-            .then(action(({ occasions}) => {
+        return agent.Occasions.all()
+            .then(action((occasions) => {
                 this.occasionRegistry.clear();
                 occasions.forEach(occasion =>
-                    this.occasionRegistry.set(occasion._id,occasion));
+                    this.occasionRegistry.set(occasion.id,occasion));
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticDataOptions;
+        //return this.staticDataOptions;
     }
 
     @action loadOccasion(id, {acceptCached = false} = {}) {
@@ -34,8 +34,8 @@ class OccasionStore {
             if (occasion) return Promise.resolve(occasion);
         }
         this.isLoading = true;
-        agent.Occasions.get(id)
-            .then(action(({occasion}) => {
+        return agent.Occasions.get(id)
+            .then(action((occasion) => {
                 this.occasionRegistry.set(id, occasion);
                 return occasion;
             }))
@@ -45,7 +45,7 @@ class OccasionStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData;
+        //return this.staticData;
     }
 
 }

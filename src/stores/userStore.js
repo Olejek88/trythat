@@ -41,7 +41,7 @@ export class UserStore {
     @action pullUser() {
         this.loadingUser = true;
         return agent.Auth.current()
-            .then(action(({user}) => {
+            .then(action((user) => {
                 this.currentUser = user;
                 this.currentCustomer = customerStore.getCustomer(user._id);
                 this.currentLuminary = luminaryStore.getLuminaryByUser(user._id);

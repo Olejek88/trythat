@@ -1,9 +1,7 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
 import mailStatusStore from "../../stores/mailStatusStore";
-import userStore from "../../stores/userStore";
 import {inject} from "mobx-react/index";
-import mailStore from "../../stores/mailStore";
 
 @inject('userStore', 'mailStore')
 @withRouter

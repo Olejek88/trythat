@@ -1,67 +1,77 @@
 import React from 'react';
 import {inject} from 'mobx-react';
 
-@inject('cityStore', 'categoryStore', 'occasionStore', 'trendingStore')
+@inject('cityStore', 'activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')
 class FooterCategories extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            loadComplete: true
+        };
+        this.activityCategoriesList = [];
+        this.categoriesList = [];
+        this.occasionList = [];
+        this.trendsList = [];
+        this.citiesList = [];
+    }
+
+    componentWillMount() {
+        let self = this;
+        this.props.activityCategoryStore.loadActivityCategories()
+            .then(() => {
+                for (let category of Array.from(this.props.activityCategoryStore.activityCategoryRegistry.values())) {
+                    self.activityCategoriesList.push(<li key={category.id}>
+                        <a href={"/#/activities/activity-category/" + category.value} className="sg-f-bdy"
+                           style={{lineHeight: '2em'}}>{category.title}</a></li>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+
+        this.props.cityStore.loadCities()
+            .then(() => {
+                for (let city of Array.from(this.props.cityStore.cityRegistry.values())) {
+                    self.citiesList.push(<li key={city.id}><a href={"/#/activities/city/" + city.value} className="sg-f-bdy"
+                                           style={{lineHeight: '2em'}}>{city.label}</a></li>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+
+        this.props.categoryStore.loadCategories()
+            .then(() => {
+                for (let category of Array.from(this.props.categoryStore.categoryRegistry.values())) {
+                    self.categoriesList.push(<li key={category.id}>
+                        <a href={"/#/activities/category/" + category.value} className="sg-f-bdy"
+                           style={{lineHeight: '2em'}}>{category.title}</a></li>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+
+        this.props.occasionStore.loadOccasions()
+            .then(() => {
+                for (let occasion of Array.from(this.props.occasionStore.occasionRegistry.values())) {
+                    self.occasionList.push(<li key={occasion.id}>
+                        <a href={"/#/activities/category/" + occasion.value} className="sg-f-bdy"
+                           style={{lineHeight: '2em'}}>{occasion.title}</a></li>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+
+        this.props.trendingStore.loadTrends()
+            .then(() => {
+                for (let trend of Array.from(this.props.trendingStore.trendingRegistry.values())) {
+                    self.trendsList.push(<li key={trend.id}>
+                        <a href={"/#/activities/trend/" + trend.value} className="sg-f-bdy"
+                           style={{lineHeight: '2em'}}>{trend.title}</a></li>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+    }
+
+    componentDidUpdate() {
+        //console.log("componentDidUpdate");
+    }
+
     render() {
-        let citiesList = '';
-        let categoriesListFirst = Array.of(undefined), categoriesListSecond = Array.of(undefined);
-        let occasionListFirst = Array.of(undefined), occasionListSecond = Array.of(undefined);
-        let trendsListFirst = Array.of(undefined), trendsListSecond = Array.of(undefined);
-
-        let cities = this.props.cityStore.loadCities();
-        if (cities) {
-            citiesList = cities.map(function (city,i) {
-                return (<li key={i}><a href={"/#/activities/city/" + city.value} className="sg-f-bdy"
-                               style={{lineHeight: '2em'}}>{city.label}</a></li>);
-            });
-        }
-
-        let categories = this.props.categoryStore.loadCategories();
-        if (categories) {
-            let half = categories.length/2;
-            let index=0;
-            categories.forEach(function (category,i) {
-                if (index<half)
-                    categoriesListFirst.push(<li key={i}><a href={"/#/activities/category/" + category.value} className="sg-f-bdy"
-                                       style={{lineHeight: '2em'}}>{category.label}</a></li>);
-                else
-                    categoriesListSecond.push(<li key={i}><a href={"/#/activities/category/" + category.value} className="sg-f-bdy"
-                                                            style={{lineHeight: '2em'}}>{category.label}</a></li>);
-                index++;
-            });
-        }
-
-        let occasions = this.props.occasionStore.loadOccasions();
-        if (occasions) {
-            let half = occasions.length/2;
-            let index=0;
-            occasions.forEach(function (occasion,i) {
-                if (index<half)
-                    occasionListFirst.push(<li key={i}><a href={"/activities/occasion/" + occasion.value} className="sg-f-bdy"
-                                                            style={{lineHeight: '2em'}}>{occasion.label}</a></li>);
-                else
-                    occasionListSecond.push(<li key={i}><a href={"/activities/occasion/" + occasion.value} className="sg-f-bdy"
-                                                             style={{lineHeight: '2em'}}>{occasion.label}</a></li>);
-                index++;
-            });
-        }
-
-        let trends = this.props.trendingStore.loadTrends();
-        if (trends) {
-            let half = trends.length/2;
-            let index=0;
-            trends.forEach(function (trend,i) {
-                if (index<half)
-                    trendsListFirst.push(<li key={i}><a href={"/activities/trend/" + trend.value} className="sg-f-bdy"
-                                                  style={{lineHeight: '2em'}}>{trend.label}</a></li>);
-                else
-                    trendsListSecond.push(<li key={i}><a href={"/activities/trend/" + trend.value} className="sg-f-bdy"
-                                                           style={{lineHeight: '2em'}}>{trend.label}</a></li>);
-                index++;
-            });
-        }
-
         return (
             <div className="footer_div">
                 <h2 className="footer_header" style={{marginBottom: '20px'}}>Выбирайте впечатления на любой вкус</h2>
@@ -70,18 +80,27 @@ class FooterCategories extends React.Component {
                         <tbody>
                         <tr>
                             <td className="sg-bd-2">
+                                <div className="catch_all_footer_subtitle">Виды</div>
+                                <table className="catch_all_footer_lists_table">
+                                    <tbody>
+                                    <tr>
+                                        <td className="footer-td-content">
+                                            <ul className="catch_all_footer_list">
+                                                {this.categoriesList}
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td className="sg-bd-2">
                                 <div className="catch_all_footer_subtitle">Категории</div>
                                 <table className="catch_all_footer_lists_table">
                                     <tbody>
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {categoriesListFirst}
-                                            </ul>
-                                        </td>
-                                        <td className="footer-td-content">
-                                            <ul className="catch_all_footer_list">
-                                                {categoriesListSecond}
+                                                {this.activityCategoriesList}
                                             </ul>
                                         </td>
                                     </tr>
@@ -95,12 +114,7 @@ class FooterCategories extends React.Component {
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {occasionListFirst}
-                                            </ul>
-                                        </td>
-                                        <td className="footer-td-content">
-                                            <ul className="catch_all_footer_list">
-                                                {occasionListSecond}
+                                                {this.occasionList}
                                             </ul>
                                         </td>
                                     </tr>
@@ -114,12 +128,7 @@ class FooterCategories extends React.Component {
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {trendsListFirst}
-                                            </ul>
-                                        </td>
-                                        <td className="footer-td-content">
-                                            <ul className="catch_all_footer_list">
-                                                {trendsListSecond}
+                                                {this.trendsList}
                                             </ul>
                                         </td>
                                     </tr>
@@ -133,7 +142,7 @@ class FooterCategories extends React.Component {
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {citiesList}
+                                                {this.citiesList}
                                             </ul>
                                         </td>
                                     </tr>

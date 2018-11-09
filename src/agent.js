@@ -5,7 +5,8 @@ import authStore from './stores/authStore';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://conduit.productionready.io/api';
+//const API_ROOT = 'https://conduit.productionready.io/api';
+const API_ROOT = 'http://api.tt.ru';
 
 const encode = encodeURIComponent;
 
@@ -55,58 +56,59 @@ const limit = (count, start) => `limit=${count}&offset=${start}`;
 
 const Auth = {
     current: () =>
-        requests.get('/user'),
+        requests.get('/v1/users'),
     login: (email, password) =>
-        requests.post('/users/login', {user: {email, password}}),
+        requests.post('/v1/auth/request', {email, password}),
     register: (username, email, password) =>
-        requests.post('/users', {user: {username, email, password}}),
+        requests.post('/v1/signup/request', {email, password}),
+//        requests.post('/users', {user: {username, email, password}}),
     password: (user, password, newPassword) =>
-        requests.post('/user/password', {user: {password}, newPassword}),
+        requests.post('/v1/user/password', {password, newPassword}),
     save: user => requests.put('/user', {user})
 };
 
 const ActivityCategories = {
     all: () =>
-        requests.get(`/activity-categories`),
+        requests.get(`/v1/activity-categories`),
     get: (id) =>
-        requests.get(`/activity-categories/${id}`)
+        requests.get(`/v1/activity-categories/${id}`)
 };
 
 const ActivityListing = {
     forActivity: (activity_id) =>
-        requests.get(`/activity-listing/activity?${activity_id}`),
+        requests.get(`/v1/activity-listings/activity?${activity_id}`),
     del: (activity_listing_id) =>
-        requests.del(`/activity-listing/del?${activity_listing_id}`),
+        requests.del(`/v1/activity-listings/del?${activity_listing_id}`),
 
     get: (activity_listing_id) =>
-        requests.get(`/activity-listing/${activity_listing_id}`),
+        requests.get(`/v1/activity-listings/${activity_listing_id}`),
     update: (activity_listing_id, activity) =>
-        requests.put(`/activity-listing/${activity_listing_id}`, {activity: activity}),
+        requests.put(`/v1/activity-listings/${activity_listing_id}`, {activity: activity}),
     create: (activity_listing) =>
-        requests.post('/activity-listing/create', {activity_listing})
+        requests.post('/v1/activity-listings/create', {activity_listing})
 };
 
 const Activities = {
     // wish / customer._id
     // luminary / luminary._id
     filter: (filter, id, lim = 3, start = 0) =>
-        requests.get(`/activities/${filter}/${id}?${limit(lim, start)}`),
+        requests.get(`/v1/activities/${filter}/${id}?${limit(lim, start)}`),
     get: id =>
-        requests.get(`/activities/${id}`),
-    all: (page = 0, lim = 10) =>
-        requests.get(`/activities/all?${limit(lim, page)}`),
+        requests.get(`/v1/activities/${id}`),
+    all: (lim = 10,page = 0) =>
+        requests.get(`/v1/activities/all?${limit(lim, page)}`),
     isFavorite: (activity_id, customer_id) =>
-        requests.get(`/activities/is_favorite/${activity_id}&customer=${customer_id}`),
+        requests.get(`/v1/activities/is_favorite/${activity_id}&customer=${customer_id}`),
     favorite: (activity_id, customer_id) =>
-        requests.get(`/activities/favorite/${activity_id}&customer=${customer_id}`),
+        requests.get(`/v1/activities/favorite/${activity_id}&customer=${customer_id}`),
     unFavorite: (activity_id, customer_id) =>
-        requests.get(`/activities/un_favorite/${activity_id}&customer=${customer_id}`),
+        requests.get(`/v1/activities/un_favorite/${activity_id}&customer=${customer_id}`),
     create: activity =>
-        requests.post('/activities', {activity}),
+        requests.post('/v1/activities', {activity}),
     del: id =>
-        requests.del(`/activities/${id}`),
+        requests.del(`/v1/activities/${id}`),
     update: activity =>
-        requests.put(`/activities/update`, {activity}),
+        requests.put(`/v1/activities/update`, {activity}),
 
 /*
     byTag: (tag, page, lim = 10) =>
@@ -116,179 +118,179 @@ const Activities = {
 
 const Categories = {
     all: () =>
-        requests.get(`/category`),
+        requests.get(`/v1/categories`),
     get: id =>
-        requests.get(`/category/${id}`),
+        requests.get(`/v1/categories/${id}`),
 };
 
 const Country = {
     all: () =>
-        requests.get(`/country`),
+        requests.get(`/v1/countries`),
     get: id =>
-        requests.get(`/country/${id}`),
+        requests.get(`/v1/countries/${id}`),
 };
 
 const Cities = {
     all: () =>
-        requests.get(`/cities`),
+        requests.get(`/v1/cities`),
     get: id =>
-        requests.get(`/cities/${id}`),
+        requests.get(`/v1/cities/${id}`),
 };
 
 const Currency = {
     all: () =>
-        requests.get(`/currency`),
+        requests.get(`/v1/currencies`),
     get: id =>
-        requests.get(`/currency/${id}`),
+        requests.get(`/v1/currencies/${id}`),
 };
 
 const Duration = {
     all: () =>
-        requests.get(`/duration`),
+        requests.get(`/v1/durations`),
     get: id =>
-        requests.get(`/duration/${id}`),
+        requests.get(`/v1/durations/${id}`),
 };
 
 const FollowList = {
     get: customer_id =>
-        requests.get(`/follow-list/${customer_id}`),
+        requests.get(`/v1/follow-list/${customer_id}`),
     isFollow: (customer,luminary) =>
-        requests.get(`/follow-list/get?${customer}&${luminary}`),
+        requests.get(`/v1/follow-list/get?${customer}&${luminary}`),
     follow: (customer,luminary) =>
-        requests.get(`/follow-list/follow?${customer}&${luminary}`),
+        requests.get(`/v1/follow-list/follow?${customer}&${luminary}`),
     unFollow: (customer,luminary) =>
-        requests.get(`/follow-list/unfollow?${customer}&${luminary}`),
+        requests.get(`/v1/follow-list/unfollow?${customer}&${luminary}`),
 };
 
 const Tags = {
-    all: () => requests.get('/tags')
+    all: () => requests.get('/v1/tags')
 };
 
 const Customer = {
     get: customer_id =>
-        requests.get(`/customer/${customer_id}`),
+        requests.get(`/v1/customers/${customer_id}`),
     forUser: user =>
-        requests.get(`/customer/${user}`),
+        requests.get(`/v1/customers/${user}`),
     create: (customer) =>
-        requests.post(`/customer/${customer}`),
+        requests.post(`/v1/customers/${customer}`),
 };
 
 const Image = {
     // чисто формальный метод - возвращать 5-10 последних фото, не должен вызываться
     all: () =>
-        requests.get(`/image/`),
+        requests.get(`/v1/images/`),
     get: image =>
-        requests.get(`/image/${image}`),
+        requests.get(`/v1/images/${image}`),
     filter: (filter, id) =>
-        requests.get(`/image/${filter}/${id}`),
+        requests.get(`/v1/images/${filter}/${id}`),
     create: (image) =>
-        requests.post(`/image/${image}`),
+        requests.post(`/v1/images/${image}`),
     del: (image_id) =>
-        requests.del(`/image/${image_id}`),
+        requests.del(`/v1/images/${image_id}`),
 };
 
 const Locations = {
     all: () =>
-        requests.get(`/locations`),
+        requests.get(`/v1/locations`),
     get: slug =>
-        requests.get(`/locations/${slug}`),
+        requests.get(`/v1/locations/${slug}`),
 };
 
 const Luminary = {
     get: luminary_id =>
-        requests.get(`/luminary/${luminary_id}`),
+        requests.get(`/v1/luminaries/${luminary_id}`),
     forUser: (luminary) =>
-        requests.get(`/luminary/${luminary}`),
+        requests.get(`/v1/luminaries/${luminary}`),
     create: luminary =>
-        requests.post(`/luminary/${luminary}`),
+        requests.post(`/v1/luminaries/${luminary}`),
 };
 
 const MailStatus = {
-    all: () => requests.get(`/mail-status}`),
+    all: () => requests.get(`/v1/mail-statuses}`),
     get: statusId =>
-        requests.get(`/mail-status/${statusId}`),
+        requests.get(`/v1/mail-statuses/${statusId}`),
 };
 
 const Mail = {
     filter: (filter, id, lim = 10, start = 0) =>
-        requests.get(`/mail/${filter}/${id}?${limit(lim, start)}`),
+        requests.get(`/v1/mails/${filter}/${id}?${limit(lim, start)}`),
     get: mail_id =>
-        requests.get(`/mail/${mail_id}`),
+        requests.get(`/v1/mails/${mail_id}`),
     create: (mail) =>
-        requests.post(`/mail/${mail}`),
+        requests.post(`/v1/mails/${mail}`),
     del: (slug, mail_id) =>
-        requests.del(`/mail/${slug}/${mail_id}`),
+        requests.del(`/v1/mails/${slug}/${mail_id}`),
 };
 
 const Order = {
     all: (page, lim = 10) =>
-        requests.get(`/orders?${limit(lim, page)}`),
+        requests.get(`/v1/orders?${limit(lim, page)}`),
     forUser: (user, page) =>
-        requests.get(`/orders?user=${encode(user)}&${limit(5, page)}`),
+        requests.get(`/v1/orders?user=${encode(user)}&${limit(5, page)}`),
     filter: (filter, id, lim = 10, start = 0) =>
-        requests.get(`/orders/${filter}/${id}?${limit(lim, start)}`),
+        requests.get(`/v1/orders/${filter}/${id}?${limit(lim, start)}`),
     get: orderId =>
-        requests.get(`/order/${orderId}`),
+        requests.get(`/v1/orders/${orderId}`),
     create: (order) =>
-        requests.post(`/order/${order}`),
+        requests.post(`/v1/orders/${order}`),
     del: (slug, orderId) =>
-        requests.del(`/order/${slug}/${orderId}`),
+        requests.del(`/v1/orders/${slug}/${orderId}`),
 };
 
 const OrderStatus = {
-    all: () => requests.get(`/order-status}`),
+    all: () => requests.get(`/v1/order-statuses}`),
     get: statusId =>
-        requests.get(`/order-status/${statusId}`),
+        requests.get(`/v1/order-statuses/${statusId}`),
 };
 
 const Profile = {
     follow: username =>
-        requests.post(`/profiles/${username}/follow`),
+        requests.post(`/v1/profiles/${username}/follow`),
     get: username =>
-        requests.get(`/profiles/${username}`),
+        requests.get(`/v1/profiles/${username}`),
     unfollow: username =>
-        requests.del(`/profiles/${username}/follow`)
+        requests.del(`/v1/profiles/${username}/follow`)
 };
 
 const Review = {
     filter: (filter, id, lim = 3, start = 0) =>
-        requests.get(`/review/${filter}/${id}?${limit(lim, start)}`),
+        requests.get(`/v1/reviews/${filter}/${id}?${limit(lim, start)}`),
     del: (review_id) =>
-        requests.del(`/review/${review_id}`),
+        requests.del(`/v1/reviews/${review_id}`),
     get: (review_id) =>
-        requests.get(`/review/${review_id}`),
+        requests.get(`/v1/reviews/${review_id}`),
     create: (review) =>
-        requests.post(`/review/${review}`),
+        requests.post(`/v1/reviews/${review}`),
     all: () =>
-        requests.get(`/review}`)
+        requests.get(`/v1/reviews}`)
 };
 
 const WishList = {
     forCustomer: (customer) =>
-        requests.get(`/wish-list/customer?${customer}`),
+        requests.get(`/v1/wish-list/customer?${customer}`),
     isWished: (activity, customer) =>
-        requests.get(`/wish-list/get?customer=${customer}&activity=${activity}`),
+        requests.get(`/v1/wish-list/get?customer=${customer}&activity=${activity}`),
     wish: (activity, customer) =>
-        requests.get(`/wish-list/wish?customer=${customer}&activity=${activity}`),
+        requests.get(`/v1/wish-list/wish?customer=${customer}&activity=${activity}`),
     unWish: (activity, customer) =>
-        requests.get(`/wish-list/unwish?customer=${customer}&activity=${activity}`)
+        requests.get(`/v1/wish-list/unwish?customer=${customer}&activity=${activity}`)
 };
 
 const Occasions = {
     all: () =>
-        requests.get(`/occasions`),
+        requests.get(`/v1/occasions`),
 };
 
 const Trending = {
     all: () =>
-        requests.get(`/trending`),
+        requests.get(`/v1/trendings`),
 };
 
 const User = {
     get: luminary =>
-        requests.get(`/luminary/${luminary}`),
+        requests.get(`/v1/luminaries/${luminary}`),
     create: luminary =>
-        requests.post(`/luminary/${luminary}`),
+        requests.post(`/v1/luminaries/${luminary}`),
 };
 
 

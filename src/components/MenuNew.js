@@ -1,50 +1,75 @@
 import React from 'react';
-import {inject} from 'mobx-react';
+import {inject, observer } from 'mobx-react';
 
-@inject('cityStore', 'categoryStore', 'occasionStore', 'trendingStore')
+@inject('cityStore', 'categoryStore', 'activityCategoryStore', 'occasionStore', 'trendingStore')
+@observer
 class SiteMenu extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            loadComplete: true
+        };
+        this.activityCategoriesList = [];
+        this.citiesList = [];
+        this.categoriesList = [];
+        this.occasionList = [];
+        this.trendsList = [];
+    }
+
+    componentWillMount() {
+        let self = this;
+        this.props.activityCategoryStore.loadActivityCategories()
+            .then(() => {
+                for (let category of Array.from(this.props.activityCategoryStore.activityCategoryRegistry.values())) {
+                    self.activityCategoriesList.push(<div className="topNavCat" key={category.id}>
+                        <a href={"/#/activities/activity-category/" + category.id} title={category.title}>
+                            <p className="level-link fo-14-n-s4">{category.title}</p></a></div>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+
+        this.props.cityStore.loadCities()
+            .then(() => {
+                for (let city of Array.from(this.props.cityStore.cityRegistry.values())) {
+                    self.citiesList.push(<div className="topNavCat" key={city.id}>
+                        <a href={"/#/activities/city/" + city.id} title={city.title}>
+                            <p className="level-link fo-14-n-s4">{city.title}</p></a></div>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+
+        this.props.categoryStore.loadCategories()
+            .then(() => {
+                for (let category of Array.from(this.props.categoryStore.categoryRegistry.values())) {
+                    self.categoriesList.push(<div className="topNavCat" key={category.id}>
+                        <a href={"/#/activities/city/" + category.id} title={category.title}>
+                            <p className="level-link fo-14-n-s4">{category.title}</p></a></div>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+
+        this.props.occasionStore.loadOccasions()
+            .then(() => {
+                for (let occasion of Array.from(this.props.occasionStore.occasionRegistry.values())) {
+                    self.occasionList.push(<div className="topNavCat" key={occasion.id}>
+                        <a href={"/#/activities/occasion/" + occasion.id} title={occasion.title}>
+                            <p className="level-link fo-14-n-s4">{occasion.title}</p></a></div>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+
+        this.props.trendingStore.loadTrends()
+            .then(() => {
+                for (let trend of Array.from(this.props.trendingStore.trendingRegistry.values())) {
+                    self.trendsList.push(<div className="topNavCat" key={trend.id}>
+                        <a href={"/#/activities/trend/" + trend.id} title={trend.title}>
+                            <p className="level-link fo-14-n-s4">{trend.title}</p></a></div>);
+                }
+                this.setState ({loadComplete: !this.state.loadComplete});
+            });
+    }
+
     render() {
-        let citiesList = '';
-        let categoriesList = Array.of(undefined);
-        let occasionList = Array.of(undefined);
-        let trendsList = Array.of(undefined);
-
-        let cities = this.props.cityStore.loadCities();
-        if (cities) {
-            citiesList = cities.map(function (city, i) {
-                return (<div data-navmenuid="go-298" className="topNavCat" key={i}>
-                    <a href={'/#/activities/city/' + city.value} title={city.label}>
-                        <p className="level-link fo-14-n-s4">{city.label}</p></a></div>);
-            });
-        }
-
-        let categories = this.props.categoryStore.loadCategories();
-        if (categories) {
-            categories.forEach(function (category,i) {
-                categoriesList.push(<div className="topNavCat" key={i}>
-                    <a href={"/#/activities/category/" + category.value} title={category.label}>
-                        <p className="level-link fo-14-n-s4">{category.label}</p></a></div>);
-            });
-        }
-
-        let occasions = this.props.occasionStore.loadOccasions();
-        if (occasions) {
-            occasions.forEach(function (occasion,i) {
-                occasionList.push(<div className="topNavCat" key={i}>
-                    <a href={"/#/activities/occasion/" + occasion.value} title={occasion.label}>
-                        <p className="level-link fo-14-n-s4">{occasion.label}</p></a></div>);
-            });
-        }
-
-        let trends = this.props.trendingStore.loadTrends();
-        if (trends) {
-            trends.forEach(function (trend,i) {
-                trendsList.push(<div className="topNavCat" key={i}>
-                    <a href={"/#/activities/trend/" + trend.value} title={trend.label}>
-                        <p className="level-link fo-14-n-s4">{trend.label}</p></a></div>);
-            });
-        }
-
         return (
             <div id="header-menu" className="sg-inline-flex-grow" style={{margin: '0 10px', order: '2'}}>
                 <div className="level-menu  sg-inline-middle version1" style={{flexWrap: 'nowrap'}}
@@ -55,15 +80,22 @@ class SiteMenu extends React.Component {
                         </a>
                         <div className="highlight-bar" id="menu_highlight_1"></div>
                         <div className="drop-down version1" style={{minWidth: '320px'}} id="menu_drop_1">
+                            <div className="level-2 f-style-ovr1 sg-c-3">
+                                <div className="col"><p className="fo-13-i-g co-ff">По виду</p></div>
+                                <div className="col"><p className="fo-13-i-g co-ff">По типу</p></div>
+                            </div>
                             <div className="level-3">
-                                <div className="col" style={{minWidth: '320px'}}>
-                                    {categoriesList}
+                                <div className="col">
+                                    {this.categoriesList}
+                                </div>
+                                <div className="col">
+                                    {this.activityCategoriesList}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="l-menu js-menu" data-navmenuid="2" id="menu2">
-                        <a href="/" className="label js-tab-featrue js-show-dropdown" tabIndex="1100">
+                        <a href="/" className="label js-tab-featrue js-show-dropdown">
                             <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>На случай</p>
                         </a>
                         <div className="highlight-bar" id="menu_highlight_2"></div>
@@ -74,10 +106,10 @@ class SiteMenu extends React.Component {
                             </div>
                             <div className="level-3">
                                 <div className="col">
-                                    {trendsList}
+                                    {this.trendsList}
                                 </div>
                                 <div className="col">
-                                    {occasionList}
+                                    {this.occasionList}
                                 </div>
                             </div>
                         </div>
@@ -90,13 +122,13 @@ class SiteMenu extends React.Component {
                         <div className="drop-down version1" style={{minWidth: '160px'}} id="menu_drop_3">
                             <div className="level-3">
                                 <div className="col">
-                                    {citiesList}
+                                    {this.citiesList}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="l-menu js-menu  " data-navmenuid="122" id="menu4">
-                        <a href="/" className="label js-tab-featrue js-show-dropdown" tabIndex="1300">
+                        <a className="label js-tab-featrue js-show-dropdown" tabIndex="1300">
                             <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Фильтр</p>
                         </a>
                         <div className="highlight-bar" id="menu_highlight_4"></div>

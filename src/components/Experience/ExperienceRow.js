@@ -17,14 +17,12 @@ class ExperienceRow extends React.Component {
         }
         let activities = this.props.activityStore.loadActivities();
 */
-        console.log (this.props.activities);
         let activities = this.props.activities;
         if (activities) {
             activities.forEach(function (activity, i) {
                 activitiesList.push(<Experience activity={activity} key={i}/>);
             });
         }
-        console.log (activitiesList);
         return (
             <div className="experience">
                 <React.Fragment>

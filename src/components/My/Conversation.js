@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import MyMenu from "./MyMenu";
 import MailListItem from "./MailListItem";
 import EmptyMailBox from "./EmptyMailBox";
+import Redirect from "react-router-dom/es/Redirect";
 
 @withRouter
 @inject('userStore', 'mailStore', 'activityStore')
@@ -12,6 +13,7 @@ export default class Conversation extends React.Component {
         super();
         this.state = {
             search: '',
+            login: false,
             header: 'Входящие'
         };
         this.empty = <EmptyMailBox />;
@@ -20,12 +22,17 @@ export default class Conversation extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.fillList(nextProps);
+        if (this.props.userStore.currentUser) {
+            this.setState({login: true});
+            this.fillList(nextProps);
+        }
     }
 
     componentWillMount() {
-        this.fillList(null);
-        console.log(this.mails);
+        if (this.props.userStore.currentUser) {
+            this.setState({login: true});
+            this.fillList(null);
+        }
     }
 
     inputChange(event) {
@@ -87,6 +94,9 @@ export default class Conversation extends React.Component {
     }
 
     render() {
+        if(!this.state.login) {
+            return (<Redirect to={"/"} />);
+        }
         return (
             <div className="main" style={{
                 minHeight: '100%', width: '100%', position: 'relative', margin: '0 auto',

@@ -11,24 +11,24 @@ class CategoryStore {
         {_id: '2', label: 'Туризм'}
     ];
 
-    testData = {_id: '2', title: 'Туризм'};
+    //testData = {_id: '2', title: 'Туризм'};
 
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))
     };
 
     @action loadCategories() {
-        agent.Categories.all()
-            .then(action(({ categories}) => {
+        return agent.Categories.all()
+            .then(action((categories) => {
                 this.categoryRegistry.clear();
                 categories.forEach(category =>
-                    this.categoryRegistry.set(category._id, category));
+                    this.categoryRegistry.set(category.id, category));
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticDataOptions;
+        //return this.staticDataOptions;
     }
 
     @action loadCategory(id, {acceptCached = false} = {}) {
@@ -37,8 +37,8 @@ class CategoryStore {
             if (category) return Promise.resolve(category);
         }
         this.isLoading = true;
-        agent.Categories.get(id)
-            .then(action(({category}) => {
+        return agent.Categories.get(id)
+            .then(action((category) => {
                 this.categoryRegistry.set(id, category);
                 return category;
             }))
@@ -48,7 +48,7 @@ class CategoryStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.testData;
+        //return this.testData;
     }
 }
 

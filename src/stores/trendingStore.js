@@ -17,17 +17,17 @@ class TrendingStore {
 
     @action loadTrends() {
         this.isLoading = true;
-        agent.Trending.all()
-            .then(action(({ categories}) => {
+        return agent.Trending.all()
+            .then(action((categories) => {
                 this.trendingRegistry.clear();
                 categories.forEach(trending =>
-                    this.trendingRegistry.set(trending._id, trending));
+                    this.trendingRegistry.set(trending.id, trending));
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticDataOptions;
+        //return this.staticDataOptions;
     }
 
     @action loadTrending(id, {acceptCached = false} = {}) {
@@ -36,8 +36,8 @@ class TrendingStore {
             if (trending) return Promise.resolve(trending);
         }
         this.isLoading = true;
-        agent.Trending.get(id)
-            .then(action(({trending}) => {
+        return agent.Trending.get(id)
+            .then(action((trending) => {
                 this.trendingRegistry.set(id, trending);
                 return trending;
             }))
@@ -47,7 +47,7 @@ class TrendingStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData[0];
+        //return this.staticData[0];
     }
 }
 
