@@ -9,7 +9,7 @@ class CategoryRow extends React.Component {
                     <div className="collection_img_container">
                         <img className="collection_img"
                              alt="Незабываемые впечатления и приключения рядом с вами в вашем городе"
-                             src={'images/exp1.jpg'} />
+                             src={'images/exp3.jpg'} />
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>
@@ -32,7 +32,7 @@ class CategoryRow extends React.Component {
             <div className="layout_tile discovery " style={{float: 'left'}}>
                 <a className="tile_collection" href={"/#/activities/category/2"}>
                     <div className="collection_img_container">
-                        <img className="collection_img" alt="Впечатления для особого случая" src={'images/exp2.jpg'}/>
+                        <img className="collection_img" alt="Впечатления для особого случая" src={'images/exp.jpg'}/>
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>
@@ -57,7 +57,7 @@ class CategoryRow extends React.Component {
                     <div className="collection_img_container">
                         <img className="collection_img"
                              alt="Дарите новые впечатления своим друзьям и близким"
-                             src={'images/exp3.jpg'}/>
+                             src={'images/exp2.jpg'}/>
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>

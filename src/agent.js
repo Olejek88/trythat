@@ -56,15 +56,15 @@ const limit = (count, start) => `limit=${count}&offset=${start}`;
 
 const Auth = {
     current: () =>
-        requests.get('/v1/users'),
+        requests.get('/v1/users/4'),
     login: (email, password) =>
         requests.post('/v1/auth/request', {email, password}),
     register: (username, email, password) =>
         requests.post('/v1/signup/request', {email, password}),
 //        requests.post('/users', {user: {username, email, password}}),
     password: (user, password, newPassword) =>
-        requests.post('/v1/user/password', {password, newPassword}),
-    save: user => requests.put('/user', {user})
+        requests.post('/v1/users/password', {password, newPassword}),
+    save: (user, user_id) => requests.put(`/v1/users/${user_id}`, user)
 };
 
 const ActivityCategories = {

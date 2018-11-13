@@ -10,7 +10,9 @@ class SiteMenu extends React.Component {
                 <div style={{width: '100%', margin: '0 auto'}} className="responsive ">
                     <div id="footer-logo">
                         <Link to="/" className="navbar-brand">
-                            {this.props.commonStore.appName.toLowerCase()}
+                            <img className="logo-img" style={{maxHeight: '50px'}}
+                                 alt={this.props.commonStore.appName.toLowerCase()}
+                                 src={"images/trythat_logo_text_1.png"} />
                         </Link>
                     </div>
                     <div id="footer-menu" className="responsive sg-c-3" style={{textAlign: 'center'}}>

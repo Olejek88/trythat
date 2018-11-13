@@ -7,26 +7,24 @@ class CountryStore {
     @observable isLoading = false;
     @observable countryRegistry = observable.map();
 
-    testData = {_id: 1, title: 'Россия'};
+    //testData = {_id: 1, title: 'Россия'};
     @observable staticData = [{_id: 1, title: 'Россия'}];
-
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.title, value: x._id }))
     };
 
     @action loadCountries() {
         this.isLoading = true;
-        agent.Country.all()
-            .then(action(({ cities}) => {
+        return agent.Country.all()
+            .then(action(( countries) => {
                 this.countryRegistry.clear();
-                cities.forEach(country =>
+                countries.forEach(country =>
                     this.countryRegistry.set(country._id, country));
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticDataOptions;
     }
 
     @action loadCountry(id, {acceptCached = false} = {}) {
@@ -35,7 +33,7 @@ class CountryStore {
             if (country) return Promise.resolve(country);
         }
         this.isLoading = true;
-        agent.Country.get(id)
+        return agent.Country.get(id)
             .then(action(({country}) => {
                 this.countryRegistry.set(id, country);
                 return country;
@@ -46,7 +44,6 @@ class CountryStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.testData;
     }
 }
 

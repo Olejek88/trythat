@@ -7,7 +7,19 @@ import customerStore from "./customerStore";
 import luminaryStore from "./luminaryStore";
 
 export class UserStore {
-    @observable currentUser;
+    currentUser =
+        {   _id: '',
+            username: '',
+            email: '',
+            firstName: '',
+            lastName: '',
+            birthDate: '',
+            phone: '',
+            city_id: 0,
+            image: '',
+            country_id: 0,
+            password: ''
+        };
     @observable currentCustomer;
     @observable currentLuminary;
     @observable loadingUser;
@@ -17,7 +29,6 @@ export class UserStore {
     // constructor() {
     //     this.currentUser = this.testData;
     // }
-
 
     @observable testData =
         {   _id: '1',
@@ -57,21 +68,24 @@ export class UserStore {
 
     @action updateUser(newUser) {
         this.updatingUser = true;
-        agent.Auth.save(newUser)
-            .then(action(({user}) => {
+        //console.log(newUser);
+        return agent.Auth.save(newUser,newUser.id)
+            .then(action((user) => {
+                console.log(user);
                 this.currentUser = user;
+                console.log(this.currentUser);
             }))
             .finally(action(() => {
                 this.updatingUser = false;
             }));
-        return this.testData;
+        //return this.testData;
     }
 
     @action changeUserPassword(user, password, repeatPassword, newPassword) {
         this.updatingUser = true;
         if (password.toString() === repeatPassword.toString()) {
             return agent.Auth.password(user, password, newPassword)
-                .then(action(({user}) => {
+                .then(action((user) => {
                     this.currentUser = user;
                     console.log(user);
                 }))

@@ -21,7 +21,7 @@ class FooterCategories extends React.Component {
             .then(() => {
                 for (let category of Array.from(this.props.activityCategoryStore.activityCategoryRegistry.values())) {
                     self.activityCategoriesList.push(<li key={category.id}>
-                        <a href={"/#/activities/activity-category/" + category.value} className="sg-f-bdy"
+                        <a href={"/#/activities/activity-category/" + category.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{category.title}</a></li>);
                 }
                 this.setState ({loadComplete: !this.state.loadComplete});
@@ -30,8 +30,8 @@ class FooterCategories extends React.Component {
         this.props.cityStore.loadCities()
             .then(() => {
                 for (let city of Array.from(this.props.cityStore.cityRegistry.values())) {
-                    self.citiesList.push(<li key={city.id}><a href={"/#/activities/city/" + city.value} className="sg-f-bdy"
-                                           style={{lineHeight: '2em'}}>{city.label}</a></li>);
+                    self.citiesList.push(<li key={city.id}><a href={"/#/activities/city/" + city.id} className="sg-f-bdy"
+                                           style={{lineHeight: '2em'}}>{city.title}</a></li>);
                 }
                 this.setState ({loadComplete: !this.state.loadComplete});
             });
@@ -40,7 +40,7 @@ class FooterCategories extends React.Component {
             .then(() => {
                 for (let category of Array.from(this.props.categoryStore.categoryRegistry.values())) {
                     self.categoriesList.push(<li key={category.id}>
-                        <a href={"/#/activities/category/" + category.value} className="sg-f-bdy"
+                        <a href={"/#/activities/category/" + category.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{category.title}</a></li>);
                 }
                 this.setState ({loadComplete: !this.state.loadComplete});
@@ -50,7 +50,7 @@ class FooterCategories extends React.Component {
             .then(() => {
                 for (let occasion of Array.from(this.props.occasionStore.occasionRegistry.values())) {
                     self.occasionList.push(<li key={occasion.id}>
-                        <a href={"/#/activities/category/" + occasion.value} className="sg-f-bdy"
+                        <a href={"/#/activities/category/" + occasion.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{occasion.title}</a></li>);
                 }
                 this.setState ({loadComplete: !this.state.loadComplete});
@@ -60,7 +60,7 @@ class FooterCategories extends React.Component {
             .then(() => {
                 for (let trend of Array.from(this.props.trendingStore.trendingRegistry.values())) {
                     self.trendsList.push(<li key={trend.id}>
-                        <a href={"/#/activities/trend/" + trend.value} className="sg-f-bdy"
+                        <a href={"/#/activities/trend/" + trend.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{trend.title}</a></li>);
                 }
                 this.setState ({loadComplete: !this.state.loadComplete});

@@ -17,7 +17,7 @@ const LoggedOutView = props => {
                       id="signUpBtn">
                     <div className="title-container"><p className="title">Регистрация</p></div>
                 </Link>
-                <Link to="/login" className="navButton button js-login" id="logInBtn">
+                <Link to="/#/login" className="navButton button js-login" id="logInBtn">
                     <div className="title-container"><p className="title">Войти</p></div>
                 </Link>
                 <Link to="/" className="sg-inline-middle">
@@ -104,7 +104,9 @@ class Header extends React.Component {
                     <div id="header-nav" className="main_container sg-inline-middle" style={{flexWrap: 'nowrap'}}>
                         <div id="top-logo">
                             <Link to="/" className="navbar-brand">
-                                {this.props.commonStore.appName.toLowerCase()}
+                                <img className="logo-img" style={{maxHeight: '50px'}}
+                                     alt={this.props.commonStore.appName.toLowerCase()}
+                                     src={"images/trythat_logo_text_1.png"} />
                             </Link>
                             {/*
                         <a href="/" className="logo" tabIndex="1">

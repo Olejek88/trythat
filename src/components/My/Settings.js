@@ -4,11 +4,9 @@ import ImageUploader from 'react-images-upload';
 import {withRouter} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import Select from 'react-select';
-import countryStore from "../../stores/countryStore";
-import cityStore from "../../stores/cityStore";
 import MyMenu from "./MyMenu";
 
-@inject('userStore', 'countryStore', 'cityStore')
+@inject('userStore', 'countryStore', 'cityStore', 'imageStore')
 @observer
 class SettingsForm extends React.Component {
     constructor() {
@@ -16,6 +14,7 @@ class SettingsForm extends React.Component {
 
         this.avatar = "luminary2.jpg";
         this.state = {
+            id: '',
             firstName: '',
             lastName: '',
             birthDate: '',
@@ -33,14 +32,24 @@ class SettingsForm extends React.Component {
             newPassword: ''
         };
 
+        this.birthDate = {
+            day: 1,
+            month: 1,
+            year: 1970
+        };
+
+        this.citiesList = [];
+        this.countryList = [];
+
         this.onDrop = this.onDrop.bind(this);
 
         this.handleSelectCityChange = (event) => {
-            this.setState({city: event.value});
+            console.log(event);
+            this.setState({city: event});
         };
 
         this.handleSelectCountryChange = (event) => {
-            this.setState({country: event.value});
+            this.setState({country: event});
         };
 
         this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this);
@@ -49,6 +58,21 @@ class SettingsForm extends React.Component {
             const state = this.state;
             const newState = Object.assign({}, state, {[field]: ev.target.value});
             this.setState(newState);
+        };
+
+        this.handleChange = (e) => {
+            switch (e.target.name) {
+                case 'day':
+                    this.birthDate.day = e.target.options[e.target.selectedIndex].value;
+                    break;
+                case 'month':
+                    this.birthDate.month = e.target.options[e.target.selectedIndex].value;
+                    break;
+                case 'year':
+                    this.birthDate.year = e.target.options[e.target.selectedIndex].value;
+                    break;
+            }
+            this.setState({birthDate: this.birthDate.year+"-"+this.birthDate.month+"-"+this.birthDate.day+" 00:00:00"});
         };
 
         this.submitForm = ev => {
@@ -78,27 +102,59 @@ class SettingsForm extends React.Component {
     };
 
     onDrop(picture) {
+/*
         console.log(picture[0]);
         this.avatar = picture[0].name;
         this.setState({
-            image: this.state.image.concat(picture[0]),
+            image: this.state.image.concat(picture[0])
         });
+        const data = new FormData();
+        data.append('file', picture[0], picture[0].name);
+        this.props.imageStore.createImage(date);
+*/
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        let self = this;
+        this.props.cityStore.loadCities()
+            .then(() => {
+                self.citiesList = Array.from(this.props.cityStore.cityRegistry.values()).map(x => ({ label: x.title, value: x.id }));
+                self.citiesList.forEach(function(city) {
+                    if (city.value===self.props.userStore.currentUser.city_id) {
+                        self.setState({city: city});
+                    }
+                });
+            });
+
+        this.props.countryStore.loadCountries()
+            .then(() => {
+                self.countryList = Array.from(this.props.countryStore.countryRegistry.values()).map(x => ({ label: x.title, value: x.id }));
+                self.countryList.forEach(function(country) {
+                    if (country.value===self.props.userStore.currentUser.country_id) {
+                        self.setState({country: country});
+                    }
+                });
+            });
+
         if (this.props.userStore.currentUser) {
+            let birth = new Date(this.props.userStore.currentUser.birthDate);
+            this.birthDate.day = birth.getDay();
+            this.birthDate.month = birth.getMonth();
+            this.birthDate.year = birth.getFullYear();
             Object.assign(this.state, {
+                id: this.props.userStore.currentUser.id || '',
                 image: this.props.userStore.currentUser.image || '',
                 firstName: this.props.userStore.currentUser.firstName || '',
                 lastName: this.props.userStore.currentUser.lastName || '',
                 birthDate: this.props.userStore.currentUser.birthDate || '',
                 email: this.props.userStore.currentUser.email || '',
-                city: this.props.userStore.currentUser.city || '',
-                country: this.props.userStore.currentUser.country || '',
                 phone: this.props.userStore.currentUser.phone || '',
                 password: this.props.userStore.currentUser.password || ''
             });
         }
+    }
+    componentDidUpdate() {
+        console.log("update");
     }
 
     render() {
@@ -117,9 +173,10 @@ class SettingsForm extends React.Component {
                                         <label className="required">Фотография</label>
                                     </div>
                                     <div className="sibs emailInput">
-                                        <img src={this.avatar} style={{width: '200px'}} alt={"luminary"}/>
+                                        <img src={this.avatar} style={{width: '200px'}} alt={""}/>
                                         <ImageUploader
                                             withIcon={true}
+                                            withPreview={true}
                                             buttonText='Выберите аватар'
                                             onChange={this.onDrop}
                                             singleImage={true}
@@ -131,7 +188,7 @@ class SettingsForm extends React.Component {
                                 </div>
                                 <div className="row-flow">
                                     <div className="sibs">
-                                        <label htmlFor="emailAddress" className="required">Email
+                                        <label htmlFor="emailAddress" className="required">Е-мэйл
                                             <span className="required">*</span>
                                         </label>
                                     </div>
@@ -176,6 +233,8 @@ class SettingsForm extends React.Component {
                                 <div className="row-flow">
                                     <label htmlFor="birthDate">Дата рождения</label>
                                     <select className="js-month-dropdown" name="month"
+                                            value={this.birthDate.month}
+                                            onChange={this.handleChange}
                                             style={{marginRight: '2px', width: '118px'}}>
                                         <option value="1">Январь</option>
                                         <option value="2">Февраль</option>
@@ -191,6 +250,8 @@ class SettingsForm extends React.Component {
                                         <option value="12">Декабрь</option>
                                     </select>
                                     <select className="js-day-dropdown" name="day"
+                                            value={this.birthDate.day}
+                                            onChange={this.handleChange}
                                             style={{marginRight: '2px', width: '68px'}}>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -224,7 +285,9 @@ class SettingsForm extends React.Component {
                                         <option value="30">30</option>
                                         <option value="31">31</option>
                                     </select>
-                                    <select className="js-year-dropdown" name="year" style={{width: '85px'}}>
+                                    <select className="js-year-dropdown" name="year" style={{width: '85px'}}
+                                            value={this.birthDate.year}
+                                            onChange={this.handleChange}>
                                         <option value="1918">1918</option>
                                         <option value="1919">1919</option>
                                         <option value="1920">1920</option>
@@ -335,12 +398,13 @@ class SettingsForm extends React.Component {
                                     <div className="sibs" style={{width: '280px'}}>
                                         <Select
                                             style={{width: '280px'}}
+                                            id="city"
                                             name="city"
                                             value={this.state.city}
                                             placeHolder={"Выберите город"}
                                             className="language_select desktop"
-                                            onChange={this.handleSelectCityChange}
-                                            options={cityStore.loadCities()}
+                                            onChange={(e) => this.handleSelectCityChange(e)}
+                                            options={this.citiesList}
                                         />
                                     </div>
                                 </div>
@@ -356,7 +420,7 @@ class SettingsForm extends React.Component {
                                             onChange={this.handleSelectCountryChange}
                                             value={this.state.country}
                                             className="country_select desktop"
-                                            options={countryStore.loadCountries()}
+                                            options={this.countryList}
                                         />
                                     </div>
                                 </div>
@@ -547,7 +611,14 @@ class Settings extends React.Component {
                         <ListErrors errors={this.props.userStore.updatingUserErrors}/>
                         <SettingsForm
                             currentUser={this.props.userStore.currentUser}
-                            onSubmitForm={user => this.props.userStore.updateUser(user)}
+                            onSubmitForm={
+                                user => {
+                                    user.country = {id: user.country.value, title: user.country.label};
+                                    user.city = {id: user.city.value, title: user.city.label};
+                                    console.log(user.id);
+                                    this.props.userStore.updateUser(user)
+                                }
+                            }
                             onSubmitPasswordForm={user => this.props.userStore.changeUserPassword(user,
                                 this.passwordState.password,
                                 this.passwordState.repeatPassword,

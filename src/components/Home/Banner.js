@@ -35,7 +35,7 @@ export default class Banner extends React.Component {
                          display: 'block',
                          transitionDuration: '500ms',
                          opacity: '1',
-                         backgroundImage: 'url("images/bucket.jpg")'
+                         backgroundImage: 'url("images/try_that_tourism_1280.jpg")'
                      }}>
                     <div className="text_header_overlay" style={{display: 'block'}}>
                         <span className="static_text"

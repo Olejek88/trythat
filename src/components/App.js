@@ -39,6 +39,7 @@ export default class App extends React.Component {
 
     componentDidMount() {
         if (this.props.commonStore.token) {
+            //console.log('token= '+this.props.commonStore.token);
             this.props.userStore.pullUser()
                 .finally(() => this.props.commonStore.setAppLoaded());
         }
