@@ -1,6 +1,8 @@
 import React from 'react';
 import {observer} from 'mobx-react';
+import {inject} from "mobx-react/index";
 
+@inject('activityImageStore')
 @observer
 class OrderListPopItem extends React.Component {
     render() {
@@ -10,9 +12,18 @@ class OrderListPopItem extends React.Component {
         let order_price = order.listing.cost + order.listing.currency.title;
         let order_duration = order.listing.duration.period;
         let order_quantity = order.listing.customers;
-        let activity_image = {
-            backgroundImage: 'url(' + this.props.activity.images[0].path + ')'
-        };
+
+
+        let activity_image = null;
+        if (this.props.activity.images)
+            activity_image = {
+                backgroundImage: 'url(' + this.props.activity.images[0].path + ')'
+            };
+        else
+            activity_image = {
+                backgroundImage: 'url(files/no_image.jpg)'
+            };
+
         return (
             <li className="item sg-inline-middle sg-f-bdy">
                 <a className="img-box-wrapper" href={order_link} style={{flex: '3'}}>

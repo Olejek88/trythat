@@ -74,6 +74,13 @@ const ActivityCategories = {
         requests.get(`/v1/activity-categories/${id}`)
 };
 
+const ActivityImage = {
+    all: (id) =>
+        requests.get(`/v1/activity-images/activity/${id}`),
+    get: (id) =>
+        requests.get(`/v1/activity-images/${id}`)
+};
+
 const ActivityListing = {
     forActivity: (activity_id) =>
         requests.get(`/v1/activity-listings/activity?${activity_id}`),
@@ -94,7 +101,7 @@ const Activities = {
     filter: (filter, id, lim = 3, start = 0) =>
         requests.get(`/v1/activities/${filter}/${id}?${limit(lim, start)}`),
     get: id =>
-        requests.get(`/v1/activities/${id}`),
+        requests.get(`/v1/activities/${id}?expand=luminary_id`),
     all: (lim = 10,page = 0) =>
         requests.get(`/v1/activities/all?${limit(lim, page)}`),
     isFavorite: (activity_id, customer_id) =>
@@ -296,6 +303,7 @@ const User = {
 
 export default {
     Activities,
+    ActivityImage,
     ActivityListing,
     ActivityCategories,
     Auth,

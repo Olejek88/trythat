@@ -8,6 +8,7 @@ import App from './components/App';
 
 import activityStore from "./stores/activityStore";
 import activityCategoryStore from "./stores/activityCategoryStore";
+import activityImageStore from "./stores/activityImageStore";
 import activityListingStore from "./stores/activityListingStore";
 import commonStore from './stores/commonStore';
 import userStore from './stores/userStore';
@@ -36,6 +37,7 @@ import mailStatusStore from "./stores/mailStatusStore";
 
 const stores = {
     activityStore,
+    activityImageStore,
     activityCategoryStore,
     activityListingStore,
     commonStore,

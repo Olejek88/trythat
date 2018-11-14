@@ -92,10 +92,28 @@ export class ActivityStore {
             if (activity) return Promise.resolve(activity);
         }
         this.isLoading = true;
-        agent.Activities.get(id)
-            .then(action(({activity}) => {
+        return agent.Activities.get(id)
+            .then(action((activity) => {
+                activity.images = [];
                 this.activitiesRegistry.set(activity._id, activity);
-                return activity;
+                console.log(activity);
+                agent.ActivityImage.all(activity.id)
+                    .then(action((activityImages) => {
+                        console.log(activityImages);
+                        for (let activityImage in activityImages) {
+                            agent.Image.get(activityImage.image_id)
+                                .then(action((image) => {
+                                    console.log(image);
+                                    activity.images.push(image);
+                                }))
+                                .catch(action(err => {
+                                    throw err;
+                                }));
+                        }
+                    }))
+                    .catch(action(err => {
+                        throw err;
+                    }));
             }))
             .finally(action(() => {
                 this.isLoading = false;
@@ -103,7 +121,7 @@ export class ActivityStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData;
+        //return this.staticData;
     }
 
     @action isFavorite(activity_id, customer_id) {
