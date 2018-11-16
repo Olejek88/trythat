@@ -34,8 +34,7 @@ class ActivityReviews extends React.Component {
                 id: this.props.activity.id
             };
             reviewStore.setPredicate(predicate);
-            reviewStore.loadReviews().
-                then(action((reviews) => {
+            reviewStore.loadReviews().then(action((reviews) => {
                     const averageMark = reviewStore.getAverageMark();
                     self.setState({averageMark: averageMark});
                     reviews.forEach(function (review, i) {

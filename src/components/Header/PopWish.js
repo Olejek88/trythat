@@ -2,33 +2,37 @@ import React from 'react';
 import {observer} from 'mobx-react';
 import WishListPopItem from "../WishList/WishListPopItem";
 import {inject} from "mobx-react/index";
+import {action} from "mobx/lib/mobx";
 
 @inject('activityStore', 'activityListingStore', 'userStore')
 @observer
 class PopWish extends React.Component {
     constructor() {
         super();
-        this.wishList = '';
+        this.state = {
+            updated: false,
+            wishList: 'Список желаний пуст'
+        };
+        this.wishList = 'Список желаний пуст';
     }
 
     componentWillMount() {
+        let self = this;
         let predicate = {
             filter: 'wish',
-            id: this.props.userStore.currentUser._id
+            id: this.props.userStore.currentUser.id
         };
         this.props.activityStore.setPredicate(predicate);
-        const activities = this.props.activityStore.loadActivities();
-        const activityListingStore = this.props.activityListingStore;
-        if (activities) {
-            this.wishList = activities.map(function (activity,i) {
-                activityListingStore.loadActivityListing(activity);
-                //console.log(activityListingStore.activityListingRegistry);
-                const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
-                //const activityPrice ='hui';
-                return (<WishListPopItem activity={activity} key={i} price={activityPrice}/>);
-            });
-        }
-        else this.wishList = 'Список желаний пуст';
+        this.props.activityStore.loadActivities().then(action((activities) => {
+                activities.forEach(function (activity, i) {
+                    const activityListingStore = this.props.activityListingStore;
+                    activityListingStore.loadActivityListing(activity).then(action(() => {
+                        const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
+                        self.wishList.push(<WishListPopItem activity={activity} key={i} price={activityPrice}/>);
+                        self.setState({wishList: self.wishList});
+                    }));
+                });
+            }));
     }
 
     render() {
@@ -49,7 +53,9 @@ class PopWish extends React.Component {
                                          style={{position: 'relative', top: '0'}}>
                                         <ul className="wish-popup-ul">
                                             <React.Fragment>
-                                                {this.wishList}
+                                                {this.state.updated &&
+                                                    this.state.wishList
+                                                }
                                             </React.Fragment>
                                             <div
                                                 className="separator sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right">

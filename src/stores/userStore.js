@@ -3,7 +3,6 @@ import agent from "../agent";
 import cityStore from "./cityStore";
 import imageStore from "./imageStore";
 import countryStore from "./countryStore";
-import commonStore from "./commonStore";
 
 export class UserStore {
     currentUser =
@@ -19,8 +18,8 @@ export class UserStore {
             country_id: 0,
             password: ''
         };
-    @observable currentCustomer;
-    @observable currentLuminary;
+    currentCustomer;
+    currentLuminary;
     @observable loadingUser;
     @observable updatingUser;
     @observable updatingUserErrors;
@@ -74,7 +73,6 @@ export class UserStore {
                     this.currentUser = user[0];
                     this.currentCustomer = this.getCustomerByUser(this.currentUser.id);
                     this.currentLuminary = this.getLuminaryByUser(this.currentUser.id);
-                    console.log("[" + this.currentUser.id + "] customer=" + this.currentCustomer.id + " luminary=" + this.currentLuminary);
                 }
             }))
             .finally(action(() => {
@@ -121,18 +119,30 @@ export class UserStore {
 
     @action getCustomerByUser(user_id) {
         return agent.Customer.forUser(user_id)
+            .then(action((customer) => {
+                console.log(customer);
+                this.currentCustomer = customer;
+                console.log(this.currentCustomer);
+            }))
             .catch(action(err => {
-                console.log(err);
+                console.log(this.customer);
                 return this.customer;
+            }))
+            .finally(action(() => {
+                this.updatingUser = false;
             }));
     }
 
     @action getLuminaryByUser(user_id) {
+        return this.luminary;
+/*
+
         return agent.Luminary.forUser(user_id)
             .catch(action(err => {
                 console.log(err);
                 return this.luminary;
             }));
+*/
     }
 }
 

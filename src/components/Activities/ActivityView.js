@@ -3,6 +3,7 @@ import {inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom'
 import ExperienceTitle from "../Experience/ExperienceTitle";
 import ExperienceRow from "../Experience/ExperienceRow";
+import {action} from "mobx/lib/mobx";
 
 @inject('activityStore', 'userStore')
 @withRouter
@@ -10,7 +11,8 @@ export default class ActivityView extends React.Component {
     constructor() {
         super();
         this.state = {
-            activitiesRows: []
+            activitiesRows: [],
+            updated: false
         };
     }
 
@@ -24,40 +26,47 @@ export default class ActivityView extends React.Component {
     }
 
     componentDidMount() {
-        let activities = this.props.activityStore.loadActivities();
         let my = this;
         let activitiesRow = [];
         let activitiesRows = my.state.activitiesRows;
         let count = 0;
-        if (activities && activities.length>0) {
-            switch (my.props.filter) {
-                case 'city':
-                    if (activities[0].location)
-                        activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления в Вашем городе '+ activities[0].location.city.title}/>);
-                    break;
-                case 'occasion':
-                    if (activities[0].occasion)
-                        activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления на случай '+ activities[0].occasion.title}/>);
-                    break;
-                case 'trends':
-                    if (activities[0].trending)
-                        activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления для '+ activities[0].trending.title}/>);
-                    break;
-                default:
-                    activitiesRows.push(<ExperienceTitle key={1} title="Лучшие впечатления для Вас"/>);
-                    break;
+        this.props.activityStore.loadActivities().then(action((activities) => {
+            if (activities) {
+                switch (my.props.filter) {
+                    case 'city':
+                        if (activities[0].location)
+                            my.state.activitiesRows.push(<ExperienceTitle key={1}
+                                                                 title={'Лучшие впечатления в Вашем городе ' + activities[0].location.city.title}/>);
+                        break;
+                    case 'occasion':
+                        if (activities[0].occasion)
+                            my.state.activitiesRows.push(<ExperienceTitle key={1}
+                                                                 title={'Лучшие впечатления на случай ' + activities[0].occasion.title}/>);
+                        break;
+                    case 'trends':
+                        if (activities[0].trending)
+                            my.state.activitiesRows.push(<ExperienceTitle key={1}
+                                                                 title={'Лучшие впечатления для ' + activities[0].trending.title}/>);
+                        break;
+                    default:
+                        my.state.activitiesRows.push(<ExperienceTitle key={1} title="Лучшие впечатления для Вас"/>);
+                        break;
+                }
+                activities.forEach(function (activity, i) {
+                    activitiesRow.push(activity);
+                    count++;
+                    if (count % 4 === 0) {
+                        //activitiesRows = my.state.activitiesRows;
+                        activitiesRows.push(<ExperienceRow activities={activitiesRow} key={i}/>);
+                        my.setState({activitiesRows: activitiesRows});
+                        activitiesRow = [];
+                    }
+                });
+                my.setState({updated: true});
+            } else {
+                my.state.activitiesRows.push(<ExperienceTitle key={1} title="Лучшие впечатления для Вас"/>);
             }
-        }
-        activities.forEach(function (activity, i) {
-            activitiesRow.push(activity);
-            count++;
-            if (count % 4 === 0) {
-                activitiesRows = my.state.activitiesRows;
-                activitiesRows.push(<ExperienceRow activities={activitiesRow} key={i}/>);
-                my.setState({activitiesRows: activitiesRows});
-                activitiesRow = [];
-            }
-        });
+        }));
     }
 
     render() {

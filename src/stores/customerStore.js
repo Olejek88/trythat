@@ -19,11 +19,7 @@ class CustomerStore {
         this.customerErrors = undefined;
         return agent.Customer.get(id)
             .catch(action(err => {
-                this.customerErrors = err.response && err.response.body && err.response.body.errors;
-                throw err;
-            }))
-            .catch(action(err => {
-                throw err;
+                console.log(err);
             }));
     }
 

@@ -9,18 +9,18 @@ export class MailStore {
     @observable isLoading = false;
     @observable page = 0;
     @observable totalPagesCount = 0;
-    @observable mailRegistry = observable.map();
+    mailRegistry = new Map();
     @observable addMailErrors;
     @observable predicate = {};
 
     staticData =
         [{
             _id: '1',
-            fromUser: userStore.getUser(),
-            toUser: userStore.getUser(),
+            fromUser: userStore.currentUser,
+            toUser: userStore.currentUser,
             answerTo: null,
-            status: mailStatusStore.loadMailStatus(1),
-            activity: activityStore.loadActivity(1),
+            status: mailStatusStore.staticData[0],
+            activity: activityStore.defaultData,
             createDate: new Date(),
             sendDate: new Date(),
             readDate: new Date(),
@@ -31,11 +31,11 @@ export class MailStore {
             order: null
         }, {
             _id: '2',
-            fromUser: userStore.getUser(),
-            toUser: userStore.getUser(),
+            fromUser: userStore.currentUser,
+            toUser: userStore.currentUser,
             answerTo: 1,
-            status: mailStatusStore.loadMailStatus(1),
-            activity: activityStore.loadActivity(1),
+            status: mailStatusStore.staticData[0],
+            activity: activityStore.defaultData,
             createDate: new Date(),
             sendDate: new Date(),
             readDate: new Date(),
@@ -59,19 +59,19 @@ export class MailStore {
 
     @action loadMails() {
         this.isLoading = true;
-        this.$req()
-            .then(action(({mails, mailsCount}) => {
+        return this.$req()
+            .then(action((mails) => {
                 this.mailRegistry.clear();
-                mails.forEach(mail => this.mailRegistry.set(mail.slug, mail));
-                this.totalPagesCount = Math.ceil(mailsCount / 20);
+                mails.forEach(mail => this.mailRegistry.set(mail.id, mail));
+                this.totalPagesCount = Math.ceil(mails.length / 20);
             }))
             .finally(action(() => {
                 this.isLoading = false;
             }))
             .catch(action(err => {
                 throw err;
+                //return this.staticData;
             }));
-        return this.staticData;
     }
 
     selectMail(id) {
@@ -86,7 +86,7 @@ export class MailStore {
         this.isLoading = true;
         return agent.Mail.get(id)
             .then(action(({mail}) => {
-                this.mailRegistry.set(mail._id, mail);
+                this.mailRegistry.set(mail.id, mail);
                 return mail;
             }))
             .finally(action(() => {

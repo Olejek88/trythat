@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx';
-import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
 class CategoryStore {
@@ -7,18 +6,6 @@ class CategoryStore {
     @observable isLoading = true;
 
     defaultData = {_id: '2', title: 'Туризм'};
-/*
-    @observable staticData = [
-        {_id: '1', label: 'Еда и кулинария'},
-        {_id: '2', label: 'Туризм'}
-    ];
-
-    //
-
-    @computed get staticDataOptions() {
-        return this.staticData.map(x => ({ label: x.label, value: x._id }))
-    };
-*/
 
     @action loadCategories() {
         return agent.Categories.all()
@@ -31,7 +18,6 @@ class CategoryStore {
             .catch(action(err => {
                 throw err;
             }));
-        //return this.staticDataOptions;
     }
 
     @action loadCategory(id, {acceptCached = false} = {}) {
@@ -51,7 +37,6 @@ class CategoryStore {
             .catch(action(err => {
                 throw err;
             }));
-        //return this.testData;
     }
 }
 

@@ -3,6 +3,7 @@ import {inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import MyMenu from "./MyMenu";
 import FollowListItem from "./FollowListItem";
+import {action} from "mobx/lib/mobx";
 
 @inject('userStore', 'followListStore')
 @withRouter
@@ -13,7 +14,6 @@ export default class MyFollows extends React.Component {
     }
 
     componentWillMount() {
-        console.log('componentWillMount');
         this.fillList();
     }
 
@@ -21,10 +21,14 @@ export default class MyFollows extends React.Component {
         let self = this;
         self.followsRows = [];
 
-        let followList = this.props.followListStore.loadFollowList(this.props.userStore.currentCustomer);
-        followList.forEach(function (follow, i) {
-            self.followsRows.push(<FollowListItem luminary={follow.luminary} key={i}/>);
-        });
+        this.props.followListStore.loadFollowList(this.props.userStore.currentCustomer).then(action((followList) => {
+                followList.forEach(function (follow, i) {
+                    self.followsRows.push(<FollowListItem luminary={follow.luminary} key={i}/>);
+                })
+            })).catch(action(err => {
+            console.log(err);
+            throw err;
+        }));
     }
 
     render() {

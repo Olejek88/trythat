@@ -49,9 +49,7 @@ export default class App extends React.Component {
         if (this.props.commonStore.appLoaded) {
             return (
                 <div>
-{/*
                     <Header/>
-*/}
                     <Switch>
                         <Route path="/activities/:filter/:id" component={Activities}/>
                         <Route path="/cart/checkout" component={Checkout}/>
@@ -78,18 +76,14 @@ export default class App extends React.Component {
                         <Route path="/add" component={AddActivity}/>
                         <Route path="/" component={Home}/>
                     </Switch>
-{/*
                     <Footer/>
-*/}
                 </div>
             );
         }
         return (
             <div>
-{/*
                 <Header/>
                 <Footer/>
-*/}
             </div>
         );
     }

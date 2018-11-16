@@ -35,17 +35,6 @@ export class ActivityStore {
             durations: durationStore.staticData[0]
         };
 
-    @action loadTestActivities(count) {
-        let tempArray = [];
-/*
-        while (count > 0) {
-            tempArray.push(this.staticData);
-            count--;
-        }
-*/
-        return tempArray;
-    }
-
     clear() {
         this.activitiesRegistry.clear();
     }
@@ -72,13 +61,13 @@ export class ActivityStore {
         return this.$req()
             .then(action(({activities}) => {
                 this.activitiesRegistry.clear();
-                activities.forEach(activity => this.activitiesRegistry.set(activity._id, activity));
+                activities.forEach(activity => this.activitiesRegistry.set(activity.id, activity));
             }))
             .finally(action(() => {
                 this.isLoading = false;
             }))
             .catch(action(err => {
-                throw err;
+                return [this.defaultData];
             }));
         // [тест] возвращаем или н-ное количество или массив из одной статике
 /*

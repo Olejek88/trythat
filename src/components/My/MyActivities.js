@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import ActivityListItem from "./ActivityListItem";
 import ActivityListingItem from "./ActivityListingItem";
 import MyMenu from "./MyMenu";
+import {action} from "mobx/lib/mobx";
 
 @withRouter
 @inject('userStore', 'activityStore', 'activityListingStore')
@@ -92,10 +93,14 @@ export default class MyActivities extends React.Component {
                 }
             }
 
-            let activities = this.props.activityStore.loadActivities();
-            activities.forEach(function (activity, i) {
-                self.activitiesRows.push(<ActivityListItem activity={activity} key={i}/>);
-            });
+            this.props.activityStore.loadActivities().then(action((activities) => {
+                activities.forEach(function (activity, i) {
+                    self.activitiesRows.push(<ActivityListItem activity={activity} key={i}/>);
+                })
+            })).catch(action(err => {
+                console.log(err);
+                throw err;
+            }));
             this.setState({showSearch: true});
         }
     }

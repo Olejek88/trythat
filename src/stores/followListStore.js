@@ -18,7 +18,7 @@ class FollowListStore {
     @action loadFollowList(customer) {
         this.isLoading = true;
         return agent.FollowList.get(customer)
-            .then(action(({ followList}) => {
+            .then(action((followList) => {
                 this.followListRegistry.clear();
                 followList.forEach(follow =>
                     this.followListRegistry.set(follow.id, follow));

@@ -31,7 +31,7 @@ class PopWish extends React.Component {
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Предпочтения</p></li>
                         </a>
-                        <a href="/communication">
+                        <a href="/#/mail">
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Общение<span className="bubble notification unread sg-c-3 bg-ovr-4"
                                                 style={{

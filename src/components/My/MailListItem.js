@@ -4,7 +4,7 @@ import moment from "moment";
 import AnswerDialog from "./AnswerDialog";
 import mailStore from "../../stores/mailStore";
 
-@inject('userStore', 'mailStore')
+@inject('userStore', 'mailStore', 'commonStore')
 class MailListItem extends React.Component {
     constructor() {
         super();
@@ -64,7 +64,7 @@ class MailListItem extends React.Component {
                                         <td style={{width: '100px'}}>
                                             <div className="avatar article-avatar">
                                                 <span className="icon-agent"></span>
-                                                <img src={this.mail.fromUser.image.path} alt="from"
+                                                <img src={this.props.commonStore.apiServer+this.mail.fromUser.image.path} alt="from"
                                                      className="user-avatar"/>
                                             </div>
                                         </td>

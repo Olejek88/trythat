@@ -58,11 +58,6 @@ export class ActivityListingStore {
             .catch(action(err => {
                 throw err;
             }));
-/*
-        this.staticData.forEach(activityListing =>
-            this.activityListingRegistry.set(activityListing._id,activityListing));
-        return this.staticData;
-*/
     }
 
     loadTestOneActivityListing() {

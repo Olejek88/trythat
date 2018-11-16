@@ -32,8 +32,7 @@ class ActivityYouMayLike extends React.Component {
             };
             this.props.activityStore.setPredicate(predicate);
 
-            this.props.activityStore.loadActivities().
-            then(action((activities) => {
+            this.props.activityStore.loadActivities().then(action((activities) => {
                 activities.forEach(function (activity, i) {
                     self.activityList.push(<Experience activity={activity} key={i}/>);
                 });

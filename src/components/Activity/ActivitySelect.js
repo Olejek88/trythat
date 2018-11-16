@@ -77,8 +77,7 @@ class ActivitySelect extends React.Component {
             this.setState({activity: this.props.activity});
             this.setState({luminary: this.props.activity.luminary});
             this.setState ({updated: true});
-            this.props.activityListingStore.loadActivityListing(this.props.activity).
-                then(action(() => {
+            this.props.activityListingStore.loadActivityListing(this.props.activity).then(action(() => {
                     this.activityListingDurations =
                         this.props.activityListingStore.loadActivityListingSelectDuration(this.props.activity);
                     this.activityCustomers =

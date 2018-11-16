@@ -17,8 +17,8 @@ export class OrderStore {
 
     staticData =
         [{   _id: '1',
-            listing: activityListingStore.loadTestOneActivityListing(),
-            orderStatus: orderStatusStore.loadOrderStatus(1),
+            listing: activityListingStore.defaultData[0],
+            orderStatus: orderStatusStore.staticData[0],
             created: new Date(),
             customer: customerStore.customer,
             startDate: new Date()
@@ -38,17 +38,18 @@ export class OrderStore {
 
     @action loadOrders() {
         this.isLoading = true;
-        this.$req()
-            .then(action(({ orders, ordersCount }) => {
-                this.ordersRegistry.clear();
-                orders.forEach(order => this.ordersRegistry.set(order.slug, order));
-                this.totalPagesCount = Math.ceil(ordersCount / LIMIT);
+        return this.$req()
+            .then(action((orders) => {
+                if (orders) {
+                    this.ordersRegistry.clear();
+                    orders.forEach(order => this.ordersRegistry.set(order.slug, order));
+                    this.totalPagesCount = Math.ceil(orders.length / LIMIT);
+                }
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData;
     }
 
     getOrder(id) {

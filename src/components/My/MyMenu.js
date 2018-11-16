@@ -12,6 +12,16 @@ class MyMenu extends React.Component {
                             <li className="menu-li account sg-c-2">
                                 <a href={"/#/settings"}>Профиль</a>
                             </li>
+                            <li className="menu-li sg-c-2">
+                                <ul className="sub-menu">
+                                    <li className="menu-li orders purchases sg-c-2">
+                                        <a href={"/#/my/customer"}>Клиент</a>
+                                    </li>
+                                    <li className="menu-li auctions sg-c-2">
+                                        <a href={"/#/my/luminary"}>Исполнитель</a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li className="menu-li account sg-c-2">
                                 <a href={"/#/my/current"}>Мои предложения</a>
                             </li>

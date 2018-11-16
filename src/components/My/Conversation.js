@@ -5,6 +5,7 @@ import MyMenu from "./MyMenu";
 import MailListItem from "./MailListItem";
 import EmptyMailBox from "./EmptyMailBox";
 import Redirect from "react-router-dom/es/Redirect";
+import {action} from "mobx/lib/mobx";
 
 @withRouter
 @inject('userStore', 'mailStore', 'activityStore')
@@ -13,11 +14,13 @@ export default class Conversation extends React.Component {
         super();
         this.state = {
             search: '',
+            mails: [],
+            updated: false,
             login: false,
             header: 'Входящие'
         };
-        this.empty = <EmptyMailBox />;
         this.mails = [];
+        this.empty = <EmptyMailBox />;
         this.inputChange = this.inputChange.bind(this);
     }
 
@@ -37,7 +40,7 @@ export default class Conversation extends React.Component {
 
     inputChange(event) {
         let self = this;
-        self.mails = [];
+        self.state.mails = [];
         this.setState({
             search: event.target.value
         });
@@ -47,17 +50,18 @@ export default class Conversation extends React.Component {
             limit: 10
         };
         this.props.mailStore.setPredicate(predicate);
-        let mails = this.props.mailStore.loadMails();
-        mails.forEach(function (mail, i) {
-            self.mails.push(<MailListItem mail={mail} key={i}/>);
-        });
+        this.props.mailStore.loadMails().then(action(() => {
+            this.props.mailStore.mailRegistry.forEach(function (mail, i) {
+                self.state.mails.push(<MailListItem mail={mail} key={i}/>);
+            });
+        }));
+        this.setState({updated: true});
     }
 
     fillList(nextProps) {
         let filter = null;
         let id = null;
         let self = this;
-        self.mails = [];
 
         if (nextProps) {
             filter = nextProps.match.params.filter;
@@ -87,10 +91,18 @@ export default class Conversation extends React.Component {
             limit: 20
         };
         this.props.activityStore.setPredicate(predicate);
-        let mails = this.props.mailStore.loadMails();
-        mails.forEach(function (mail, i) {
-            self.mails.push(<MailListItem mail={mail} key={i}/>);
-        });
+        this.mails = [];
+        this.props.mailStore.loadMails().then(action(() => {
+            this.props.mailStore.mailRegistry.forEach(function (mail, i) {
+                self.mails.push(<MailListItem mail={mail} key={i}/>);
+                console.log(mail);
+            });
+            console.log(self.mails);
+            self.setState({mails: self.mails});
+            this.setState({updated: true});
+        })).catch(action(err => {
+            console.log(err);
+        }));
     }
 
     render() {
@@ -122,10 +134,10 @@ export default class Conversation extends React.Component {
                                                style={{paddingLeft: '50px', width: '100%'}} type="search"/>
                                     </div>
                                     <div className="conversation_div">
-                                        {this.mails===[] &&
+                                        {this.state.mails===[] &&
                                             this.empty
                                         }
-                                        {this.mails}
+                                        {this.state.mails}
                                     </div>
                                 </div>
                             </div>

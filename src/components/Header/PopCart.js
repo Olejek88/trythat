@@ -2,23 +2,39 @@ import React from 'react';
 import {observer} from 'mobx-react';
 import OrderListPopItem from "../Orders/OrderListPopItem";
 import {inject} from "mobx-react/index";
+import {action} from "mobx/lib/mobx";
 
 @inject('orderStore')
 @observer
 class PopCart extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            updated: false,
+            sum: 0,
+            orderList: 'Корзина пуста'
+        };
+        this.orderList='Корзина пуста';
+    }
+
+    componentWillMount() {
+        let self = this;
+        let predicate = {
+            filter: 'new',
+            id: 1
+        };
+        this.props.orderStore.setPredicate(predicate);
+        this.props.orderStore.loadOrders().then(action((orders) => {
+                orders.forEach(function (order, i) {
+                    let activity = order.listing.activity;
+                    self.setState ({sum: this.state.sum+order.listing.cost});
+                    self.orderList.push(<OrderListPopItem activity={activity} key={i} order={order}/>);
+                    self.setState({orderList: self.orderList});
+                });
+            }));
+    }
+
     render() {
-        let orderList = '';
-        const orderStore = this.props.orderStore;
-        const orders = orderStore.loadOrders();
-        let sum = 0;
-        if (orders) {
-            orderList = orders.map(function (order, i) {
-                let activity = order.listing.activity;
-                sum += order.listing.cost;
-                return (<OrderListPopItem activity={activity} key={i} order={order}/>);
-            });
-        }
-        else orderList = 'Корзина пуста';
         return (
             <div id="cart-popup-wrapper" className="io-popup-wrapper">
                 <div id="cart-popup-box" className="sg-bg-3 sg-bd-3">
@@ -47,7 +63,9 @@ class PopCart extends React.Component {
                                     <div className="mCSB_container mCS_no_scrollbar"
                                          style={{position: 'relative', top: '0'}}>
                                         <ul style={{padding: '0 10px'}}>
-                                            {orderList}
+                                            {this.state.updated &&
+                                                this.state.orderList
+                                            }
                                             <div className="seperator sg-bd-2 sg-no-bd-top">
                                             </div>
                                         </ul>
@@ -76,7 +94,7 @@ class PopCart extends React.Component {
                                     <a href="/#/cart" className="goto-link sg-text-transform">корзина</a>
                                 </div>
                                 <div className="subtotal" style={{maxWidth: '150px'}}>
-                                    Подитог: {sum}р.
+                                    Подитог: {this.state.sum}р.
                                 </div>
                             </div>
                         </div>

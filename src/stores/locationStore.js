@@ -8,14 +8,14 @@ class LocationStore {
     @observable isLoading = false;
     @observable locationsRegistry = observable.map();
 
-    testData = [{
+    testData = {
         _id: 1,
-        city: cityStore.loadCity(1),
+        city: cityStore.defaultData,
         title: 'Челябинская обл., вулкан Свердловский',
         latitude: 55.66,
         longitude: 56.44,
-        image: imageStore.loadImage(1)
-    }];
+        image: imageStore.images[0]
+    };
 
     getLocation(id) {
         return this.locationsRegistry.get(id);
@@ -28,7 +28,7 @@ class LocationStore {
         }
         this.isLoading = true;
         agent.Locations.get(id)
-            .then(action(({ location }) => {
+            .then(action((location) => {
                 this.locationsRegistry.set(location.slug, location);
                 return location;
             }))
@@ -42,7 +42,7 @@ class LocationStore {
     @action loadLocations() {
         this.isLoading = true;
         agent.Locations.all()
-            .then(action(({ locations }) => {
+            .then(action(({locations}) => {
                 this.locationsRegistry.clear();
                 locations.forEach(location => this.locationsRegistry.set(locations.slug, location));
             }))

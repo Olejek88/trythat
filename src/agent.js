@@ -223,7 +223,8 @@ const MailStatus = {
 
 const Mail = {
     filter: (filter, id, lim = 10, start = 0) =>
-        requests.get(`/v1/mails/${filter}/${id}?${limit(lim, start)}`),
+//        requests.get(`/v1/mails/${filter}/${id}?${limit(lim, start)}`),
+        requests.get(`/v1/mails?expand=fromUser.image,toUser.image`),
     get: mail_id =>
         requests.get(`/v1/mails/${mail_id}`),
     create: (mail) =>
