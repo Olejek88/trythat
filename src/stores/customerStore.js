@@ -8,16 +8,16 @@ class CustomerStore {
     @observable updatingCustomerErrors;
 
     @observable customer =
-        {   _id: '1',
+        {   id: '888888',
             user: userStore.getUser(),
-            positive: 1,
-            negative: 2,
+            positive: 0,
+            negative: 0,
             active: true
         };
 
-    @action getCustomer(user_id) {
+    @action getCustomer(id) {
         this.customerErrors = undefined;
-        agent.Customer.forUser(user_id)
+        return agent.Customer.get(id)
             .catch(action(err => {
                 this.customerErrors = err.response && err.response.body && err.response.body.errors;
                 throw err;
@@ -25,7 +25,6 @@ class CustomerStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.customer;
     }
 
     @action createCustomer(customer) {

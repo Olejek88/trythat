@@ -71,6 +71,7 @@ class SettingsForm extends React.Component {
                 case 'year':
                     this.birthDate.year = e.target.options[e.target.selectedIndex].value;
                     break;
+                default:
             }
             this.setState({birthDate: this.birthDate.year+"-"+this.birthDate.month+"-"+this.birthDate.day+" 00:00:00"});
         };

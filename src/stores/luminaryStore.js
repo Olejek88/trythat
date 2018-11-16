@@ -7,30 +7,21 @@ class LuminaryStore {
     @observable updatingLuminary;
     @observable updatingLuminaryErrors;
 
-    @observable luminary =
-        {   _id: '1',
-            verified: true,
+    luminary =
+        {   id: '888888',
+            verified: false,
             verifiedDate: new Date(),
-            rating: 5.0,
-            description: 'Гуру-йог 15ой категории по воздухоплаванию на глубине',
-            fullDescription: 'Признанный как один из самых важных йогов в Челябинске, Олег возглавлял центр выращивания еды на сезонном и местном уровне, поддерживая местную продовольственную экономику',
-            user: userStore.getUser()
+            rating: 0.0,
+            description: 'Нет описания',
+            fullDescription: 'Нет описания',
+            user: userStore.currentUser
         };
 
-    @action getLuminaryByUser(user_id) {
-        agent.Luminary.forUser(user_id)
-            .catch(action(err => {
-                throw err;
-            }));
-        return this.luminary;
-    }
-
     @action getLuminary(luminary_id) {
-        agent.Luminary.get(luminary_id)
+        return agent.Luminary.get(luminary_id)
             .catch(action(err => {
                 throw err;
             }));
-        return this.luminary;
     }
 
     @action createLuminary(luminary) {

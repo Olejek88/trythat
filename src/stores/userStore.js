@@ -3,12 +3,11 @@ import agent from "../agent";
 import cityStore from "./cityStore";
 import imageStore from "./imageStore";
 import countryStore from "./countryStore";
-import customerStore from "./customerStore";
-import luminaryStore from "./luminaryStore";
+import commonStore from "./commonStore";
 
 export class UserStore {
     currentUser =
-        {   _id: '',
+        {   id: '',
             username: '',
             email: '',
             firstName: '',
@@ -30,18 +29,36 @@ export class UserStore {
     //     this.currentUser = this.testData;
     // }
 
-    @observable testData =
-        {   _id: '1',
+    testData =
+        {   id: '1',
             username: 'olejek',
             email: 'olejek8@yandex.ru',
             firstName: 'Олег',
             lastName: 'Иванов',
             birthDate: new Date(1978,8,28,0,0,0),
             phone: '+79000242832',
-            city: cityStore.loadCity(1),
-            image: imageStore.loadImage(1),
-            country: countryStore.loadCountry(1),
+            city: cityStore.defaultData,
+            image: imageStore.images[0],
+            country: countryStore.defaultData,
             password: '123456'
+        };
+
+    customer =
+        {   id: '888888',
+            user: this.currentUser,
+            positive: 0,
+            negative: 0,
+            active: true
+        };
+
+    luminary =
+        {   id: '888888',
+            verified: false,
+            verifiedDate: new Date(),
+            rating: 0.0,
+            description: 'Нет описания',
+            fullDescription: 'Нет описания',
+            user: this.currentUser
         };
 
     @action getUser() {
@@ -53,10 +70,13 @@ export class UserStore {
         this.loadingUser = true;
         return agent.Auth.current()
             .then(action((user) => {
-                this.currentUser = user;
-                this.currentCustomer = customerStore.getCustomer(user._id);
-                this.currentLuminary = luminaryStore.getLuminaryByUser(user._id);
-                }))
+                if(user[0]) {
+                    this.currentUser = user[0];
+                    this.currentCustomer = this.getCustomerByUser(this.currentUser.id);
+                    this.currentLuminary = this.getLuminaryByUser(this.currentUser.id);
+                    console.log("[" + this.currentUser.id + "] customer=" + this.currentCustomer.id + " luminary=" + this.currentLuminary);
+                }
+            }))
             .finally(action(() => {
                 this.loadingUser = false;
             }))
@@ -97,6 +117,22 @@ export class UserStore {
 
     @action forgetUser() {
         this.currentUser = undefined;
+    }
+
+    @action getCustomerByUser(user_id) {
+        return agent.Customer.forUser(user_id)
+            .catch(action(err => {
+                console.log(err);
+                return this.customer;
+            }));
+    }
+
+    @action getLuminaryByUser(user_id) {
+        return agent.Luminary.forUser(user_id)
+            .catch(action(err => {
+                console.log(err);
+                return this.luminary;
+            }));
     }
 }
 

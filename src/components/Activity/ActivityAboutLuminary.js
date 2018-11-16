@@ -1,14 +1,20 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
 import ExperienceMini from "../Experience/ExperienceMini";
+import {action} from "mobx/lib/mobx";
+import luminaryStore from "../../stores/luminaryStore";
 
-@inject('activityStore', 'followListStore', 'customerStore', 'userStore')
+@inject('activityStore','commonStore', 'followListStore', 'customerStore', 'userStore')
 @observer
 class ActivityAboutLuminary extends React.Component {
     constructor() {
         super();
 
         this.state = {
+            updated: false,
+            activity: null,
+            luminary: luminaryStore.luminary,
+            activity_from_luminary: [],
             followClass: "follow following  wide  button primaryButton",
             followButtonText: 'Подписаться',
             checkStyle: 'greenCheck display_none',
@@ -35,37 +41,58 @@ class ActivityAboutLuminary extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.luminary) {
-            const customer = this.props.customerStore.getCustomer();
-            const follow = this.props.followListStore.isFollow(customer._id, this.props.luminary._id);
+        this.setState({activity: this.props.activity});
+    }
 
-            this.setState({following: follow});
-            if (follow) {
-                this.setState({followClass: "follow following  wide  button primaryButton"});
-                this.setState({followButtonText: 'Подписаться'});
-                this.setState({checkStyle: 'greenCheck display_none'});
+    componentDidUpdate() {
+        if (this.props.activity && !this.state.updated) {
+            let self = this;
+            const luminary = this.props.activity.luminary;
+            let predicate = {
+                filter: 'luminary',
+                id: luminary.id
+            };
+            this.props.activityStore.setPredicate(predicate);
+
+            this.props.activityStore.loadActivities().then(action((activities) => {
+                activities.forEach(function (activity) {
+                    console.log(activity);
+                    self.state.activity_from_luminary.push(activity);
+                });
+            })).catch(action(err => {
+                console.log("err=" + err);
+                throw err;
+            }));
+
+            if (this.props.activity.luminary) {
+                console.log(this.props.activity.luminary);
+                this.setState({luminary: this.props.activity.luminary});
+                const customer = this.props.userStore.currentCustomer;
+                this.props.followListStore.isFollow(customer.id, this.props.activity.luminary.id)
+                    .then(action((follow) => {
+                        this.setState({following: follow});
+                        if (follow) {
+                            this.setState({followClass: "follow following  wide  button primaryButton"});
+                            this.setState({followButtonText: 'Подписаться'});
+                            this.setState({checkStyle: 'greenCheck display_none'});
+                        }
+                        else {
+                            this.setState({followClass: 'follow following  wide button secondaryButton js-following'});
+                            this.setState({followButtonText: 'Подписаны'});
+                            this.setState({checkStyle: 'greenCheck display_initial'});
+                        }
+                    }))
+                    .catch(action(err => {
+                        console.log("err=" + err);
+                        throw err;
+                    }));
             }
-            else {
-                this.setState({followClass: 'follow following  wide button secondaryButton js-following'});
-                this.setState({followButtonText: 'Подписаны'});
-                this.setState({checkStyle: 'greenCheck display_initial'});
-            }
+            self.setState({updated: true});
         }
     }
 
-    render() {
-        const luminary = this.props.luminary;
-        let activity_from_luminary = [];
-        let predicate = {
-            filter: 'luminary',
-            id: luminary._id
-        };
-        this.props.activityStore.setPredicate(predicate);
-        const activities = this.props.activityStore.loadActivities();
-        activities.forEach(function (activity) {
-            activity_from_luminary.push(activity);
-        });
 
+    render() {
         return (
             <div className="luminary-section sg-bd-2 sg-bg-2" data-html="">
                 <div className="cb" data-celebid="36">
@@ -74,8 +101,8 @@ class ActivityAboutLuminary extends React.Component {
                         <a href="/" style={{display: 'inline-block'}}>
                             <div className="img-box-wrapper">
                                 <div className="img-box">
-                                    <img className="luminary-img" src={luminary.user.image.path}
-                                         alt={luminary.user.firstName + " " + luminary.user.lastName}/>
+                                    <img className="luminary-img" src={this.props.commonStore.apiServer+this.state.luminary.user.image.path}
+                                         alt={this.state.luminary.user.firstName + " " + this.state.luminary.user.lastName}/>
                                 </div>
                             </div>
                         </a>
@@ -92,9 +119,9 @@ class ActivityAboutLuminary extends React.Component {
                     </div>
                     <div className="cb-desc ">
                         <a className="name" href="/" data-celebid="36"><h4
-                            className="sg-f-ttl">{luminary.user.firstName} {luminary.user.lastName}</h4></a>
-                        <p className="org">{luminary.description}</p>
-                        <div className="desc body-text sg-f-bdy "><p>{luminary.fullDescription}</p>
+                            className="sg-f-ttl">{this.state.luminary.user.firstName} {this.state.luminary.user.lastName}</h4></a>
+                        <p className="org">{this.state.luminary.description}</p>
+                        <div className="desc body-text sg-f-bdy "><p>{this.state.luminary.fullDescription}</p>
                         </div>
 
                     </div>
@@ -104,8 +131,8 @@ class ActivityAboutLuminary extends React.Component {
                             <a className="sg-f-bdy sg-c-1 sg-text-transform sg-inline-middle" href="/">смотреть все</a>
                         </div>
                         <div className="list mini_product_list">
-                            {activity_from_luminary[0] && <ExperienceMini activity={activity_from_luminary[0]}/>}
-                            {activity_from_luminary[1] && <ExperienceMini activity={activity_from_luminary[1]}/>}
+                            {this.state.activity_from_luminary[0] && <ExperienceMini activity={this.state.activity_from_luminary[0]}/>}
+                            {this.state.activity_from_luminary[1] && <ExperienceMini activity={this.state.activity_from_luminary[1]}/>}
                         </div>
                         <a href="/">
                             <div className="custom-exp sg-bg-1" style={{textAlign: 'center'}}>

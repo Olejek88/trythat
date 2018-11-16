@@ -1,20 +1,19 @@
 import { observable, action } from 'mobx';
-import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
 class CityStore {
     @observable cityRegistry = observable.map();
     @observable isLoading = true;
 
-    //testData = {_id: 1, title: 'Челябинск'};
-
+    defaultData = {_id: 1, title: 'Челябинск'};
+/*
     @observable staticData = [
         {_id: 1, title: 'Челябинск'},
         {_id: 2, title: 'Екатеринбург'}
     ];
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.title, value: x.id }))
-    };
+    };*/
 
     @action loadCities() {
         return agent.Cities.all()

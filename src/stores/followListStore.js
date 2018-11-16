@@ -5,41 +5,39 @@ import customerStore from "./customerStore";
 
 class FollowListStore {
     @observable isLoading = false;
-    @observable followListRegistry = observable.map();
+    followListRegistry = new Map();
 
-    @observable staticData = [
+    staticData = [
         {
-            _id: '1',
-            customer: customerStore.getCustomer(),
-            luminary: luminaryStore.getLuminaryByUser(1)
+            id: '1',
+            customer: customerStore.customer,
+            luminary: luminaryStore.luminary
         },
     ];
 
     @action loadFollowList(customer) {
         this.isLoading = true;
-        agent.FollowList.get(customer)
+        return agent.FollowList.get(customer)
             .then(action(({ followList}) => {
                 this.followListRegistry.clear();
                 followList.forEach(follow =>
-                    this.followListRegistry.set(follow._id, follow));
+                    this.followListRegistry.set(follow.id, follow));
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData;
     }
 
 
     @action isFollow(customer, luminary) {
-        agent.FollowList.isFollow(customer, luminary)
+        return agent.FollowList.isFollow(customer, luminary)
             .then(({answer}) => {
                 return answer;
             })
             .catch(action(err => {
                 throw err;
             }));
-        return false;
     }
 
     @action follow(customer, luminary) {

@@ -4,30 +4,19 @@ import activityStore from "./activityStore";
 import customerStore from "./customerStore";
 
 class ReviewStore {
-    @observable reviewRegistry = observable.map();
+    reviewRegistry = new Map();
     @observable isLoading = true;
     @observable predicate = {};
 
-    @observable staticData = [
-        {
-            _id: '1',
-            activity: activityStore.loadActivity(1),
-            customer: customerStore.getCustomer(),
-            date: new Date(),
-            rate: 4,
-            title: 'Неплохо',
-            description: 'Все в целом хорошо, но когда шар пролетает через магму очень жарко'
-        },
-        {
-            _id: '2',
-            activity: activityStore.loadActivity(1),
-            customer: customerStore.getCustomer(),
-            date: new Date(),
-            rate: 5,
-            title: 'Супер!',
-            description: 'Отлично! И кормят хорошо и йога на уровне. Стоит добавить только мини бар и развлечений на время поездки.'
-        }
-    ];
+    staticData = {
+        id: '1',
+        activity: activityStore.defaultData,
+        customer: customerStore.customer,
+        date: new Date(),
+        rate: 4,
+        title: 'Неплохо',
+        description: 'Все в целом хорошо, но когда шар пролетает через магму очень жарко'
+    };
 
     clear() {
         this.reviewRegistry.clear();
@@ -48,8 +37,8 @@ class ReviewStore {
 
     @action loadReviews() {
         this.isLoading = true;
-        this.$req()
-            .then(action(({reviews}) => {
+        return this.$req()
+            .then(action((reviews) => {
                 this.reviewRegistry.clear();
                 reviews.forEach(review =>
                     this.reviewRegistry.set(review._id, review));
@@ -60,7 +49,6 @@ class ReviewStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData;
     }
 
     @action loadReview(id, {acceptCached = false} = {}) {
@@ -69,7 +57,7 @@ class ReviewStore {
             if (review) return Promise.resolve(review);
         }
         this.isLoading = true;
-        agent.Review.get(id)
+        return agent.Review.get(id)
             .then(action(({review}) => {
                 this.reviewRegistry.set(id, review);
                 return review;
@@ -80,18 +68,11 @@ class ReviewStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData[0];
     }
 
-    getAverageMark(activity) {
+    getAverageMark() {
         let markArray = [0, 0];
-        let predicate = {
-            filter: 'activity',
-            id: activity._id
-        };
-        this.setPredicate(predicate);
-        let reviews = this.loadReviews();
-        reviews.forEach(function (review) {
+        this.reviewRegistry.forEach(function (review) {
             markArray[0] += review.rate;
             markArray[1]++;
         });

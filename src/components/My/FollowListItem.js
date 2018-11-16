@@ -33,7 +33,7 @@ class FollowListItem extends React.Component {
     }
     componentDidMount() {
         if (this.props.luminary) {
-            const customer = this.props.customerStore.getCustomer();
+            const customer = this.props.userStore.currentCustomer;
             const follow = this.props.followListStore.isFollow(customer._id, this.props.luminary._id);
             this.setState({following: follow});
             if (follow) {

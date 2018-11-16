@@ -2,8 +2,9 @@ import React from 'react';
 import {observer, inject} from 'mobx-react';
 import Select from 'react-select';
 import QuestionDialog from "../Orders/QuestionDialog";
+import {action} from "mobx/lib/mobx";
 
-@inject('activityStore','activityListingStore','orderStatusStore','customerStore','orderStore')
+@inject('activityStore','activityListingStore','orderStatusStore','customerStore','orderStore','userStore','luminaryStore')
 @observer
 class ActivitySelect extends React.Component {
     constructor() {
@@ -12,12 +13,15 @@ class ActivitySelect extends React.Component {
         this.activityListingDurations = [];
         this.activityCustomers = [];
         this.state = {
+            updated: false,
             selectedQuantity: 1,
             selectedDuration: 1,
             selectedPrice: 'не выбрано',
             favoredClass: "heart_img",
             favored: false,
-            showQuestionDialog: false
+            showQuestionDialog: false,
+            luminary: "",
+            activity: ""
         };
 
         this.onFavored = () => {
@@ -68,13 +72,23 @@ class ActivitySelect extends React.Component {
         this.setState({showQuestionDialog: !this.state.showQuestionDialog})
     }
 
-    componentDidMount() {
-        if (this.props.activity) {
-            this.activityListingDurations =
-                this.props.activityListingStore.loadActivityListingSelectDuration(this.props.activity);
-            this.activityCustomers =
-                this.props.activityListingStore.loadTestCustomersByActivityListing();
+    componentDidUpdate() {
+        if (this.props.activity && !this.state.updated) {
+            this.setState({activity: this.props.activity});
+            this.setState({luminary: this.props.activity.luminary});
+            this.setState ({updated: true});
+            this.props.activityListingStore.loadActivityListing(this.props.activity).
+                then(action(() => {
+                    this.activityListingDurations =
+                        this.props.activityListingStore.loadActivityListingSelectDuration(this.props.activity);
+                    this.activityCustomers =
+                        this.props.activityListingStore.loadTestCustomersByActivityListing();
+                })).catch(action(err => {
+                    console.log("err=" + err);
+                    throw err;
+            }));
 
+/*
             const customer = this.props.customerStore.getCustomer();
             const favor = this.props.activityStore.isFavorite(this.props.activity._id, customer._id);
             this.setState({favored: favor});
@@ -82,28 +96,32 @@ class ActivitySelect extends React.Component {
                 this.setState({favoredClass: "pdp heart_img listed"});
             else
                 this.setState({favoredClass: 'pdp heart_img'});
+*/
         }
     }
 
+    componentWillMount() {
+        this.setState ({luminary: this.props.activityStore.defaultData.luminary});
+        this.setState ({activity: this.props.activityStore.defaultData});
+    }
+
     render() {
-        const activity = this.props.activity;
-        const luminary = activity.luminary;
         return (
             <React.Fragment>
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}
-                                                                  luminary={activity.luminary}/>}
+                                                                  luminary={this.state.activity.luminary}/>}
                 <div className="right-box action-box" style={{marginBottom: '40px'}}>
                     <div className="p-attributes " data-productid="325">
-                        <h2 className="lum-name sg-f-dspl-s ">{luminary.user.firstName} {luminary.user.lastName}</h2>
+                        <h2 className="lum-name sg-f-dspl-s ">{this.state.luminary.user.firstName} {this.state.luminary.user.lastName}</h2>
                         <p className="charity-name sg-f-bdy sg-c-2 ">
                             <img src={"images/icon_ribbon.png"} style={{width: '12.5px'}} alt={""}/>
-                            <span>{luminary.description}</span>
+                            <span>{this.state.luminary.description}</span>
                         </p>
                         <div className="name-group" style={{float: 'left', width: '100%', marginTop: '34px'}}>
-                            <h1 className="p-name sg-f-ttl">{activity.title}</h1>
+                            <h1 className="p-name sg-f-ttl">{this.state.activity.title}</h1>
                             <div className="p-shortDesc body-text sg-f-bdy" data-limit="68" data-height="132"
                                  style={{height: '68px'}}>
-                                <p>{activity.shortDescription}</p>
+                                <p>{this.state.activity.shortDescription}</p>
                             </div>
                         </div>
                         <div style={{clear: 'both'}}>
@@ -123,14 +141,14 @@ class ActivitySelect extends React.Component {
                                             <td className="attr-field loc js-attr-row attr-geographic sg-inline-flex-grow">
                                                 <div>
                                                     <img src={"images/icon_loc.png"} alt={""}/>
-                                                    <p>{activity.location.title}</p>
+                                                    <p>{this.state.activity.location.title}</p>
                                                 </div>
                                             </td>
                                             <td className="attr-field js-attr-row attr-guests attr-guest2 sg-inline-flex-grow">
                                                 <div>
                                                     <img src={"images/icon_manypeeps.png"} alt={""}/>
                                                     <div>
-                                                        <p style={{maxWidth: 'none'}}>{activity.minCustomers}-{activity.maxCustomers} человек</p>
+                                                        <p style={{maxWidth: 'none'}}>{this.state.activity.minCustomers}-{this.state.activity.maxCustomers} человек</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -138,7 +156,7 @@ class ActivitySelect extends React.Component {
                                                 <div>
                                                     <img src={"images/icon_clock.png"} alt={""}/>
                                                     <div>
-                                                        <p>{activity.durations[0].period}</p>
+                                                        <p>{this.activityListingDurations.period}</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -156,9 +174,11 @@ class ActivitySelect extends React.Component {
                                                 <div className="sg-inline-middle displayonly_title "
                                                      style={{paddingLeft: '30px', boxSizing: 'border-box'}}>
                                                 </div>
-                                                <p style={{lineHeight: '22px'}}>{activity.location.title}
+                                                <p style={{lineHeight: '22px'}}>{this.state.activity.location.title}
                                                     <a className="google-map-address-link"
-                                                       href={"https://www.google.com/maps/?q=" + activity.location.longitude + "," + activity.location.latitude}
+                                                       href={"https://www.google.com/maps/?q=" +
+                                                       this.state.activity.location.longitude + "," +
+                                                       this.state.activity.location.latitude}
                                                        target="_blank" title="Открыть в новом окне">На карте</a>
                                                 </p>
                                             </div>

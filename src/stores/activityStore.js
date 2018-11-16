@@ -10,37 +10,39 @@ import locationStore from "./locationStore";
 
 export class ActivityStore {
     @observable isLoading = false;
-    @observable activitiesRegistry = observable.map();
+    activitiesRegistry = new Map();
     @observable addActivityErrors;
     @observable predicate = {};
 
-    staticData =
+    defaultData =
         {
             _id: '1',
             title: 'Путешествие к центру Земли на воздушном шаре',
-            images: imageStore.loadImages(),
-            luminary: luminaryStore.getLuminaryByUser(1),
+            images: imageStore.images,
+            luminary: luminaryStore.luminary,
             shortDescription: 'Вы увидите все слои Земли во время полета сквозь жерло действующего уральского вулкана в самом экстремальном путешествии Вашей жизни',
             description: 'Слушай: ни ты, ни поученее тебя, никто не знает достоверно, что творится во внутренности земного шара. Ведь до сих пор людям удалось проникнуть в глубь земли менее чем на мили под поверхностью моря! Помни, что наука идет вперед и что одна теория заменяется другою! Разве не полагали до Фурье, что температура планетных пространств постепенно уменьшается? А вот теперь дознано, что самые большие холода в области эфира не превосходят 40° или 50° ниже нуля! Почему ж ты не хочешь допустить, что и относительно внутреннего жара земли не может быть промахов? Почему ты не хочешь допустить, что на известной глубине ты достигнешь до предела, дальше которого жар уже не увеличивается? Почему?',
-            tags: tagStore.loadTags(),
-            category: categoryStore.loadCategory(1),
-            activityCategory: activityCategoryStore.loadActivityCategory(1),
+            tags: tagStore.staticData,
+            category: categoryStore.defaultData,
+            activityCategory: activityCategoryStore.defaultData,
             occasion: null,
-            location: locationStore.loadLocation(1),
+            location: locationStore.testData,
             trending: null,
             startDate: new Date(),
             endDate: new Date(),
             minCustomers: '1',
             maxCustomers: '10',
-            durations: durationStore.loadDurations()
+            durations: durationStore.staticData[0]
         };
 
     @action loadTestActivities(count) {
         let tempArray = [];
+/*
         while (count > 0) {
             tempArray.push(this.staticData);
             count--;
         }
+*/
         return tempArray;
     }
 
@@ -67,7 +69,7 @@ export class ActivityStore {
 
     @action loadActivities() {
         this.isLoading = true;
-        this.$req()
+        return this.$req()
             .then(action(({activities}) => {
                 this.activitiesRegistry.clear();
                 activities.forEach(activity => this.activitiesRegistry.set(activity._id, activity));
@@ -79,11 +81,13 @@ export class ActivityStore {
                 throw err;
             }));
         // [тест] возвращаем или н-ное количество или массив из одной статике
+/*
         if (this.predicate.limit)
             return this.loadTestActivities(this.predicate.limit);
         let tempArray = [];
         tempArray.push(this.staticData);
         return tempArray;
+*/
     }
 
     @action loadActivity(id, {acceptCached = false} = {}) {
@@ -94,26 +98,7 @@ export class ActivityStore {
         this.isLoading = true;
         return agent.Activities.get(id)
             .then(action((activity) => {
-                activity.images = [];
                 this.activitiesRegistry.set(activity._id, activity);
-                console.log(activity);
-                agent.ActivityImage.all(activity.id)
-                    .then(action((activityImages) => {
-                        console.log(activityImages);
-                        for (let activityImage in activityImages) {
-                            agent.Image.get(activityImage.image_id)
-                                .then(action((image) => {
-                                    console.log(image);
-                                    activity.images.push(image);
-                                }))
-                                .catch(action(err => {
-                                    throw err;
-                                }));
-                        }
-                    }))
-                    .catch(action(err => {
-                        throw err;
-                    }));
             }))
             .finally(action(() => {
                 this.isLoading = false;

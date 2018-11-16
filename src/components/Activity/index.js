@@ -10,20 +10,43 @@ import ActivityYouMayLike from "./ActivityYouMayLike";
 import {withRouter} from "react-router-dom";
 import ActivityReviews from "./ActivityReviews";
 import {inject} from "mobx-react/index";
+import {action} from "mobx/lib/mobx";
 
 @inject('activityStore','activityListingStore')
 @observer
 @withRouter
 class Activity extends React.Component {
-    render() {
-        const activity = this.props.activityStore.loadActivity(this.props.id);
-        let predicate = {
-            filter: 'luminary',
-            id: activity.luminary._id
+    constructor() {
+        super();
+        this.state = {
+            showActivityItem: true,
+            activity: null
         };
-        this.props.activityStore.setPredicate(predicate);
-        this.props.activityListingStore.loadActivityListing(activity);
-        const activities = this.props.activityStore.loadActivities();
+    }
+
+    componentDidMount() {
+        this.props.activityStore.loadActivity(this.props.match.params.id)
+            .then(() => {
+                if (this.props.activityStore.activitiesRegistry.size>0) {
+                    let activity = Array.from(this.props.activityStore.activitiesRegistry.values()).pop();
+                    this.setState({activity: activity});
+                    console.log(activity);
+                    let predicate = {
+                        filter: 'luminary',
+                        id: this.state.activity.luminary.id
+                    };
+                    this.props.activityStore.setPredicate(predicate);
+                    //this.setState ({activities: this.props.activityStore.loadActivities()});
+                    //this.props.activityListingStore.loadActivityListing(this.state.activity);
+                }
+            })
+            .catch(action(err => {
+                console.log("err=" + err);
+                throw err;
+            }));
+    }
+
+    render() {
         return (
             <div id="content">
                 <div className="product-section ">
@@ -31,19 +54,19 @@ class Activity extends React.Component {
                          style={{width: '100%', maxWidth: '1124px', margin: '0 auto'}}>
                         <div className="p-top-sec">
                             <React.Fragment>
-                                <ActivityPhoto activity={activity}/>
-                                <ActivitySelect activity={activity}/>
-                                <ActivityDescription activity={activity}/>
-                                <ActivityDetails activity={activity}/>
+                                <ActivityPhoto activity={this.state.activity}/>
+                                <ActivitySelect activity={this.state.activity}/>
+                                <ActivityDescription activity={this.state.activity}/>
+                                <ActivityDetails activity={this.state.activity}/>
                             </React.Fragment>
                         </div>
                     </div>
                 </div>
                 <React.Fragment>
                     <ActivityHowItWorks/>
-                    <ActivityReviews activity={activity}/>
-                    <ActivityAboutLuminary luminary={activity.luminary} activities={activities}/>
-                    <ActivityYouMayLike activity={activity}/>
+                    <ActivityReviews activity={this.state.activity} />
+                    <ActivityAboutLuminary activity={this.state.activity} />
+                    <ActivityYouMayLike activity={this.state.activity} />
                 </React.Fragment>
             </div>
         );

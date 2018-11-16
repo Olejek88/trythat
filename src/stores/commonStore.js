@@ -4,6 +4,7 @@ import agent from '../agent';
 class CommonStore {
 
     @observable appName = 'TryThat';
+    @observable apiServer = 'http://api.tt.ru/';
     @observable token = window.localStorage.getItem('jwt');
     @observable appLoaded = false;
 

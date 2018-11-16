@@ -1,26 +1,48 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
 import Experience from "../Experience/Experience";
+import activityStore from "../../stores/activityStore";
+import {action} from "mobx/lib/mobx";
 
 @inject('activityStore')
 @observer
 class ActivityYouMayLike extends React.Component {
-    render() {
-        let predicate = {
-            filter: 'like',
-            id: this.props.activity._id,
-            limit: 4
+    constructor() {
+        super();
+        this.state = {
+            activity: activityStore.defaultData,
+            updated: false,
+            activityList: []
         };
-        this.props.activityStore.setPredicate(predicate);
+        this.activityList=[];
+    }
 
-        let activitiesList = Array.of(undefined);
-        let activities = this.props.activityStore.loadActivities();
-        if (activities) {
-            activities.forEach(function (activity, i) {
-                activitiesList.push(<Experience activity={activity} key={i}/>);
-            });
+    componentDidMount() {
+        this.setState({activity: this.props.activity});
+    }
+
+    componentDidUpdate() {
+        if (this.props.activity && !this.state.updated) {
+            let self = this;
+            let predicate = {
+                //filter: 'like',
+                filter: null,
+                id: this.props.activity.id,
+                limit: 4
+            };
+            this.props.activityStore.setPredicate(predicate);
+
+            this.props.activityStore.loadActivities().
+            then(action((activities) => {
+                activities.forEach(function (activity, i) {
+                    self.activityList.push(<Experience activity={activity} key={i}/>);
+                });
+            }));
+            this.setState ({updated: true});
         }
+    }
 
+    render() {
         return (
             <div className="p-otherExp-section " data-html="">
                 <div className="otherExp-section">
@@ -30,7 +52,9 @@ class ActivityYouMayLike extends React.Component {
                                 <h3 className="sg-f-dspl-l sg-text-transform you-may-also-enjoy">Вам также может понравиться</h3>
                             </div>
                             <div className="experience">
-                                {activitiesList}
+                                {this.state.updated &&
+                                    this.state.activityList
+                                }
                             </div>
                         </div>
                     </div>

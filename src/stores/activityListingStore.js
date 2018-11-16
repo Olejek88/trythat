@@ -6,53 +6,67 @@ import durationStore from "./durationStore";
 
 export class ActivityListingStore {
     @observable isLoading = false;
-    @observable activityListingRegistry = observable.map();
+    activityListingRegistry = new Map();
 
-    staticData =
+    defaultData =
         [{   _id: '1',
             customers: 1,
-            activity: activityStore.loadActivity(1),
-            duration: durationStore.loadDuration(1),
+            activity: activityStore.defaultData,
+            duration: durationStore.staticData,
             cost: 2500,
-            currency: currencyStore.loadCurrency(1),
-            isGroup: false
-        },{   _id: '2',
-            customers: 2,
-            activity: activityStore.loadActivity(1),
-            duration: durationStore.loadDuration(2),
-            cost: 2000,
-            currency: currencyStore.loadCurrency(1),
+            currency: currencyStore.defaultData,
             isGroup: false
         }];
 
-    oneStaticData =
-        {   _id: '1',
-            customers: 1,
-            activity: activityStore.loadActivity(1),
-            duration: durationStore.loadDuration(3),
-            cost: 2500,
-            currency: currencyStore.loadCurrency(1),
-            isGroup: false
-        };
+    /*
+        staticData =
+            [{   _id: '1',
+                customers: 1,
+                activity: activityStore.loadActivity(1),
+                duration: durationStore.loadDuration(1),
+                cost: 2500,
+                currency: currencyStore.loadCurrency(1),
+                isGroup: false
+            },{   _id: '2',
+                customers: 2,
+                activity: activityStore.loadActivity(1),
+                duration: durationStore.loadDuration(2),
+                cost: 2000,
+                currency: currencyStore.loadCurrency(1),
+                isGroup: false
+            }];
+
+        oneStaticData =
+            {   _id: '1',
+                customers: 1,
+                activity: activityStore.loadActivity(1),
+                duration: durationStore.loadDuration(3),
+                cost: 2500,
+                currency: currencyStore.loadCurrency(1),
+                isGroup: false
+            };
+    */
 
     @action loadActivityListing(activity) {
-        agent.ActivityListing.forActivity(activity._id)
+        return agent.ActivityListing.forActivity(activity.id)
             .then(action(({ activityListing}) => {
                 this.activityListingRegistry.clear();
                 activityListing.forEach(activityListing =>
-                    this.activityListingRegistry.set(activityListing._id, activityListing));
+                    this.activityListingRegistry.set(activityListing.id, activityListing));
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
+/*
         this.staticData.forEach(activityListing =>
             this.activityListingRegistry.set(activityListing._id,activityListing));
         return this.staticData;
+*/
     }
 
     loadTestOneActivityListing() {
-        return this.oneStaticData;
+        //return this.oneStaticData;
     }
 
     loadActivityListingMinimumPrice() {

@@ -3,10 +3,24 @@ import {observer} from 'mobx-react';
 
 @observer
 class ActivityPhotoDiv extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            image: null
+        };
+    }
+
+    componentWillMount() {
+        if(this.props.image)
+            this.setState({image: this.props.image});
+        else
+            this.setState({image: {title: 'load', path: 'files/no_image.jpg'}});
+    }
+
     render() {
-        return <div className="imgDiv cloned" style={this.props.image.visibility}>
-            <img data-link={this.props.image.path} src={this.props.image.path}
-                 title={this.props.image.title} alt={this.props.image.title}
+        return <div className="imgDiv cloned" style={{visibility: 'visible'}}>
+            <img src={"http://api.tt.ru/"+this.state.image.path}
+                 title={this.state.image.title} alt={this.state.image.title}
                  style={{
                      maxWidth: '714px',
                      width: '100%',

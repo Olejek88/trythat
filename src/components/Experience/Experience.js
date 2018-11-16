@@ -1,5 +1,4 @@
 import React from 'react';
-import customerStore from "../../stores/customerStore";
 import {inject} from "mobx-react/index";
 
 @inject('activityListingStore','activityStore', 'userStore')
@@ -27,7 +26,7 @@ class Experience extends React.Component {
 
     componentWillMount() {
         if (this.props.activity) {
-            const customer = customerStore.getCustomer(this.props.userStore.currentUser);
+            const customer = this.props.userStore.currentCustomer;
             this.setState({customer: customer});
             const favored = this.props.activityStore.isFavorite(this.props.activity._id, customer._id);
             this.setState({favored: "favored"});

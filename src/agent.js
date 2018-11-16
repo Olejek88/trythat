@@ -56,7 +56,9 @@ const limit = (count, start) => `limit=${count}&offset=${start}`;
 
 const Auth = {
     current: () =>
-        requests.get('/v1/users/4'),
+        requests.get(`/v1/users`),
+    get: (id) =>
+        requests.get(`/v1/users/${id}`),
     login: (email, password) =>
         requests.post('/v1/auth/request', {email, password}),
     register: (username, email, password) =>
@@ -101,9 +103,10 @@ const Activities = {
     filter: (filter, id, lim = 3, start = 0) =>
         requests.get(`/v1/activities/${filter}/${id}?${limit(lim, start)}`),
     get: id =>
-        requests.get(`/v1/activities/${id}?expand=luminary_id`),
+        requests.get(`/v1/activities/${id}?expand=luminary.user.image,activityImages.image,location`),
     all: (lim = 10,page = 0) =>
-        requests.get(`/v1/activities/all?${limit(lim, page)}`),
+        //requests.get(`/v1/activities/?${limit(lim, page)}`),
+        requests.get(`/v1/activities/`),
     isFavorite: (activity_id, customer_id) =>
         requests.get(`/v1/activities/is_favorite/${activity_id}&customer=${customer_id}`),
     favorite: (activity_id, customer_id) =>
@@ -177,7 +180,7 @@ const Customer = {
     get: customer_id =>
         requests.get(`/v1/customers/${customer_id}`),
     forUser: user =>
-        requests.get(`/v1/customers/${user}`),
+        requests.get(`/v1/customers/user/${user}`),
     create: (customer) =>
         requests.post(`/v1/customers/${customer}`),
 };
@@ -206,8 +209,8 @@ const Locations = {
 const Luminary = {
     get: luminary_id =>
         requests.get(`/v1/luminaries/${luminary_id}`),
-    forUser: (luminary) =>
-        requests.get(`/v1/luminaries/${luminary}`),
+    forUser: (user_id) =>
+        requests.get(`/v1/luminaries/user/${user_id}`),
     create: luminary =>
         requests.post(`/v1/luminaries/${luminary}`),
 };

@@ -6,15 +6,18 @@ class ActivityCategoryStore {
     @observable activityCategoryRegistry = observable.map();
     @observable isLoading = true;
 
+    defaultData = {_id: '3', label: 'Экстрим'};
+
+    /*
     @observable staticData = [
         {_id: '1', label: 'Индивидуальные занятия'},
         {_id: '2', label: 'Корпоративные события'}
     ];
-    testData = {_id: '3', label: 'Экстрим'};
 
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({label: x.label, value: x.id}))
     };
+*/
 
     @action loadActivityCategories() {
         return agent.ActivityCategories.all()

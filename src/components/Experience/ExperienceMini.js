@@ -1,9 +1,7 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
-import activityStore from "../../stores/activityStore";
-import customerStore from "../../stores/customerStore";
 
-@inject('activityListingStore')
+@inject('activityListingStore','userStore','activityStore')
 @observer
 class ExperienceMini extends React.Component {
     constructor() {
@@ -25,8 +23,8 @@ class ExperienceMini extends React.Component {
 
     componentWillMount() {
         if (this.props.activity) {
-            const customer = customerStore.getCustomer();
-            const favored = activityStore.isFavorite(this.props.activity._id, customer._id);
+            const customer = this.props.userStore.currentCustomer;
+            const favored = this.props.activityStore.isFavorite(this.props.activity._id, customer._id);
             this.activity = this.props.activity;
             this.props.activityListingStore.loadActivityListing(this.activity);
             this.activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();

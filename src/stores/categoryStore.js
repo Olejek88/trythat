@@ -6,16 +6,19 @@ class CategoryStore {
     @observable categoryRegistry = observable.map();
     @observable isLoading = true;
 
+    defaultData = {_id: '2', title: 'Туризм'};
+/*
     @observable staticData = [
         {_id: '1', label: 'Еда и кулинария'},
         {_id: '2', label: 'Туризм'}
     ];
 
-    //testData = {_id: '2', title: 'Туризм'};
+    //
 
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))
     };
+*/
 
     @action loadCategories() {
         return agent.Categories.all()

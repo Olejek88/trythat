@@ -5,11 +5,11 @@ class CurrencyStore {
     @observable isLoading = false;
     @observable currencyRegistry = observable.map();
 
-    testData = {_id: 1, title: 'р.'};
+    defaultData = {_id: 1, title: 'р.'};
 
     @action loadCurrencies() {
         this.isLoading = true;
-        agent.Currency.all()
+        return agent.Currency.all()
             .then(action(({ currencies}) => {
                 this.currencyRegistry.clear();
                 currencies.forEach(currency =>
@@ -19,7 +19,7 @@ class CurrencyStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.testData;
+        //return this.testData;
     }
 
     @action loadCurrency(id, {acceptCached = false} = {}) {
@@ -28,7 +28,7 @@ class CurrencyStore {
             if (currency) return Promise.resolve(currency);
         }
         this.isLoading = true;
-        agent.Currency.get(id)
+        return agent.Currency.get(id)
             .then(action(({currency}) => {
                 this.currencyRegistry.set(id, currency);
                 return currency;
@@ -39,7 +39,7 @@ class CurrencyStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.testData;
+        //return this.testData;
     }
 }
 

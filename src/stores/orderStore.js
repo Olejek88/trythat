@@ -20,7 +20,7 @@ export class OrderStore {
             listing: activityListingStore.loadTestOneActivityListing(),
             orderStatus: orderStatusStore.loadOrderStatus(1),
             created: new Date(),
-            customer: customerStore.getCustomer(),
+            customer: customerStore.customer,
             startDate: new Date()
         }];
 
