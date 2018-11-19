@@ -66,7 +66,7 @@ class PopWish extends React.Component {
                             </div>
                             <div className="footer">
                                 <div style={{float: 'left', margin: '0px 0 0 20px'}}>
-                                    <a href={"/#/my/wish"} className="goto-link">Смотреть весь список</a>
+                                    <a href={"/#/my/activity/wish"} className="goto-link">Смотреть весь список</a>
                                 </div>
                             </div>
                         </div>

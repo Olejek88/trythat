@@ -2,25 +2,24 @@ import React from 'react';
 import {inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import OrderListItem from "../Orders/OrderListItem";
+import {action} from "mobx/lib/mobx";
 
 @inject('orderStore')
 @withRouter
 export default class Cart extends React.Component {
     render() {
         let orderList = '';
-        const orderStore = this.props.orderStore;
-        const orders = orderStore.loadOrders();
         let orders_count = 0;
         let sum = 0;
-        if (orders) {
+        this.props.orderStore.loadOrders().then(action((orders) => {
             orderList = orders.map(function (order, i) {
                 let activity = order.listing.activity;
                 sum += order.listing.cost;
                 orders_count++;
                 return (<OrderListItem activity={activity} key={i} order={order}/>);
             });
-        }
-        else orderList = 'Корзина пуста';
+        }));
+        if (orders_count===0) orderList = 'Корзина пуста';
 
         this.onSubmit = () => {
             this.props.history.push("/cart/checkout");

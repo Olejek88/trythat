@@ -2,68 +2,39 @@ import React from 'react';
 import {inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import OrderListItem from "../Orders/OrderListItem";
+import {action} from "mobx/lib/mobx";
 
 @inject('orderStore')
 @withRouter
 export default class Checkout extends React.Component {
     constructor() {
         super();
-        //let order;
-
         this.state = {
-            'balanceZero': "Your balance is zero. You can place order now.",
-            'add_shipping_address': "Add a Shipping Address",
-            'add_credit_card': "Add a Card",
-            'add_payment_method': "Add a Payment Method",
-            'cardWillDelete': "The Credit Card will be deleted once you confirm.",
-            'pleaseEnterInputs': "Please enter %fieldName%.",
-            'pleaseSelectInputs': "Please select %fieldName%.",
-            'pleaseEnterValidInputs': "Please enter valid %fieldName%.",
-            'checkCCExpiration': "Please check the expiration date of your credit card.",
-            'charge_post_checkout': "Calculated and charged post checkout",
-            'amount_will_be_charged': "%amount% will be charged to your credit card.",
-            'summary_manyItems': "%itemCount% items",
-            'summary_oneItem': "1 item",
-            'pleaseEnterGuestInfo': "Please enter first name, last name and a valid email.",
-            'emailAlreadyEntered': "Email has already been entered.",
-            'enterAtLeastOne': "Please enter at least one participant.",
-            'creditCardHolderName': "credit card holder name",
-            'creditCardNumber': "credit card number",
-            'expirationYear': "expiration year",
-            'expirationMonth': "expiration month",
-            'cvvNumber': "CVV number",
-            'invalid_shipping_country': "We are sorry. The shipping country is not available to bill.",
-            'check_cc_number_correct': "Please make sure your credit card number is correct.",
-            'make_sure_cc_type': "Please make sure your credit card is %ccTypeName%.",
-            'shipping_error_msg': "Please enter your shipping address. Press \"Save\" at the end of the section before placing your order.",
-            'shipping_error_msg_short': "Please enter your shipping address.",
-            'billing_error_msg': "Please enter your billing information. Press \"Save\" at the end of the section before placing your order.",
-            'billing_error_msg_short': "Please enter your billing information.",
-            'refresh_try_again': "Please refresh and try again.",
-            'try_again': "Please try again.",
-            'account_error_msg': "We are unable to update your account information.",
-            'account_firstName_format': "First Name can not contain special characters and numbers",
-            'account_lastName_format': "Last Name can not contain special characters and numbers",
-            'account_email_empty': "Email address cannot be empty",
-            'account_email_invalid': "Invalid email address"
+            orderList: [],
+            sum: 0,
+            orders_count:0
+        };
+        this.updateState = field => ev => {
+            const state = this.state;
+            const newState = Object.assign({}, state, {[field]: ev.target.value});
+            this.setState(newState);
         };
     };
 
-    render() {
-        let orderList = '';
+    componentDidMount() {
+        let self = this;
         const orderStore = this.props.orderStore;
-        const orders = orderStore.loadOrders();
-        let orders_count = 0;
-        let sum = 0;
-        if (orders) {
-            orderList = orders.map(function (order, i) {
+        orderStore.loadOrders().then(action((orders) => {
+            this.state.orderList = orders.map(function (order, i) {
                 let activity = order.listing.activity;
-                sum += order.listing.cost;
-                orders_count++;
-                return (<OrderListItem activity={activity} key={i} order={order} checkout={true}/>);
+                self.setState({sum: self.state.sum + order.listing.cost});
+                self.setState({orders_count: self.state.orders_count + 1});
+                return (<OrderListItem activity={activity} key={i} order={order}/>);
             });
-        }
-        else orderList = 'Корзина пуста';
+        }));
+    }
+
+    render() {
         return (
             <div id="content" style={{width: '1120px'}}>
                 <div id="checkout" className="body">
@@ -109,6 +80,7 @@ export default class Checkout extends React.Component {
                                                                 <input className="firstName js-req"
                                                                        aria-required="true" required="required"
                                                                        style={{height: '38px', width: '100%'}}
+                                                                       onChange={this.updateState('firstName')}
                                                                        id="firstName" name="firstName" type="text"/>
                                                                 <p className="fineprint">
                                                                 </p>
@@ -120,6 +92,7 @@ export default class Checkout extends React.Component {
                                                                 <input className="lastName js-req"
                                                                        aria-required="true" required="required"
                                                                        style={{height: '38px', width: '100%'}}
+                                                                       onChange={this.updateState('lastName')}
                                                                        id="lastName" name="lastName" type="text"/>
                                                                 <p className="fineprint">
                                                                 </p>
@@ -167,6 +140,7 @@ export default class Checkout extends React.Component {
                                                                        id="emailAddress"
                                                                        style={{height: '38px', width: '100%'}}
                                                                        value="olejek8@yandex.ru"
+                                                                       readOnly={true}
                                                                        name="emailAddress" type="text"/>
                                                                 <p className="fineprint">
                                                                 </p>
@@ -211,6 +185,7 @@ export default class Checkout extends React.Component {
                                                                     <label className="input-label">Компания</label>
                                                                     <input style={{display: 'block', width: '100%'}}
                                                                            name="shippingCompanyName"
+                                                                           onChange={this.updateState('company')}
                                                                            id="shippingCompanyName" type="text"/>
                                                                 </div>
                                                                 <div style={{padding: '0 5px'}}>
@@ -222,6 +197,7 @@ export default class Checkout extends React.Component {
                                                                            style={{display: 'block', width: '100%'}}
                                                                            aria-required="true" required="required"
                                                                            name="shippingPhone" id="shippingPhone"
+                                                                           onChange={this.updateState('phone')}
                                                                            type="text"/>
                                                                 </div>
                                                             </div>
@@ -232,6 +208,7 @@ export default class Checkout extends React.Component {
                                                                     <input style={{display: 'block', width: '100%'}}
                                                                            aria-required="true" required="required"
                                                                            name="shippingStreet" id="shippingStreet"
+                                                                           onChange={this.updateState('street')}
                                                                            type="text"/></div>
                                                                 <div style={{padding: '0 5px'}}>
                                                                 </div>
@@ -314,6 +291,7 @@ export default class Checkout extends React.Component {
                                                                         <input style={{width: '100%'}} maxLength="100"
                                                                                aria-required="true" required="required"
                                                                                autoComplete="off"
+                                                                               onChange={this.updateState('cardHolderName')}
                                                                                name="cardHolderName" id="cardHolderName"
                                                                                value="" type="text"/>
                                                                     </div>
@@ -325,6 +303,7 @@ export default class Checkout extends React.Component {
                                                                         <input style={{width: '100%'}} maxLength="30"
                                                                                aria-required="true" required="required"
                                                                                autoComplete="off"
+                                                                               onChange={this.updateState('cardNumber')}
                                                                                name="cardNumber" id="cardNumber"
                                                                                value="" type="text"/>
                                                                     </div>
@@ -339,6 +318,7 @@ export default class Checkout extends React.Component {
                                                                                         aria-required="true"
                                                                                         required="required"
                                                                                         className="sg-bg-3 sg-inline-flex-grow"
+                                                                                        onChange={this.updateState('expirationMonth')}
                                                                                         name="expirationMonth"
                                                                                         id="expirationMonth">
                                                                                     <option value="">Месяц</option>
@@ -361,6 +341,7 @@ export default class Checkout extends React.Component {
                                                                                 <select style={{width: '100%'}}
                                                                                         aria-required="true"
                                                                                         className="sg-bg-3 sg-inline-flex-grow"
+                                                                                        onChange={this.updateState('expirationYear')}
                                                                                         name="expirationYear"
                                                                                         id="expirationYear">
                                                                                     <option value="">Год</option>
@@ -389,6 +370,7 @@ export default class Checkout extends React.Component {
                                                                             <input style={{width: '60px', display: 'block'}}
                                                                                 maxLength="4" aria-required="true"
                                                                                 required="required"
+                                                                                   onChange={this.updateState('cvc')}
                                                                                 autoComplete="off" name="cvc" id="cvc"
                                                                                 type="text" />
                                                                                 <div className="cvv-img cvv">
@@ -417,7 +399,7 @@ export default class Checkout extends React.Component {
 
                                             <div id="product-table" className="">
                                                 <div className="table-body">
-                                                    {orderList}
+                                                    {this.state.orderList}
                                                 </div>
                                             </div>
                                         </div>
@@ -432,10 +414,10 @@ export default class Checkout extends React.Component {
                                             <div className="sg-inline-middle"
                                                  style={{width: '100%', marginBottom: '5px'}}>
                                                 <p className="title sg-inline-flex-grow">Подитог
-                                                    <span className="sg-c-2">({orders_count})</span>
+                                                    <span className="sg-c-2">({this.state.orders_count})</span>
                                                 </p>
                                                 <p className="value">
-                                                    <span className="productTotal_summary">{sum}</span>
+                                                    <span className="productTotal_summary">{this.state.sum}</span>
                                                 </p>
                                             </div>
                                             <div className="row js-total-travel-cost sg-inline-middle"
@@ -448,8 +430,7 @@ export default class Checkout extends React.Component {
                                             <hr/>
                                             <div className="currency-disclaimer sg-f-bdy-s">
                                                 *Данная цена окончательна и не может быть изменена без обоюдного
-                                                согласия
-                                                обеих сторон.
+                                                согласия обеих сторон.
                                             </div>
                                             <div className="row">
                                                 <div className="start-checkout  primaryButton button"

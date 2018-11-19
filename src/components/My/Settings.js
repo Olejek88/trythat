@@ -23,10 +23,8 @@ class SettingsForm extends React.Component {
             phone: '',
             email: '',
             image: '',
-            password: ''
-        };
+            password: '',
 
-        this.passwordState = {
             currentPassword: '',
             repeatPassword: '',
             newPassword: ''
@@ -44,7 +42,6 @@ class SettingsForm extends React.Component {
         this.onDrop = this.onDrop.bind(this);
 
         this.handleSelectCityChange = (event) => {
-            console.log(event);
             this.setState({city: event});
         };
 
@@ -52,12 +49,16 @@ class SettingsForm extends React.Component {
             this.setState({country: event});
         };
 
-        this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this);
 
         this.updateState = field => ev => {
             const state = this.state;
             const newState = Object.assign({}, state, {[field]: ev.target.value});
             this.setState(newState);
+        };
+
+        //this.handleInputPasswordChange = this.handleInputPasswordChange.bind(this);
+        this.handleInputPasswordChange = field => event => {
+            this.setState({field: event.target.value});
         };
 
         this.handleChange = (e) => {
@@ -90,17 +91,6 @@ class SettingsForm extends React.Component {
             this.props.onSubmitPasswordForm(this.passwordState);
         };
     }
-
-    handleInputPasswordChange = (event) => {
-        //console.log([event.target.name]);
-        if (event.target.name === 'currentPassword')
-            this.passwordState.currentPassword = event.target.value;
-        if (event.target.name === 'repeatPassword')
-            this.passwordState.repeatPassword = event.target.value;
-        if (event.target.name === 'newPassword')
-            this.passwordState.newPassword = event.target.value;
-        //this.setState ({[event.target.name]: event.target.value });
-    };
 
     onDrop(picture) {
 /*
@@ -456,6 +446,7 @@ class SettingsForm extends React.Component {
                             </form>
                         </div>
 
+{/*
                         <div className="row-flow">
                             <h3 className="sg-f-ttl">Оповещения</h3>
                         </div>
@@ -498,6 +489,7 @@ class SettingsForm extends React.Component {
                                 </div>
                             </form>
                         </div>
+*/}
 
                         <div className="row-flow">
                             <h3 className="sg-f-ttl">Пароль</h3>
@@ -515,11 +507,11 @@ class SettingsForm extends React.Component {
                                             maxLength="50"
                                             name="currentPassword"
                                             id="currentPassword"
-                                            type="password"
+                                            type="text"
                                             required="required"
                                             placeholder="Текущий пароль"
-                                            value={this.passwordState.currentPassword}
-                                            onChange={this.handleInputPasswordChange}/>
+                                            value={this.state.currentPassword}
+                                            onChange={this.handleInputPasswordChange('currentPassword')}/>
                                         <div className="swapper" style={{float: 'right'}}>
                                         </div>
                                     </div>
@@ -550,8 +542,8 @@ class SettingsForm extends React.Component {
                                             type="text"
                                             required="required"
                                             placeholder="Новый пароль"
-                                            value={this.passwordState.newPassword}
-                                            onChange={this.handleInputPasswordChange}/>
+                                            value={this.state.newPassword}
+                                            onChange={this.handleInputPasswordChange('newPassword')}/>
                                     </div>
                                 </div>
                                 <div className="row-flow" style={{marginTop: '27px'}}>
@@ -563,11 +555,11 @@ class SettingsForm extends React.Component {
                                             maxLength="50"
                                             name="repeatPassword"
                                             id="repeatPassword"
-                                            type="password"
+                                            type="text"
                                             required="required"
                                             placeholder="Повторите пароль"
-                                            onChange={this.handleInputPasswordChange}
-                                            value={this.passwordState.repeatPassword}/>
+                                            onChange={this.handleInputPasswordChange('repeatPassword')}
+                                            value={this.state.repeatPassword}/>
                                     </div>
                                 </div>
                                 <div className="row-flow">
@@ -618,9 +610,9 @@ class Settings extends React.Component {
                                 }
                             }
                             onSubmitPasswordForm={user => this.props.userStore.changeUserPassword(user,
-                                this.passwordState.password,
-                                this.passwordState.repeatPassword,
-                                this.passwordState.newPassword)}/>
+                                this.currentPassword,
+                                this.repeatPassword,
+                                this.newPassword)}/>
                         <hr/>
                     </div>
                 </div>

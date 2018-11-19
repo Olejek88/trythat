@@ -19,7 +19,7 @@ class SiteMenu extends React.Component {
                         <ul className="footer-menu-item">
                             <p style={{marginBottom: '16px'}}>Компания</p>
                             <li><a className="sg-c-3 allowAllUsers" href="/#/about">О нас</a></li>
-                            <li><a className="sg-c-3 allowAllUsers" href="/">Как это работает</a></li>
+                            <li><a className="sg-c-3 allowAllUsers" href="/#/sell">Как это работает</a></li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">Карьера</a></li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">Статьи</a></li>
                         </ul>
@@ -32,7 +32,7 @@ class SiteMenu extends React.Component {
                             <li><a className="sg-c-3 allowAllUsers" href="/">Гарантии</a></li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">FAQ</a></li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">Карта сайта</a></li>
-                            <li><a className="sg-c-3 allowAllUsers" href="/">Все представители</a></li>
+                            <li><a className="sg-c-3 allowAllUsers" href="/#/luminary">Все представители</a></li>
                         </ul>
                         <ul className="footer-menu-item">
                             <p>Работайте с нами</p>

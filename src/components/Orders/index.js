@@ -39,13 +39,15 @@ class Orders extends React.Component {
     fillList(filter) {
         let self = this;
 
+        console.log(this.props.userStore.currentCustomer);
         let predicate = {
             filter: filter,
-            id: this.props.userStore.currentCustomer._id,
+            id: this.props.userStore.currentCustomer.id,
             limit: 10
         };
         this.props.orderStore.setPredicate(predicate);
         this.props.orderStore.loadOrders().then(action((orders) => {
+            console.log(filter);
             switch (filter) {
                 case 'open':
                     self.openOrdersRows = [];
@@ -62,6 +64,7 @@ class Orders extends React.Component {
                     orders.forEach(function (order, i) {
                         self.closedOrdersRows.push(<OrderListItem order={order} key={i}/>);
                     });
+                    console.log(orders.length);
                     this.setState({closed_count: orders.length});
                     this.setState({selected_open: '', selected_closed: 'selected', selected_canceled: ''});
                     break;

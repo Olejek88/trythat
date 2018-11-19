@@ -13,10 +13,6 @@ import InputRange from 'react-input-range';
 import ImagesUploader from 'react-images-uploader';
 import 'react-images-uploader/styles.css';
 import 'react-images-uploader/font.css';
-import activityCategoryStore from "../../stores/activityCategoryStore";
-import categoryStore from "../../stores/categoryStore";
-import occasionStore from "../../stores/occasionStore";
-import trendingStore from "../../stores/trendingStore";
 import MyMenu from "./MyMenu";
 
 let minCustomers = 1;
@@ -47,6 +43,11 @@ class AddActivityForm extends React.Component {
             image: null,
             duration: ''
         };
+
+        this.categoryList = [];
+        this.activityCategoryList = [];
+        this.occasionList = [];
+        this.trendsList = [];
 
         this.updateState = field => ev => {
             const state = this.state;
@@ -122,6 +123,29 @@ class AddActivityForm extends React.Component {
             this.setState({occasion: '1'});
             this.setState({trending: '1'});
         }
+
+        let self = this;
+        this.props.categoryStore.loadCategories()
+            .then(() => {
+                self.categoryList = Array.from(this.props.categoryStore.categoryRegistry.values())
+                    .map(x => ({ label: x.title, value: x.id }));
+            });
+        this.props.activityCategoryStore.loadActivityCategories()
+            .then(() => {
+                self.activityCategoryList = Array.from(this.props.activityCategoryStore.activityCategoryRegistry.values())
+                    .map(x => ({ label: x.title, value: x.id }));
+            });
+        this.props.occasionStore.loadOccasions()
+            .then(() => {
+                self.occasionCategoryList = Array.from(this.props.occasionStore.occasionRegistry.values())
+                    .map(x => ({ label: x.title, value: x.id }));
+            });
+        this.props.trendingStore.loadTrends()
+            .then(() => {
+                self.trendsList = Array.from(this.props.trendingStore.trendingRegistry.values())
+                    .map(x => ({ label: x.title, value: x.id }));
+            });
+
     }
 
     handleDeleteActivity = slug => {
@@ -198,8 +222,8 @@ class AddActivityForm extends React.Component {
                                                     value={this.state.category}
                                                     className="language_select desktop"
                                                     placeholder={"Выберите"}
-                                                    onChange={this.handleSelectCategoryChange}
-                                                    options={categoryStore.loadCategories()}
+                                                    onChange={(e) => this.handleSelectCategoryChange(e)}
+                                                    options={this.categoryList}
                                                 />
                                             </div>
                                         </div>
@@ -215,8 +239,8 @@ class AddActivityForm extends React.Component {
                                                     value={this.state.activityCategory}
                                                     className="language_select desktop"
                                                     placeholder={"Выберите"}
-                                                    onChange={this.handleSelectActivityCategoryChange}
-                                                    options={activityCategoryStore.loadActivityCategories()}
+                                                    onChange={(e) => this.handleSelectActivityCategoryChange(e)}
+                                                    options={this.activityCategoryList}
                                                 />
                                             </div>
                                         </div>
@@ -231,8 +255,8 @@ class AddActivityForm extends React.Component {
                                                     value={this.state.occasion}
                                                     placeholder={"Выберите"}
                                                     className="language_select desktop"
-                                                    onChange={this.handleSelectOccasionChange}
-                                                    options={occasionStore.loadOccasions()}
+                                                    onChange={(e) => this.handleSelectOccasionChange(e)}
+                                                    options={this.occasionList}
                                                 />
                                             </div>
                                         </div>
@@ -247,8 +271,8 @@ class AddActivityForm extends React.Component {
                                                     placeholder={"Выберите"}
                                                     value={this.state.trending}
                                                     className="language_select desktop"
-                                                    onChange={this.handleSelectTrendingChange}
-                                                    options={trendingStore.loadTrends()}
+                                                    onChange={(e) => this.handleSelectTrendingChange(e)}
+                                                    options={this.trendsList}
                                                 />
                                             </div>
                                         </div>

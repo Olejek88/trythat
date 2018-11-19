@@ -18,8 +18,6 @@ export class UserStore {
             country_id: 0,
             password: ''
         };
-    currentCustomer;
-    currentLuminary;
     @observable loadingUser;
     @observable updatingUser;
     @observable updatingUserErrors;
@@ -29,7 +27,7 @@ export class UserStore {
     // }
 
     testData =
-        {   id: '1',
+        {   id: '0',
             username: 'olejek',
             email: 'olejek8@yandex.ru',
             firstName: 'Олег',
@@ -59,24 +57,35 @@ export class UserStore {
             fullDescription: 'Нет описания',
             user: this.currentUser
         };
+    currentCustomer = this.customer;
+    currentLuminary = this.luminary;
 
     @action getUser() {
         //return this.pullUser();
-        return this.testData;
+        //return this.testData;
+        return this.currentUser;
     }
 
     @action pullUser() {
+        let self = this;
         this.loadingUser = true;
         return agent.Auth.current()
             .then(action((user) => {
+                console.log(user);
                 if(user[0]) {
                     this.currentUser = user[0];
-                    this.currentCustomer = this.getCustomerByUser(this.currentUser.id);
-                    this.currentLuminary = this.getLuminaryByUser(this.currentUser.id);
+                    this.getCustomerByUser(this.currentUser.id).then(action((customer) => {
+                        console.log(customer);
+                        if (customer)
+                            self.currentCustomer = customer;
+                    }));
+                    this.getLuminaryByUser(this.currentUser.id).then(action((luminary) => {
+                        if (luminary)
+                            self.currentLuminary = luminary;
+                        console.log(self.currentLuminary);
+                        this.loadingUser = false;
+                    }));
                 }
-            }))
-            .finally(action(() => {
-                this.loadingUser = false;
             }))
             .catch(action(err => {
                 throw err;
@@ -118,14 +127,13 @@ export class UserStore {
     }
 
     @action getCustomerByUser(user_id) {
-        return agent.Customer.forUser(user_id)
+        //return agent.Customer.forUser(user_id)
+        return agent.Customer.get(1)
             .then(action((customer) => {
-                console.log(customer);
                 this.currentCustomer = customer;
-                console.log(this.currentCustomer);
             }))
             .catch(action(err => {
-                console.log(this.customer);
+                //console.log(this.customer);
                 return this.customer;
             }))
             .finally(action(() => {
@@ -134,15 +142,13 @@ export class UserStore {
     }
 
     @action getLuminaryByUser(user_id) {
-        return this.luminary;
-/*
-
-        return agent.Luminary.forUser(user_id)
+        return agent.Luminary.get(1)
+        //return agent.Luminary.forUser(user_id)
             .catch(action(err => {
                 console.log(err);
                 return this.luminary;
             }));
-*/
+        //return this.luminary;
     }
 }
 

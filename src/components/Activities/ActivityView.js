@@ -35,18 +35,19 @@ export default class ActivityView extends React.Component {
                 switch (my.props.filter) {
                     case 'city':
                         if (activities[0].location)
-                            my.state.activitiesRows.push(<ExperienceTitle key={1}
-                                                                 title={'Лучшие впечатления в Вашем городе ' + activities[0].location.city.title}/>);
+                            my.state.activitiesRows.push(
+                                <ExperienceTitle key={1} title={'Лучшие впечатления в Вашем городе '
+                                + activities[0].location.city.title}/>);
                         break;
                     case 'occasion':
                         if (activities[0].occasion)
-                            my.state.activitiesRows.push(<ExperienceTitle key={1}
-                                                                 title={'Лучшие впечатления на случай ' + activities[0].occasion.title}/>);
+                            my.state.activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления на случай '
+                            + activities[0].occasion.title}/>);
                         break;
                     case 'trends':
                         if (activities[0].trending)
-                            my.state.activitiesRows.push(<ExperienceTitle key={1}
-                                                                 title={'Лучшие впечатления для ' + activities[0].trending.title}/>);
+                            my.state.activitiesRows.push(<ExperienceTitle key={1} title={'Лучшие впечатления для '
+                            + activities[0].trending.title}/>);
                         break;
                     default:
                         my.state.activitiesRows.push(<ExperienceTitle key={1} title="Лучшие впечатления для Вас"/>);

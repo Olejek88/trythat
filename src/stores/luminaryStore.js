@@ -31,6 +31,12 @@ class LuminaryStore {
                 throw err;
             }));
     }
+
+    @action updateLuminary(luminary) {
+        return agent.Luminary.update(luminary).catch(action(err => {
+                throw err;
+            }));
+    }
 }
 
 export default new LuminaryStore();

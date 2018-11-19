@@ -70,6 +70,8 @@ export default class Conversation extends React.Component {
             filter = 'input';
             id = 0;
         }
+
+        console.log(filter);
         switch (filter) {
             case 'input':
                 this.setState({header: 'Входящие'});
@@ -77,7 +79,7 @@ export default class Conversation extends React.Component {
             case 'unread':
                 this.setState({header: 'Не прочитанные'});
                 break;
-            case 'sent':
+            case 'create':
                 this.setState({header: 'Отправленные'});
                 break;
             case 'search':
@@ -95,9 +97,7 @@ export default class Conversation extends React.Component {
         this.props.mailStore.loadMails().then(action(() => {
             this.props.mailStore.mailRegistry.forEach(function (mail, i) {
                 self.mails.push(<MailListItem mail={mail} key={i}/>);
-                console.log(mail);
             });
-            console.log(self.mails);
             self.setState({mails: self.mails});
             this.setState({updated: true});
         })).catch(action(err => {

@@ -3,7 +3,7 @@ import {withRouter} from "react-router-dom";
 import mailStatusStore from "../../stores/mailStatusStore";
 import {inject} from "mobx-react/index";
 
-@inject('userStore', 'mailStore')
+@inject('userStore', 'mailStore', 'commonStore')
 @withRouter
 class AnswerDialog extends React.Component {
     constructor() {
@@ -61,7 +61,8 @@ class AnswerDialog extends React.Component {
                         <div className="dialog_body" style={{margin: '0 60px', width: '300px'}}>
                             <div className="dialog_content" style={{textAlign: 'left', width: '300px'}}>
                                 <div className="row" style={{marginTop: '36px', textAlign: 'left'}}>
-                                    <img src={this.props.mail.fromUser.image.path} alt={this.props.mail.fromUser.firstName}
+                                    <img src={this.props.commonStore.apiServer+this.props.mail.fromUser.image.path}
+                                         alt={this.props.mail.fromUser.firstName}
                                          style={{width: '44px', height: '44px', float: 'left', borderRadius: '22px'}}/>
                                     <div className="luminary_answer">
                                         <strong>Ответ {this.props.mail.fromUser.firstName}: по теме</strong><br/>

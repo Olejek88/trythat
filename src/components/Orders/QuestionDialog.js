@@ -1,6 +1,8 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
+import {inject} from "mobx-react/index";
 
+@inject('commonStore')
 @withRouter
 class QuestionDialog extends React.Component {
     constructor() {
@@ -31,7 +33,8 @@ class QuestionDialog extends React.Component {
                         <div className="dialog_body" style={{margin: '0 60px', width: '300px'}}>
                             <div className="dialog_content" style={{textAlign: 'left', width: '300px'}}>
                                 <div className="row" style={{marginTop: '36px', textAlign: 'left'}}>
-                                    <img src={this.props.luminary.user.image.path} alt="{this.props.luminary.user.firstName}"
+                                    <img src={this.props.commonStore.apiServer+this.props.luminary.user.image.path}
+                                         alt="{this.props.luminary.user.firstName}"
                                          style={{width: '44px', height: '44px', float: 'left', borderRadius: '22px'}}/>
                                     <div className="luminary_answer">{this.props.luminary.user.firstName} и его команда будут рад помочь Вам и ответить на Ваши вопросы.
                                     </div>

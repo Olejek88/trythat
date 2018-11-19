@@ -18,6 +18,7 @@ import Category from "./Category";
 import Orders from "./Orders";
 import Cart from "./Cart";
 import AddActivity from "./My/AddActivity";
+import Luminary from "./My/Luminary";
 import WishList from "./WishList";
 import Activities from "./Activities";
 import MyActivities from "./My/MyActivities";
@@ -60,8 +61,9 @@ export default class App extends React.Component {
                         <Route path="/@:username" component={Profile}/>
                         <Route path="/@:username/favorites" component={Profile}/>
                         <Route path="/activity/:id" component={Activity}/>
-                        <Route path="/my/:filter/:listing" component={MyActivities}/>
-                        <Route path="/my/:filter" component={MyActivities}/>
+                        <Route path="/my/activity/:filter/:listing" component={MyActivities}/>
+                        <Route path="/my/activity/:filter" component={MyActivities}/>
+                        <Route path="/my/luminary" component={Luminary}/>
                         <Route path="/mail/:filter/:by" component={Conversation}/>
                         <Route path="/mail" component={Conversation}/>
                         <Route path="/follows" component={MyFollows}/>

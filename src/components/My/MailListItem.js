@@ -3,6 +3,7 @@ import {inject} from "mobx-react/index";
 import moment from "moment";
 import AnswerDialog from "./AnswerDialog";
 import mailStore from "../../stores/mailStore";
+import {Redirect} from "react-router-dom";
 
 @inject('userStore', 'mailStore', 'commonStore')
 class MailListItem extends React.Component {
@@ -23,6 +24,7 @@ class MailListItem extends React.Component {
 
         this.clickHandler = (component) => {
             component.setState({showAnswerDialog: false});
+            return <Redirect to='/#/my/conversation' />
         };
     }
 
@@ -41,7 +43,7 @@ class MailListItem extends React.Component {
     }
 
     deleteMail() {
-        this.props.mailStore.deleteMail(this.mail._id);
+        this.props.mailStore.deleteMail(this.mail.id);
         this.setState({showMail: false})
     }
 

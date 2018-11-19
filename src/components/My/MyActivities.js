@@ -22,7 +22,6 @@ export default class MyActivities extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         console.log('componentWillReceiveProps');
-        //console.log(nextProps);
         this.fillList(nextProps);
     }
 
@@ -70,24 +69,22 @@ export default class MyActivities extends React.Component {
         }
         else {
             if (nextProps) {
+                console.log(filter);
                 filter = nextProps.match.params.filter;
                 if (filter !== '') {
-                    let predicate = null;
+                    let predicate = {
+                        filter: filter,
+                        id: this.props.userStore.currentCustomer.id,
+                        limit: 10
+                    };
                     if (filter === 'wish') {
                         this.setState ({header: 'Отслеживаемые'});
-                        predicate = {
-                            filter: filter,
-                            id: this.props.userStore.currentCustomer._id,
-                            limit: 10
-                        };
                     }
-                    else {
-                        this.setState ({header: 'Предложения'});
-                        predicate = {
-                            filter: filter,
-                            id: this.props.userStore.currentLuminary._id,
-                            limit: 10
-                        };
+                    if (filter === 'current') {
+                        this.setState ({header: 'Предложения текущие'});
+                    }
+                    if (filter === 'closed') {
+                        this.setState ({header: 'Предложения завершенные'});
                     }
                     this.props.activityStore.setPredicate(predicate);
                 }

@@ -213,6 +213,8 @@ const Luminary = {
         requests.get(`/v1/luminaries/user/${user_id}`),
     create: luminary =>
         requests.post(`/v1/luminaries/${luminary}`),
+    update: luminary =>
+        requests.put(`/v1/luminaries/${luminary.id}`,luminary),
 };
 
 const MailStatus = {
@@ -229,8 +231,8 @@ const Mail = {
         requests.get(`/v1/mails/${mail_id}`),
     create: (mail) =>
         requests.post(`/v1/mails/${mail}`),
-    del: (slug, mail_id) =>
-        requests.del(`/v1/mails/${slug}/${mail_id}`),
+    del: (mail_id) =>
+        requests.del(`/v1/mails/${mail_id}`),
 };
 
 const Order = {

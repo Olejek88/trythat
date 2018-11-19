@@ -14,24 +14,24 @@ class MyMenu extends React.Component {
                             </li>
                             <li className="menu-li sg-c-2">
                                 <ul className="sub-menu">
-                                    <li className="menu-li orders purchases sg-c-2">
-                                        <a href={"/#/my/customer"}>Клиент</a>
-                                    </li>
+                                    {/*<li className="menu-li orders purchases sg-c-2">*/}
+                                        {/*<a href={"/#/my/customer"}>Клиент</a>*/}
+                                    {/*</li>*/}
                                     <li className="menu-li auctions sg-c-2">
                                         <a href={"/#/my/luminary"}>Исполнитель</a>
                                     </li>
                                 </ul>
                             </li>
                             <li className="menu-li account sg-c-2">
-                                <a href={"/#/my/current"}>Мои предложения</a>
+                                <a href={"/#/my/activity/current"}>Мои предложения</a>
                             </li>
                             <li className="menu-li sg-c-2">
                                 <ul className="sub-menu">
                                     <li className="menu-li orders purchases sg-c-2">
-                                        <a href={"/#/my/current"}>Текущие</a>
+                                        <a href={"/#/my/activity/current"}>Текущие</a>
                                     </li>
                                     <li className="menu-li auctions sg-c-2">
-                                        <a href={"/#/my/closed"}>Завершенные</a>
+                                        <a href={"/#/my/activity/closed"}>Завершенные</a>
                                     </li>
                                 </ul>
                             </li>
@@ -39,7 +39,7 @@ class MyMenu extends React.Component {
                                 <a href={"/#/add"}>Добавить предложение</a>
                             </li>
                             <li className="menu-li sg-c-2">
-                                <a href={"/#/my/wish"}>Список желаний</a>
+                                <a href={"/#/my/activity/wish"}>Список желаний</a>
                             </li>
                             <li className="menu-li account sg-c-2">
                                 <a href={"/#/follows"}>Отслеживаемые</a>
@@ -66,13 +66,13 @@ class MyMenu extends React.Component {
                             <li className="menu-li sg-c-2">
                                 <ul className="sub-menu">
                                     <li className="menu-li orders purchases sg-c-2">
-                                        <Link to="/#/mail/create" params={{filter: "open"}}>Отправленные</Link>
+                                        <Link to="/mail/create" params={{filter: "open"}}>Отправленные</Link>
                                     </li>
                                     <li className="menu-li auctions sg-c-2">
-                                        <Link to="/#/mail/inbox" params={{filter: "close"}}>Входящие</Link>
+                                        <Link to="/mail/inbox" params={{filter: "close"}}>Входящие</Link>
                                     </li>
                                     <li className="menu-li auctions sg-c-2">
-                                        <Link to="/#/mail/delete" params={{filter: "cancel"}}>Удаленные</Link>
+                                        <Link to="/mail/delete" params={{filter: "cancel"}}>Удаленные</Link>
                                     </li>
                                 </ul>
                             </li>

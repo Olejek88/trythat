@@ -12,12 +12,6 @@ export default class LuminaryActivity extends React.Component {
     constructor() {
         super();
         this.activitiesRows = [];
-
-/*
-        this.state = {
-            activitiesRows: []
-        };
-*/
         this.luminary = null;
     }
 
