@@ -5,7 +5,7 @@ class CategoryStore {
     @observable categoryRegistry = observable.map();
     @observable isLoading = true;
 
-    defaultData = {_id: '2', title: 'Туризм'};
+    defaultData = {id: 2, title: 'Туризм'};
 
     @action loadCategories() {
         return agent.Categories.all()

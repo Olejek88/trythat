@@ -9,7 +9,8 @@ export class ActivityListingStore {
     activityListingRegistry = new Map();
 
     defaultData =
-        [{   _id: '1',
+        [{
+            id: 1,
             customers: 1,
             activity: activityStore.defaultData,
             duration: durationStore.staticData,
@@ -18,56 +19,61 @@ export class ActivityListingStore {
             isGroup: false
         }];
 
-    /*
-        staticData =
-            [{   _id: '1',
-                customers: 1,
-                activity: activityStore.loadActivity(1),
-                duration: durationStore.loadDuration(1),
-                cost: 2500,
-                currency: currencyStore.loadCurrency(1),
-                isGroup: false
-            },{   _id: '2',
-                customers: 2,
-                activity: activityStore.loadActivity(1),
-                duration: durationStore.loadDuration(2),
-                cost: 2000,
-                currency: currencyStore.loadCurrency(1),
-                isGroup: false
-            }];
+    staticData =
+        [{
+            id: '1',
+            customers: 1,
+            activity: activityStore.defaultData,
+            duration: durationStore.staticData[0],
+            cost: 2500,
+            currency: currencyStore.defaultData,
+            isGroup: false
+        }, {
+            id: '2',
+            customers: 2,
+            activity: activityStore.defaultData,
+            duration: durationStore.staticData[0],
+            cost: 2000,
+            currency: currencyStore.defaultData,
+            isGroup: false
+        }];
 
-        oneStaticData =
-            {   _id: '1',
-                customers: 1,
-                activity: activityStore.loadActivity(1),
-                duration: durationStore.loadDuration(3),
-                cost: 2500,
-                currency: currencyStore.loadCurrency(1),
-                isGroup: false
-            };
+    /*
+            oneStaticData =
+                {   _id: '1',
+                    customers: 1,
+                    activity: activityStore.loadActivity(1),
+                    duration: durationStore.loadDuration(3),
+                    cost: 2500,
+                    currency: currencyStore.loadCurrency(1),
+                    isGroup: false
+                };
     */
 
     @action loadActivityListing(activity) {
+        this.staticData.forEach(activityListing =>
+            this.activityListingRegistry.set(activityListing.id, activityListing));
+        return Promise.resolve(this.staticData);
+/*
         return agent.ActivityListing.forActivity(activity.id)
-            .then(action(({ activityListing}) => {
+            .then(action(({activityListing}) => {
                 this.activityListingRegistry.clear();
                 activityListing.forEach(activityListing =>
                     this.activityListingRegistry.set(activityListing.id, activityListing));
             }))
-            .finally(action(() => { this.isLoading = false; }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }))
             .catch(action(err => {
                 throw err;
             }));
-    }
-
-    loadTestOneActivityListing() {
-        //return this.oneStaticData;
+*/
     }
 
     loadActivityListingMinimumPrice() {
         let minimum_cost = 1000000;
         let current_currency = '';
-        this.activityListingRegistry.forEach(function(activityListing) {
+        this.activityListingRegistry.forEach(function (activityListing) {
             if (activityListing.cost < minimum_cost)
                 minimum_cost = activityListing.cost;
             current_currency = activityListing.currency.title;
@@ -78,30 +84,30 @@ export class ActivityListingStore {
 
     loadActivityListingDuration() {
         let arrayDurations = '';
-        let count=0;
+        let count = 0;
         this.activityListingRegistry.forEach(function (activityListing) {
             count++;
-            if (count<5)
-                arrayDurations+=activityListing.duration.period+', ';
+            if (count < 5)
+                arrayDurations += activityListing.duration.period + ', ';
         });
         return arrayDurations;
     }
 
     loadActivityListingSelectDuration() {
-        let arrayDurations=[];
+        let arrayDurations = [];
         this.activityListingRegistry.forEach(function (activityListing) {
             arrayDurations.push(activityListing.duration);
         });
-        return arrayDurations.map(x => ({ label: x.period, value: x._id }));
+        return arrayDurations.map(x => ({label: x.period, value: x._id}));
     }
 
     loadActivityListingQuantity() {
         let arrayQuantity = '';
-        let count=0;
+        let count = 0;
         this.activityListingRegistry.forEach(function (activityListing) {
             count++;
-            if (count<5) {
-                if (count>1) arrayQuantity+=', ';
+            if (count < 5) {
+                if (count > 1) arrayQuantity += ', ';
                 arrayQuantity += activityListing.customers;
             }
         });
@@ -112,14 +118,18 @@ export class ActivityListingStore {
         let arrayCustomers = [];
         //this.staticData.forEach(function (activityListing) {
         this.activityListingRegistry.forEach(function (activityListing) {
-            if (activityListing.customers>=2 && activityListing.customers<5)
-                arrayCustomers.push({ label: activityListing.customers + ' человека',
+            if (activityListing.customers >= 2 && activityListing.customers < 5)
+                arrayCustomers.push({
+                    label: activityListing.customers + ' человека',
                     value: activityListing.customers,
-                    cost: 'Стоимость: ' + activityListing.cost + activityListing.currency.title});
+                    cost: 'Стоимость: ' + activityListing.cost + activityListing.currency.title
+                });
             else
-                arrayCustomers.push({ label: activityListing.customers + ' человек',
+                arrayCustomers.push({
+                    label: activityListing.customers + ' человек',
                     value: activityListing.customers,
-                    cost: 'Стоимость: ' + activityListing.cost + activityListing.currency.title});
+                    cost: 'Стоимость: ' + activityListing.cost + activityListing.currency.title
+                });
         });
         return arrayCustomers;
     }
@@ -148,10 +158,10 @@ export class ActivityListingStore {
             }))
     }
 
-    @action updateActivityListing(activity_listing_id,activity_listing) {
-        return agent.ActivityListing.update(activity_listing_id,activity_listing)
-            .then(({activity_listing}) => {
-                this.activityListingRegistry.set(activity_listing_id,activity_listing);
+    @action updateActivityListing(activity_listing) {
+        return agent.ActivityListing.update(activity_listing)
+            .then((activity_listing) => {
+                this.activityListingRegistry.set(activity_listing.id, activity_listing);
                 return activity_listing;
             })
             .catch(action(err => {

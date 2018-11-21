@@ -5,7 +5,6 @@ import authStore from './stores/authStore';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-//const API_ROOT = 'https://conduit.productionready.io/api';
 const API_ROOT = 'http://api.tt.ru';
 
 const encode = encodeURIComponent;
@@ -87,12 +86,11 @@ const ActivityListing = {
     forActivity: (activity_id) =>
         requests.get(`/v1/activity-listings/activity?${activity_id}`),
     del: (activity_listing_id) =>
-        requests.del(`/v1/activity-listings/del?${activity_listing_id}`),
-
+        requests.del(`/v1/activity-listings/${activity_listing_id}`),
     get: (activity_listing_id) =>
         requests.get(`/v1/activity-listings/${activity_listing_id}`),
-    update: (activity_listing_id, activity) =>
-        requests.put(`/v1/activity-listings/${activity_listing_id}`, {activity: activity}),
+    update: (activity_listing) =>
+        requests.put(`/v1/activity-listings/${activity_listing.id}`, activity_listing),
     create: (activity_listing) =>
         requests.post('/v1/activity-listings/create', {activity_listing})
 };
@@ -114,11 +112,11 @@ const Activities = {
     unFavorite: (activity_id, customer_id) =>
         requests.get(`/v1/activities/un_favorite/${activity_id}&customer=${customer_id}`),
     create: activity =>
-        requests.post('/v1/activities', {activity}),
+        requests.post('/v1/activities', activity),
     del: id =>
         requests.del(`/v1/activities/${id}`),
     update: activity =>
-        requests.put(`/v1/activities/update`, {activity}),
+        requests.put(`/v1/activities/${activity.id}`, {activity}),
 
 /*
     byTag: (tag, page, lim = 10) =>

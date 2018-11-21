@@ -3,13 +3,13 @@ import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
 class TrendingStore {
-    @observable trendingRegistry = observable.map();
+    trendingRegistry = new Map();
     @observable isLoading = true;
 
     @observable staticData = [
-        {_id: '1', label: 'Недорогие'},
-        {_id: '2', label: 'Новые'},
-        {_id: '3', label: 'Популярные'}
+        {id: 1, label: 'Недорогие'},
+        {id: 2, label: 'Новые'},
+        {id: 3, label: 'Популярные'}
     ];
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))

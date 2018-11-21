@@ -14,7 +14,7 @@ class LuminaryStore {
             rating: 0.0,
             description: 'Нет описания',
             fullDescription: 'Нет описания',
-            user: userStore.currentUser
+            user: userStore.testData
         };
 
     @action getLuminary(luminary_id) {

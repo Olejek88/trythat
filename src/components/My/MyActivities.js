@@ -12,6 +12,7 @@ export default class MyActivities extends React.Component {
     constructor() {
         super();
         this.state = {
+            update: false,
             showSearch: true,
             search: '',
             header: 'Предложения'
@@ -26,7 +27,7 @@ export default class MyActivities extends React.Component {
     }
 
     componentWillMount() {
-        console.log('componentWillMount');
+        //console.log('componentWillMount');
         this.fillList(null);
     }
 
@@ -42,10 +43,11 @@ export default class MyActivities extends React.Component {
             limit: 10
         };
         this.props.activityStore.setPredicate(predicate);
-        let activities = this.props.activityStore.loadActivities();
-        activities.forEach(function (activity, i) {
-            self.activitiesRows.push(<ActivityListItem activity={activity} key={i}/>);
-        });
+        this.props.activityStore.loadActivities().then(action((activities) => {
+            activities.forEach(function (activity, i) {
+                self.activitiesRows.push(<ActivityListItem activity={activity} key={i}/>);
+            });
+        }));
     }
 
     fillList(nextProps) {
@@ -60,16 +62,16 @@ export default class MyActivities extends React.Component {
                 activity = this.props.activityStore.loadActivity(nextProps.match.params.listing);
         }
         if (activity) {
-            let activity_listing = this.props.activityListingStore.loadActivityListing(activity);
-            activity_listing.forEach(function (activity_list, i) {
-                self.activitiesRows.push(<ActivityListingItem activity={activity} activity_listing={activity_list}
-                                                              key={i}/>);
-            });
+            this.props.activityListingStore.loadActivityListing(activity).then(action((activity_listing) => {
+                activity_listing.forEach(function (activity_list, i) {
+                    self.activitiesRows.push(<ActivityListingItem activity={activity} activity_listing={activity_list}
+                                                                  key={i}/>);
+                });
+            }));
             this.setState({showSearch: false});
         }
         else {
             if (nextProps) {
-                console.log(filter);
                 filter = nextProps.match.params.filter;
                 if (filter !== '') {
                     let predicate = {
@@ -90,6 +92,19 @@ export default class MyActivities extends React.Component {
                 }
             }
 
+            this.props.activityStore.loadActivities()
+                .then(() => {
+                    let activitiesList = Array.from(this.props.activityStore.activitiesRegistry.values());
+                    activitiesList.forEach(function (activity, i) {
+                        self.activitiesRows.push(<ActivityListItem activity={activity} key={i}/>);
+                    });
+                    this.setState({showSearch: true});
+                    this.setState({update: true});
+                }).catch(action(err => {
+                    //console.log(err);
+                    throw err;
+            }));
+/*
             this.props.activityStore.loadActivities().then(action((activities) => {
                 activities.forEach(function (activity, i) {
                     self.activitiesRows.push(<ActivityListItem activity={activity} key={i}/>);
@@ -98,7 +113,7 @@ export default class MyActivities extends React.Component {
                 console.log(err);
                 throw err;
             }));
-            this.setState({showSearch: true});
+*/
         }
     }
 

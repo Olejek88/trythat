@@ -5,7 +5,7 @@ class ActivityCategoryStore {
     @observable activityCategoryRegistry = observable.map();
     @observable isLoading = true;
 
-    defaultData = {_id: '3', label: 'Экстрим'};
+    defaultData = {id: 3, label: 'Экстрим'};
 
     @action loadActivityCategories() {
         return agent.ActivityCategories.all()

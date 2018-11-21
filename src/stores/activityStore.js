@@ -16,7 +16,7 @@ export class ActivityStore {
 
     defaultData =
         {
-            _id: '1',
+            id: 1,
             title: 'Путешествие к центру Земли на воздушном шаре',
             images: imageStore.images,
             luminary: luminaryStore.luminary,
@@ -51,9 +51,12 @@ export class ActivityStore {
 
     $req(count = 12, start = 0) {
         //console.log(this.predicate.filter + ' ' + this.predicate.id);
+        return Promise.resolve({activities: [this.defaultData]});
+/*
         if (this.predicate.filter && this.predicate.id)
             return agent.Activities.filter(this.predicate.filter, this.predicate.id, this.predicate.limit, this.predicate.start);
         return agent.Activities.all(count, start);
+*/
     }
 
     @action loadActivities() {
@@ -67,7 +70,7 @@ export class ActivityStore {
                 this.isLoading = false;
             }))
             .catch(action(err => {
-                return [this.defaultData];
+                console.log(err);
             }));
         // [тест] возвращаем или н-ное количество или массив из одной статике
 /*
@@ -132,7 +135,7 @@ export class ActivityStore {
     @action createActivity(activity) {
         return agent.Activities.create(activity)
             .then(({activity}) => {
-                this.activitiesRegistry.set(activity._id, activity);
+                this.activitiesRegistry.set(activity.id, activity);
                 return activity;
             })
             .catch(action(err => {
@@ -143,7 +146,7 @@ export class ActivityStore {
     @action updateActivity(activity) {
         return agent.Activities.update(activity)
             .then(({activity}) => {
-                this.activitiesRegistry.set(activity._id, activity);
+                this.activitiesRegistry.set(activity.id, activity);
                 return activity;
             })
             .catch(action(err => {
@@ -152,8 +155,8 @@ export class ActivityStore {
     }
 
     @action deleteActivity(activity) {
-        this.activitiesRegistry.delete(activity._id);
-        return agent.Activities.del(activity._id)
+        this.activitiesRegistry.delete(activity.id);
+        return agent.Activities.del(activity.id)
             .catch(action(err => {
                 this.loadActivities();
                 throw err;

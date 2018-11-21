@@ -7,11 +7,11 @@ class TagStore {
     @observable tagsRegistry = observable.map();
     @observable isLoading = true;
 
-    @observable staticData = [
-        {_id: '1', title: 'Земля', category: categoryStore.loadCategory(1)},
-        {_id: '2', title: 'Воздушный шар', category: categoryStore.loadCategory(2)},
-        {_id: '3', title: 'Путешествие', category: categoryStore.loadCategory(2)},
-        {_id: '4', title: 'Экстрим', category: categoryStore.loadCategory(2)}
+    staticData = [
+        {_id: '1', title: 'Земля', category: categoryStore.defaultData},
+        {_id: '2', title: 'Воздушный шар', category: categoryStore.defaultData},
+        {_id: '3', title: 'Путешествие', category: categoryStore.defaultData},
+        {_id: '4', title: 'Экстрим', category: categoryStore.defaultData}
     ];
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))
@@ -19,7 +19,7 @@ class TagStore {
 
     @action loadTags() {
         this.isLoading = true;
-        agent.Tags.all()
+        return agent.Tags.all()
             .then(action(({ tags}) => {
                 this.tagsRegistry.clear();
                 tags.forEach(tag =>
@@ -29,7 +29,7 @@ class TagStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData;
+        //return this.staticData;
         //return this.staticDataOptions;
     }
 }

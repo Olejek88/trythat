@@ -23,16 +23,17 @@ class PopWish extends React.Component {
             id: this.props.userStore.currentUser.id
         };
         this.props.activityStore.setPredicate(predicate);
-        this.props.activityStore.loadActivities().then(action((activities) => {
-                activities.forEach(function (activity, i) {
-                    const activityListingStore = this.props.activityListingStore;
+        this.props.activityStore.loadActivities().then(() => {
+                let activitiesList = Array.from(self.props.activityStore.activitiesRegistry.values());
+                activitiesList.forEach(function (activity, i) {
+                    const activityListingStore = self.props.activityListingStore;
                     activityListingStore.loadActivityListing(activity).then(action(() => {
                         const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
                         self.wishList.push(<WishListPopItem activity={activity} key={i} price={activityPrice}/>);
                         self.setState({wishList: self.wishList});
                     }));
                 });
-            }));
+            });
     }
 
     render() {

@@ -7,8 +7,8 @@ class OccasionStore {
     @observable isLoading = true;
 
     @observable staticData = [
-        {_id: '1', label: 'На свадьбу'},
-        {_id: '2', label: 'Юбилей'}
+        {id: 1, label: 'На свадьбу'},
+        {id: 2, label: 'Юбилей'}
     ];
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))

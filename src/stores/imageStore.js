@@ -9,19 +9,19 @@ export class ImageStore {
     @observable userImage = {
         _id: '3',
         title: 'Олег Иванов',
-        path: 'images/luminary2.jpg'
+        path: 'files/luminary.jpg'
     };
 
     @observable images = [
         {
             _id: '1',
             title: 'Путшествие к центру Земли',
-            path: 'images/example_experience.jpg'
+            path: 'files/balloon.jpg'
         },
         {
             _id: '2',
             title: 'Путшествие к центру Земли',
-            path: 'images/example_experience.jpg'
+            path: 'files/balloon.jpg'
         }
     ];
 

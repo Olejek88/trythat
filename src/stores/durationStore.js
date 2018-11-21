@@ -7,10 +7,10 @@ class DurationStore {
     @observable durationsRegistry = observable.map();
 
     staticData = [
-        {_id: '1', period: '1 час'},
-        {_id: '2', period: '2 часа'},
-        {_id: '3', period: '3 часа'},
-        {_id: '4', period: '4 часа'}
+        {id: '1', period: '1 час'},
+        {id: '2', period: '2 часа'},
+        {id: '3', period: '3 часа'},
+        {id: '4', period: '4 часа'}
     ];
 
     @computed get staticDataOptions() {
@@ -19,8 +19,10 @@ class DurationStore {
 
     @action loadDurations() {
         this.isLoading = true;
-        agent.Duration.all()
-            .then(action(({ durations}) => {
+        if (this.durationsRegistry.length>0)
+            return Promise.resolve(this.durationsRegistry);
+        return agent.Duration.all()
+            .then(action((durations) => {
                 this.durationsRegistry.clear();
                 durations.forEach(duration =>
                     this.durationsRegistry.set(duration._id, duration));
@@ -29,7 +31,6 @@ class DurationStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData;
     }
 
     @action loadDuration(id, {acceptCached = false} = {}) {
@@ -38,7 +39,7 @@ class DurationStore {
             if (duration) return Promise.resolve(duration);
         }
         this.isLoading = true;
-        agent.Duration.get(id)
+        return agent.Duration.get(id)
             .then(action(({duration}) => {
                 this.durationsRegistry.set(id, duration);
                 return duration;
@@ -49,7 +50,6 @@ class DurationStore {
             .catch(action(err => {
                 throw err;
             }));
-        return this.staticData[id];
     }
 
 }

@@ -35,7 +35,7 @@ export class UserStore {
             birthDate: new Date(1978,8,28,0,0,0),
             phone: '+79000242832',
             city: cityStore.defaultData,
-            image: imageStore.images[0],
+            image: imageStore.userImage,
             country: countryStore.defaultData,
             password: '123456'
         };
@@ -71,18 +71,15 @@ export class UserStore {
         this.loadingUser = true;
         return agent.Auth.current()
             .then(action((user) => {
-                console.log(user);
                 if(user[0]) {
                     this.currentUser = user[0];
                     this.getCustomerByUser(this.currentUser.id).then(action((customer) => {
-                        console.log(customer);
                         if (customer)
                             self.currentCustomer = customer;
                     }));
                     this.getLuminaryByUser(this.currentUser.id).then(action((luminary) => {
                         if (luminary)
                             self.currentLuminary = luminary;
-                        console.log(self.currentLuminary);
                         this.loadingUser = false;
                     }));
                 }
