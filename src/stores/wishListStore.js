@@ -37,23 +37,20 @@ class WishListStore {
             .catch(action(err => {
                 throw err;
             }))
-            .then(({answer}) => {
+            .then((answer) => {
                 return answer;
             })
     }
 
-    @action wish(customer, activity) {
-        return agent.WishList.wish(customer, activity)
+    @action wish(wish) {
+        return agent.WishList.wish(wish)
             .catch(action(err => {
                 throw err;
-            }))
-            .then(({answer}) => {
-                return answer;
-            })
+            }));
     }
 
-    @action unWish(customer, activity) {
-        return agent.WishList.unWish(customer, activity)
+    @action unWish(wish) {
+        return agent.WishList.unWish(wish.id)
             .catch(action(err => {
                 throw err;
             }))

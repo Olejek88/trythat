@@ -117,7 +117,7 @@ class ActivityListingItem extends React.Component {
                                     <div className="sg-inline-flex-grow" style={{textAlign: 'center'}}>
                                         <span>Количество человек</span>
                                     </div>
-                                    <div className="sg-inline-flex-grow" style={{textAlign: 'center', width: '250px'}}>
+                                    <div className="sg-inline-flex-grow" style={{textAlign: 'center', width: '280px'}}>
                                         <span>Длительность</span>
                                     </div>
                                     <div className="sg-inline-flex-grow" style={{textAlign: 'center'}}>

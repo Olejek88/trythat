@@ -20,7 +20,7 @@ class PopCart extends React.Component {
     componentWillMount() {
         let self = this;
         let predicate = {
-            filter: 'new',
+            filter: 'order-status',
             id: 1
         };
         this.props.orderStore.setPredicate(predicate);

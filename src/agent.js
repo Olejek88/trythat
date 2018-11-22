@@ -20,7 +20,7 @@ const responseBody = res => res.body;
 
 const tokenPlugin = req => {
     if (commonStore.token) {
-        req.set('authorization', `Token ${commonStore.token}`);
+        req.set('Authorization', `Bearer ${commonStore.token}`);
     }
 };
 
@@ -98,13 +98,14 @@ const ActivityListing = {
 const Activities = {
     // wish / customer._id
     // luminary / luminary._id
+    //?${limit(lim, start)}
     filter: (filter, id, lim = 3, start = 0) =>
-        requests.get(`/v1/activities/${filter}/${id}?${limit(lim, start)}`),
+        requests.get(`/v1/activities?${filter}=${id}&expand=luminary.user.image,activityImages.image,location`),
     get: id =>
         requests.get(`/v1/activities/${id}?expand=luminary.user.image,activityImages.image,location`),
     all: (lim = 10,page = 0) =>
         //requests.get(`/v1/activities/?${limit(lim, page)}`),
-        requests.get(`/v1/activities/`),
+        requests.get(`/v1/activities?expand=luminary.user.image,activityImages.image`),
     isFavorite: (activity_id, customer_id) =>
         requests.get(`/v1/activities/is_favorite/${activity_id}&customer=${customer_id}`),
     favorite: (activity_id, customer_id) =>
@@ -175,8 +176,8 @@ const Tags = {
 };
 
 const Customer = {
-    get: customer_id =>
-        requests.get(`/v1/customers/${customer_id}`),
+    get: user_id =>
+        requests.get(`/v1/customers?expand=user&user.id=${user_id}`),
     forUser: user =>
         requests.get(`/v1/customers/user/${user}`),
     create: (customer) =>
@@ -239,7 +240,7 @@ const Order = {
     forUser: (user, page) =>
         requests.get(`/v1/orders?user=${encode(user)}&${limit(5, page)}`),
     filter: (filter, id, lim = 10, start = 0) =>
-        requests.get(`/v1/orders/${filter}/${id}?${limit(lim, start)}`),
+        requests.get(`/v1/orders?${filter}=${id}`),
     get: orderId =>
         requests.get(`/v1/orders/${orderId}`),
     create: (order) =>
@@ -278,13 +279,13 @@ const Review = {
 
 const WishList = {
     forCustomer: (customer) =>
-        requests.get(`/v1/wish-list/customer?${customer}`),
+        requests.get(`/v1/wishlists?customer_id=${customer}`),
     isWished: (activity, customer) =>
-        requests.get(`/v1/wish-list/get?customer=${customer}&activity=${activity}`),
-    wish: (activity, customer) =>
-        requests.get(`/v1/wish-list/wish?customer=${customer}&activity=${activity}`),
-    unWish: (activity, customer) =>
-        requests.get(`/v1/wish-list/unwish?customer=${customer}&activity=${activity}`)
+        requests.get(`/v1/wishlists?customer_id=${customer}&activity_id=${activity}`),
+    wish: (wish) =>
+        requests.post('/v1/wishlists',wish),
+    unWish: (wish_id) =>
+        requests.del(`/v1/wishlists/${wish_id}`)
 };
 
 const Occasions = {

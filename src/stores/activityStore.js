@@ -50,19 +50,15 @@ export class ActivityStore {
     }
 
     $req(count = 12, start = 0) {
-        //console.log(this.predicate.filter + ' ' + this.predicate.id);
-        return Promise.resolve({activities: [this.defaultData]});
-/*
         if (this.predicate.filter && this.predicate.id)
             return agent.Activities.filter(this.predicate.filter, this.predicate.id, this.predicate.limit, this.predicate.start);
         return agent.Activities.all(count, start);
-*/
     }
 
     @action loadActivities() {
         this.isLoading = true;
         return this.$req()
-            .then(action(({activities}) => {
+            .then(action((activities) => {
                 this.activitiesRegistry.clear();
                 activities.forEach(activity => this.activitiesRegistry.set(activity.id, activity));
             }))

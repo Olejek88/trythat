@@ -13,7 +13,7 @@ class PopWish extends React.Component {
             updated: false,
             wishList: 'Список желаний пуст'
         };
-        this.wishList = 'Список желаний пуст';
+        this.wishList = [];
     }
 
     componentWillMount() {

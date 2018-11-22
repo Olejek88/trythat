@@ -6,7 +6,7 @@ import countryStore from "./countryStore";
 
 export class UserStore {
     currentUser =
-        {   id: '',
+        {   id: 0,
             username: '',
             email: '',
             firstName: '',
@@ -124,13 +124,11 @@ export class UserStore {
     }
 
     @action getCustomerByUser(user_id) {
-        //return agent.Customer.forUser(user_id)
-        return agent.Customer.get(1)
+        return agent.Customer.get(user_id)
             .then(action((customer) => {
-                this.currentCustomer = customer;
+                this.currentCustomer = customer[0];
             }))
             .catch(action(err => {
-                //console.log(this.customer);
                 return this.customer;
             }))
             .finally(action(() => {

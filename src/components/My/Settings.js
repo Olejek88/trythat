@@ -12,7 +12,6 @@ class SettingsForm extends React.Component {
     constructor() {
         super();
 
-        this.avatar = "luminary2.jpg";
         this.state = {
             id: '',
             firstName: '',

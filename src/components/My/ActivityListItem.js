@@ -20,7 +20,7 @@ class ActivityListItem extends React.Component {
     render() {
         const activity = this.props.activity;
 
-        let activity_image = this.props.activity.images[0].path;
+        let activity_image = this.props.commonStore.apiServer+this.props.activity.images[0].path;
 
         let luminary_image = this.props.commonStore.apiServer+activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
@@ -41,8 +41,8 @@ class ActivityListItem extends React.Component {
                     </div>
                     <div className="body-row">
                         <div className="main sg-inline-top">
-                            <div className="two-col-1 col sg-inline-top sg-f-ttl" style={{margin: '10px 0', width: '100%'}}>
-                                <div><img src={activity_image} style={{width: '140px'}} alt={""}/>
+                            <div className="two-col-1 col sg-f-ttl" style={{margin: '10px 0', width: '100%', display: 'inline-flex'}}>
+                                <div style={{margin: '0 10px', width: '20%'}}><img src={activity_image} style={{width: '140px'}} alt={""}/>
                                 </div>
                                 <div style={{margin: '0 10px', width: '80%'}}>
                                     <div><a className="js-pdpDetails sg-c-1">

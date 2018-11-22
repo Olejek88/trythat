@@ -2,7 +2,7 @@ import { observable, action } from 'mobx';
 import agent from "../agent";
 
 class CityStore {
-    @observable cityRegistry = observable.map();
+    cityRegistry = new Map();
     @observable isLoading = true;
 
     defaultData = {_id: 1, title: 'Челябинск'};
@@ -28,18 +28,24 @@ class CityStore {
             }));
     }
 
-    @action loadCity(id, {acceptCached = false} = {}) {
-        if (acceptCached) {
-            const city = this.cityRegistry.get(id);
+    @action loadCity(id) {
+        if (this.cityRegistry.size>0) {
+            //TODO
+/*
+            let city = this.cityRegistry.get(1);
             if (city)
+*/
+                return this.cityRegistry.get(1);
+/*
                 return Promise.resolve(city)
                     .catch(action(err => {
                         throw err;
                     }));
+*/
             }
         this.isLoading = true;
         return agent.Cities.get(id)
-            .then(action(({city}) => {
+            .then(action((city) => {
                 this.cityRegistry.set(id, city);
                 return city;
             }))

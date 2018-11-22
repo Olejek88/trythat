@@ -11,13 +11,41 @@ import FooterCategories from "../FooterCategories";
 @inject('activityStore', 'commonStore', 'userStore')
 @withRouter
 export default class MainView extends React.Component {
-
-    componentWillMount() {
-        this.props.activityStore.setPredicate(this.getPredicate());
+    constructor() {
+        super();
+        this.state = {
+            activitiesRows: [],
+            updated: false
+        };
     }
 
     componentDidMount() {
-        this.props.activityStore.loadActivities();
+        let predicate = {
+             filter: '',
+             id: 0
+        };
+        this.props.activityStore.setPredicate(predicate);
+        let my = this;
+        let activitiesRow = [];
+        let activitiesRows = my.state.activitiesRows;
+        let count = 0;
+        this.props.activityStore.loadActivities().then(() => {
+            this.props.activityStore.activitiesRegistry.forEach(function (activity, i) {
+                activitiesRow.push(activity);
+                count++;
+                if (count % 4 === 0) {
+                    activitiesRows.push(<ExperienceRow activities={activitiesRow} key={i}/>);
+                    my.setState({activitiesRows: activitiesRows});
+                    activitiesRow = [];
+                }
+            });
+            if (count % 4 !== 0) {
+                activitiesRows.push(<ExperienceRow activities={activitiesRow} key={count}/>);
+                my.setState({activitiesRows: activitiesRows});
+                activitiesRow = [];
+            }
+            my.setState({updated: true});
+        });
     }
 
     componentDidUpdate(previousProps) {
@@ -56,8 +84,7 @@ export default class MainView extends React.Component {
                 <Banner/>
                 <MainCategories/>
                 <ExperienceTitle/>
-                <ExperienceRow category={1}/>
-                <ExperienceRow category={2}/>
+                {this.state.updated && this.state.activitiesRows}
                 <FooterCategories/>
             </React.Fragment>
         );

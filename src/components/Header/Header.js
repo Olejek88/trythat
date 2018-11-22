@@ -7,7 +7,7 @@ import PopWish from "./PopWish";
 import PopUserMenu from "./PopUserMenu";
 
 const LoggedOutView = props => {
-    if (!props.currentUser) {
+    if (props.currentUser.id===0) {
         return (
             <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3', flexWrap: 'nowrap', float: 'right'}}>
                 <Link to="/sell" className="navButton button" id="sellBtn">
@@ -33,7 +33,7 @@ const LoggedOutView = props => {
 };
 
 const LoggedInView = props => {
-    if (props.currentUser) {
+    if (props.currentUser.id!==0) {
         return (
             <React.Fragment>
                 <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3', flexWrap: 'nowrap'}}>
@@ -118,7 +118,6 @@ class Header extends React.Component {
                         </div>
                         <MenuNew/>
                         <LoggedOutView currentUser={this.props.userStore.currentUser}/>
-
                         <LoggedInView currentUser={this.props.userStore.currentUser} orders={orders}/>
                     </div>
                 </div>

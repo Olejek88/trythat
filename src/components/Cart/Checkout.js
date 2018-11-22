@@ -14,6 +14,7 @@ export default class Checkout extends React.Component {
             sum: 0,
             orders_count:0
         };
+        this.orderList = [];
         this.updateState = field => ev => {
             const state = this.state;
             const newState = Object.assign({}, state, {[field]: ev.target.value});
@@ -25,12 +26,13 @@ export default class Checkout extends React.Component {
         let self = this;
         const orderStore = this.props.orderStore;
         orderStore.loadOrders().then(action((orders) => {
-            this.state.orderList = orders.map(function (order, i) {
+            self.orderList = orders.map(function (order, i) {
                 let activity = order.listing.activity;
                 self.setState({sum: self.state.sum + order.listing.cost});
                 self.setState({orders_count: self.state.orders_count + 1});
                 return (<OrderListItem activity={activity} key={i} order={order}/>);
             });
+            self.setState({orderList: self.orderList});
         }));
     }
 

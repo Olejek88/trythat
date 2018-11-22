@@ -42,7 +42,7 @@ class SiteMenu extends React.Component {
             .then(() => {
                 for (let category of Array.from(this.props.categoryStore.categoryRegistry.values())) {
                     self.categoriesList.push(<div className="topNavCat" key={category.id}>
-                        <a href={"/#/activities/city/" + category.id} title={category.title}>
+                        <a href={"/#/activities/category/" + category.id} title={category.title}>
                             <p className="level-link fo-14-n-s4">{category.title}</p></a></div>);
                 }
                 this.setState ({loadComplete: !this.state.loadComplete});
