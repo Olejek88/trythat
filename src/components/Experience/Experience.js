@@ -38,7 +38,8 @@ class Experience extends React.Component {
             this.setState({favoredClass: 'heart_img'});
             this.setState({activity: this.props.activity});
             this.props.activityListingStore.loadActivityListing(this.props.activity).then(() => {
-                self.setState({activityPrice: self.props.activityListingStore.loadActivityListingMinimumPrice()});
+                let price = self.props.activityListingStore.loadActivityListingMinimumPrice();
+                self.setState({activityPrice: price});
             });
             this.setState({activity_image: this.props.activity.activityImages[0].image});
 

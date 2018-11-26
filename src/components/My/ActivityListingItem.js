@@ -73,11 +73,10 @@ class ActivityListingItem extends React.Component {
         let self = this;
         this.activity = this.props.activity;
         this.activity_listing = this.props.activity_listing;
-        this.activity_image = this.props.commonStore.apiServer+this.activity.images[0].path;
+        this.activity_image = this.props.commonStore.apiServer+this.activity.activityImages[0].image.path;
         this.setState({cost: this.props.activity_listing.cost});
         this.activityListingCustomers.forEach(function (customers) {
             if (customers.value === self.activity_listing.customers) {
-                console.log(customers);
                 self.setState({customers: customers});
             }
         });
@@ -86,6 +85,7 @@ class ActivityListingItem extends React.Component {
             self.activityListingDurations = Array.from(durations).map(x => ({label: x.duration, value: x.id}));
             self.setState({activityListingDurations: self.activityListingDurations});
             self.activityListingDurations.forEach(function (duration) {
+                console.log(duration);
                 if (duration.value === self.activity_listing.duration.id) {
                     self.setState({duration: duration});
                 }

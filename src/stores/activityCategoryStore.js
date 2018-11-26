@@ -23,11 +23,15 @@ class ActivityCategoryStore {
             }));
     }
 
-    @action loadActivityCategory(id, {acceptCached = false} = {}) {
+    @action loadActivityCategory(id) {
+        if (this.activityCategoryRegistry.size>0)
+            return this.activityCategoryRegistry.get(parseInt(id,10));
+        /*
         if (acceptCached) {
             const activityCategory = this.activityCategoryRegistry.get(id);
             if (activityCategory) return Promise.resolve(activityCategory);
         }
+*/
         this.isLoading = true;
         return agent.ActivityCategories.get(id)
             .then(action(({activityCategory}) => {

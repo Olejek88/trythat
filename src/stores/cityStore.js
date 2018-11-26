@@ -29,20 +29,14 @@ class CityStore {
     }
 
     @action loadCity(id) {
-        if (this.cityRegistry.size>0) {
-            //TODO
-/*
-            let city = this.cityRegistry.get(1);
-            if (city)
-*/
-                return this.cityRegistry.get(1);
+        if (this.cityRegistry.size>0)
+            return this.cityRegistry.get(parseInt(id,10));
 /*
                 return Promise.resolve(city)
                     .catch(action(err => {
                         throw err;
                     }));
 */
-            }
         this.isLoading = true;
         return agent.Cities.get(id)
             .then(action((city) => {

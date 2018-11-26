@@ -70,28 +70,31 @@ export default class Conversation extends React.Component {
             filter = 'input';
             id = 0;
         }
+        let predicate = {
+            filter: 'mail_status',
+            id: id,
+            limit: 20
+        };
 
         console.log(filter);
         switch (filter) {
             case 'input':
                 this.setState({header: 'Входящие'});
+                predicate = { id: 1, filter: 'mail_status' };
                 break;
             case 'unread':
                 this.setState({header: 'Не прочитанные'});
+                predicate = { id: 2, filter: 'mail_status' };
                 break;
             case 'create':
                 this.setState({header: 'Отправленные'});
+                predicate = { id: 3, filter: 'mail_status' };
                 break;
             case 'search':
             default:
                 this.setState({header: 'Найдены по запросу'});
                 break;
         }
-        let predicate = {
-            filter: filter,
-            id: id,
-            limit: 20
-        };
         this.props.activityStore.setPredicate(predicate);
         this.mails = [];
         this.props.mailStore.loadMails().then(action(() => {

@@ -33,14 +33,18 @@ class Luminary extends React.Component {
     }
 
     componentDidMount() {
+        if (!this.props.userStore.currentLuminary)
+            this.props.history.push("/");
         this.setState({user: this.props.userStore.getUser()});
+        this.setState({user_id: this.props.userStore.currentUser.id});
+        this.setState({id: this.props.userStore.currentLuminary.id});
         this.setState({description: this.props.userStore.currentLuminary.description});
         this.setState({shortDescription: this.props.userStore.currentLuminary.shortDescription});
     }
 
     componentDidUpdate() {
-        console.log(this.props.userStore.currentUser);
-        console.log(this.props.userStore.currentLuminary);
+        //console.log(this.props.userStore.currentUser);
+        //console.log(this.props.userStore.currentLuminary);
     }
 
     render() {

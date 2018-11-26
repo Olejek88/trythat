@@ -30,11 +30,9 @@ class TrendingStore {
         //return this.staticDataOptions;
     }
 
-    @action loadTrending(id, {acceptCached = false} = {}) {
-        if (acceptCached) {
-            const trending = this.trendingRegistry.get(id);
-            if (trending) return Promise.resolve(trending);
-        }
+    @action loadTrending(id) {
+        if (this.trendingRegistry.size>0)
+            return this.trendingRegistry.get(parseInt(id,10));
         this.isLoading = true;
         return agent.Trending.get(id)
             .then(action((trending) => {

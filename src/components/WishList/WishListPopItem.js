@@ -1,14 +1,16 @@
 import React from 'react';
 import {observer} from 'mobx-react';
+import {inject} from "mobx-react/index";
 
+@inject('commonStore')
 @observer
 class WishListPopItem extends React.Component {
     render() {
         const activity = this.props.activity;
-        let activity_link = "/#/activity/" + activity._id;
+        let activity_link = "/#/activity/" + activity.id;
         let activity_price = this.props.price;
         let activity_image = {
-            backgroundImage: 'url(' + this.props.activity.images[0].path + ')'
+            backgroundImage: 'url(' + this.props.commonStore.apiServer + activity.activityImages[0].image.path + ')'
         };
         return (
             <li className="wish-pop-li item sg-inline-middle" style={{padding: '0 10px'}}>

@@ -22,10 +22,6 @@ export class UserStore {
     @observable updatingUser;
     @observable updatingUserErrors;
 
-    // constructor() {
-    //     this.currentUser = this.testData;
-    // }
-
     testData =
         {   id: '0',
             username: 'olejek',
@@ -61,27 +57,29 @@ export class UserStore {
     currentLuminary = this.luminary;
 
     @action getUser() {
-        //return this.pullUser();
-        //return this.testData;
         return this.currentUser;
     }
 
     @action pullUser() {
-        let self = this;
         this.loadingUser = true;
+        let user = window.localStorage.getItem('user');
+        if (user) {
+            this.currentUser = JSON.parse(user);
+            this.currentCustomer = JSON.parse(window.localStorage.getItem('customer'));
+            //console.log(this.currentCustomer);
+            this.currentLuminary = JSON.parse(window.localStorage.getItem('luminary'));
+            //console.log(this.currentLuminary);
+            if (this.currentCustomer!=null)
+                return Promise.resolve(this.currentUser);
+        }
         return agent.Auth.current()
             .then(action((user) => {
                 if(user[0]) {
                     this.currentUser = user[0];
-                    this.getCustomerByUser(this.currentUser.id).then(action((customer) => {
-                        if (customer)
-                            self.currentCustomer = customer;
-                    }));
-                    this.getLuminaryByUser(this.currentUser.id).then(action((luminary) => {
-                        if (luminary)
-                            self.currentLuminary = luminary;
-                        this.loadingUser = false;
-                    }));
+                    window.localStorage.setItem('user', JSON.stringify(user));
+                    this.getCustomerByUser(this.currentUser.id);
+                    this.getLuminaryByUser(this.currentUser.id);
+                    this.loadingUser = false;
                 }
             }))
             .catch(action(err => {
@@ -127,6 +125,7 @@ export class UserStore {
         return agent.Customer.get(user_id)
             .then(action((customer) => {
                 this.currentCustomer = customer[0];
+                window.localStorage.setItem('customer', JSON.stringify(customer[0]));
             }))
             .catch(action(err => {
                 return this.customer;
@@ -137,8 +136,11 @@ export class UserStore {
     }
 
     @action getLuminaryByUser(user_id) {
-        return agent.Luminary.get(1)
-        //return agent.Luminary.forUser(user_id)
+        return agent.Luminary.get(user_id)
+            .then(action((luminary) => {
+                this.currentLuminary = luminary[0];
+                window.localStorage.setItem('luminary', JSON.stringify(luminary[0]));
+            }))
             .catch(action(err => {
                 console.log(err);
                 return this.luminary;

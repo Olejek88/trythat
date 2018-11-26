@@ -20,11 +20,11 @@ class AnswerDialog extends React.Component {
 
         this.clickHandlerSend = () => {
             this.mail = {
-                fromUser: this.props.mail.toUser,
-                toUser: this.props.mail.fromUser,
-                answerTo: this.props.mail._id,
+                fromUser_id: this.props.mail.toUser.id,
+                toUser_id: this.props.mail.fromUser.id,
+                //answerTo: this.props.mail.id,
                 status: mailStatusStore.loadMailStatus(1),
-                activity: this.props.mail.activity,
+                activity_id: this.props.mail.activity.id,
                 createDate: new Date(),
                 sendDate: null,
                 readDate: null,

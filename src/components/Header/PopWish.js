@@ -4,7 +4,7 @@ import WishListPopItem from "../WishList/WishListPopItem";
 import {inject} from "mobx-react/index";
 import {action} from "mobx/lib/mobx";
 
-@inject('activityStore', 'activityListingStore', 'userStore')
+@inject('activityStore', 'activityListingStore', 'wishListStore', 'userStore')
 @observer
 class PopWish extends React.Component {
     constructor() {
@@ -13,27 +13,28 @@ class PopWish extends React.Component {
             updated: false,
             wishList: 'Список желаний пуст'
         };
-        this.wishList = [];
     }
 
     componentWillMount() {
         let self = this;
-        let predicate = {
-            filter: 'wish',
-            id: this.props.userStore.currentUser.id
-        };
-        this.props.activityStore.setPredicate(predicate);
-        this.props.activityStore.loadActivities().then(() => {
-                let activitiesList = Array.from(self.props.activityStore.activitiesRegistry.values());
-                activitiesList.forEach(function (activity, i) {
+        let count = 1;
+        let wishListItems = [];
+        let customer = this.props.userStore.currentCustomer;
+        if (customer) {
+            this.props.wishListStore.loadWishList(customer).then(() => {
+                this.props.wishListStore.wishListRegistry.forEach(function (wishList, i) {
+                    let activity = wishList.activity;
                     const activityListingStore = self.props.activityListingStore;
                     activityListingStore.loadActivityListing(activity).then(action(() => {
                         const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
-                        self.wishList.push(<WishListPopItem activity={activity} key={i} price={activityPrice}/>);
-                        self.setState({wishList: self.wishList});
+                        wishListItems.push(<WishListPopItem activity={activity} key={count} price={activityPrice}/>);
+                        self.setState({wishList: wishListItems});
+                        self.setState({updated: true});
+                        count++;
                     }));
                 });
             });
+        }
     }
 
     render() {
@@ -67,7 +68,7 @@ class PopWish extends React.Component {
                             </div>
                             <div className="footer">
                                 <div style={{float: 'left', margin: '0px 0 0 20px'}}>
-                                    <a href={"/#/my/activity/wish"} className="goto-link">Смотреть весь список</a>
+                                    <a href={"/#/wish_list"} className="goto-link">Смотреть весь список</a>
                                 </div>
                             </div>
                         </div>

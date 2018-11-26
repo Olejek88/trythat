@@ -3,28 +3,42 @@ import {observer} from 'mobx-react';
 import {withRouter} from "react-router-dom";
 import {inject} from "mobx-react/index";
 import WishListItem from "./WishListItem";
+import {action} from "mobx/lib/mobx";
 
-@inject('activityStore', 'activityListingStore', 'userStore')
+@inject('activityStore', 'activityListingStore', 'wishListStore', 'userStore')
 @observer
 @withRouter
 class WishList extends React.Component {
-    render() {
-        let wishList = '';
-        let predicate = {
-            filter: 'wish',
-            id: this.props.userStore.currentUser._id
+    constructor() {
+        super();
+        this.state = {
+            updated: 0,
+            wishList: []
         };
-        this.props.activityStore.setPredicate(predicate);
-        const activities = this.props.activityStore.loadActivities();
-        const activityListingStore = this.props.activityListingStore;
-        if (activities) {
-            wishList = activities.map(function (activity,i) {
-                activityListingStore.loadActivityListing(activity);
-                const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
-                return (<WishListItem activity={activity} key={i} price={activityPrice}/>);
+    }
+
+    componentWillMount() {
+        let self = this;
+        let count = 1;
+        let customer = this.props.userStore.currentCustomer;
+        let wishListItems = [];
+        if (customer) {
+            this.props.wishListStore.loadWishList(customer).then(() => {
+                this.props.wishListStore.wishListRegistry.forEach(function (wishList, i) {
+                    let activity = wishList.activity;
+                    const activityListingStore = self.props.activityListingStore;
+                    activityListingStore.loadActivityListing(activity).then(action(() => {
+                        const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
+                        wishListItems.push(<WishListItem wishList={wishList} key={count} price={activityPrice}/>);
+                        self.setState ({wishList: wishListItems});
+                    }));
+                    count++;
+                });
             });
         }
-        else wishList = 'Список желаний пуст';
+    }
+
+    render() {
         return (
             <div id="content">
                 <div className="view-container">
@@ -43,7 +57,7 @@ class WishList extends React.Component {
                                     <ul id="wishlist" className="sg-f-dspl-s"
                                         style={{fontSize: '14px', height: '100%'}}>
                                         <React.Fragment>
-                                            {wishList}
+                                            {this.state.wishList}
                                         </React.Fragment>
                                     </ul>
                                 </div>

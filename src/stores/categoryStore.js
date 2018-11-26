@@ -2,7 +2,7 @@ import { observable, action } from 'mobx';
 import agent from "../agent";
 
 class CategoryStore {
-    @observable categoryRegistry = observable.map();
+    categoryRegistry = new Map();
     @observable isLoading = true;
 
     defaultData = {id: 2, title: 'Туризм'};
@@ -20,10 +20,9 @@ class CategoryStore {
             }));
     }
 
-    @action loadCategory(id, {acceptCached = false} = {}) {
-        if (acceptCached) {
-            const category = this.categoryRegistry.get(id);
-            if (category) return Promise.resolve(category);
+    @action loadCategory(id) {
+        if (this.categoryRegistry.size>0) {
+            return this.categoryRegistry.get(parseInt(id,10));
         }
         this.isLoading = true;
         return agent.Categories.get(id)

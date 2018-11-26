@@ -5,7 +5,7 @@ import customerStore from "./customerStore";
 
 class WishListStore {
     @observable isLoading = false;
-    @observable wishListRegistry = observable.map();
+    wishListRegistry = new Map();
 
     @observable staticData = [
         {
@@ -16,9 +16,9 @@ class WishListStore {
         },
     ];
 
-    @action loadTestWishList(customer) {
-        agent.WishList.forCustomer(customer._id)
-            .then(action(({ activities}) => {
+    @action loadWishList(customer) {
+        return agent.WishList.forCustomer(customer.id)
+            .then(action((activities) => {
                 this.wishListRegistry.clear();
                 activities.forEach(activity =>
                     this.wishListRegistry.set(activity._id, activity));
@@ -27,9 +27,6 @@ class WishListStore {
             .catch(action(err => {
                 throw err;
             }));
-        this.staticData.forEach(activity =>
-            this.wishListRegistry.set(activity._id, activity));
-        return this.staticData;
     }
 
     @action isWished(customer, activity) {

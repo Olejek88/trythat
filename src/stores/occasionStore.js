@@ -28,11 +28,9 @@ class OccasionStore {
         //return this.staticDataOptions;
     }
 
-    @action loadOccasion(id, {acceptCached = false} = {}) {
-        if (acceptCached) {
-            const occasion = this.occasionRegistry.get(id);
-            if (occasion) return Promise.resolve(occasion);
-        }
+    @action loadOccasion(id) {
+        if (this.occasionRegistry.size>0)
+            return this.occasionRegistry.get(parseInt(id,10));
         this.isLoading = true;
         return agent.Occasions.get(id)
             .then(action((occasion) => {

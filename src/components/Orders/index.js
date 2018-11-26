@@ -38,16 +38,27 @@ class Orders extends React.Component {
 
     fillList(filter) {
         let self = this;
-
-        console.log(this.props.userStore.currentCustomer);
         let predicate = {
             filter: filter,
             id: this.props.userStore.currentCustomer.id,
             limit: 10
         };
         this.props.orderStore.setPredicate(predicate);
+        switch (filter) {
+            case 'open':
+                this.setState({selected_open: 'selected', selected_closed: '', selected_canceled: ''});
+                break;
+            case 'close':
+                this.setState({selected_open: '', selected_closed: 'selected', selected_canceled: ''});
+                break;
+            case 'cancel':
+                this.setState({selected_canceled: 'selected', selected_open: '', selected_closed: ''});
+                break;
+            default:
+                break;
+        }
+
         this.props.orderStore.loadOrders().then(action((orders) => {
-            console.log(filter);
             switch (filter) {
                 case 'open':
                     self.openOrdersRows = [];
@@ -55,9 +66,6 @@ class Orders extends React.Component {
                         self.openOrdersRows.push(<OrderListItem order={order} key={i}/>);
                     });
                     this.setState({open_count: orders.length});
-                    this.setState({selected_open: 'selected'});
-                    this.setState({selected_closed: ''});
-                    this.setState({selected_canceled: ''});
                     break;
                 case 'close':
                     self.closedOrdersRows = [];
@@ -66,7 +74,6 @@ class Orders extends React.Component {
                     });
                     console.log(orders.length);
                     this.setState({closed_count: orders.length});
-                    this.setState({selected_open: '', selected_closed: 'selected', selected_canceled: ''});
                     break;
                 case 'cancel':
                     self.canceledOrdersRows = [];
@@ -74,9 +81,6 @@ class Orders extends React.Component {
                         self.canceledOrdersRows.push(<OrderListItem order={order} key={i}/>);
                     });
                     this.setState({canceled_count: orders.length});
-                    this.setState({selected_open: ''});
-                    this.setState({selected_closed: ''});
-                    this.setState({selected_canceled: 'selected'});
                     break;
                 default:
                     break;

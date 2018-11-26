@@ -84,7 +84,7 @@ const ActivityImage = {
 
 const ActivityListing = {
     forActivity: (activity_id) =>
-        requests.get(`/v1/activity-listings/activity?${activity_id}`),
+        requests.get(`/v1/activity-listings?activity_id=${activity_id}&expand=currency`),
     del: (activity_listing_id) =>
         requests.del(`/v1/activity-listings/${activity_listing_id}`),
     get: (activity_listing_id) =>
@@ -100,7 +100,7 @@ const Activities = {
     // luminary / luminary._id
     //?${limit(lim, start)}
     filter: (filter, id, lim = 3, start = 0) =>
-        requests.get(`/v1/activities?${filter}=${id}&expand=luminary.user.image,activityImages.image,location`),
+        requests.get(`/v1/activities?${filter}_id=${id}&expand=luminary.user.image,activityImages.image,location`),
     get: id =>
         requests.get(`/v1/activities/${id}?expand=luminary.user.image,activityImages.image,location`),
     all: (lim = 10,page = 0) =>
@@ -162,13 +162,13 @@ const Duration = {
 
 const FollowList = {
     get: customer_id =>
-        requests.get(`/v1/follow-list/${customer_id}`),
+        requests.get(`/v1/followlists?customer_id=${customer_id}&expand=luminary.user.image`),
     isFollow: (customer,luminary) =>
-        requests.get(`/v1/follow-list/get?${customer}&${luminary}`),
+        requests.get(`/v1/followlist/get?${customer}&${luminary}`),
     follow: (customer,luminary) =>
-        requests.get(`/v1/follow-list/follow?${customer}&${luminary}`),
+        requests.get(`/v1/followlist/follow?${customer}&${luminary}`),
     unFollow: (customer,luminary) =>
-        requests.get(`/v1/follow-list/unfollow?${customer}&${luminary}`),
+        requests.get(`/v1/followlist/unfollow?${customer}&${luminary}`),
 };
 
 const Tags = {
@@ -206,12 +206,10 @@ const Locations = {
 };
 
 const Luminary = {
-    get: luminary_id =>
-        requests.get(`/v1/luminaries/${luminary_id}`),
-    forUser: (user_id) =>
-        requests.get(`/v1/luminaries/user/${user_id}`),
+    get: user_id =>
+        requests.get(`/v1/luminaries?expand=user&user.id=${user_id}`),
     create: luminary =>
-        requests.post(`/v1/luminaries/${luminary}`),
+        requests.post(`/v1/luminaries`,{luminary}),
     update: luminary =>
         requests.put(`/v1/luminaries/${luminary.id}`,luminary),
 };
@@ -225,11 +223,11 @@ const MailStatus = {
 const Mail = {
     filter: (filter, id, lim = 10, start = 0) =>
 //        requests.get(`/v1/mails/${filter}/${id}?${limit(lim, start)}`),
-        requests.get(`/v1/mails?expand=fromUser.image,toUser.image`),
+        requests.get(`/v1/mails?${filter}_id=${id}&expand=fromUser.image,toUser.image`),
     get: mail_id =>
         requests.get(`/v1/mails/${mail_id}`),
     create: (mail) =>
-        requests.post(`/v1/mails/${mail}`),
+        requests.post(`/v1/mails`,mail),
     del: (mail_id) =>
         requests.del(`/v1/mails/${mail_id}`),
 };
@@ -240,7 +238,7 @@ const Order = {
     forUser: (user, page) =>
         requests.get(`/v1/orders?user=${encode(user)}&${limit(5, page)}`),
     filter: (filter, id, lim = 10, start = 0) =>
-        requests.get(`/v1/orders?${filter}=${id}`),
+        requests.get(`/v1/orders?${filter}_id=${id}`),
     get: orderId =>
         requests.get(`/v1/orders/${orderId}`),
     create: (order) =>
@@ -279,7 +277,7 @@ const Review = {
 
 const WishList = {
     forCustomer: (customer) =>
-        requests.get(`/v1/wishlists?customer_id=${customer}`),
+        requests.get(`/v1/wishlists?customer_id=${customer}&expand=activity.luminary.user.image,activity.activityImages.image`),
     isWished: (activity, customer) =>
         requests.get(`/v1/wishlists?customer_id=${customer}&activity_id=${activity}`),
     wish: (wish) =>

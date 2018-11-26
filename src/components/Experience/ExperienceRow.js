@@ -12,7 +12,7 @@ class ExperienceRow extends React.Component {
         this.activitiesList = [];
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let self = this;
         let activities = this.props.activities;
         if (activities) {

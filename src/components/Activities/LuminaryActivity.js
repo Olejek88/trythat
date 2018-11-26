@@ -45,7 +45,7 @@ export default class LuminaryActivity extends React.Component {
                 activitiesRow = [];
             }
         });
-        console.log (this.activitiesRows);
+        //console.log (this.activitiesRows);
     }
 
     render() {

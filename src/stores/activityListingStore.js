@@ -51,13 +51,9 @@ export class ActivityListingStore {
     */
 
     @action loadActivityListing(activity) {
-        this.staticData.forEach(activityListing =>
-            this.activityListingRegistry.set(activityListing.id, activityListing));
-        return Promise.resolve(this.staticData);
-/*
+        this.activityListingRegistry.clear();
         return agent.ActivityListing.forActivity(activity.id)
-            .then(action(({activityListing}) => {
-                this.activityListingRegistry.clear();
+            .then(action((activityListing) => {
                 activityListing.forEach(activityListing =>
                     this.activityListingRegistry.set(activityListing.id, activityListing));
             }))
@@ -67,15 +63,15 @@ export class ActivityListingStore {
             .catch(action(err => {
                 throw err;
             }));
-*/
     }
 
     loadActivityListingMinimumPrice() {
         let minimum_cost = 1000000;
         let current_currency = '';
-        this.activityListingRegistry.forEach(function (activityListing) {
-            if (activityListing.cost < minimum_cost)
-                minimum_cost = activityListing.cost;
+        this.activityListingRegistry.forEach(function (activityListing,i) {
+            let cost = activityListing.cost;
+            if (cost < minimum_cost)
+                minimum_cost = cost;
             current_currency = activityListing.currency.title;
         });
         return minimum_cost + " " + current_currency;

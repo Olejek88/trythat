@@ -136,15 +136,15 @@ class SiteMenu extends React.Component {
                             <div className="level-3">
                                 <div className="col">
                                     <div data-navmenuid="213" className="topNavCat">
-                                        <a href={"/#/activities/filter/popular"} title="Популярное" className=" " tabIndex="1001">
+                                        <a href={"/#/activities/trends/3"} title="Популярное" className=" " tabIndex="1001">
                                             <p className="level-link fo-14-n-s4">Популярное</p></a>
                                     </div>
                                     <div data-navmenuid="213" className="topNavCat">
-                                        <a href={"/#/activities/filter/new"} title="Новинки" className=" " tabIndex="1001">
+                                        <a href={"/#/activities/trends/2"} title="Новинки" className=" " tabIndex="1001">
                                             <p className="level-link fo-14-n-s4">Новинки</p></a>
                                     </div>
                                     <div data-navmenuid="213" className="topNavCat">
-                                        <a href={"/#/activities/filter/cheap"} title="Недорогие" className=" " tabIndex="1001">
+                                        <a href={"/#/activities/trends/1"} title="Недорогие" className=" " tabIndex="1001">
                                             <p className="level-link fo-14-n-s4">Недорогие</p></a>
                                     </div>
                                 </div>

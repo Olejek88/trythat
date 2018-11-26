@@ -158,11 +158,14 @@ class AddActivity extends React.Component {
                 }
             });
 
-            this.activity.tags.forEach(function (tag) {
-                self.state.tags[self.state.tags.length]=tag.title;
-            });
 
             if (this.activity) {
+                if (this.activity.tags) {
+                    this.activity.tags.forEach(function (tag) {
+                        self.state.tags[self.state.tags.length] = tag.title;
+                    });
+                }
+
                 this.props.activityListingStore.loadActivityListing(this.activity).then(() => {
                     Array.from(this.props.activityListingStore.activityListingRegistry.values())
                         .forEach(function (activity_list, i) {
@@ -170,7 +173,7 @@ class AddActivity extends React.Component {
                             self.activityListRows.push(<ActivityListingItem activity={self.activity}
                                                                             activity_listing={activity_list}
                                                                             key={i}/>);
-                    });
+                        });
                     self.setState({activityListRows: self.activityListRows});
                 });
 

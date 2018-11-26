@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
 
-@inject('wishListStore', 'userStore')
+@inject('wishListStore', 'commonStore' , 'userStore')
 @observer
 class WishListItem extends React.Component {
     constructor() {
@@ -12,14 +12,15 @@ class WishListItem extends React.Component {
     }
 
     render() {
-        const activity = this.props.activity;
+        const wishList = this.props.wishList;
+        const activity = wishList.activity;
         let activity_link = "/#/activity/" + activity._id;
         let activity_price = this.props.price;
         let activity_image = {
-            backgroundImage: 'url(' + this.props.activity.images[0].path + ')'
+            backgroundImage: 'url(' + this.props.commonStore.apiServer + activity.activityImages[0].image.path + ')'
         };
         this.onRemove = () => {
-            this.props.wishListStore.unWish(this.props.userStore.currentCustomer._id, activity._id);
+            this.props.wishListStore.unWish(wishList);
             this.setState({itemPresent: false});
         };
 

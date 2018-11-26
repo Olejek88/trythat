@@ -68,14 +68,6 @@ export class ActivityStore {
             .catch(action(err => {
                 console.log(err);
             }));
-        // [тест] возвращаем или н-ное количество или массив из одной статике
-/*
-        if (this.predicate.limit)
-            return this.loadTestActivities(this.predicate.limit);
-        let tempArray = [];
-        tempArray.push(this.staticData);
-        return tempArray;
-*/
     }
 
     @action loadActivity(id, {acceptCached = false} = {}) {

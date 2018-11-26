@@ -16,12 +16,13 @@ class ActivityListItem extends React.Component {
             this.setState({showActivityItem: false})
         };
     }
+    componentDidMount() {
+
+    }
 
     render() {
         const activity = this.props.activity;
-
-        let activity_image = this.props.commonStore.apiServer+this.props.activity.images[0].path;
-
+        let activity_image = this.props.commonStore.apiServer+this.props.activity.activityImages[0].image.path;
         let luminary_image = this.props.commonStore.apiServer+activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
 
