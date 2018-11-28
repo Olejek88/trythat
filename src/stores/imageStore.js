@@ -37,10 +37,9 @@ export class ImageStore {
     }
 
     @action createImage(image) {
-        return agent.Image.create(image)
-            .then(({image}) => {
-                return image;
-            });
+        return agent.Image.create(image).catch(action(err => {
+                throw err;
+            }));
     }
 
     @action loadImages() {

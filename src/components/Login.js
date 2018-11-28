@@ -21,7 +21,7 @@ export default class Login extends React.Component {
     handleSubmitForm = (e) => {
         e.preventDefault();
         this.props.authStore.login()
-            .then(() => { console.log('goto'); this.props.history.replace('/')})
+            .then(() => { this.props.history.replace('/')})
             .catch(action((err) => {
                 console.log('error '+err);
             }));

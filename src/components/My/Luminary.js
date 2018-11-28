@@ -3,6 +3,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import MyMenu from "./MyMenu";
+import {action} from "mobx/lib/mobx";
 
 @inject('userStore', 'luminaryStore')
 @observer
@@ -15,6 +16,7 @@ class Luminary extends React.Component {
             id: '',
             description: '',
             shortDescription: '',
+            rating: 0.0,
             user_id: '',
             user: ''
         };
@@ -22,7 +24,11 @@ class Luminary extends React.Component {
         this.submitForm = ev => {
             ev.preventDefault();
             const luminary = Object.assign({}, this.state);
-            this.props.luminaryStore.updateLuminary(luminary);
+            this.props.luminaryStore.updateLuminary(luminary).then((() => {
+                this.props.userStore.currentLuminary = luminary;
+                window.localStorage.setItem('luminary', JSON.stringify(luminary));
+                this.props.history.replace('/my/luminary');
+            }));
         };
 
         this.updateState = field => ev => {
@@ -32,11 +38,12 @@ class Luminary extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if (!this.props.userStore.currentLuminary)
-            this.props.history.push("/");
+            this.props.history.replace('/my');
         this.setState({user: this.props.userStore.getUser()});
         this.setState({user_id: this.props.userStore.currentUser.id});
+        this.setState({rating: this.props.userStore.currentLuminary.rating});
         this.setState({id: this.props.userStore.currentLuminary.id});
         this.setState({description: this.props.userStore.currentLuminary.description});
         this.setState({shortDescription: this.props.userStore.currentLuminary.shortDescription});

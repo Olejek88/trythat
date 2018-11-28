@@ -37,11 +37,20 @@ class Experience extends React.Component {
         if (this.props.activity) {
             this.setState({favoredClass: 'heart_img'});
             this.setState({activity: this.props.activity});
-            this.props.activityListingStore.loadActivityListing(this.props.activity).then(() => {
-                let price = self.props.activityListingStore.loadActivityListingMinimumPrice();
+            this.props.activityListingStore.loadActivityListing(this.props.activity).then(function (activityListing) {
+                let price = self.props.activityListingStore.loadActivityListingMinimumPrice(activityListing);
                 self.setState({activityPrice: price});
             });
-            this.setState({activity_image: this.props.activity.activityImages[0].image});
+            if (this.props.activity.activityImages[0])
+                this.setState({activity_image: {
+                        title: this.props.activity.activityImages[0].image.title,
+                        path: this.props.commonStore.apiServer+this.props.activity.activityImages[0].image.path }
+                    });
+            else {
+                this.setState({activity_image: {
+                    title: 'no', path: 'images/activity_no_image.jpg'
+                }});
+            }
 
             const customer = this.props.userStore.currentCustomer;
             this.setState({customer: customer});
@@ -85,8 +94,8 @@ class Experience extends React.Component {
                                    href={"/#/activity/" + this.state.activity.id}>
                                     <img className="product_img" alt={this.state.activity_image.title}
                                          title={this.state.activity_image.title}
-                                         src={this.props.commonStore.apiServer+this.state.activity_image.path}
-                                         style={{width: '400px'}}
+                                         src={this.state.activity_image.path}
+                                         style={{width: '350px'}}
                                     />
                                 </a>
                             </div>

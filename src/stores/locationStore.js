@@ -6,7 +6,7 @@ import cityStore from "./cityStore";
 class LocationStore {
     @observable currentLocation;
     @observable isLoading = false;
-    @observable locationsRegistry = observable.map();
+    locationsRegistry = new Map();
 
     testData = {
         _id: 1,
@@ -27,30 +27,37 @@ class LocationStore {
             if (location) return Promise.resolve(location);
         }
         this.isLoading = true;
-        agent.Locations.get(id)
+        return agent.Locations.get(id)
             .then(action((location) => {
-                this.locationsRegistry.set(location.slug, location);
-                return location;
+                this.locationsRegistry.set(location.id, location);
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.testData[0];
     }
 
     @action loadLocations() {
         this.isLoading = true;
-        agent.Locations.all()
-            .then(action(({locations}) => {
+        return agent.Locations.all()
+            .then(action((locations) => {
                 this.locationsRegistry.clear();
-                locations.forEach(location => this.locationsRegistry.set(locations.slug, location));
+                locations.forEach(location => this.locationsRegistry.set(location.id, location));
             }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
-        return this.testData;
+    }
+
+    @action createLocation(location) {
+        return agent.Locations.create(location)
+            .then((location) => {
+                this.locationsRegistry.set(location.id, location);
+            })
+            .catch(action(err => {
+                throw err;
+            }))
     }
 }
 

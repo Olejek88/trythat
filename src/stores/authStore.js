@@ -35,9 +35,11 @@ class AuthStore {
         this.inProgress = true;
         this.errors = undefined;
         return agent.Auth.login(this.values.email, this.values.password)
-            .then(({token}) => {
+            .then(({token,id}) => {
                 console.log(token);
-                commonStore.setToken(token)
+                console.log(id);
+                commonStore.setToken(token);
+                commonStore.setId(id);
             })
             .then(() => userStore.pullUser())
             .catch(action((err) => {
@@ -66,7 +68,9 @@ class AuthStore {
 
     @action logout() {
         commonStore.setToken(undefined);
+        commonStore.setId(undefined);
         userStore.forgetUser();
+        window.localStorage.setItem('user', JSON.stringify(undefined));
         return Promise.resolve();
     }
 

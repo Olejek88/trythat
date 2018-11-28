@@ -122,13 +122,14 @@ export class ActivityStore {
 
     @action createActivity(activity) {
         return agent.Activities.create(activity)
-            .then(({activity}) => {
+            .then(action((activity) => {
+                console.log(activity);
                 this.activitiesRegistry.set(activity.id, activity);
                 return activity;
-            })
+            }))
             .catch(action(err => {
                 throw err;
-            }))
+            }));
     }
 
     @action updateActivity(activity) {

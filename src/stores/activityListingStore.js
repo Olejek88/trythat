@@ -53,10 +53,6 @@ export class ActivityListingStore {
     @action loadActivityListing(activity) {
         this.activityListingRegistry.clear();
         return agent.ActivityListing.forActivity(activity.id)
-            .then(action((activityListing) => {
-                activityListing.forEach(activityListing =>
-                    this.activityListingRegistry.set(activityListing.id, activityListing));
-            }))
             .finally(action(() => {
                 this.isLoading = false;
             }))
@@ -65,17 +61,17 @@ export class ActivityListingStore {
             }));
     }
 
-    loadActivityListingMinimumPrice() {
+    loadActivityListingMinimumPrice(activityListing) {
         let minimum_cost = 1000000;
         let current_currency = '';
-        this.activityListingRegistry.forEach(function (activityListing,i) {
+        activityListing.forEach(function (activityListing,i) {
             let cost = activityListing.cost;
             if (cost < minimum_cost)
                 minimum_cost = cost;
             current_currency = activityListing.currency.title;
         });
+        if (minimum_cost===1000000) return 'не указано';
         return minimum_cost + " " + current_currency;
-        //return this.staticData[1].cost + " " + this.staticData[1].currency.title;
     }
 
     loadActivityListingDuration() {

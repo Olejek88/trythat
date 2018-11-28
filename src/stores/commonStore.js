@@ -6,6 +6,7 @@ class CommonStore {
     @observable appName = 'TryThat';
     @observable apiServer = 'http://api.tt.ru/';
     @observable token = window.localStorage.getItem('jwt');
+    @observable user_id = window.localStorage.getItem('user_id');
     @observable appLoaded = false;
 
     @observable tags = [];
@@ -14,7 +15,7 @@ class CommonStore {
     constructor() {
         reaction(
             () => this.token,
-            token => {
+            (token) => {
                 if (token) {
                     window.localStorage.setItem('jwt', token);
                 } else {
@@ -40,6 +41,11 @@ class CommonStore {
 
     @action setToken(token) {
         this.token = token;
+    }
+
+    @action setId(id) {
+        this.user_id = id;
+        window.localStorage.setItem('user_id', this.user_id);
     }
 
     @action setAppLoaded() {

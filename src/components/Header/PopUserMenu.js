@@ -7,7 +7,7 @@ import {inject} from "mobx-react/index";
 class PopWish extends React.Component {
     handleClickLogout = () =>
         this.props.authStore.logout()
-            .then(() => this.props.history.replace('/'));
+            .then(() => window.location.reload());
     render() {
         return (
             <div id="acct-popup-wrapper" className="io-popup-wrapper">

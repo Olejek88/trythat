@@ -6,7 +6,7 @@ import {inject, observer} from 'mobx-react';
 import Select from 'react-select';
 import MyMenu from "./MyMenu";
 
-@inject('userStore', 'countryStore', 'cityStore', 'imageStore')
+@inject('userStore', 'countryStore', 'cityStore', 'imageStore', 'commonStore')
 @observer
 class SettingsForm extends React.Component {
     constructor() {
@@ -22,6 +22,7 @@ class SettingsForm extends React.Component {
             phone: '',
             email: '',
             image: '',
+            image_id: '',
             password: '',
 
             currentPassword: '',
@@ -78,7 +79,7 @@ class SettingsForm extends React.Component {
 
         this.submitForm = ev => {
             ev.preventDefault();
-            const user = Object.assign({}, this.state);
+            let user = Object.assign({}, this.state);
             if (!user.password) {
                 delete user.password;
             }
@@ -92,16 +93,14 @@ class SettingsForm extends React.Component {
     }
 
     onDrop(picture) {
-/*
-        console.log(picture[0]);
-        this.avatar = picture[0].name;
-        this.setState({
-            image: this.state.image.concat(picture[0])
+        let data = new FormData();
+        data.append('image', picture[0]);
+        data.append('title', "пользователь");
+        this.props.imageStore.createImage(data).then((image) => {
+            this.setState({
+                image: image
+            });
         });
-        const data = new FormData();
-        data.append('file', picture[0], picture[0].name);
-        this.props.imageStore.createImage(date);
-*/
     }
 
     componentDidMount() {
@@ -141,6 +140,9 @@ class SettingsForm extends React.Component {
                 phone: this.props.userStore.currentUser.phone || '',
                 password: this.props.userStore.currentUser.password || ''
             });
+            if (this.props.userStore.currentUser.image)
+                this.setState({image_id: this.props.userStore.currentUser.image.id});
+            console.log(this.props.userStore.currentUser.image);
         }
     }
 
@@ -160,7 +162,7 @@ class SettingsForm extends React.Component {
                                         <label className="required">Фотография</label>
                                     </div>
                                     <div className="sibs emailInput">
-                                        <img src={this.avatar} style={{width: '200px'}} alt={""}/>
+                                        <img src={this.props.commonStore.apiServer+this.state.image.path} style={{width: '200px'}} alt={""}/>
                                         <ImageUploader
                                             withIcon={true}
                                             withPreview={true}
@@ -604,8 +606,18 @@ class Settings extends React.Component {
                                 user => {
                                     user.country = {id: user.country.value, title: user.country.label};
                                     user.city = {id: user.city.value, title: user.city.label};
-                                    console.log(user.id);
+                                    if (user.image)
+                                        user.image_id = user.image.id;
+                                    user.country_id = user.country.id;
+                                    user.city_id = user.city.id;
+                                    console.log(user);
                                     this.props.userStore.updateUser(user)
+                                        .then(() => {
+                                            console.log(user);
+                                            this.props.userStore.currentUser = user;
+                                            window.localStorage.setItem('user', JSON.stringify(user));
+                                            this.props.history.replace('/#/settings');
+                                        });
                                 }
                             }
                             onSubmitPasswordForm={user => this.props.userStore.changeUserPassword(user,

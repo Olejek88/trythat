@@ -25,12 +25,14 @@ class PopCart extends React.Component {
         };
         this.props.orderStore.setPredicate(predicate);
         this.props.orderStore.loadOrders().then(action((orders) => {
-                orders.forEach(function (order, i) {
-                    let activity = order.listing.activity;
-                    self.setState ({sum: this.state.sum+order.listing.cost});
-                    self.orderList.push(<OrderListPopItem activity={activity} key={i} order={order}/>);
-                    self.setState({orderList: self.orderList});
-                });
+                if (orders) {
+                    orders.forEach(function (order, i) {
+                        let activity = order.listing.activity;
+                        self.setState({sum: this.state.sum + order.listing.cost});
+                        self.orderList.push(<OrderListPopItem activity={activity} key={i} order={order}/>);
+                        self.setState({orderList: self.orderList});
+                    });
+                }
             }));
     }
 

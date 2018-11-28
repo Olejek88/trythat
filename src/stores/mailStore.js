@@ -105,7 +105,7 @@ export class MailStore {
     @action createMail(mail) {
         return agent.Mail.create(mail)
             .then(({mail}) => {
-                this.mailRegistry.set(mail._id, mail);
+                this.mailRegistry.set(mail.id, mail);
                 return mail;
             })
             .catch(action(err => {

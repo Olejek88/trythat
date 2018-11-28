@@ -5,8 +5,7 @@ export class ActivityImageStore {
 
     @action createImage(image) {
         return agent.ActivityImage.create(image)
-            .then(({image}) => {
-                return image;
+            .then((image) => {
             });
     }
 
@@ -22,7 +21,7 @@ export class ActivityImageStore {
     }
 
     @action deleteImage(image) {
-        return agent.ActivityImage.del(image._id)
+        return agent.ActivityImage.del(image.id)
             .catch(action(err => {
                 throw err;
             }));

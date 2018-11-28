@@ -19,12 +19,12 @@ export default class ActivityView extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({activitiesRows:[], filter: nextProps.filter, id: nextProps.i});
-        this.fillList()
+        this.fillList(nextProps)
     }
 
     componentWillMount() {
         this.setState({activitiesRows:[], filter: this.props.match.params.filter, id: this.props.match.params.id});
-        this.fillList()
+        this.fillList(this.props)
     }
 
     componentDidUpdate() {
@@ -32,17 +32,19 @@ export default class ActivityView extends React.Component {
             this.setState({updated: true});
     }
 
-    fillList() {
+    fillList(props) {
         let my = this;
         let activitiesRow = [];
         let first_activity = null;
         let count = 0;
-
         let predicate = {
             filter: this.state.filter,
-            id: this.state.id,
-            limit: 12
+            id: this.state.id
         };
+        if (props.i>0 && props.filter!=='') {
+            predicate.filter = props.filter;
+            predicate.id = props.i;
+        }
         this.props.activityStore.setPredicate(predicate);
 
         this.props.activityStore.loadActivities().then(() => {

@@ -75,9 +75,8 @@ export default class MyActivities extends React.Component {
                 filter = nextProps.match.params.filter;
                 if (filter !== '') {
                     let predicate = {
-                        filter: filter,
-                        id: this.props.userStore.currentCustomer.id,
-                        limit: 10
+                        filter: 'luminary',
+                        id: this.props.userStore.currentLuminary.id
                     };
                     if (filter === 'wish') {
                         this.setState ({header: 'Отслеживаемые'});
@@ -91,7 +90,13 @@ export default class MyActivities extends React.Component {
                     this.props.activityStore.setPredicate(predicate);
                 }
             }
-
+            else if (this.props.userStore.currentLuminary) {
+                let predicate = {
+                    filter: 'luminary',
+                    id: this.props.userStore.currentLuminary.id
+                };
+                this.props.activityStore.setPredicate(predicate);
+            }
             this.props.activityStore.loadActivities()
                 .then(() => {
                     let activitiesList = Array.from(this.props.activityStore.activitiesRegistry.values());

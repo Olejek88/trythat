@@ -32,13 +32,6 @@ class ProfileStore {
     }
   }
 
-    @action pullProfile() {
-        this.loadingProfile = true;
-        return agent.Auth.current()
-            .then(action(({ user }) => { this.currentUser = user; }))
-            .finally(action(() => { this.loadingProfile = false; }))
-    }
-
     @action updateProfile(profile) {
         this.updatingProfile = true;
         return agent.Auth.save(profile)

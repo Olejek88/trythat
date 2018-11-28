@@ -16,12 +16,10 @@ class ActivityListItem extends React.Component {
             this.setState({showActivityItem: false})
         };
     }
-    componentDidMount() {
-
-    }
 
     render() {
         const activity = this.props.activity;
+        let activity_rating = activity.luminary.rating;
         let activity_image = this.props.commonStore.apiServer+this.props.activity.activityImages[0].image.path;
         let luminary_image = this.props.commonStore.apiServer+activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
@@ -37,7 +35,7 @@ class ActivityListItem extends React.Component {
                         </div>
                         <p className="vendor-name sg-f-ttl sg-inline-middle sg-inline-flex-grow"
                            style={{margin: '0 10px'}}>{luminary_name}
-                            <span className="sg-c-2" style={{margin: '0 5px'}}> 1 </span>
+                            <span className="sg-c-2" style={{margin: '0 5px'}}> ({activity_rating}) </span>
                         </p>
                     </div>
                     <div className="body-row">
@@ -48,7 +46,7 @@ class ActivityListItem extends React.Component {
                                 <div style={{margin: '0 10px', width: '80%'}}>
                                     <div><a className="js-pdpDetails sg-c-1">
                                         {activity.title}</a></div>
-                                    <div className="sg-c-2">{activity.description.substr(0,180)+".."}</div>
+                                    <div className="sg-c-2">{activity.description.substr(0,220)+".."}</div>
                                     <div className="sg-c-2">
                                     </div>
                                     <div className="convert" style={{marginTop: '10px', cursor: 'pointer'}}>

@@ -62,21 +62,36 @@ export class UserStore {
 
     @action pullUser() {
         this.loadingUser = true;
+        let user_id = window.localStorage.getItem('user_id');
+        if (user_id===undefined || user_id==='null' || user_id===null)
+            return Promise.resolve(undefined);
         let user = window.localStorage.getItem('user');
-        if (user) {
+        if (user!==undefined && user!=='undefined' && JSON.parse(user)) {
             this.currentUser = JSON.parse(user);
-            this.currentCustomer = JSON.parse(window.localStorage.getItem('customer'));
-            //console.log(this.currentCustomer);
-            this.currentLuminary = JSON.parse(window.localStorage.getItem('luminary'));
-            //console.log(this.currentLuminary);
+            //console.log(this.currentUser);
+            if (window.localStorage.getItem('customer')!==undefined &&
+                window.localStorage.getItem('customer')!=='undefined') {
+                this.currentCustomer = JSON.parse(window.localStorage.getItem('customer'));
+            }
+            else {
+                this.getCustomerByUser(this.currentUser.id).then(() => {
+                    return Promise.resolve(this.currentUser);
+                });
+            }
+            if (window.localStorage.getItem('luminary')!==undefined &&
+                window.localStorage.getItem('luminary')!=='undefined') {
+                this.currentLuminary = JSON.parse(window.localStorage.getItem('luminary'));
+                //console.log(this.currentLuminary);
+            }
             if (this.currentCustomer!=null)
                 return Promise.resolve(this.currentUser);
         }
-        return agent.Auth.current()
+        return agent.Auth.current(user_id)
             .then(action((user) => {
-                if(user[0]) {
-                    this.currentUser = user[0];
+                if(user) {
+                    this.currentUser = user;
                     window.localStorage.setItem('user', JSON.stringify(user));
+                    window.localStorage.setItem('user_id',user.id);
                     this.getCustomerByUser(this.currentUser.id);
                     this.getLuminaryByUser(this.currentUser.id);
                     this.loadingUser = false;
@@ -90,7 +105,7 @@ export class UserStore {
 
     @action updateUser(newUser) {
         this.updatingUser = true;
-        //console.log(newUser);
+        console.log(newUser);
         return agent.Auth.save(newUser,newUser.id)
             .then(action((user) => {
                 console.log(user);

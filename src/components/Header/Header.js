@@ -17,7 +17,7 @@ const LoggedOutView = props => {
                       id="signUpBtn">
                     <div className="title-container"><p className="title">Регистрация</p></div>
                 </Link>
-                <Link to="/#/login" className="navButton button js-login" id="logInBtn">
+                <Link to="/login" className="navButton button js-login" id="logInBtn">
                     <div className="title-container"><p className="title">Войти</p></div>
                 </Link>
                 <Link to="/" className="sg-inline-middle">
