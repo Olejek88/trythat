@@ -12,7 +12,8 @@ class ActivityStarAverage extends React.Component {
     render() {
         const rate = this.props.rate;
         const total = this.props.total;
-        let stars=[ActivityStarAverage.getStarImg(0),ActivityStarAverage.getStarImg(0),ActivityStarAverage.getStarImg(0),ActivityStarAverage.getStarImg(0),ActivityStarAverage.getStarImg(0)];
+        let stars=[ActivityStarAverage.getStarImg(0),ActivityStarAverage.getStarImg(0),
+            ActivityStarAverage.getStarImg(0),ActivityStarAverage.getStarImg(0),ActivityStarAverage.getStarImg(0)];
         if (rate>=0.25) stars[0] = ActivityStarAverage.getStarImg(0.5);
         if (rate>=0.75) stars[0] = ActivityStarAverage.getStarImg(1);
         if (rate>=1.25) stars[1] = ActivityStarAverage.getStarImg(0.5);

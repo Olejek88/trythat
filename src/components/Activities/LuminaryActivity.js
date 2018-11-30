@@ -6,46 +6,55 @@ import FollowButton from "../Components/FollowButton";
 import ActivityStarAverage from "../Activity/ActivityStarAverage";
 import Redirect from "react-router-dom/es/Redirect";
 
-@inject('activityStore', 'userStore', 'luminaryStore')
+@inject('activityStore', 'userStore', 'luminaryStore', 'commonStore')
 @withRouter
 export default class LuminaryActivity extends React.Component {
     constructor() {
         super();
-        this.activitiesRows = [];
+        this.state = {
+            luminary: [],
+            ready: false,
+            activitiesRows: []
+        };
         this.luminary = null;
     }
 
     componentWillMount() {
-        let predicate = {
-            filter: 'luminary',
-            id: this.props.id,
-            limit: 12
-        };
-        this.props.activityStore.setPredicate(predicate);
-
-        this.luminary = this.props.luminaryStore.getLuminary(this.props.id);
-        if (this.luminary == null) {
-            return <Redirect to='/'/>;
-        }
-
-        let activities = this.props.activityStore.loadActivities();
+        let id = this.props.match.params['id'];
         let my = this;
-        let activitiesRow = [];
-        let activitiesRows = my.activitiesRows;
-        let count = 0;
-        if (activities && activities.length > 0) {
-        }
-        activities.forEach(function (activity, i) {
-            activitiesRow.push(activity);
-            count++;
-            if (count % 4 === 0) {
-                activitiesRows = my.activitiesRows;
-                activitiesRows.push(<ExperienceRow activities={activitiesRow} key={i}/>);
-                my.setState({activitiesRows: activitiesRows});
-                activitiesRow = [];
+        if (id===undefined)
+            id = this.props.id;
+        if (id===undefined)
+            return <Redirect to='/#/' />;
+        this.props.luminaryStore.getLuminary(id).then((luminary) => {
+            my.setState ({luminary: luminary});
+            if (luminary === null) {
+                this.props.history.replace('/');
             }
+
+            let activitiesRow = [];
+            let count = 0;
+            let predicate = {
+                filter: 'luminary',
+                id: id
+            };
+            this.props.activityStore.setPredicate(predicate);
+            this.props.activityStore.loadActivities().then(() => {
+                this.props.activityStore.activitiesRegistry.forEach(function (activity) {
+                    activitiesRow.push(activity);
+                    count++;
+                    if (count % 4 === 0) {
+                        my.state.activitiesRows.push(<ExperienceRow activities={activitiesRow} key={count}/>);
+                        activitiesRow = [];
+                    }
+                });
+                if (count % 4 !== 0) {
+                    my.state.activitiesRows.push(<ExperienceRow activities={activitiesRow} key={count}/>);
+                    activitiesRow = [];
+                }
+                this.setState({ready: true});
+            });
         });
-        //console.log (this.activitiesRows);
     }
 
     render() {
@@ -54,6 +63,7 @@ export default class LuminaryActivity extends React.Component {
                 position: 'relative', margin: '0 auto', overflow: 'hidden', width: '1124px',
                 paddingTop: '80px'
             }}>
+                {this.state.ready &&
                 <div className="main-row">
                     <div id="category-top-nav" className="top-nav-scroll luminary"
                          style={{height: '15px', overflow: 'visible', width: '960px'}}>
@@ -63,27 +73,28 @@ export default class LuminaryActivity extends React.Component {
                                      style={{width: '100%', display: 'inline-block'}} aria-hidden="true">
                                     <div className="marquee-img-wrapper">
                                         <div className="marquee-img">
-                                            <img src={this.luminary.user.image.path}
-                                                 alt={this.luminary.user.firstName +
-                                                 " " + this.luminary.user.lastName}
+                                            <img src={this.props.commonStore.apiServer+this.state.luminary.user.image.path}
+                                                 alt={this.state.luminary.user.firstName +
+                                                 " " + this.state.luminary.user.lastName}
                                                  style={{height: '100%', width: '100%'}}/>
                                         </div>
                                     </div>
                                     <div className="marquee-text celeb_nav">
                                         <div>
-                                            <FollowButton activity={this.luminary} styles={'float: right'}/>
-                                            <h3 className="sg-f-ttl">{this.luminary.user.firstName +
-                                            " " + this.luminary.user.lastName}</h3>
+                                            <FollowButton activity={this.state.luminary} styles={'float: right'}/>
+                                            <h3 className="sg-f-ttl">{this.state.luminary.user.firstName +
+                                            " " + this.state.luminary.user.lastName}</h3>
                                             <div className="review_stars_div at_celeb_top_nav"
-                                                 data-average-rating="4.75">
+                                                 data-average-rating={this.state.luminary.rating}>
                                                 <div className="review_stars_inner_div sg-inline-middle">
-                                                    <ActivityStarAverage rate='4.5'/>
+                                                    <ActivityStarAverage rate={this.state.luminary.rating}
+                                                    total={1}/>
                                                 </div>
                                             </div>
-                                            <p className="org sg-c-2">{this.luminary.description}</p>
+                                            <p className="org sg-c-2">{this.state.luminary.shortDescription}</p>
                                         </div>
 
-                                        <div className="desc sg-f-bdy"><p>{this.luminary.fullDescription}</p>
+                                        <div className="desc sg-f-bdy"><p>{this.state.luminary.description}</p>
                                         </div>
                                         <div style={{clear: 'both'}}>
                                         </div>
@@ -96,8 +107,9 @@ export default class LuminaryActivity extends React.Component {
                          style={{margin: '0px 0 14px 0', textAlign: 'center', borderTop: '1px solid #CDCDCD'}}>
                         <div className="section-title"><h3>Предложения</h3></div>
                     </div>
-                    {this.activitiesRows}
+                    {this.state.activitiesRows}
                 </div>
+                }
             </div>
         );
     }

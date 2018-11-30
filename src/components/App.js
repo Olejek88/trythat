@@ -63,6 +63,7 @@ export default class App extends React.Component {
                         <Route path="/activity/:id" component={Activity}/>
                         <Route path="/my/activity/:filter/:listing" component={MyActivities}/>
                         <Route path="/my/activity/:filter" component={MyActivities}/>
+                        <Route path="/my/activity" component={MyActivities}/>
                         <Route path="/my/luminary" component={Luminary}/>
                         <Route path="/mail/:filter/:by" component={Conversation}/>
                         <Route path="/mail" component={Conversation}/>

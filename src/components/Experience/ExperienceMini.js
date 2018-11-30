@@ -1,41 +1,67 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
 
-@inject('activityListingStore','userStore','activityStore')
+@inject('activityListingStore', 'activityStore', 'commonStore', 'userStore', 'wishListStore')
 @observer
 class ExperienceMini extends React.Component {
     constructor() {
         super();
         this.state = {
             favored: false,
-            favoredClass: "heart_img"
+            favoredClass: "heart_img",
+            customer: null,
+            activity: '',
+            activity_image: '',
+            activityPrice: 0,
+            wish: null
         };
-        this.activityPrice='0р.';
-        this.activity = '';
+
         this.onFavored = () => {
             this.setState({favored: !this.state.favored});
-            if (this.state.favored)
-                this.setState({favoredClass:'heart_img wishlist listed'});
-            else
-                this.setState({favoredClass:'heart_img'});
+            if (this.state.favored && this.state.wish) {
+                this.setState({favoredClass: 'heart_img wishlist listed'});
+                this.props.wishListStore.unWish(this.state.wish);
+            }
+            else {
+                this.setState({favoredClass: 'heart_img'});
+                let wish ={
+                    activity_id: this.state.activity.id,
+                    customer: this.state.customer.id
+                };
+                this.props.wishListStore.wish(wish);
+            }
         };
     }
 
     componentWillMount() {
+        let self = this;
         if (this.props.activity) {
-            const customer = this.props.userStore.currentCustomer;
-            const favored = this.props.activityStore.isFavorite(this.props.activity._id, customer._id);
-            this.activity = this.props.activity;
-            this.props.activityListingStore.loadActivityListing(this.activity);
-            this.activityPrice = this.props.activityListingStore.loadActivityListingMinimumPrice();
-
-            Object.assign(this.state, {
-                favored: favored
+            this.setState({favoredClass: 'heart_img'});
+            this.setState({activity: this.props.activity});
+            this.props.activityListingStore.loadActivityListing(this.props.activity).then(function (activityListing) {
+                let price = self.props.activityListingStore.loadActivityListingMinimumPrice(activityListing);
+                self.setState({activityPrice: price});
             });
-            if (favored)
-                this.setState({favoredClass: "heart_img wishlist listed"});
-            else
-                this.setState({favoredClass: 'heart_img'});
+            if (this.props.activity.activityImages[0])
+                this.setState({activity_image: {
+                        title: this.props.activity.activityImages[0].image.title,
+                        path: this.props.commonStore.apiServer+this.props.activity.activityImages[0].image.path }
+                });
+            else {
+                this.setState({activity_image: {
+                        title: 'no', path: 'images/activity_no_image.jpg'
+                    }});
+            }
+
+            const customer = this.props.userStore.currentCustomer;
+            this.setState({customer: customer});
+            this.props.wishListStore.isWished(this.props.activity.id, customer.id).then((wish) => {
+                if (wish.length>0) {
+                    this.setState({favoredClass: "heart_img wishlist listed"});
+                    this.setState({wish: wish[0]});
+                    this.setState({favored: "favored"});
+                }
+            });
         }
     }
 
@@ -48,8 +74,8 @@ class ExperienceMini extends React.Component {
                              style={{direction: 'ltr', display: 'none'}}>
                             <div className="buy_type_text sg-text-transform sg-f-bdy-s sg-inline-middle"
                                  style={{backgroundColor: '#000000'}}>
-                                                <span>
-                                                </span>
+                                <span>
+                                </span>
                             </div>
                             <svg style={{marginLeft: '-1px'}} width="1em" height="2em">
                                 <polygon points="0,0 12,0 0,25" style={{fill: '#000000'}}></polygon>
@@ -66,16 +92,17 @@ class ExperienceMini extends React.Component {
                             <div className="product_image_wrapper">
                                 <div className="product_image_viewport">
                                     <img className="product_img lazyloaded"
-                                         data-src={this.activity.images[0].path}
-                                         alt={this.activity.title}
-                                         title={this.activity.title}
-                                         src={this.activity.images[0].path}/>
+                                         data-src={this.state.activity_image.path}
+                                         alt={this.state.activity_image.title}
+                                         title={this.state.activity_image.title}
+                                         src={this.state.activity_image.path}/>
                                 </div>
                             </div>
                         </a>
                         <img className="celeb_img js-lazyload sg-bg-3"
-                             data-src={this.activity.luminary.user.image.path} src={this.activity.luminary.user.image.path}
-                             alt={this.activity.luminary.user.firstName + " " + this.activity.luminary.user.lastName}/>
+                             data-src={this.state.activity.luminary.user.image.path}
+                             src={this.props.commonStore.apiServer+this.state.activity.luminary.user.image.path}
+                             alt={this.state.activity.luminary.user.firstName + " " + this.state.activity.luminary.user.lastName}/>
                         <div className={this.state.favoredClass} tabIndex="0" title="Список желаний" onClick={this.onFavored}>
                         </div>
                         <div className="wishlist-main-con"
@@ -99,18 +126,18 @@ class ExperienceMini extends React.Component {
                         <div className="min_height_placeholder">
                         </div>
                         <div className="product_celeb_name sg-c-2">
-                            {this.activity.luminary.user.firstName + " " + this.activity.luminary.user.lastName}</div>
+                            {this.state.activity.luminary.user.firstName + " " + this.state.activity.luminary.user.lastName}</div>
                         <div className="product_stars">
                         </div>
                         <div style={{clear: 'both'}}>
                         </div>
                     </div>
 
-                    <div className="product_location sg-c-2">{this.activity.location.title}</div>
+                    <div className="product_location sg-c-2">{this.state.activity.location.title}</div>
                     <div className="product_title sg-c-1">
-                        <p>{this.activity.title}</p>
+                        <p>{this.state.activity.title}</p>
                     </div>
-                    <div className="product_price sg-c-2">от {this.activityPrice}</div>
+                    <div className="product_price sg-c-2">от {this.state.activityPrice}</div>
                 </div>
             </div>
         );

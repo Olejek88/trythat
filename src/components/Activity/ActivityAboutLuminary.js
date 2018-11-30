@@ -3,6 +3,7 @@ import {observer, inject} from 'mobx-react';
 import ExperienceMini from "../Experience/ExperienceMini";
 import {action} from "mobx/lib/mobx";
 import luminaryStore from "../../stores/luminaryStore";
+import {Link} from "react-router-dom";
 
 @inject('activityStore','commonStore', 'followListStore', 'customerStore', 'userStore')
 @observer
@@ -54,18 +55,16 @@ class ActivityAboutLuminary extends React.Component {
             };
             this.props.activityStore.setPredicate(predicate);
 
-            this.props.activityStore.loadActivities().then(action((activities) => {
+            this.props.activityStore.loadLocalActivities().then(((activities) => {
+                let activityListing = [];
                 activities.forEach(function (activity) {
-                    console.log(activity);
-                    self.state.activity_from_luminary.push(activity);
+                    if (activity.id!==self.props.activity.id)
+                        activityListing.push(activity);
                 });
-            })).catch(action(err => {
-                console.log("err=" + err);
-                throw err;
+                self.setState({activity_from_luminary: activityListing});
             }));
 
             if (this.props.activity.luminary) {
-                console.log(this.props.activity.luminary);
                 this.setState({luminary: this.props.activity.luminary});
                 const customer = this.props.userStore.currentCustomer;
                 this.props.followListStore.isFollow(customer.id, this.props.activity.luminary.id)
@@ -83,7 +82,6 @@ class ActivityAboutLuminary extends React.Component {
                         }
                     }))
                     .catch(action(err => {
-                        console.log("err=" + err);
                         throw err;
                     }));
             }
@@ -101,7 +99,7 @@ class ActivityAboutLuminary extends React.Component {
                         <a href="/" style={{display: 'inline-block'}}>
                             <div className="img-box-wrapper">
                                 <div className="img-box">
-                                    <img className="luminary-img" src={this.props.commonStore.apiServer+this.state.luminary.user.image.path}
+                                    <img className="luminary-img thumbnail_img" src={this.props.commonStore.apiServer+this.state.luminary.user.image.path}
                                          alt={this.state.luminary.user.firstName + " " + this.state.luminary.user.lastName}/>
                                 </div>
                             </div>
@@ -128,7 +126,10 @@ class ActivityAboutLuminary extends React.Component {
                     <div className="cb-shop">
                         <p className="title  sg-f-ttl" style={{marginBottom: '28px'}}>Больше предложений</p>
                         <div className="view-all">
-                            <a className="sg-f-bdy sg-c-1 sg-text-transform sg-inline-middle" href="/">смотреть все</a>
+                            <Link to={`/luminary/${this.state.luminary.id}`}
+                                  className="sg-f-bdy sg-c-1 sg-text-transform sg-inline-middle">
+                                смотреть все
+                            </Link>
                         </div>
                         <div className="list mini_product_list">
                             {this.state.activity_from_luminary[0] && <ExperienceMini activity={this.state.activity_from_luminary[0]}/>}

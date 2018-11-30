@@ -2,16 +2,15 @@ import React from 'react';
 import {observer, inject} from 'mobx-react';
 import Select from 'react-select';
 import QuestionDialog from "../Orders/QuestionDialog";
-import {action} from "mobx/lib/mobx";
+import {Link} from "react-router-dom";
 
-@inject('activityStore','activityListingStore','orderStatusStore','customerStore','orderStore','userStore','luminaryStore')
+@inject('activityStore','activityListingStore','orderStatusStore','customerStore',
+    'orderStore','userStore','luminaryStore','wishListStore')
 @observer
 class ActivitySelect extends React.Component {
     constructor() {
         super();
         let order;
-        this.activityListingDurations = [];
-        this.activityCustomers = [];
         this.state = {
             updated: false,
             selectedQuantity: 1,
@@ -20,22 +19,31 @@ class ActivitySelect extends React.Component {
             favoredClass: "heart_img",
             favored: false,
             showQuestionDialog: false,
+            activityDiapason: '1-10',
+            activityDurations: 'не указано',
             luminary: "",
-            activity: ""
+            activity: "",
+            activityCustomers: [],
+            activityListingDurations: [],
+            wish_id: 0
         };
 
         this.onFavored = () => {
             // сначала меняем визуально, потом запускаем асинхронный setstate
+            const customer = this.props.userStore.currentCustomer;
             if (!this.state.favored) {
                 this.setState({favoredClass: 'pdp heart_img listed'});
-                //this.props.wishListStore.wish(customer._id, this.props.activity);
+                let wish = {
+                    activity_id: this.props.activity.id,
+                    customer_id: customer.id
+                };
+                this.props.wishListStore.wish(wish);
             }
             else {
                 this.setState({favoredClass: 'pdp heart_img'});
-                //this.props.wishListStore.unWish(customer._id, this.props.activity);
+                this.props.wishListStore.unWish(this.state.wish_id);
             }
             this.setState({favored: !this.state.favored});
-            console.log(this.state.favoredClass);
         };
 
         this.makeOrder = () => {
@@ -61,41 +69,42 @@ class ActivitySelect extends React.Component {
         this.onClick = this.onClick.bind(this);
 
         this.clickHandler = (component) => {
-            console.log('clickHandler');
             component.setState({showQuestionDialog: false});
         };
     }
 
     onClick(e) {
         e.preventDefault();
-        console.log('onClick');
         this.setState({showQuestionDialog: !this.state.showQuestionDialog})
     }
 
     componentDidUpdate() {
+        let self = this;
         if (this.props.activity && !this.state.updated) {
             this.setState({activity: this.props.activity});
             this.setState({luminary: this.props.activity.luminary});
             this.setState ({updated: true});
-            this.props.activityListingStore.loadActivityListing(this.props.activity).then(action(() => {
-                    this.activityListingDurations =
-                        this.props.activityListingStore.loadActivityListingSelectDuration(this.props.activity);
-                    this.activityCustomers =
-                        this.props.activityListingStore.loadTestCustomersByActivityListing();
-                })).catch(action(err => {
-                    console.log("err=" + err);
-                    throw err;
+            this.props.activityListingStore.loadActivityListing(this.props.activity).then(((activityListing) => {
+                    let customers = this.props.activityListingStore.loadActivityListingCustomers(activityListing);
+                    self.setState({activityDiapason: customers});
+                    let durations = this.props.activityListingStore.loadActivityListingDurations(activityListing);
+                    self.setState({activityDurations: durations});
+                    self.setState({activityListingDurations:
+                                        this.props.activityListingStore.loadActivityListingSelectDurations(activityListing)});
+                    self.setState({activityCustomers:
+                                        this.props.activityListingStore.loadTestCustomersByActivityListing(activityListing)});
             }));
-
-/*
-            const customer = this.props.customerStore.getCustomer();
-            const favor = this.props.activityStore.isFavorite(this.props.activity._id, customer._id);
-            this.setState({favored: favor});
-            if (favor)
-                this.setState({favoredClass: "pdp heart_img listed"});
-            else
-                this.setState({favoredClass: 'pdp heart_img'});
-*/
+            const customer = this.props.userStore.currentCustomer;
+            this.props.wishListStore.isWished(this.props.activity.id,customer.id).then(((wish) => {
+                if (wish) {
+                    this.setState({favored: true});
+                    this.setState({favoredClass: "pdp heart_img listed"});
+                }
+                else {
+                    this.setState({favored: false});
+                    this.setState({favoredClass: 'pdp heart_img'});
+                }
+            }));
         }
     }
 
@@ -109,12 +118,17 @@ class ActivitySelect extends React.Component {
             <React.Fragment>
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}
                                                                   luminary={this.state.activity.luminary}/>}
+                {this.state.updated &&
                 <div className="right-box action-box" style={{marginBottom: '40px'}}>
                     <div className="p-attributes " data-productid="325">
-                        <h2 className="lum-name sg-f-dspl-s ">{this.state.luminary.user.firstName} {this.state.luminary.user.lastName}</h2>
+                        <h2 className="lum-name sg-f-dspl-s ">
+                            <Link to={`/luminary/${this.state.luminary.id}`}>
+                                {this.state.luminary.user.firstName} {this.state.luminary.user.lastName}
+                            </Link>
+                        </h2>
                         <p className="charity-name sg-f-bdy sg-c-2 ">
                             <img src={"images/icon_ribbon.png"} style={{width: '12.5px'}} alt={""}/>
-                            <span>{this.state.luminary.description}</span>
+                            <span>{this.state.luminary.shortDescription}</span>
                         </p>
                         <div className="name-group" style={{float: 'left', width: '100%', marginTop: '34px'}}>
                             <h1 className="p-name sg-f-ttl">{this.state.activity.title}</h1>
@@ -147,7 +161,7 @@ class ActivitySelect extends React.Component {
                                                 <div>
                                                     <img src={"images/icon_manypeeps.png"} alt={""}/>
                                                     <div>
-                                                        <p style={{maxWidth: 'none'}}>{this.state.activity.minCustomers}-{this.state.activity.maxCustomers} человек</p>
+                                                        <p style={{maxWidth: 'none'}}>{this.state.activityDiapason} человек</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -155,7 +169,7 @@ class ActivitySelect extends React.Component {
                                                 <div>
                                                     <img src={"images/icon_clock.png"} alt={""}/>
                                                     <div>
-                                                        <p>{this.activityListingDurations.period}</p>
+                                                        <p>{this.state.activityDurations}</p>
                                                     </div>
                                                 </div>
                                             </td>
@@ -195,7 +209,7 @@ class ActivitySelect extends React.Component {
                                                 placeholder={"Продолжительность"}
                                                 className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                                 onChange={(e) => this.handleSelectActivityDurationChange(e)}
-                                                options={this.activityListingDurations}
+                                                options={this.state.activityListingDurations}
                                             />
                                             <div className="row" id="addPeopleError"
                                                  style={{
@@ -226,7 +240,7 @@ class ActivitySelect extends React.Component {
                                                 placeholder={"Количество человек"}
                                                 className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                                                 onChange={(e) => this.handleSelectActivityQuantityChange(e)}
-                                                options={this.activityCustomers}
+                                                options={this.state.activityCustomers}
                                             />
                                             <div className="row" id="addQuantityError"
                                                  style={{
@@ -337,6 +351,7 @@ class ActivitySelect extends React.Component {
                         </div>
                     </form>
                 </div>
+                }
             </React.Fragment>
         );
     }

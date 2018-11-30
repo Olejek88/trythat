@@ -39,13 +39,19 @@ class ReviewStore {
         this.isLoading = true;
         return this.$req()
             .then(action((reviews) => {
+                console.log(reviews);
                 this.reviewRegistry.clear();
                 reviews.forEach(review =>
-                    this.reviewRegistry.set(review._id, review));
-            }))
-            .finally(action(() => {
+                    this.reviewRegistry.set(review.id, review));
                 this.isLoading = false;
             }))
+            .catch(action(err => {
+                throw err;
+            }));
+    }
+
+    @action loadLocalReviews() {
+        return this.$req()
             .catch(action(err => {
                 throw err;
             }));

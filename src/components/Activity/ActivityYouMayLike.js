@@ -1,8 +1,7 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
-import Experience from "../Experience/Experience";
 import activityStore from "../../stores/activityStore";
-import {action} from "mobx/lib/mobx";
+import Experience from "../Experience/Experience";
 
 @inject('activityStore')
 @observer
@@ -25,17 +24,22 @@ class ActivityYouMayLike extends React.Component {
         if (this.props.activity && !this.state.updated) {
             let self = this;
             let predicate = {
-                //filter: 'like',
+                //filter: 'category',
                 filter: null,
-                id: this.props.activity.id,
+                //id: this.props.activity.category.id,
+                id: 0,
                 limit: 4
             };
             this.props.activityStore.setPredicate(predicate);
 
-            this.props.activityStore.loadActivities().then(action((activities) => {
+            this.props.activityStore.loadLocalActivities().then(((activities) => {
+                let count=0;
                 activities.forEach(function (activity, i) {
-                    self.activityList.push(<Experience activity={activity} key={i}/>);
+                    if (count<4)
+                        self.activityList.push(<Experience activity={activity} key={i}/>);
+                    count++;
                 });
+                self.setState({activityList: self.activityList});
             }));
             this.setState ({updated: true});
         }
@@ -45,7 +49,7 @@ class ActivityYouMayLike extends React.Component {
         return (
             <div className="p-otherExp-section " data-html="">
                 <div className="otherExp-section">
-                    <div style={{width: '100%', maxWidth: '960px', margin: '0 auto'}}>
+                    <div style={{width: '100%', maxWidth: '1160px', margin: '0 auto'}}>
                         <div className="row">
                             <div className="row" style={{margin: '32px 0'}}>
                                 <h3 className="sg-f-dspl-l sg-text-transform you-may-also-enjoy">Вам также может понравиться</h3>

@@ -19,7 +19,6 @@ class ActivityReview extends React.Component {
 
     componentDidUpdate() {
         if (this.props.review && !this.state.updated) {
-            console.log(this.props.review);
             this.setState ({updated: true});
         }
     }
@@ -27,12 +26,14 @@ class ActivityReview extends React.Component {
     render() {
         return (
             <div className="review_item">
+                {this.state.updated &&
                 <div className="review_stars_div " data-average-rating={this.state.review.rate}>
                     <ActivityStar date={this.state.review.date} rate={this.state.review.rate}/>
                     <div className="review_content sg-f-bdy fs-1 sg-c-2">{this.state.review.description}
                     </div>
                     {this.state.review.customer.user.firstName}
                 </div>
+                }
             </div>
         );
     }

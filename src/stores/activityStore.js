@@ -70,6 +70,12 @@ export class ActivityStore {
             }));
     }
 
+    @action loadLocalActivities() {
+        return this.$req()
+            .catch(action(err => {
+            }));
+    }
+
     @action loadActivity(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const activity = this.getActivity(id);
@@ -77,16 +83,17 @@ export class ActivityStore {
         }
         this.isLoading = true;
         return agent.Activities.get(id)
+/*
             .then(action((activity) => {
                 this.activitiesRegistry.set(activity._id, activity);
             }))
+*/
             .finally(action(() => {
                 this.isLoading = false;
             }))
             .catch(action(err => {
                 throw err;
             }));
-        //return this.staticData;
     }
 
     @action isFavorite(activity_id, customer_id) {

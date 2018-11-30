@@ -33,10 +33,7 @@ class WishListStore {
         return agent.WishList.isWished(customer, activity)
             .catch(action(err => {
                 throw err;
-            }))
-            .then((answer) => {
-                return answer;
-            })
+            }));
     }
 
     @action wish(wish) {
@@ -50,10 +47,7 @@ class WishListStore {
         return agent.WishList.unWish(wish.id)
             .catch(action(err => {
                 throw err;
-            }))
-            .then(({answer}) => {
-                return answer;
-            });
+            }));
     }
 }
 

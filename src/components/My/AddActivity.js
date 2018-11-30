@@ -17,6 +17,8 @@ import ActivityListingItem from "./ActivityListingItem";
 import LocationPicker from 'react-location-picker';
 import agent from "../../agent";
 import {action} from "mobx/lib/mobx";
+import {Redirect} from "react-router-dom";
+import AddListingDialog from "./AddLIstingDialog";
 
 @inject('activityCategoryStore', 'activityListingStore', 'activityStore', 'categoryStore', 'occasionStore', 'cityStore',
     'trendingStore', 'tagStore', 'userStore', 'activityImageStore', 'commonStore', 'imageStore', 'locationStore')
@@ -36,7 +38,7 @@ class AddActivity extends React.Component {
         };
 
         this.state = {
-            city: '',
+            city: 1,
             title: '',
             location_title: '',
             description: '',
@@ -66,7 +68,9 @@ class AddActivity extends React.Component {
             activityCategoryList: [],
             occasionList: [],
             trendsList: [],
+            activity: null,
             activityListRows: [],
+            showAddDialog: false,
             address: "Kalal",
             position: {
                 lat: 0,
@@ -96,11 +100,14 @@ class AddActivity extends React.Component {
         this.handleEndDateChange = this.handleEndDateChange.bind(this);
         this.handleFileChange = this.handleFileChange.bind(this);
         this.click = this.click.bind(this);
+        this.clickDelete = this.clickDelete.bind(this);
         this.createActivity = this.createActivity.bind(this);
+        this.clickAdd = this.clickAdd.bind(this);
         this.handleLocationChange = this.handleLocationChange.bind(this);
 
         this.handleSelectCityChange = (event) => {
             this.setState({city: event});
+            this.setState({city_id: event.value});
         };
 
         this.handleSelectLocationChange = (event) => {
@@ -129,6 +136,11 @@ class AddActivity extends React.Component {
             this.setState({occasion_id: event.value});
         };
 
+        this.clickHandler = (component) => {
+            component.setState({showAddDialog: false});
+            return <Redirect to='/#/my/conversation' />
+        };
+
         this.submitForm = ev => {
             ev.preventDefault();
             let self = this;
@@ -140,7 +152,6 @@ class AddActivity extends React.Component {
                 location.latitude = this.state.position.lat;
                 location.longitude = this.state.position.lng;
                 agent.Locations.create(location).then(function (location) {
-                    console.log(location);
                     self.setState({
                         location: location,
                         location_id: location.id
@@ -229,10 +240,18 @@ class AddActivity extends React.Component {
         document.getElementById('file').click();
     }
 
+    clickDelete() {
+        this.props.activityStore.deleteActivity(this.state.activity).then(() => {
+            this.props.history.replace('/my/activity');
+        });
+    }
+
+    clickAdd() {
+        this.setState({showAddDialog: !this.state.showAddDialog})
+    }
+
     handleTagsChange(tags) {
         this.setState({tags: tags});
-        console.log(tags);
-        console.log(this.state.images);
     }
 
     handleStartDateChange(date) {
@@ -255,64 +274,62 @@ class AddActivity extends React.Component {
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
-        //file: URL.createObjectURL(event.target.files[0]);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let self = this;
         let activity_id = this.props.match.params['activity_id'];
+        this.setState({city: this.props.cityStore.defaultData});
         if (activity_id) {
-            this.props.activityStore.activitiesRegistry.forEach(function (activity) {
-                if (activity.id == activity_id) {
-                    self.activity = activity;
+            this.props.activityStore.loadActivity(activity_id).then((activity) => {
+                self.activity = activity;
+                self.setState({activity: self.activity});
+                if (this.activity) {
+                    if (this.activity.tags) {
+                        this.activity.tags.forEach(function (tag) {
+                            self.state.tags[self.state.tags.length] = tag.title;
+                        });
+                    }
+
+                    this.props.activityListingStore.loadActivityListing(this.activity).then(() => {
+                        Array.from(this.props.activityListingStore.activityListingRegistry.values())
+                            .forEach(function (activity_list, i) {
+                                self.activityListRows.push(<ActivityListingItem activity={self.activity}
+                                                                                activity_listing={activity_list}
+                                                                                key={i}/>);
+                            });
+                        self.setState({activityListRows: self.activityListRows});
+                    });
+
+                    this.props.activityImageStore.loadImages(this.activity.id).then(function (images) {
+                        if (images) {
+                            let i = 1;
+                            images.forEach(function (image) {
+                                self.imagesList.push(<img style={{width: '100px', padding: '3px'}} key={i}
+                                                          src={self.props.commonStore.apiServer + image.image.path}
+                                                          alt={"img"}/>);
+                                console.log(self.imagesList);
+                                i++;
+                            });
+                            self.setState({images: self.imagesList});
+                        }
+                    });
+                    this.setState({
+                        customers: {
+                            min: this.activity.min_customers,
+                            max: this.activity.max_customers
+                        }
+                    });
+                    this.setState({city: this.activity.location.city});
+                    this.setState({title: this.activity.title});
+                    this.setState({description: this.activity.description});
+                    this.setState({shortDescription: this.activity.shortDescription});
+                    this.setState({luminary: this.activity.luminary});
+                    this.setState({startDate: moment(this.activity.startDate)});
+                    this.setState({endDate: moment(this.activity.endDate)});
+                    this.setState({images: this.activity.images});
                 }
             });
-
-            if (this.activity) {
-                if (this.activity.tags) {
-                    this.activity.tags.forEach(function (tag) {
-                        self.state.tags[self.state.tags.length] = tag.title;
-                    });
-                }
-
-                this.props.activityListingStore.loadActivityListing(this.activity).then(() => {
-                    Array.from(this.props.activityListingStore.activityListingRegistry.values())
-                        .forEach(function (activity_list, i) {
-                            self.activityListRows.push(<ActivityListingItem activity={self.activity}
-                                                                            activity_listing={activity_list}
-                                                                            key={i}/>);
-                        });
-                    self.setState({activityListRows: self.activityListRows});
-                });
-
-                this.props.activityImageStore.loadImages(this.activity.id).then(function (images) {
-                    if (images) {
-                        let i = 1;
-                        images.forEach(function (image) {
-                            self.imagesList.push(<img style={{width: '100px', padding: '3px'}} key={i}
-                                                      src={self.props.commonStore.apiServer + image.image.path}
-                                                      alt={"img"}/>);
-                            console.log(self.imagesList);
-                            i++;
-                        });
-                        self.setState({images: self.imagesList});
-                    }
-                });
-                this.setState({
-                    customers: {
-                        min: this.activity.min_customers,
-                        max: this.activity.max_customers
-                    }
-                });
-                this.setState({city: this.activity.location.city});
-                this.setState({title: this.activity.title});
-                this.setState({description: this.activity.description});
-                this.setState({shortDescription: this.activity.shortDescription});
-                this.setState({luminary: this.activity.luminary});
-                this.setState({startDate: moment(this.activity.startDate)});
-                this.setState({endDate: moment(this.activity.endDate)});
-                this.setState({images: this.activity.images});
-            }
         }
 
         this.props.cityStore.loadCities()
@@ -404,6 +421,8 @@ class AddActivity extends React.Component {
                     <div className="page-left-col" style={{width: '15%'}}>
                         <MyMenu/>
                     </div>
+                    {this.state.showAddDialog && <AddListingDialog clickHandler={() => this.clickHandler(this)}
+                                                                  activity={this.state.activity}/>}
                     <div className="page-right-col" style={{width: '85%', marginLeft: '15%'}}>
                         <ListErrors errors={this.props.activityStore.addActivityErrors}/>
                         <div className="product-section ">
@@ -490,7 +509,6 @@ class AddActivity extends React.Component {
                                                         <div className="sibs" style={{width: '280px'}}>
                                                             <Select
                                                                 style={{width: '280px'}}
-                                                                id="city"
                                                                 name="city"
                                                                 value={this.state.city}
                                                                 placeHolder={"Выберите город"}
@@ -708,17 +726,34 @@ class AddActivity extends React.Component {
 
                                                     <div className="row-flow">
                                                         <div className="sibs">
-                                                        </div>
-                                                        <div className="sibs">
                                                             <button id="addActivity"
                                                                     type="submit"
-                                                                    style={{width: '282px'}}
-                                                                    className="medium primaryButton button title-container">
+                                                                    style={{width: '252px'}}
+                                                                    className="medium primaryButton button title-container button-green">
                                                                 <p className="title">Сохранить изменения</p>
                                                             </button>
+                                                            {this.state.activity &&
+                                                                <button id="addActivityListing"
+                                                                    style={{width: '252px', margin: '3px'}}
+                                                                        onClick={this.clickAdd.bind(this)}
+                                                                    className="medium primaryButton button title-container button-blue">
+                                                                <p className="title">Добавить вариант</p>
+                                                                </button>
+                                                            }
                                                         </div>
                                                     </div>
-                                                    <input name="profileForm" value="" type="hidden"/>
+                                                    <div className="row-flow">
+                                                        <div className="sibs">
+                                                            {this.state.activity &&
+                                                            <button id="deleteActivity"
+                                                                    onClick={this.clickDelete}
+                                                                    style={{width: '202px', margin: '3px'}}
+                                                                    className="medium primaryButton button title-container button-red">
+                                                                <p className="title">Удалить</p>
+                                                            </button>
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

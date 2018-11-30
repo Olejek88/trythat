@@ -89,10 +89,10 @@ class Experience extends React.Component {
                         </div>
 
                         <div className="product_image_wrapper">
-                            <div className="product_image_viewport">
+                            <div className="product_image_viewport" style={{overflow: 'hidden'}}>
                                 <a className="tile_product tile js-product-title desktop"
                                    href={"/#/activity/" + this.state.activity.id}>
-                                    <img className="product_img" alt={this.state.activity_image.title}
+                                    <img className="thumbnail_img product_img" alt={this.state.activity_image.title}
                                          title={this.state.activity_image.title}
                                          src={this.state.activity_image.path}
                                          style={{width: '350px'}}

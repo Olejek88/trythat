@@ -1,10 +1,11 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import reviewStore from "../../stores/reviewStore";
 import ActivityStarAverage from "./ActivityStarAverage";
 import ActivityReview from "./ActivityReview";
 import {action} from "mobx/lib/mobx";
+import {inject} from "mobx-react/index";
 
+@inject('reviewStore')
 @observer
 class ActivityReviews extends React.Component {
     constructor() {
@@ -23,27 +24,28 @@ class ActivityReviews extends React.Component {
 
     componentDidMount() {
         this.setState({activity: this.props.activity});
-        this.reviewList.push(<ActivityReview key={111}/>);
     }
 
     componentDidUpdate() {
         if (this.props.activity && !this.state.updated) {
             let self = this;
+            let total = 0 ;
+            let sum = 0;
             let predicate = {
                 filter: 'activity',
                 id: this.props.activity.id
             };
-            reviewStore.setPredicate(predicate);
-            reviewStore.loadReviews().then(action((reviews) => {
-                    const averageMark = reviewStore.getAverageMark();
-                    self.setState({averageMark: averageMark});
-                    reviews.forEach(function (review, i) {
-                        self.reviewList.push(<ActivityReview review={review} key={i}/>);
+            this.props.reviewStore.setPredicate(predicate);
+            this.props.reviewStore.loadLocalReviews().then(action((reviews) => {
+                reviews.forEach(function (review, i) {
+                    self.reviewList.push(<ActivityReview review={review} key={i}/>);
+                    total++;
+                    sum+=review.rate;
                 });
-            })).catch(action(err => {
-                    console.log("err=" + err);
-                    throw err;
-                }));
+                self.setState({reviewList: self.reviewList});
+                if (total>0)
+                    self.setState({averageMark: {rate: (sum/total), total: total}});
+            }));
             self.setState ({updated: true});
         }
     }
@@ -56,7 +58,10 @@ class ActivityReviews extends React.Component {
                     <div className="product_sec_header ">
                         <div className="product_sec_title sg-f-ttl">Отзывы клиентов
                             <React.Fragment>
-                                <ActivityStarAverage rate={this.state.averageMark.rate} total={this.state.averageMark.total}/>
+                                {this.state.updated &&
+                                 <ActivityStarAverage rate={this.state.averageMark.rate}
+                                                     total={this.state.averageMark.total}/>
+                                }
                             </React.Fragment>
                         </div>
                     </div>

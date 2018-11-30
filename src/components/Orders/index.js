@@ -58,33 +58,32 @@ class Orders extends React.Component {
                 break;
         }
 
-        this.props.orderStore.loadOrders().then(action((orders) => {
+        this.props.orderStore.loadOrders().then(() => {
             switch (filter) {
                 case 'open':
                     self.openOrdersRows = [];
-                    orders.forEach(function (order, i) {
+                    this.props.orderStore.ordersRegistry.forEach(function (order, i) {
                         self.openOrdersRows.push(<OrderListItem order={order} key={i}/>);
                     });
-                    this.setState({open_count: orders.length});
+                    this.setState({open_count: this.props.orderStore.ordersRegistry.length});
                     break;
                 case 'close':
                     self.closedOrdersRows = [];
-                    orders.forEach(function (order, i) {
+                    this.props.orderStore.ordersRegistry.forEach(function (order, i) {
                         self.closedOrdersRows.push(<OrderListItem order={order} key={i}/>);
                     });
-                    console.log(orders.length);
-                    this.setState({closed_count: orders.length});
+                    this.setState({closed_count: this.props.orderStore.ordersRegistry.length});
                     break;
                 case 'cancel':
                     self.canceledOrdersRows = [];
-                    orders.forEach(function (order, i) {
+                    this.props.orderStore.ordersRegistry.forEach(function (order, i) {
                         self.canceledOrdersRows.push(<OrderListItem order={order} key={i}/>);
                     });
-                    this.setState({canceled_count: orders.length});
+                    this.setState({canceled_count: this.props.orderStore.ordersRegistry.length});
                     break;
                 default:
                     break;
-            }}))
+            }})
             .catch(action(err => {
                 throw err;
             }));

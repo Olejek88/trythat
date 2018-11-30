@@ -10,7 +10,6 @@ import ActivityYouMayLike from "./ActivityYouMayLike";
 import {withRouter} from "react-router-dom";
 import ActivityReviews from "./ActivityReviews";
 import {inject} from "mobx-react/index";
-import {action} from "mobx/lib/mobx";
 
 @inject('activityStore','activityListingStore')
 @observer
@@ -26,11 +25,8 @@ class Activity extends React.Component {
 
     componentDidMount() {
         this.props.activityStore.loadActivity(this.props.match.params.id)
-            .then(() => {
-                if (this.props.activityStore.activitiesRegistry.size>0) {
-                    let activity = Array.from(this.props.activityStore.activitiesRegistry.values()).pop();
+            .then((activity) => {
                     this.setState({activity: activity});
-                    console.log(activity);
                     let predicate = {
                         filter: 'luminary',
                         id: this.state.activity.luminary.id
@@ -38,12 +34,7 @@ class Activity extends React.Component {
                     this.props.activityStore.setPredicate(predicate);
                     //this.setState ({activities: this.props.activityStore.loadActivities()});
                     //this.props.activityListingStore.loadActivityListing(this.state.activity);
-                }
-            })
-            .catch(action(err => {
-                console.log("err=" + err);
-                throw err;
-            }));
+            });
     }
 
     render() {

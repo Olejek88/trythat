@@ -76,7 +76,6 @@ export default class Conversation extends React.Component {
             limit: 20
         };
 
-        console.log(filter);
         switch (filter) {
             case 'input':
                 this.setState({header: 'Входящие'});

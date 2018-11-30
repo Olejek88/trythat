@@ -3,7 +3,6 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {inject, observer} from 'mobx-react';
 import MyMenu from "./MyMenu";
-import {action} from "mobx/lib/mobx";
 
 @inject('userStore', 'luminaryStore')
 @observer

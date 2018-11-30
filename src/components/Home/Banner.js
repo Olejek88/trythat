@@ -61,7 +61,7 @@ export default class Banner extends React.Component {
                                 </div>
                             </div>
                             <div className="disc-btn-block" style={{float: 'right', border: 'none'}}>
-                                <div className="disc-btn sg-text-transform primaryButton button" style={{width: '100%'}}
+                                <div className="disc-btn sg-text-transform primaryButton button button_radius" style={{width: '100%'}}
                                      tabIndex="0">
                                     <div className="title-container"><p className="title">найти впечатления</p></div>
                                 </div>

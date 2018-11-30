@@ -5,7 +5,7 @@ class CurrencyStore {
     @observable isLoading = false;
     @observable currencyRegistry = observable.map();
 
-    defaultData = {_id: 1, title: 'р.'};
+    defaultData = {id: 1, title: 'р.'};
 
     @action loadCurrencies() {
         this.isLoading = true;

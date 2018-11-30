@@ -25,7 +25,7 @@ class ActivityStar extends React.Component {
     return (
         <div className="review_stars_inner_div sg-inline-middle">
             {images}
-            <span className="review_date sg-f-subttl fs-1 sg-c-2">{date.toLocaleDateString()}</span>
+            <span className="review_date sg-f-subttl fs-1 sg-c-2">{date}</span>
         </div>
     );
   }

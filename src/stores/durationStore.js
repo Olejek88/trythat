@@ -4,7 +4,7 @@ import agent from "../agent";
 
 class DurationStore {
     @observable isLoading = false;
-    @observable durationsRegistry = observable.map();
+    durationsRegistry = new Map();
 
     staticData = [
         {id: '1', period: '1 час'},
