@@ -24,6 +24,13 @@ class LuminaryStore {
             }));
     }
 
+    @action getLuminaries() {
+        return agent.Luminary.all()
+            .catch(action(err => {
+                throw err;
+            }));
+    }
+
     @action createLuminary(luminary) {
         return agent.Luminary
             .create(luminary)

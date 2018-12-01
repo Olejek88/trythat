@@ -1,6 +1,8 @@
 import React from 'react';
 import Redirect from "react-router-dom/es/Redirect";
+import {withRouter} from 'react-router-dom';
 
+@withRouter
 export default class Banner extends React.Component {
     constructor() {
         super();
@@ -10,6 +12,19 @@ export default class Banner extends React.Component {
         };
         this.inputEnter = this.inputEnter.bind(this);
         this.inputChange = this.inputChange.bind(this);
+        this.submitForm = this.submitForm.bind(this);
+    }
+
+    submitForm() {
+        this.props.history.replace('/activities');
+/*
+        this.context.router.push({
+            pathname: "/#/activities/search",
+            state: {
+                search: this.state.search
+            }
+        });
+*/
     }
 
     inputEnter = function (e) {
@@ -26,7 +41,7 @@ export default class Banner extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to={"/activities/search/" + this.state.search}/>;
+            return <Redirect push to={"/#/activities/search/" + this.state.search}/>;
         }
         return (
             <div className="discovery">
@@ -60,7 +75,7 @@ export default class Banner extends React.Component {
                                            autoComplete="off" type="text"/>
                                 </div>
                             </div>
-                            <div className="disc-btn-block" style={{float: 'right', border: 'none'}}>
+                            <div className="disc-btn-block" style={{float: 'right', border: 'none'}} onClick={this.submitForm}>
                                 <div className="disc-btn sg-text-transform primaryButton button button_radius" style={{width: '100%'}}
                                      tabIndex="0">
                                     <div className="title-container"><p className="title">найти впечатления</p></div>

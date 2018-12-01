@@ -32,7 +32,7 @@ class SiteMenu extends React.Component {
                             <li><a className="sg-c-3 allowAllUsers" href="/">Гарантии</a></li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">FAQ</a></li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">Карта сайта</a></li>
-                            <li><a className="sg-c-3 allowAllUsers" href="/#/luminary">Все представители</a></li>
+                            <li><a className="sg-c-3 allowAllUsers" href={"/#/luminaries"}>Все представители</a></li>
                         </ul>
                         <ul className="footer-menu-item">
                             <p>Работайте с нами</p>
@@ -48,7 +48,7 @@ class SiteMenu extends React.Component {
                             </li>
                         </ul>
                         <ul id="stay-connected" className="footer-menu-item" style={{margin: '0'}}>
-                            <p>Stay Connected</p>
+                            <p>Мы в сетях</p>
                             <li style={{display: 'inline'}}>
                                 <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"
                                    className="allowAllUsers">

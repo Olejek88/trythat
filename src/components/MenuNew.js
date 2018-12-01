@@ -114,9 +114,9 @@ class SiteMenu extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="l-menu js-menu  " data-navmenuid="3" id="menu3">
+                    <div className="l-menu js-menu" data-navmenuid="3" id="menu3">
                         <a href="/" className="label js-tab-featrue js-show-dropdown" tabIndex="1200">
-                            <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Локации</p>
+                            <p className="sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Локации</p>
                         </a>
                         <div className="highlight-bar" id="menu_highlight_3"></div>
                         <div className="drop-down version1" style={{minWidth: '160px'}} id="menu_drop_3">
@@ -127,9 +127,9 @@ class SiteMenu extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="l-menu js-menu  " data-navmenuid="122" id="menu4">
+                    <div className="l-menu js-menu" data-navmenuid="122" id="menu4">
                         <a className="label js-tab-featrue js-show-dropdown" tabIndex="1300">
-                            <p className=" sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Фильтр</p>
+                            <p className="sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Фильтр</p>
                         </a>
                         <div className="highlight-bar" id="menu_highlight_4"></div>
                         <div className="drop-down  version1" style={{minWidth: '160px'}} id="menu_drop_4">

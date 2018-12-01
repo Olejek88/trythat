@@ -26,6 +26,7 @@ import Checkout from "./Cart/Checkout";
 import MyFollows from "./My/MyFollows";
 import LuminaryActivity from "./Activities/LuminaryActivity";
 import Conversation from "./My/Conversation";
+import AllLuminary from "./Luminary/AllLuminary";
 
 @inject('userStore', 'commonStore', 'activityStore', 'locationStore')
 @withRouter
@@ -76,6 +77,7 @@ export default class App extends React.Component {
                         <Route path="/orders" component={Orders}/>
                         <Route path="/cart" component={Cart}/>
                         <Route path="/luminary/:id" component={LuminaryActivity}/>
+                        <Route path="/luminaries" component={AllLuminary}/>
                         <Route path="/add/:activity_id" component={AddActivity}/>
                         <Route path="/add" component={AddActivity}/>
                         <Route path="/" component={Home}/>

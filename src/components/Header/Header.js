@@ -45,7 +45,7 @@ const LoggedInView = props => {
                     {props.currentUser.username}
                 </Link>
 */}
-                    <Link to="/sell" className="navButton button" id="sellBtn">
+                    <Link to="/sell" className="navButton button button_radius" id="sellBtn">
                         <div className="title-container"><p className="title">Продать на TryThat</p></div>
                     </Link>
                     {/*

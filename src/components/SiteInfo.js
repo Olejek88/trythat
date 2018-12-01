@@ -6,7 +6,7 @@ class SiteInfo extends React.Component {
   render() {
     return (
         <div id="site_info" className="desktop sg-bg-1 site_info">
-            &copy; {this.props.commonStore.appName.toLowerCase()}, 2018-2019
+            &copy; {this.props.commonStore.appName}, 2018-2019
         </div>
     );
   }

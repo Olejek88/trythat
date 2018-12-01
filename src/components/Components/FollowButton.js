@@ -53,7 +53,8 @@ export default class FollowButton extends React.Component {
 
     render() {
         return (
-            <div data-id="36" style={{margin: '10px 0 0 2px', float: 'right'}}
+            //{/*, float: 'right'*/}
+            <div data-id="36" style={{margin: '10px 0 0 2px'}}
                  className={this.state.followClass}>
                 <div className="title-container"><p className="title">
                     <img src={"images/icon_checkmark_green.png"} className={this.props.checkStyle}

@@ -19,6 +19,7 @@ export class ActivityListingStore {
             isGroup: false
         }];
 
+/*
     staticData =
         [{
             id: '1',
@@ -37,6 +38,7 @@ export class ActivityListingStore {
             currency: currencyStore.defaultData,
             isGroup: false
         }];
+*/
 
     @action loadActivityListing(activity) {
         this.activityListingRegistry.clear();
@@ -78,21 +80,18 @@ export class ActivityListingStore {
     }
 
     loadActivityListingDurations(activityListing) {
-        //let min = 100000;
         let max = 1;
+        let max_duration = {seconds: 1};
+        let min_duration = {seconds: 100000};
         activityListing.forEach(function (activityListing) {
             max = activityListing.duration.duration;
+            if (activityListing.duration.seconds>max_duration.seconds)
+                max_duration = activityListing.duration;
+            if (activityListing.duration.seconds<min_duration.seconds)
+                min_duration = activityListing.duration;
         });
         if (max===1) return 'не указано';
-        return max;
-    }
-
-    loadActivityListingSelectDuration() {
-        let arrayDurations = [];
-        this.activityListingRegistry.forEach(function (activityListing) {
-            arrayDurations.push(activityListing.duration);
-        });
-        return arrayDurations.map(x => ({label: x.duration, value: x.id}));
+        return min_duration.duration+"-"+max_duration.duration;
     }
 
     loadActivityListingSelectDurations(activityListing) {
@@ -101,19 +100,6 @@ export class ActivityListingStore {
             arrayDurations.push(activity.duration);
         });
         return arrayDurations.map(x => ({label: x.duration, value: x.id}));
-    }
-
-    loadActivityListingQuantity() {
-        let arrayQuantity = '';
-        let count = 0;
-        this.activityListingRegistry.forEach(function (activityListing) {
-            count++;
-            if (count < 5) {
-                if (count > 1) arrayQuantity += ', ';
-                arrayQuantity += activityListing.customers;
-            }
-        });
-        return arrayQuantity;
     }
 
     loadTestCustomersByActivityListing(listing) {

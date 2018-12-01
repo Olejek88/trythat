@@ -3962,7 +3962,3 @@ input[type="search"]#top-nav-search::-webkit-search-cancel-button {
 .thumbnail_img {
     object-fit: cover;
 }
-
-.button_radius {
-    border-radius: 5px;
-}
