@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx';
+import {action, observable} from 'mobx';
 import agent from '../agent';
 import activityListingStore from "./activityListingStore";
 import orderStatusStore from "./orderStatusStore";
@@ -11,7 +11,7 @@ export class OrderStore {
     @observable isLoading = false;
     @observable page = 0;
     @observable totalPagesCount = 0;
-    @observable ordersRegistry = observable.map();
+    ordersRegistry = new Map();
     @observable addOrderErrors;
     @observable predicate = {};
 
@@ -39,6 +39,7 @@ export class OrderStore {
     @action loadOrders() {
         this.isLoading = true;
         return this.$req()
+/*
             .then(action((orders) => {
                 if (orders) {
                     this.ordersRegistry.clear();
@@ -46,6 +47,7 @@ export class OrderStore {
                     this.totalPagesCount = Math.ceil(orders.length / LIMIT);
                 }
             }))
+*/
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;

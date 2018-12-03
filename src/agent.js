@@ -240,13 +240,18 @@ const Mail = {
 
 const Order = {
     all: (page, lim = 10) =>
-        requests.get(`/v1/orders?${limit(lim, page)}`),
+        requests.get(`/v1/orders?${limit(lim, page)}&expand=orderStatus,activityListing.currency,activityListing.duration,
+        activityListing.activity.activityImages.image,activityListing.activity.luminary.user.image`),
     forUser: (user, page) =>
-        requests.get(`/v1/orders?user=${encode(user)}&${limit(5, page)}`),
+        requests.get(`/v1/orders?user=${encode(user)}&${limit(5, page)}&expand=orderStatus,activityListing.activity.activityImages.image,
+        activityListing.currency,activityListing.duration,activityListing.activity.luminary.user.image`),
     filter: (filter, id, lim = 10, start = 0) =>
-        requests.get(`/v1/orders?${filter}_id=${id}`),
+        requests.get(`/v1/orders?${filter}_id=${id}&expand=activityListing.currency,activityListing.duration,
+        activityListing.activity.activityImages.image,activityListing.activity.luminary.user.image,orderStatus,
+        activityListing.activity.luminary.user.image`),
     get: orderId =>
-        requests.get(`/v1/orders/${orderId}`),
+        requests.get(`/v1/orders/${orderId}?expand=activityListing.activity.activityImages.image,activityListing.currency,
+        activityListing.duration,activityListing.activity.luminary.user.image,orderStatus`),
     create: (order) =>
         requests.post(`/v1/orders/${order}`),
     del: (slug, orderId) =>

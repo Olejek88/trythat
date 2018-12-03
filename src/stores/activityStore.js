@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx';
+import {action, observable} from 'mobx';
 import agent from '../agent';
 import imageStore from "./imageStore";
 import luminaryStore from "./luminaryStore";
@@ -73,6 +73,7 @@ export class ActivityStore {
     @action loadLocalActivities() {
         return this.$req()
             .catch(action(err => {
+                throw err;
             }));
     }
 
@@ -98,9 +99,6 @@ export class ActivityStore {
 
     @action isFavorite(activity_id, customer_id) {
         agent.Activities.isFavorite(activity_id, customer_id)
-            .then(action(({answer}) => {
-                return answer;
-            }))
             .catch(action(err => {
                 throw err;
             }));
@@ -109,9 +107,6 @@ export class ActivityStore {
 
     @action makeFavorite(activity_id, customer_id) {
         agent.Activities.favorite(activity_id, customer_id)
-            .then(action(({answer}) => {
-                return answer;
-            }))
             .catch(action(err => {
                 throw err;
             }));
@@ -119,9 +114,6 @@ export class ActivityStore {
 
     @action unmakeFavorite(activity_id, customer_id) {
         agent.Activities.unFavorite(activity_id, customer_id)
-            .then(action(({answer}) => {
-                return answer;
-            }))
             .catch(action(err => {
                 throw err;
             }));

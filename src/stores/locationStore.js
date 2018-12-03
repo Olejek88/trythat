@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import {action, observable} from 'mobx';
 import agent from '../agent';
 import imageStore from "./imageStore";
 import cityStore from "./cityStore";

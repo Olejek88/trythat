@@ -4,7 +4,7 @@ import QuestionDialog from "./QuestionDialog";
 import {Redirect} from "react-router-dom";
 import ReviewDialog from "./ReviewDialog";
 
-@inject('orderStore','wishListStore', 'userStore')
+@inject('orderStore','wishListStore','userStore','commonStore')
 class OrderListItem extends React.Component {
     constructor() {
         super();
@@ -60,16 +60,17 @@ class OrderListItem extends React.Component {
 
     render() {
         const order = this.props.order;
-        const activity = order.listing.activity;
+        const activityListing = order.activityListing;
+        const activity = activityListing.activity;
         const customer = this.props.userStore.currentCustomer;
         const status = order.orderStatus;
 
         let order_link = "/#/order/" + order._id;
-        let order_price = order.listing.cost + order.listing.currency.title;
-        let order_duration = order.listing.duration.period;
-        let order_quantity = order.listing.customers;
-        let activity_image = activity.images[0].path;
-        let luminary_image = activity.luminary.user.image.path;
+        let order_price = activityListing.cost + activityListing.currency.title;
+        let order_duration = activityListing.duration.duration;
+        let order_quantity = activityListing.customers;
+        let activity_image = this.props.commonStore.apiServer+activity.activityImages[0].image.path;
+        let luminary_image = this.props.commonStore.apiServer+activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
 
         this.onSubmit = () => {
@@ -95,7 +96,7 @@ class OrderListItem extends React.Component {
                            style={{margin: '0 10px'}}>{luminary_name}
                             <span className="sg-c-2" style={{margin: '0 5px'}}> 1 </span>
                         </p>
-                        {(status._id==='1') &&
+                        {(status.id==='1') &&
                             <div className="phone pdp_question_mark js-vendor-level button sg-inline-middle"
                                  onClick={this.onClick.bind(this)}>
                                 <div className="sg-chatbubble">

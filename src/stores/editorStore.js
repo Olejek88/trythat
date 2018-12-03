@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import {action, observable} from 'mobx';
 import activityStore from "./activityStore";
 
 class EditorStore {

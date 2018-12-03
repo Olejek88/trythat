@@ -1,4 +1,4 @@
-import {observable, action} from 'mobx';
+import {action, observable} from 'mobx';
 import agent from "../agent";
 import cityStore from "./cityStore";
 import imageStore from "./imageStore";
@@ -68,7 +68,6 @@ export class UserStore {
         let user = window.localStorage.getItem('user');
         if (user!==undefined && user!=='undefined' && JSON.parse(user)) {
             this.currentUser = JSON.parse(user);
-            //console.log(this.currentUser);
             if (window.localStorage.getItem('customer')!==undefined &&
                 window.localStorage.getItem('customer')!=='undefined') {
                 this.currentCustomer = JSON.parse(window.localStorage.getItem('customer'));
@@ -81,7 +80,6 @@ export class UserStore {
             if (window.localStorage.getItem('luminary')!==undefined &&
                 window.localStorage.getItem('luminary')!=='undefined') {
                 this.currentLuminary = JSON.parse(window.localStorage.getItem('luminary'));
-                //console.log(this.currentLuminary);
             }
             if (this.currentCustomer!=null)
                 return Promise.resolve(this.currentUser);
@@ -100,7 +98,6 @@ export class UserStore {
             .catch(action(err => {
                 throw err;
             }));
-        //return this.testData;
     }
 
     @action updateUser(newUser) {
@@ -115,7 +112,6 @@ export class UserStore {
             .finally(action(() => {
                 this.updatingUser = false;
             }));
-        //return this.testData;
     }
 
     @action changeUserPassword(user, password, repeatPassword, newPassword) {
@@ -143,7 +139,7 @@ export class UserStore {
                 window.localStorage.setItem('customer', JSON.stringify(customer[0]));
             }))
             .catch(action(err => {
-                return this.customer;
+                throw err;
             }))
             .finally(action(() => {
                 this.updatingUser = false;
@@ -158,9 +154,7 @@ export class UserStore {
             }))
             .catch(action(err => {
                 console.log(err);
-                return this.luminary;
             }));
-        //return this.luminary;
     }
 }
 

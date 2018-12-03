@@ -39,47 +39,53 @@ class Orders extends React.Component {
     fillList(filter) {
         let self = this;
         let predicate = {
-            filter: filter,
-            id: this.props.userStore.currentCustomer.id,
+            filter: 'order_status',
             limit: 10
         };
-        this.props.orderStore.setPredicate(predicate);
         switch (filter) {
             case 'open':
                 this.setState({selected_open: 'selected', selected_closed: '', selected_canceled: ''});
+                predicate.id=1;
                 break;
             case 'close':
                 this.setState({selected_open: '', selected_closed: 'selected', selected_canceled: ''});
+                predicate.id=2;
                 break;
             case 'cancel':
                 this.setState({selected_canceled: 'selected', selected_open: '', selected_closed: ''});
+                predicate.id=3;
                 break;
             default:
                 break;
         }
+        this.props.orderStore.setPredicate(predicate);
 
-        this.props.orderStore.loadOrders().then(() => {
+        this.props.orderStore.loadOrders().then((orders) => {
+            let count = 1;
             switch (filter) {
                 case 'open':
                     self.openOrdersRows = [];
-                    this.props.orderStore.ordersRegistry.forEach(function (order, i) {
-                        self.openOrdersRows.push(<OrderListItem order={order} key={i}/>);
+                    orders.forEach(function (order) {
+                        self.openOrdersRows.push(<OrderListItem order={order} key={count}/>);
+                        count++;
                     });
-                    this.setState({open_count: this.props.orderStore.ordersRegistry.length});
+                    this.setState({open_count: orders.length});
                     break;
                 case 'close':
                     self.closedOrdersRows = [];
-                    this.props.orderStore.ordersRegistry.forEach(function (order, i) {
-                        self.closedOrdersRows.push(<OrderListItem order={order} key={i}/>);
+                    orders.forEach(function (order) {
+                        self.closedOrdersRows.push(<OrderListItem order={order} key={count}/>);
+                        count++;
                     });
-                    this.setState({closed_count: this.props.orderStore.ordersRegistry.length});
+                    this.setState({closed_count: orders.length});
                     break;
                 case 'cancel':
                     self.canceledOrdersRows = [];
-                    this.props.orderStore.ordersRegistry.forEach(function (order, i) {
-                        self.canceledOrdersRows.push(<OrderListItem order={order} key={i}/>);
+                    orders.forEach(function (order) {
+                        self.canceledOrdersRows.push(<OrderListItem order={order} key={count}/>);
+                        count++;
                     });
-                    this.setState({canceled_count: this.props.orderStore.ordersRegistry.length});
+                    this.setState({canceled_count: orders.length});
                     break;
                 default:
                     break;
@@ -165,31 +171,29 @@ class Orders extends React.Component {
                                                         <div className="zerostate_img_div">
                                                         </div>
                                                         <div className="zerostate_text">
-                                                            {this.openOrdersRows}
+                                                            {this.state.selected_open==='selected' && this.openOrdersRows}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div
-                                                    className="js-order-content js-order-content-completed order_content"
+                                                <div className="js-order-content js-order-content-completed order_content"
                                                     data-tab="completed" data-loaded="0" data-page="1"
                                                     style={{display: 'none'}}>
                                                     <div className="zerostate_div desktop">
                                                         <div className="zerostate_img_div">
                                                         </div>
                                                         <div className="zerostate_text">
-                                                            {this.closedOrdersRows}
+                                                            {this.state.selected_closed==='selected' && this.closedOrdersRows}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div
-                                                    className="js-order-content js-order-content-cancelled order_content"
+                                                <div className="js-order-content js-order-content-cancelled order_content"
                                                     data-tab="cancelled" data-loaded="0" data-page="1"
                                                     style={{display: 'none'}}>
                                                     <div className="zerostate_div desktop">
                                                         <div className="zerostate_img_div">
                                                         </div>
                                                         <div className="zerostate_text">
-                                                            {this.canceledOrdersRows}
+                                                            {this.state.selected_canceled==='selected' && this.canceledOrdersRows}
                                                         </div>
                                                     </div>
                                                 </div>
