@@ -1,6 +1,5 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
-import FollowButton from "../Components/FollowButton";
 
 @inject('commonStore')
 @observer

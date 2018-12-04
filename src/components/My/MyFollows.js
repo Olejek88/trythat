@@ -3,13 +3,16 @@ import {inject} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 import MyMenu from "./MyMenu";
 import FollowListItem from "./FollowListItem";
-import {action} from "mobx/lib/mobx";
 
 @inject('userStore', 'followListStore')
 @withRouter
 export default class MyFollows extends React.Component {
     constructor() {
         super();
+        this.state = {
+            followsRows: [],
+            updated: false
+        };
         this.followsRows = [];
     }
 
@@ -19,16 +22,19 @@ export default class MyFollows extends React.Component {
 
     fillList() {
         let self = this;
+        let count = 1;
         self.followsRows = [];
 
-        this.props.followListStore.loadFollowList(this.props.userStore.currentCustomer).then(action((followList) => {
-                followList.forEach(function (follow, i) {
-                    self.followsRows.push(<FollowListItem luminary={follow.luminary} key={i}/>);
-                })
-            })).catch(action(err => {
-            console.log(err);
-            throw err;
-        }));
+        this.props.followListStore.loadFollowList(this.props.userStore.currentCustomer).then((followList) => {
+                followList.forEach(function (follow) {
+                    self.followsRows.push(<FollowListItem luminary={follow.luminary} key={count}/>);
+                    count++;
+                });
+
+                this.setState({followRows: this.followsRows}, () => {
+                    this.setState({updated: true});
+                });
+            });
     }
 
     render() {
@@ -52,7 +58,7 @@ export default class MyFollows extends React.Component {
                                             <h2 style={{padding: '17px 0'}}>Отслеживаемые</h2>
                                         </div>
                                         <ul id="follows">
-                                            {this.followsRows}
+                                            {this.state.updated && this.followsRows}
                                         </ul>
                                     </div>
                                 </div>

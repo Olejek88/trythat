@@ -10,44 +10,50 @@ export default class FollowButton extends React.Component {
             followClass: "follow following  wide  button primaryButton",
             followButtonText: 'Подписаться',
             checkStyle: 'greenCheck display_none',
-            following: false
+            following: undefined
         };
 
         this.onFollowed = () => {
             // сначала меняем визуально, потом запускаем асинхронный setstate
-            if (!this.state.following) {
+            if (this.state.following[0] && this.state.following[0].id>0) {
                 this.setState({followClass: 'follow following  wide  button primaryButton'});
                 this.setState({followButtonText: 'Подписаться'});
                 this.setState({checkStyle: 'greenCheck display_none'});
-                this.props.followListStore.follow(this.props.luminary, this.props.userStore.currentUser);
+                this.props.followListStore.unFollow(this.state.following[0].id).then(() => {
+                    this.setState({following: []});
+                });
             }
             else {
                 this.setState({followClass: 'follow following  wide button secondaryButton js-following'});
                 this.setState({followButtonText: 'Подписаны'});
                 this.setState({checkStyle: 'greenCheck display_initial'});
-                this.props.followListStore.follow(this.props.luminary, this.props.userStore.currentUser);
+                let follow = {
+                    customer_id: this.props.userStore.currentCustomer.id,
+                    luminary_id: this.props.luminary.id
+                };
+                this.props.followListStore.follow(follow);
+                this.setState({following: follow});
             }
-            this.setState({following: !this.state.following});
-            console.log(this.state.followClass);
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        let self = this;
         if (this.props.luminary) {
             const customer = this.props.userStore.currentCustomer;
-            const follow = this.props.followListStore.isFollow(customer._id, this.props.luminary._id);
-
-            this.setState({following: follow});
-            if (follow) {
-                this.setState({followClass: "follow following  wide  button primaryButton"});
-                this.setState({followButtonText: 'Подписаться'});
-                this.setState({checkStyle: 'greenCheck display_none'});
-            }
-            else {
-                this.setState({followClass: 'follow following  wide button secondaryButton js-following'});
-                this.setState({followButtonText: 'Подписаны'});
-                this.setState({checkStyle: 'greenCheck display_initial'});
-            }
+            this.props.followListStore.isFollow(customer, this.props.luminary).then((follow) => {
+                self.setState({following: follow});
+                if (follow.length===0) {
+                    self.setState({followClass: "follow following  wide  button primaryButton"});
+                    self.setState({followButtonText: 'Подписаться'});
+                    self.setState({checkStyle: 'greenCheck display_none'});
+                }
+                else {
+                    self.setState({followClass: 'follow following  wide button secondaryButton js-following'});
+                    self.setState({followButtonText: 'Подписаны'});
+                    self.setState({checkStyle: 'greenCheck display_initial'});
+                }
+            });
         }
     }
 

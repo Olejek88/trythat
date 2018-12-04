@@ -18,11 +18,6 @@ class FollowListStore {
     @action loadFollowList(customer) {
         this.isLoading = true;
         return agent.FollowList.get(customer.id)
-            .then(action((followList) => {
-                this.followListRegistry.clear();
-                followList.forEach(follow =>
-                    this.followListRegistry.set(follow.id, follow));
-            }))
             .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
@@ -31,30 +26,21 @@ class FollowListStore {
 
 
     @action isFollow(customer, luminary) {
-        return agent.FollowList.isFollow(customer, luminary)
-            .then(({answer}) => {
-                return answer;
-            })
+        return agent.FollowList.isFollow(customer.id, luminary.id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action follow(customer, luminary) {
-        return agent.FollowList.follow(customer, luminary)
-            .then(({answer}) => {
-                return answer;
-            })
+    @action follow(follow) {
+        return agent.FollowList.follow(follow)
             .catch(action(err => {
                 throw err;
             }))
     }
 
-    @action unFollow(customer, luminary) {
-        return agent.FollowList.unFollow(customer, luminary)
-            .then(({answer}) => {
-                return answer;
-            })
+    @action unFollow(id) {
+        return agent.FollowList.unFollow(id)
             .catch(action(err => {
                 throw err;
             }));

@@ -168,9 +168,9 @@ const FollowList = {
     isFollow: (customer,luminary) =>
         requests.get(`/v1/follow-lists?customer_id=${customer}&luminary_id=${luminary}`),
     follow: (follow) =>
-        requests.get(`/v1/follow-lists/${follow}`),
+        requests.post(`/v1/follow-lists`,follow),
     unFollow: (id) =>
-        requests.del(`/v1/follow-list/${id}`),
+        requests.del(`/v1/follow-lists/${id}`),
 };
 
 const Tags = {
@@ -253,7 +253,7 @@ const Order = {
         requests.get(`/v1/orders/${orderId}?expand=activityListing.activity.activityImages.image,activityListing.currency,
         activityListing.duration,activityListing.activity.luminary.user.image,orderStatus`),
     create: (order) =>
-        requests.post(`/v1/orders/${order}`),
+        requests.post(`/v1/orders`,order),
     del: (slug, orderId) =>
         requests.del(`/v1/orders/${slug}/${orderId}`),
 };

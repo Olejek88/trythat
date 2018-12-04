@@ -4,6 +4,7 @@ import ExperienceMini from "../Experience/ExperienceMini";
 import {action} from "mobx/lib/mobx";
 import luminaryStore from "../../stores/luminaryStore";
 import {Link} from "react-router-dom";
+import FollowButton from "../Components/FollowButton";
 
 @inject('activityStore','commonStore', 'followListStore', 'customerStore', 'userStore')
 @observer
@@ -104,16 +105,9 @@ class ActivityAboutLuminary extends React.Component {
                                 </div>
                             </div>
                         </a>
-                        <div className="js-follow-con" style={{width: '174px', textAlign: 'center'}}>
-                            <div data-id="36" style={{margin: '10px 0 0 2px'}}
-                                 className={this.state.followClass} tabIndex="0">
-                                <div className="title-container"><p className="title">
-                                    <img src={"images/icon_checkmark_green.png"} className={this.props.checkStyle}
-                                         alt={""}/>
-                                    <span className="title following-text sg-text-transform"
-                                          onClick={this.onFollowed}>{this.state.followButtonText}</span></p></div>
-                            </div>
-                        </div>
+                        {this.state.updated &&
+                        <FollowButton luminary={this.state.luminary}/>
+                        }
                     </div>
                     <div className="cb-desc ">
                         <a className="name" href="/" data-celebid="36"><h4

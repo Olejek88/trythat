@@ -82,7 +82,7 @@ const LoggedInView = props => {
                     <div id="cart" style={{height: '100%'}}>
                         <Link to="/cart" className="shopping access-join js-shopping-bag js-signUp sg-inline-middle filled">
                             <img src={"images/icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
-                            <span id="cart-item-count" className="sg-c-1 sg-bg-3" style={{display: 'inline'}}>{props.orders}</span>
+                            <span id="cart-item-count" className="sg-c-1 sg-bg-3" style={{display: 'inline'}}>{props.ordersCount}</span>
                         </Link>
                         <PopCart />
                     </div>
@@ -117,8 +117,8 @@ class Header extends React.Component {
 */}
                         </div>
                         <MenuNew/>
-                        <LoggedOutView currentUser={this.props.userStore.currentUser}/>
-                        <LoggedInView currentUser={this.props.userStore.currentUser} orders={orders}/>
+                        <LoggedOutView currentUser={this.props.userStore.currentUser} />
+                        <LoggedInView currentUser={this.props.userStore.currentUser} orders={orders} ordersCount={this.props.commonStore.ordersCount}/>
                     </div>
                 </div>
             </div>

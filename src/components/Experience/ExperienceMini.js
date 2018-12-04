@@ -1,5 +1,6 @@
 import React from 'react';
 import {observer, inject} from 'mobx-react';
+import Link from "react-router-dom/es/Link";
 
 @inject('activityListingStore', 'activityStore', 'commonStore', 'userStore', 'wishListStore')
 @observer
@@ -81,14 +82,10 @@ class ExperienceMini extends React.Component {
                                 <polygon points="0,0 12,0 0,25" style={{fill: '#000000'}}></polygon>
                             </svg>
                         </div>
-                        <div className="auction_type" style={{display: 'none'}}>
-                            <div className="auction_text sg-text-transform sg-inline-middle">
-                                            <span>
-                                            </span>
-                            </div>
-                        </div>
 
-                        <a className="tile_product tile js-product-title   desktop" href="/">
+                        <Link
+                            to={"/activity/"+this.state.activity.id}
+                            className="tile_product tile js-product-title desktop">
                             <div className="product_image_wrapper">
                                 <div className="product_image_viewport">
                                     <img className="product_img lazyloaded"
@@ -98,7 +95,7 @@ class ExperienceMini extends React.Component {
                                          src={this.state.activity_image.path}/>
                                 </div>
                             </div>
-                        </a>
+                        </Link>
                         <img className="celeb_img js-lazyload sg-bg-3"
                              data-src={this.state.activity.luminary.user.image.path}
                              src={this.props.commonStore.apiServer+this.state.activity.luminary.user.image.path}

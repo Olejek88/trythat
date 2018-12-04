@@ -4,8 +4,6 @@ import activityListingStore from "./activityListingStore";
 import orderStatusStore from "./orderStatusStore";
 import customerStore from "./customerStore";
 
-const LIMIT = 10;
-
 export class OrderStore {
 
     @observable isLoading = false;
@@ -84,9 +82,8 @@ export class OrderStore {
 
     @action createOrder(order) {
         return agent.Order.create(order)
-            .then(({order}) => {
-                this.ordersRegistry.set(order._id, order);
-                return order;
+            .then((order) => {
+                this.ordersRegistry.set(order.id, order);
             })
             .catch(action(err => {
                 throw err;
@@ -95,9 +92,8 @@ export class OrderStore {
 
     @action updateOrder(data) {
         return agent.Order.update(data)
-            .then(({order}) => {
-                this.ordersRegistry.set(order._id, order);
-                return order;
+            .then((order) => {
+                this.ordersRegistry.set(order.id, order);
             })
             .catch(action(err => {
                 throw err;

@@ -4,17 +4,19 @@ import OrderListPopItem from "../Orders/OrderListPopItem";
 import {inject} from "mobx-react/index";
 import {action} from "mobx/lib/mobx";
 
-@inject('orderStore')
+@inject('orderStore','commonStore')
 @observer
 class PopCart extends React.Component {
     constructor() {
         super();
         this.state = {
             updated: false,
+            count: 0,
+            height: 0,
             sum: 0,
             orderList: 'Корзина пуста'
         };
-        this.orderList='Корзина пуста';
+        this.orderList=[];
     }
 
     componentWillMount() {
@@ -27,10 +29,15 @@ class PopCart extends React.Component {
         this.props.orderStore.loadOrders().then(action((orders) => {
                 if (orders) {
                     orders.forEach(function (order, i) {
-                        let activity = order.listing.activity;
-                        self.setState({sum: this.state.sum + order.listing.cost});
+                        let activity = order.activityListing.activity;
+                        self.setState({sum: self.state.sum + order.activityListing.cost});
                         self.orderList.push(<OrderListPopItem activity={activity} key={i} order={order}/>);
-                        self.setState({orderList: self.orderList});
+                    });
+                    self.setState({count: self.orderList.length});
+                    self.props.commonStore.ordersCount=self.orderList.length;
+                    self.setState({height: self.orderList.length*80});
+                    self.setState({orderList: self.orderList},() => {
+                        self.setState({updated: true})
                     });
                 }
             }));
@@ -53,8 +60,8 @@ class PopCart extends React.Component {
                     </div>
                     <div id="cart-popup-content" style={{marginTop: '0px'}}>
                         <div id="cart-popup" className="io-arrow-popup">
-                            <div id="cart-popup-item-count" style={{display: 'none'}}>1</div>
-                            <div id="cart-popup-items" style={{height: '83px'}}>
+                            <div id="cart-popup-item-count" style={{display: 'inline'}}>{this.state.count}</div>
+                            <div id="cart-popup-items" style={{height: this.state.height+'px'}}>
                                 <div className="mCustomScrollBox" id="mCSB_1"
                                      style={{
                                          position: 'relative',
@@ -93,7 +100,7 @@ class PopCart extends React.Component {
                                      boxSizing: 'border-box'
                                  }}>
                                 <div className="goto-cart">
-                                    <a href="/#/cart" className="goto-link sg-text-transform">корзина</a>
+                                    <a href={"/#/cart"} className="goto-link sg-text-transform">корзина</a>
                                 </div>
                                 <div className="subtotal" style={{maxWidth: '150px'}}>
                                     Подитог: {this.state.sum}р.

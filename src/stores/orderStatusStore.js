@@ -7,10 +7,10 @@ class OrderStatusStore {
     @observable isLoading = true;
 
     staticData = [
-        {_id: '1', title: 'Создан'},
-        {_id: '2', title: 'Подтвержден'},
-        {_id: '3', title: 'Выполнен'},
-        {_id: '4', title: 'Архивный'}
+        {id: '1', title: 'Создан'},
+        {id: '2', title: 'Подтвержден'},
+        {id: '3', title: 'Выполнен'},
+        {id: '4', title: 'Архивный'}
     ];
 
     @computed get staticDataOptions() {
