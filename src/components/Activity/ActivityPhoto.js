@@ -16,16 +16,23 @@ class ActivityPhoto extends React.Component {
 
     componentDidMount() {
         this.setState({activity: this.props.activity});
-        this.photoList.push(<ActivityPhotoDiv key={111}/>);
+        this.loadData(this.props.activity);
     }
 
-    componentDidUpdate() {
-        if (this.props.activity && !this.state.updated) {
-            let self = this;
-            const activity = this.props.activity;
+    componentWillReceiveProps(nextProps) {
+        this.setState({activity: nextProps.activity});
+        this.loadData(nextProps.activity);
+    }
 
+    loadData (activity) {
+        console.log(activity);
+        if (activity) {
+            let self = this;
+            self.setState ({updated: false});
+            self.setState ({photoList: []});
+            self.photoList=[];
             activity.activityImages.forEach(function (image, i) {
-                self.photoList.push(<ActivityPhotoDiv image={image.image} key={i} visibility={"visibility: 'visible'"}/>);
+                self.photoList.push(<ActivityPhotoDiv image={image.image} key={Math.random()} visibility={"visibility: 'visible'"}/>);
             });
             self.setState ({photoList: self.photoList});
             self.setState ({updated: true});

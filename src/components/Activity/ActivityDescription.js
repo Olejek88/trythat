@@ -17,6 +17,10 @@ class ActivityDescription extends React.Component {
     componentDidMount() {
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({activity: nextProps.activity});
+    }
+
     componentDidUpdate() {
         if (this.props.activity && !this.state.updated) {
             this.setState({activity: this.props.activity});

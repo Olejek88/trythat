@@ -95,13 +95,22 @@ class ActivitySelect extends React.Component {
         this.setState({showQuestionDialog: !this.state.showQuestionDialog})
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.loadData(nextProps.activity);
+    }
+
     componentDidUpdate() {
+        //this.loadData(this.props.activity);
+    }
+
+    loadData(activity) {
+        console.log(activity);
         let self = this;
-        if (this.props.activity && !this.state.updated) {
-            this.setState({activity: this.props.activity});
-            this.setState({luminary: this.props.activity.luminary});
+        if (activity && !this.state.updated) {
+            this.setState({activity: activity});
+            this.setState({luminary: activity.luminary});
             this.setState({updated: true});
-            this.props.activityListingStore.loadActivityListing(this.props.activity).then(((activityListing) => {
+            this.props.activityListingStore.loadActivityListing(activity).then(((activityListing) => {
                 let customers = this.props.activityListingStore.loadActivityListingCustomers(activityListing);
                 self.setState({activityDiapason: customers});
                 let durations = this.props.activityListingStore.loadActivityListingDurations(activityListing);
@@ -116,7 +125,7 @@ class ActivitySelect extends React.Component {
                 });
             }));
             const customer = this.props.userStore.currentCustomer;
-            this.props.wishListStore.isWished(this.props.activity.id, customer.id).then(((wish) => {
+            this.props.wishListStore.isWished(activity.id, customer.id).then(((wish) => {
                 if (wish) {
                     this.setState({favored: true});
                     this.setState({favoredClass: "pdp heart_img listed"});
@@ -135,6 +144,7 @@ class ActivitySelect extends React.Component {
     }
 
     render() {
+        console.log(this.state.luminary);
         return (
             <React.Fragment>
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}

@@ -38,18 +38,28 @@ class ActivityAboutLuminary extends React.Component {
                 this.props.followListStore.follow(this.props.luminary, this.props.userStore.currentUser);
             }
             this.setState({following: !this.state.following});
-            console.log(this.state.followClass);
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({activity: nextProps.activity});
+        this.loadData(nextProps.activity);
     }
 
     componentDidMount() {
         this.setState({activity: this.props.activity});
+        this.loadData(this.props.activity);
     }
 
     componentDidUpdate() {
-        if (this.props.activity && !this.state.updated) {
+        //this.loadData(this.props.activity);
+    }
+
+    loadData(activity) {
+        console.log(activity);
+        if (activity) {
             let self = this;
-            const luminary = this.props.activity.luminary;
+            const luminary = activity.luminary;
             let predicate = {
                 filter: 'luminary',
                 id: luminary.id
@@ -65,10 +75,10 @@ class ActivityAboutLuminary extends React.Component {
                 self.setState({activity_from_luminary: activityListing});
             }));
 
-            if (this.props.activity.luminary) {
-                this.setState({luminary: this.props.activity.luminary});
+            if (activity.luminary) {
+                this.setState({luminary: activity.luminary});
                 const customer = this.props.userStore.currentCustomer;
-                this.props.followListStore.isFollow(customer.id, this.props.activity.luminary.id)
+                this.props.followListStore.isFollow(customer.id, activity.luminary.id)
                     .then(action((follow) => {
                         this.setState({following: follow});
                         if (follow) {
@@ -89,7 +99,6 @@ class ActivityAboutLuminary extends React.Component {
             self.setState({updated: true});
         }
     }
-
 
     render() {
         return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import {inject} from "mobx-react/index";
+import Link from "react-router-dom/es/Link";
 
 @inject('activityListingStore', 'activityStore', 'commonStore', 'userStore', 'wishListStore')
 class Experience extends React.Component {
@@ -90,14 +91,15 @@ class Experience extends React.Component {
 
                         <div className="product_image_wrapper">
                             <div className="product_image_viewport" style={{overflow: 'hidden'}}>
-                                <a className="tile_product tile js-product-title desktop"
-                                   href={"/#/activity/" + this.state.activity.id}>
+                                <Link
+                                    to={"/activity/"+this.state.activity.id}
+                                    className="tile_product tile js-product-title desktop">
                                     <img className="thumbnail_img product_img" alt={this.state.activity_image.title}
                                          title={this.state.activity_image.title}
                                          src={this.state.activity_image.path}
                                          style={{width: '350px'}}
                                     />
-                                </a>
+                                </Link>
                             </div>
                         </div>
                         <img className="celeb_img" src={this.props.commonStore.apiServer+this.state.activity.luminary.user.image.path}
@@ -117,7 +119,9 @@ class Experience extends React.Component {
                     </div>
                 </div>
                 <div className="product_text_container">
-                    <a className="tile_product tile js-product-title desktop" href={"/#/activity/" + this.state.activity.id}>
+                    <Link
+                        to={"/activity/"+this.state.activity.id}
+                        className="tile_product tile js-product-title desktop">
                         <div className="details_div">
                             <div className="min_height_placeholder">
                             </div>
@@ -134,7 +138,7 @@ class Experience extends React.Component {
                             <p style={{margin: '0 0 2px 0'}}>{this.state.activity.title}</p>
                         </div>
                         <div className="product_price sg-c-2">от {this.state.activityPrice}</div>
-                    </a>
+                    </Link>
                 </div>
             </div>
         );

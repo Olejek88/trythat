@@ -26,6 +26,10 @@ class ActivityReviews extends React.Component {
         this.setState({activity: this.props.activity});
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({activity: nextProps.activity});
+    }
+
     componentDidUpdate() {
         if (this.props.activity && !this.state.updated) {
             let self = this;

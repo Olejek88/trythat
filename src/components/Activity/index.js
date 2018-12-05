@@ -23,17 +23,20 @@ class Activity extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.loadActivity(nextProps.match.params.id);
+    }
+
     componentDidMount() {
-        this.props.activityStore.loadActivity(this.props.match.params.id)
+        this.loadActivity(this.props.match.params.id);
+    }
+
+    loadActivity(id) {
+        let self = this;
+        this.props.activityStore.loadActivity(id)
             .then((activity) => {
-                    this.setState({activity: activity});
-                    let predicate = {
-                        filter: 'luminary',
-                        id: this.state.activity.luminary.id
-                    };
-                    this.props.activityStore.setPredicate(predicate);
-                    //this.setState ({activities: this.props.activityStore.loadActivities()});
-                    //this.props.activityListingStore.loadActivityListing(this.state.activity);
+                console.log(activity);
+                self.setState({activity: activity});
             });
     }
 
@@ -46,7 +49,9 @@ class Activity extends React.Component {
                         <div className="p-top-sec">
                             <React.Fragment>
                                 <ActivityPhoto activity={this.state.activity}/>
+{/*
                                 <ActivitySelect activity={this.state.activity}/>
+*/}
                                 <ActivityDescription activity={this.state.activity}/>
                                 <ActivityDetails activity={this.state.activity}/>
                             </React.Fragment>

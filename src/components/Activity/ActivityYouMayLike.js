@@ -18,32 +18,39 @@ class ActivityYouMayLike extends React.Component {
 
     componentDidMount() {
         this.setState({activity: this.props.activity});
+        this.loadData(this.props.activity);
     }
 
-    componentDidUpdate() {
-        if (this.props.activity && !this.state.updated) {
+    componentWillReceiveProps(nextProps) {
+        this.setState({activity: nextProps.activity});
+        this.loadData(nextProps.activity);
+    }
+
+    loadData(activity) {
+        if (activity) {
             let self = this;
             let predicate = {
-                //filter: 'category',
-                filter: null,
-                //id: this.props.activity.category.id,
-                id: 0,
+                filter: 'luminary',
+                id: activity.luminary.id,
                 limit: 4
             };
             this.props.activityStore.setPredicate(predicate);
 
             this.props.activityStore.loadLocalActivities().then(((activities) => {
                 let count=0;
+                self.activityList=[];
                 activities.forEach(function (activity, i) {
                     if (count<4)
                         self.activityList.push(<Experience activity={activity} key={i}/>);
                     count++;
                 });
                 self.setState({activityList: self.activityList});
+                console.log(this.state.activityList);
             }));
             this.setState ({updated: true});
         }
     }
+
 
     render() {
         return (
