@@ -34,19 +34,27 @@ class ExperienceMini extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.loadData(nextProps.activity);
+    }
+
     componentWillMount() {
+        this.loadData(this.props.activity);
+    }
+
+    loadData(activity) {
         let self = this;
-        if (this.props.activity) {
+        if (activity) {
             this.setState({favoredClass: 'heart_img'});
-            this.setState({activity: this.props.activity});
-            this.props.activityListingStore.loadActivityListing(this.props.activity).then(function (activityListing) {
+            this.setState({activity: activity});
+            this.props.activityListingStore.loadActivityListing(activity).then(function (activityListing) {
                 let price = self.props.activityListingStore.loadActivityListingMinimumPrice(activityListing);
                 self.setState({activityPrice: price});
             });
-            if (this.props.activity.activityImages[0])
+            if (activity.activityImages[0])
                 this.setState({activity_image: {
-                        title: this.props.activity.activityImages[0].image.title,
-                        path: this.props.commonStore.apiServer+this.props.activity.activityImages[0].image.path }
+                        title: activity.activityImages[0].image.title,
+                        path: this.props.commonStore.apiServer+activity.activityImages[0].image.path }
                 });
             else {
                 this.setState({activity_image: {
@@ -56,7 +64,7 @@ class ExperienceMini extends React.Component {
 
             const customer = this.props.userStore.currentCustomer;
             this.setState({customer: customer});
-            this.props.wishListStore.isWished(this.props.activity.id, customer.id).then((wish) => {
+            this.props.wishListStore.isWished(activity.id, customer.id).then((wish) => {
                 if (wish.length>0) {
                     this.setState({favoredClass: "heart_img wishlist listed"});
                     this.setState({wish: wish[0]});

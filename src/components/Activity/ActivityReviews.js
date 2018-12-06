@@ -24,23 +24,26 @@ class ActivityReviews extends React.Component {
 
     componentDidMount() {
         this.setState({activity: this.props.activity});
+        this.loadData(this.props.activity);
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({activity: nextProps.activity});
+        this.loadData(nextProps.activity);
     }
 
-    componentDidUpdate() {
-        if (this.props.activity && !this.state.updated) {
+    loadData(activity) {
+        if (activity) {
             let self = this;
             let total = 0 ;
             let sum = 0;
             let predicate = {
                 filter: 'activity',
-                id: this.props.activity.id
+                id: activity.id
             };
             this.props.reviewStore.setPredicate(predicate);
             this.props.reviewStore.loadLocalReviews().then(action((reviews) => {
+                self.reviewList = [];
                 reviews.forEach(function (review, i) {
                     self.reviewList.push(<ActivityReview review={review} key={i}/>);
                     total++;

@@ -30,8 +30,8 @@ class ActivityYouMayLike extends React.Component {
         if (activity) {
             let self = this;
             let predicate = {
-                filter: 'luminary',
-                id: activity.luminary.id,
+                filter: '',
+                id: 0,
                 limit: 4
             };
             this.props.activityStore.setPredicate(predicate);
@@ -45,7 +45,7 @@ class ActivityYouMayLike extends React.Component {
                     count++;
                 });
                 self.setState({activityList: self.activityList});
-                console.log(this.state.activityList);
+                //console.log(this.state.activityList);
             }));
             this.setState ({updated: true});
         }

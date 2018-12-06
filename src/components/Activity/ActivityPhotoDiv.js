@@ -11,8 +11,16 @@ class ActivityPhotoDiv extends React.Component {
     }
 
     componentWillMount() {
-        if(this.props.image)
-            this.setState({image: this.props.image});
+        this.loadData(this.props.image);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.loadData(nextProps.image);
+    }
+
+    loadData (image) {
+        if(image)
+            this.setState({image: image});
         else
             this.setState({image: {title: 'load', path: 'files/no_image.jpg'}});
     }

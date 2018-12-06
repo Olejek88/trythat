@@ -97,19 +97,17 @@ class ActivitySelect extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.loadData(nextProps.activity);
+        this.setState({updated: true});
     }
 
     componentDidUpdate() {
-        //this.loadData(this.props.activity);
     }
 
     loadData(activity) {
-        console.log(activity);
         let self = this;
-        if (activity && !this.state.updated) {
+        if (activity) {
             this.setState({activity: activity});
             this.setState({luminary: activity.luminary});
-            this.setState({updated: true});
             this.props.activityListingStore.loadActivityListing(activity).then(((activityListing) => {
                 let customers = this.props.activityListingStore.loadActivityListingCustomers(activityListing);
                 self.setState({activityDiapason: customers});
@@ -135,16 +133,15 @@ class ActivitySelect extends React.Component {
                     this.setState({favoredClass: 'pdp heart_img'});
                 }
             }));
+            this.setState({updated: true});
         }
     }
 
     componentWillMount() {
-        this.setState({luminary: this.props.activityStore.defaultData.luminary});
-        this.setState({activity: this.props.activityStore.defaultData});
+        this.loadData(this.props.activity);
     }
 
     render() {
-        console.log(this.state.luminary);
         return (
             <React.Fragment>
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}

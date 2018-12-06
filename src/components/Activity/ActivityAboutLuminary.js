@@ -46,17 +46,7 @@ class ActivityAboutLuminary extends React.Component {
         this.loadData(nextProps.activity);
     }
 
-    componentDidMount() {
-        this.setState({activity: this.props.activity});
-        this.loadData(this.props.activity);
-    }
-
-    componentDidUpdate() {
-        //this.loadData(this.props.activity);
-    }
-
     loadData(activity) {
-        console.log(activity);
         if (activity) {
             let self = this;
             const luminary = activity.luminary;
@@ -68,9 +58,9 @@ class ActivityAboutLuminary extends React.Component {
 
             this.props.activityStore.loadLocalActivities().then(((activities) => {
                 let activityListing = [];
-                activities.forEach(function (activity) {
-                    if (activity.id!==self.props.activity.id)
-                        activityListing.push(activity);
+                activities.forEach(function (same_activity) {
+                    if (same_activity.id!==activity.id)
+                        activityListing.push(same_activity);
                 });
                 self.setState({activity_from_luminary: activityListing});
             }));

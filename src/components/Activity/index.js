@@ -35,7 +35,7 @@ class Activity extends React.Component {
         let self = this;
         this.props.activityStore.loadActivity(id)
             .then((activity) => {
-                console.log(activity);
+                //console.log(activity);
                 self.setState({activity: activity});
             });
     }
@@ -49,9 +49,7 @@ class Activity extends React.Component {
                         <div className="p-top-sec">
                             <React.Fragment>
                                 <ActivityPhoto activity={this.state.activity}/>
-{/*
                                 <ActivitySelect activity={this.state.activity}/>
-*/}
                                 <ActivityDescription activity={this.state.activity}/>
                                 <ActivityDetails activity={this.state.activity}/>
                             </React.Fragment>
