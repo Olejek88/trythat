@@ -35,6 +35,7 @@ class PopCart extends React.Component {
                     });
                     self.setState({count: self.orderList.length});
                     self.props.commonStore.ordersCount=self.orderList.length;
+                    window.localStorage.setItem('orders_count',self.orderList.length.toString(10));
                     self.setState({height: self.orderList.length*80});
                     self.setState({orderList: self.orderList},() => {
                         self.setState({updated: true})

@@ -2,7 +2,7 @@ import {action, observable, reaction} from 'mobx';
 import agent from '../agent';
 
 class CommonStore {
-    ordersCount = 0;
+    ordersCount = window.localStorage.getItem('orders_count');
     @observable appName = 'TryThat';
     @observable apiServer = 'http://api.tt.ru/';
     @observable token = window.localStorage.getItem('jwt');

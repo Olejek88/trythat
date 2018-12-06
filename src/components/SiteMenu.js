@@ -42,9 +42,9 @@ class SiteMenu extends React.Component {
                         </ul>
                         <ul className="footer-menu-item">
                             <p>Правила</p>
-                            <li><a className="sg-c-3 allowAllUsers" href="/">Безопасность</a></li>
-                            <li><a className="sg-c-3 allowAllUsers" href="/">Правила для клиентов</a></li>
-                            <li><a className="sg-c-3 allowAllUsers" href="/">Правила для исполнителей</a>
+                            <li><a className="sg-c-3 allowAllUsers" href={"/#/privacy"}>Безопасность</a></li>
+                            <li><a className="sg-c-3 allowAllUsers" href={"/#/terms-customers"}>Правила для клиентов</a></li>
+                            <li><a className="sg-c-3 allowAllUsers" href={"/#/terms-luminary"}>Правила для исполнителей</a>
                             </li>
                         </ul>
                         <ul id="stay-connected" className="footer-menu-item" style={{margin: '0'}}>

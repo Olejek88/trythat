@@ -22,7 +22,11 @@ class OrderListItem extends React.Component {
 
         this.onRemove = (e) => {
             this.props.orderStore.deleteOrder(e);
-            this.setState({showOrderItem: false})
+            this.setState({showOrderItem: false});
+            if (this.props.commonStore.ordersCount>0) {
+                this.props.commonStore.ordersCount--;
+                window.localStorage.setItem('orders_count', this.props.commonStore.ordersCount);
+            }
         };
 
         this.onFavored = () => {
@@ -156,9 +160,9 @@ class OrderListItem extends React.Component {
                                     <div className="remove-convert"
                                          style={{width: '28px', position: 'relative', top: '-6px'}}>
                                         <div className="remove">
-                                            <img src={"images/icon_close.png"} alt="remove" style={{width: '28px'}}
+                                            <img src={"images/icon_close.png"} alt="remove" style={{width: '28px', cursor: 'pointer'}}
                                                  onClick={() => {
-                                                     this.onRemove(order._id)
+                                                     this.onRemove(order.id)
                                                  }}/>
                                         </div>
                                     </div>

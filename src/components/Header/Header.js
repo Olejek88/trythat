@@ -118,7 +118,8 @@ class Header extends React.Component {
                         </div>
                         <MenuNew/>
                         <LoggedOutView currentUser={this.props.userStore.currentUser} />
-                        <LoggedInView currentUser={this.props.userStore.currentUser} orders={orders} ordersCount={this.props.commonStore.ordersCount}/>
+                        <LoggedInView currentUser={this.props.userStore.currentUser} orders={orders}
+                                      ordersCount={this.props.commonStore.ordersCount}/>
                     </div>
                 </div>
             </div>

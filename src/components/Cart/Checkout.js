@@ -4,7 +4,7 @@ import {withRouter} from 'react-router-dom';
 import OrderListItem from "../Orders/OrderListItem";
 import {action} from "mobx/lib/mobx";
 
-@inject('orderStore')
+@inject('orderStore','userStore')
 @withRouter
 export default class Checkout extends React.Component {
     constructor() {
@@ -12,7 +12,10 @@ export default class Checkout extends React.Component {
         this.state = {
             orderList: [],
             sum: 0,
-            orders_count:0
+            orders_count: 0,
+            cardHolderName: '',
+            cardNumber: '',
+            cvc: ''
         };
         this.orderList = [];
         this.updateState = field => ev => {
@@ -24,15 +27,23 @@ export default class Checkout extends React.Component {
 
     componentDidMount() {
         let self = this;
-        const orderStore = this.props.orderStore;
-        orderStore.loadOrders().then(action((orders) => {
-            self.orderList = orders.map(function (order, i) {
-                let activity = order.listing.activity;
-                self.setState({sum: self.state.sum + order.listing.cost});
-                self.setState({orders_count: self.state.orders_count + 1});
-                return (<OrderListItem activity={activity} key={i} order={order}/>);
-            });
-            self.setState({orderList: self.orderList});
+        let predicate = {
+            filter: 'order-status',
+            id: 1
+        };
+        this.props.orderStore.setPredicate(predicate);
+        this.props.orderStore.loadOrders().then(action((orders) => {
+            if (orders) {
+                orders.forEach(function (order, i) {
+                    let activity = order.activityListing.activity;
+                    self.setState({sum: self.state.sum + order.activityListing.cost});
+                    self.orderList.push(<OrderListItem activity={activity} key={i} order={order}/>);
+                });
+                self.setState({orders_count: self.orderList.length});
+                self.setState({orderList: self.orderList},() => {
+                    self.setState({updated: true})
+                });
+            }
         }));
     }
 
@@ -84,6 +95,7 @@ export default class Checkout extends React.Component {
                                                                        style={{height: '38px', width: '100%'}}
                                                                        onChange={this.updateState('firstName')}
                                                                        id="firstName" name="firstName" type="text"/>
+
                                                                 <p className="fineprint">
                                                                 </p>
                                                             </div>
@@ -107,50 +119,16 @@ export default class Checkout extends React.Component {
                                                                 <label
                                                                     className="input-label f-style-ovr1">Е-мэйл</label>
                                                                 <input className="checkout-acct-email-disp js-req"
-                                                                       id="current_email" aria-required="true"
-                                                                       disabled="disabled"
-                                                                       style={{
-                                                                           background: '#FFF',
-                                                                           height: '38px',
-                                                                           width: '100%'
-                                                                       }}
-                                                                       value="olejek8@yandex.ru"/>
-                                                                <p className="fineprint">
-                                                                </p>
-                                                            </div>
-                                                            <div className="sibs  txt-ovr-3"
-                                                                 style={{marginBottom: '5px', width: '49%'}}>
-                                                                <input id="updateEmail"
-                                                                       style={{
-                                                                           margin: '0',
-                                                                           display: 'inline-block',
-                                                                           verticalAlign: 'middle'
-                                                                       }}
-                                                                       value="1" name="updateEmail" type="checkbox"/>
-                                                                <label style={{verticalAlign: 'middle'}}>Обновить
-                                                                    е-мэйл</label>
-                                                            </div>
-                                                        </div>
-                                                        <div className="sg-inline-middle txt-ovr-3"
-                                                             style={{justifyContent: 'space-between', width: '100%'}}>
-                                                            <div id="updateEmailRow"
-                                                                 className="sibs emailInput txt-ovr-3"
-                                                                 style={{marginBottom: '5px', width: '49%'}}>
-                                                                <label className="input-label f-style-ovr1">Новый
-                                                                    е-мэйл</label>
-                                                                <input className="checkout-acct-email-disp js-req"
                                                                        id="emailAddress"
                                                                        style={{height: '38px', width: '100%'}}
-                                                                       value="olejek8@yandex.ru"
+                                                                       value={this.props.userStore.currentUser.email}
                                                                        readOnly={true}
                                                                        name="emailAddress" type="text"/>
-                                                                <p className="fineprint">
-                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="row one-row-sec js-parent"
-                                                         style={{textAlign: 'right'}}>
+                                                         style={{textAlign: 'right', display: 'none'}}>
                                                         <div
                                                             className="js-account-save act-btn small secondaryButton button"
                                                             id="account-info-save" tabIndex="0">
@@ -166,11 +144,10 @@ export default class Checkout extends React.Component {
                                             <div style={{marginBottom: '10px'}}>
                                                 <div className="step sg-inline-middle row sg-f-ttl">
                                                     <div className="sg-inline-middle checkout_step_title">
-                                                        <p className="step-num">3</p>
+                                                        <p className="step-num">2</p>
                                                     </div>
                                                     <p className="step-label" style={{margin: '0 5px'}}>Адрес доставки
-                                                        (если
-                                                        нужен сертификат)</p>
+                                                        (если нужен сертификат)</p>
                                                 </div>
                                             </div>
                                             <div id="shipping-info-form">
@@ -214,14 +191,6 @@ export default class Checkout extends React.Component {
                                                                            type="text"/></div>
                                                                 <div style={{padding: '0 5px'}}>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="row one-row-sec js-parent">
-                                                            <div
-                                                                className="js-shipping-save act-btn small secondaryButton button "
-                                                                style={{float: 'right'}} tabIndex="0">
-                                                                <div className="title-container"><p
-                                                                    className="title">Сохранить</p></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -294,8 +263,9 @@ export default class Checkout extends React.Component {
                                                                                aria-required="true" required="required"
                                                                                autoComplete="off"
                                                                                onChange={this.updateState('cardHolderName')}
+                                                                               value={this.state.cardHolderName}
                                                                                name="cardHolderName" id="cardHolderName"
-                                                                               value="" type="text"/>
+                                                                               type="text"/>
                                                                     </div>
                                                                     <div style={{padding: '0 5px'}}>
                                                                     </div>
@@ -305,9 +275,10 @@ export default class Checkout extends React.Component {
                                                                         <input style={{width: '100%'}} maxLength="30"
                                                                                aria-required="true" required="required"
                                                                                autoComplete="off"
+                                                                               value={this.state.cardNumber}
                                                                                onChange={this.updateState('cardNumber')}
                                                                                name="cardNumber" id="cardNumber"
-                                                                               value="" type="text"/>
+                                                                               type="text"/>
                                                                     </div>
                                                                 </div>
                                                                 <div style={{margin: '10px 0'}}>
@@ -372,6 +343,7 @@ export default class Checkout extends React.Component {
                                                                             <input style={{width: '60px', display: 'block'}}
                                                                                 maxLength="4" aria-required="true"
                                                                                 required="required"
+                                                                                   value={this.state.cvc}
                                                                                    onChange={this.updateState('cvc')}
                                                                                 autoComplete="off" name="cvc" id="cvc"
                                                                                 type="text" />
@@ -393,12 +365,10 @@ export default class Checkout extends React.Component {
                                                     <div className="sg-inline-middle checkout_step_title">
                                                         <p className="step-num">4</p>
                                                     </div>
-                                                    <p className="step-label" style={{margin: '0 5px'}}>Посмотрите на
-                                                        свой
-                                                        заказ еще раз</p>
+                                                    <p className="step-label" style={{margin: '0 5px'}}>
+                                                        Посмотрите на свой заказ еще раз</p>
                                                 </div>
                                             </div>
-
                                             <div id="product-table" className="">
                                                 <div className="table-body">
                                                     {this.state.orderList}

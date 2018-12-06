@@ -68,6 +68,7 @@ class ActivitySelect extends React.Component {
                     updated_at: Math.ceil(Date.now()/1000),
                     start_date: moment().format('YYYY-MM-DD 00:00:00')
                 };
+                console.log(order);
                 this.props.orderStore.createOrder(order).then(() => {
                     this.props.history.push("/");
                 });
@@ -77,10 +78,12 @@ class ActivitySelect extends React.Component {
         this.handleSelectActivityQuantityChange = (event) => {
             this.setState({selectedQuantity: event});
             this.setState({selectedPrice: event.cost});
+            this.setState({customersError: false});
         };
         this.handleSelectActivityDurationChange = (event) => {
             this.setState({selectedDuration: event});
             this.setState({selectedPrice: event.cost});
+            this.setState({durationError: false});
         };
 
         this.onClick = this.onClick.bind(this);
@@ -238,7 +241,7 @@ class ActivitySelect extends React.Component {
                                             onChange={(e) => this.handleSelectActivityDurationChange(e)}
                                             options={this.state.activityListingDurations}
                                         />
-                                        {this.state.customersError &&
+                                        {this.state.durationError &&
                                         <div className="row" id="addPeopleError"
                                              style={{
                                                  fontFamily: 'georgia',
@@ -269,7 +272,7 @@ class ActivitySelect extends React.Component {
                                             onChange={(e) => this.handleSelectActivityQuantityChange(e)}
                                             options={this.state.activityCustomers}
                                         />
-                                        {this.state.durationError &&
+                                        {this.state.customersError &&
                                         <div className="row" id="addQuantityError"
                                              style={{
                                                  fontFamily: 'georgia',

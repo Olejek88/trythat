@@ -82,7 +82,7 @@ export class OrderStore {
 
     @action createOrder(order) {
         return agent.Order.create(order)
-            .then((order) => {
+            .finally((order) => {
                 this.ordersRegistry.set(order.id, order);
             })
             .catch(action(err => {
@@ -104,7 +104,6 @@ export class OrderStore {
         this.ordersRegistry.delete(id);
         return agent.Order.del(id)
             .catch(action(err => {
-                this.loadOrders();
                 throw err;
             }));
     }

@@ -254,8 +254,8 @@ const Order = {
         activityListing.duration,activityListing.activity.luminary.user.image,orderStatus`),
     create: (order) =>
         requests.post(`/v1/orders`,order),
-    del: (slug, orderId) =>
-        requests.del(`/v1/orders/${slug}/${orderId}`),
+    del: (order_id) =>
+        requests.del(`/v1/orders/${order_id}`),
 };
 
 const OrderStatus = {

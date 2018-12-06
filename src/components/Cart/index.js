@@ -7,24 +7,45 @@ import {action} from "mobx/lib/mobx";
 @inject('orderStore')
 @withRouter
 export default class Cart extends React.Component {
-    render() {
-        let orderList = '';
-        let orders_count = 0;
-        let sum = 0;
-        this.props.orderStore.loadOrders().then(action((orders) => {
-            orderList = orders.map(function (order, i) {
-                let activity = order.listing.activity;
-                sum += order.listing.cost;
-                orders_count++;
-                return (<OrderListItem activity={activity} key={i} order={order}/>);
-            });
-        }));
-        if (orders_count===0) orderList = 'Корзина пуста';
-
+    constructor() {
+        super();
+        this.state = {
+            updated: false,
+            count: 0,
+            height: 0,
+            sum: 0,
+            orderList: 'Корзина пуста'
+        };
+        this.orderList=[];
         this.onSubmit = () => {
             this.props.history.push("/cart/checkout");
         };
+    }
 
+    componentWillMount() {
+        let self = this;
+        let predicate = {
+            filter: 'order-status',
+            id: 1
+        };
+        this.props.orderStore.setPredicate(predicate);
+        this.props.orderStore.loadOrders().then(action((orders) => {
+            if (orders) {
+                orders.forEach(function (order, i) {
+                    let activity = order.activityListing.activity;
+                    self.setState({sum: self.state.sum + order.activityListing.cost});
+                    self.orderList.push(<OrderListItem activity={activity} key={i} order={order}/>);
+                });
+                self.setState({count: self.orderList.length});
+                self.setState({orderList: self.orderList},() => {
+                    console.log(self.state.orderList);
+                    self.setState({updated: true})
+                });
+            }
+        }));
+    }
+
+    render() {
         return (
             <div id="shopping-cart">
                 <div className="body">
@@ -44,7 +65,7 @@ export default class Cart extends React.Component {
                                 <div id="left-block">
                                     <div id="product-table" className="">
                                         <div className="table-body">
-                                            {orderList}
+                                            {this.state.orderList}
                                         </div>
                                     </div>
                                 </div>
@@ -55,10 +76,10 @@ export default class Cart extends React.Component {
                                         <div className="sg-inline-middle"
                                              style={{width: '100%', marginBottom: '5px'}}>
                                             <p className="title sg-inline-flex-grow">Подитог
-                                                <span className="sg-c-2">({orders_count})</span>
+                                                <span className="sg-c-2">({this.state.count})</span>
                                             </p>
                                             <p className="value">
-                                                <span className="productTotal_summary">{sum}</span>
+                                                <span className="productTotal_summary">{this.state.sum}</span>
                                             </p>
                                         </div>
                                         <div className="row js-total-travel-cost sg-inline-middle"
