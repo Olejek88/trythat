@@ -4,27 +4,29 @@ import {withRouter} from 'react-router-dom';
 
 @withRouter
 export default class Banner extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             search: '',
             redirect: false
         };
         this.inputEnter = this.inputEnter.bind(this);
         this.inputChange = this.inputChange.bind(this);
-        this.submitForm = this.submitForm.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    submitForm() {
-        this.props.history.replace('/activities');
+    handleSubmit(event) {
+        event.preventDefault();
 /*
-        this.context.router.push({
-            pathname: "/#/activities/search",
-            state: {
-                search: this.state.search
-            }
+        const data = new FormData();
+        data.append('search', this.state.search);
+        console.log(data);
+        this.props.router.push({
+            pathname: '/yourRoute',
+            query: { search:  this.state.search}
         });
 */
+        this.setState({redirect: true});
     }
 
     inputEnter = function (e) {
@@ -41,7 +43,7 @@ export default class Banner extends React.Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to={"/#/activities/search/" + this.state.search}/>;
+            return <Redirect push to={"/activities/search/" + this.state.search}/>;
         }
         return (
             <div className="discovery">
@@ -60,28 +62,34 @@ export default class Banner extends React.Component {
                         </span>
                     </div>
                     <div className="search_container">
-                        <div id="disc-d-widget" className="disc-d-widget" data-value="" data-text="" data-catname="">
-                            <div className="disc-input-block" style={{display: 'inline-block'}}>
-                                <div className="search-wrapper ">
-                                    <input className="js-discovery-search" onKeyPress={this.inputEnter}
-                                           onChange={this.inputChange} aria-label="Что ищем?"
-                                           placeholder="Что ищем?" name="discovery-search" autoComplete="off"
-                                           type="text"/>
+                        <form onSubmit={this.handleSubmit} name="searchForm" id="searchForm"
+                              method="POST" className="ng-pristine ng-valid">
+                            <div id="disc-d-widget" className="disc-d-widget" data-value="" data-text=""
+                                 data-catname="">
+                                <div className="disc-input-block" style={{display: 'inline-block'}}>
+                                    <div className="search-wrapper ">
+                                        <input className="js-discovery-search" onKeyPress={this.inputEnter}
+                                               onChange={this.inputChange} aria-label="Что ищем?"
+                                               placeholder="Что ищем?" name="search" autoComplete="off"
+                                               type="text"/>
+                                    </div>
+                                    <div className="city-search-wrapper">
+                                        <input className="discovery-city-search" id="where" aria-label="Где?"
+                                               placeholder="Где?"
+                                               autoComplete="off" type="text"/>
+                                    </div>
                                 </div>
-                                <div className="city-search-wrapper">
-                                    <input className="discovery-city-search"
-                                           id="disc-d-widget_bd-js-city-autocomplete" aria-label="WHERE?"
-                                           placeholder="Где?"
-                                           autoComplete="off" type="text"/>
+                                <div className="disc-btn-block" style={{float: 'right', border: 'none'}}
+                                     onClick={this.handleSubmit}>
+                                    <div className="disc-btn sg-text-transform primaryButton button button_radius"
+                                         style={{width: '100%'}}
+                                         tabIndex="0">
+                                        <div className="title-container"><p className="title">найти впечатления</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="disc-btn-block" style={{float: 'right', border: 'none'}} onClick={this.submitForm}>
-                                <div className="disc-btn sg-text-transform primaryButton button button_radius" style={{width: '100%'}}
-                                     tabIndex="0">
-                                    <div className="title-container"><p className="title">найти впечатления</p></div>
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

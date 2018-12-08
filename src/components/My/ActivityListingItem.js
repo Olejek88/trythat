@@ -69,7 +69,7 @@ class ActivityListingItem extends React.Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         let self = this;
         this.activity = this.props.activity;
         this.activity_listing = this.props.activity_listing;
@@ -80,8 +80,7 @@ class ActivityListingItem extends React.Component {
                 self.setState({customers: customers});
             }
         });
-        this.props.durationStore.loadDurations().then(() => {
-            let durations = this.props.durationStore.durationsRegistry.values();
+        this.props.durationStore.loadDurations().then((durations) => {
             self.activityListingDurations = Array.from(durations).map(x => ({label: x.duration, value: x.id}));
             self.setState({activityListingDurations: self.activityListingDurations});
             self.activityListingDurations.forEach(function (duration) {

@@ -14,20 +14,24 @@ class DurationStore {
     ];
 
     @computed get staticDataOptions() {
-        return this.staticData.map(x => ({ label: x.label, value: x._id }))
+        return this.staticData.map(x => ({ label: x.label, value: x.id }))
     };
 
     @action loadDurations() {
         this.isLoading = true;
+/*
         if (this.durationsRegistry.length>0)
             return Promise.resolve(this.durationsRegistry);
+*/
         return agent.Duration.all()
-            .then(action((durations) => {
+/*
+            .finally(action((durations) => {
                 this.durationsRegistry.clear();
                 durations.forEach(duration =>
-                    this.durationsRegistry.set(duration._id, duration));
+                    this.durationsRegistry.set(duration.id, duration));
+                this.isLoading = false;
             }))
-            .finally(action(() => { this.isLoading = false; }))
+*/
             .catch(action(err => {
                 throw err;
             }));

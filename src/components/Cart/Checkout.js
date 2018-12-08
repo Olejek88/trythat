@@ -13,6 +13,12 @@ export default class Checkout extends React.Component {
             orderList: [],
             sum: 0,
             orders_count: 0,
+            firstName: '',
+            lastName: '',
+            company: '',
+            address: '',
+            phone: '',
+            email: '',
             cardHolderName: '',
             cardNumber: '',
             cvc: ''
@@ -31,6 +37,13 @@ export default class Checkout extends React.Component {
             filter: 'order-status',
             id: 1
         };
+        if (this.props.userStore.currentUser) {
+            this.setState({firstName: this.props.userStore.currentUser.firstName});
+            this.setState({lastName: this.props.userStore.currentUser.lastName});
+            this.setState({phone: this.props.userStore.currentUser.phone});
+            this.setState({email: this.props.userStore.currentUser.email});
+        }
+
         this.props.orderStore.setPredicate(predicate);
         this.props.orderStore.loadOrders().then(action((orders) => {
             if (orders) {
@@ -93,6 +106,7 @@ export default class Checkout extends React.Component {
                                                                 <input className="firstName js-req"
                                                                        aria-required="true" required="required"
                                                                        style={{height: '38px', width: '100%'}}
+                                                                       value={this.state.firstName}
                                                                        onChange={this.updateState('firstName')}
                                                                        id="firstName" name="firstName" type="text"/>
 
@@ -106,6 +120,7 @@ export default class Checkout extends React.Component {
                                                                 <input className="lastName js-req"
                                                                        aria-required="true" required="required"
                                                                        style={{height: '38px', width: '100%'}}
+                                                                       value={this.state.lastName}
                                                                        onChange={this.updateState('lastName')}
                                                                        id="lastName" name="lastName" type="text"/>
                                                                 <p className="fineprint">
@@ -121,7 +136,7 @@ export default class Checkout extends React.Component {
                                                                 <input className="checkout-acct-email-disp js-req"
                                                                        id="emailAddress"
                                                                        style={{height: '38px', width: '100%'}}
-                                                                       value={this.props.userStore.currentUser.email}
+                                                                       value={this.state.email}
                                                                        readOnly={true}
                                                                        name="emailAddress" type="text"/>
                                                             </div>
@@ -176,6 +191,7 @@ export default class Checkout extends React.Component {
                                                                            style={{display: 'block', width: '100%'}}
                                                                            aria-required="true" required="required"
                                                                            name="shippingPhone" id="shippingPhone"
+                                                                           value={this.state.phone}
                                                                            onChange={this.updateState('phone')}
                                                                            type="text"/>
                                                                 </div>
@@ -385,7 +401,7 @@ export default class Checkout extends React.Component {
                                         <div style={{padding: '20px 10px 10px'}}>
                                             <div className="sg-inline-middle"
                                                  style={{width: '100%', marginBottom: '5px'}}>
-                                                <p className="title sg-inline-flex-grow">Подитог
+                                                <p className="title sg-inline-flex-grow">Подитог&nbsp;
                                                     <span className="sg-c-2">({this.state.orders_count})</span>
                                                 </p>
                                                 <p className="value">

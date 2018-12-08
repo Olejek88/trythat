@@ -55,14 +55,16 @@ class ActivityListingDialog extends React.Component {
     componentWillMount() {
         let self = this;
         this.setState({activity: this.props.activity});
-        this.props.durationStore.loadDurations().then(() => {
-            console.log(this.props.durationStore.durationsRegistry);
-            self.durations = Array.from(this.props.durationStore.durationsRegistry.values())
-                    .map(x => ({label: x.duration, value: x.id}));
-            this.setState({durations: self.durations});
+        this.props.durationStore.loadDurations().then(function (durations) {
+            self.durations = durations.map(x => ({label: x.duration, value: x.id}));
+            console.log(self.durations);
+            self.setState({durations: self.durations});
             if (self.durations)
-                this.setState({duration: self.durations[0]});
+                self.setState({duration: self.durations[0]});
         });
+    }
+    componentDidMount() {
+        console.log(this.state.durations);
     }
 
     render() {

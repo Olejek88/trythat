@@ -13,7 +13,7 @@ export default class ActivityView extends React.Component {
             activitiesRows: [],
             updated: false,
             filter: '',
-            id: 0
+            id: '0'
         };
     }
 
@@ -41,11 +41,12 @@ export default class ActivityView extends React.Component {
             filter: this.state.filter,
             id: this.state.id
         };
-        if (props.i>0 && props.filter!=='') {
+        if (props.i!=='0' && props.filter!=='') {
             predicate.filter = props.filter;
             predicate.id = props.i;
         }
         this.props.activityStore.setPredicate(predicate);
+        console.log(predicate);
 
         this.props.activityStore.loadActivities().then(() => {
             my.state.activitiesRows.push(

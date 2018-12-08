@@ -4,6 +4,25 @@ import {withRouter} from 'react-router-dom';
 
 @withRouter
 export default class Activities extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            filter: '',
+            id: 0
+        };
+    };
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        //this.setState({filter: this.props.match.params.filter});
+        //this.setState({id: this.props.match.params.id});
+    }
+
+    componentWillMount() {
+        this.setState({filter: this.props.match.params.filter});
+        this.setState({id: this.props.match.params.id});
+    }
+
     render() {
         return (
             <div className="main" style={{
@@ -11,7 +30,7 @@ export default class Activities extends React.Component {
                 overflow: 'hidden', paddingTop: '80px'
             }}>
                 <div className="main-row">
-                    <ActivityView filter={this.props.match.params.filter} i={this.props.match.params.id} id={9}/>
+                    <ActivityView filter={this.state.filter} i={this.state.id} id={9}/>
                 </div>
             </div>
         );

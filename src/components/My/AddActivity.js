@@ -284,16 +284,15 @@ class AddActivity extends React.Component {
             this.props.activityStore.loadActivity(activity_id).then((activity) => {
                 self.activity = activity;
                 self.setState({activity: self.activity});
-                if (this.activity) {
-                    if (this.activity.tags) {
-                        this.activity.tags.forEach(function (tag) {
+                if (activity) {
+                    if (activity.tags) {
+                        self.activity.tags.forEach(function (tag) {
                             self.state.tags[self.state.tags.length] = tag.title;
                         });
                     }
 
-                    this.props.activityListingStore.loadActivityListing(this.activity).then(() => {
-                        Array.from(this.props.activityListingStore.activityListingRegistry.values())
-                            .forEach(function (activity_list, i) {
+                    self.props.activityListingStore.loadActivityListing(activity).then((activity_lists) => {
+                        activity_lists.forEach(function (activity_list, i) {
                                 self.activityListRows.push(<ActivityListingItem activity={self.activity}
                                                                                 activity_listing={activity_list}
                                                                                 key={i}/>);
@@ -301,7 +300,7 @@ class AddActivity extends React.Component {
                         self.setState({activityListRows: self.activityListRows});
                     });
 
-                    this.props.activityImageStore.loadImages(this.activity.id).then(function (images) {
+                    self.props.activityImageStore.loadImages(this.activity.id).then(function (images) {
                         if (images) {
                             let i = 1;
                             images.forEach(function (image) {
@@ -314,20 +313,20 @@ class AddActivity extends React.Component {
                             self.setState({images: self.imagesList});
                         }
                     });
-                    this.setState({
+                    self.setState({
                         customers: {
                             min: this.activity.min_customers,
                             max: this.activity.max_customers
                         }
                     });
-                    this.setState({city: this.activity.location.city});
-                    this.setState({title: this.activity.title});
-                    this.setState({description: this.activity.description});
-                    this.setState({shortDescription: this.activity.shortDescription});
-                    this.setState({luminary: this.activity.luminary});
-                    this.setState({startDate: moment(this.activity.startDate)});
-                    this.setState({endDate: moment(this.activity.endDate)});
-                    this.setState({images: this.activity.images});
+                    self.setState({city: this.activity.location.city});
+                    self.setState({title: this.activity.title});
+                    self.setState({description: this.activity.description});
+                    self.setState({shortDescription: this.activity.shortDescription});
+                    self.setState({luminary: this.activity.luminary});
+                    self.setState({startDate: moment(this.activity.startDate)});
+                    self.setState({endDate: moment(this.activity.endDate)});
+                    self.setState({images: this.activity.images});
                 }
             });
         }

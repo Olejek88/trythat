@@ -4,7 +4,7 @@ import OrderListPopItem from "../Orders/OrderListPopItem";
 import {inject} from "mobx-react/index";
 import {action} from "mobx/lib/mobx";
 
-@inject('orderStore','commonStore')
+@inject('orderStore', 'commonStore')
 @observer
 class PopCart extends React.Component {
     constructor() {
@@ -16,7 +16,7 @@ class PopCart extends React.Component {
             sum: 0,
             orderList: 'Корзина пуста'
         };
-        this.orderList=[];
+        this.orderList = [];
     }
 
     componentWillMount() {
@@ -27,21 +27,19 @@ class PopCart extends React.Component {
         };
         this.props.orderStore.setPredicate(predicate);
         this.props.orderStore.loadOrders().then(action((orders) => {
-                if (orders) {
-                    orders.forEach(function (order, i) {
-                        let activity = order.activityListing.activity;
-                        self.setState({sum: self.state.sum + order.activityListing.cost});
-                        self.orderList.push(<OrderListPopItem activity={activity} key={i} order={order}/>);
-                    });
-                    self.setState({count: self.orderList.length});
-                    self.props.commonStore.ordersCount=self.orderList.length;
-                    window.localStorage.setItem('orders_count',self.orderList.length.toString(10));
-                    self.setState({height: self.orderList.length*80});
-                    self.setState({orderList: self.orderList},() => {
-                        self.setState({updated: true})
-                    });
-                }
-            }));
+            orders.forEach(function (order, i) {
+                let activity = order.activityListing.activity;
+                self.setState({sum: self.state.sum + order.activityListing.cost});
+                self.orderList.push(<OrderListPopItem activity={activity} key={i} order={order}/>);
+            });
+            self.setState({count: self.orderList.length});
+            self.props.commonStore.ordersCount = self.orderList.length;
+            window.localStorage.setItem('orders_count', self.orderList.length.toString(10));
+            self.setState({height: self.orderList.length * 80});
+            self.setState({orderList: self.orderList}, () => {
+                self.setState({updated: true})
+            });
+        }));
     }
 
     render() {
@@ -62,7 +60,7 @@ class PopCart extends React.Component {
                     <div id="cart-popup-content" style={{marginTop: '0px'}}>
                         <div id="cart-popup" className="io-arrow-popup">
                             <div id="cart-popup-item-count" style={{display: 'inline'}}>{this.state.count}</div>
-                            <div id="cart-popup-items" style={{height: this.state.height+'px'}}>
+                            <div id="cart-popup-items" style={{height: this.state.height + 'px'}}>
                                 <div className="mCustomScrollBox" id="mCSB_1"
                                      style={{
                                          position: 'relative',
@@ -74,7 +72,7 @@ class PopCart extends React.Component {
                                          style={{position: 'relative', top: '0'}}>
                                         <ul style={{padding: '0 10px'}}>
                                             {this.state.updated &&
-                                                this.state.orderList
+                                            this.state.orderList
                                             }
                                             <div className="seperator sg-bd-2 sg-no-bd-top">
                                             </div>

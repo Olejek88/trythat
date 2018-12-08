@@ -43,9 +43,6 @@ export class ActivityListingStore {
     @action loadActivityListing(activity) {
         this.activityListingRegistry.clear();
         return agent.ActivityListing.forActivity(activity.id)
-            .finally(action(() => {
-                this.isLoading = false;
-            }))
             .catch(action(err => {
                 throw err;
             }));
