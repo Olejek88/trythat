@@ -84,7 +84,6 @@ class ActivityListingItem extends React.Component {
             self.activityListingDurations = Array.from(durations).map(x => ({label: x.duration, value: x.id}));
             self.setState({activityListingDurations: self.activityListingDurations});
             self.activityListingDurations.forEach(function (duration) {
-                console.log(duration);
                 if (duration.value === self.activity_listing.duration.id) {
                     self.setState({duration: duration});
                 }

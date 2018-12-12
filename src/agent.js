@@ -212,8 +212,8 @@ const Locations = {
 const Luminary = {
     all: () =>
         requests.get(`/v1/luminaries?expand=user.image`),
-    get: luminary_id =>
-        requests.get(`/v1/luminaries/${luminary_id}?expand=user.image`),
+    get: user_id =>
+        requests.get(`/v1/luminaries?expand=user.image&user.id=${user_id}`),
     create: luminary =>
         requests.post(`/v1/luminaries`,{luminary}),
     update: luminary =>

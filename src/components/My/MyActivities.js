@@ -22,11 +22,14 @@ export default class MyActivities extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps');
         this.fillList(nextProps);
     }
 
     componentWillMount() {
+/*
+        if (!this.props.userStore.currentLuminary || this.props.userStore.currentLuminary.id==="888888")
+            this.props.history.replace('/my');
+*/
         //console.log('componentWillMount');
         this.fillList(null);
     }

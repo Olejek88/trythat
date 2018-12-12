@@ -1,7 +1,23 @@
 import React from 'react';
 import Link from "react-router-dom/es/Link";
+import {inject} from "mobx-react/index";
+import {withRouter} from "react-router-dom";
 
+@inject('userStore')
+@withRouter
 class MyMenu extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            luminary: '',
+        };
+    }
+
+    componentWillMount() {
+        if (this.props.userStore.currentLuminary && this.props.userStore.currentLuminary.id!=="888888")
+        this.setState({luminary: this.props.userStore.currentLuminary});
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -17,14 +33,18 @@ class MyMenu extends React.Component {
                                     {/*<li className="menu-li orders purchases sg-c-2">*/}
                                         {/*<a href={"/#/my/customer"}>Клиент</a>*/}
                                     {/*</li>*/}
-                                    <li className="menu-li auctions sg-c-2">
-                                        <a href={"/#/my/luminary"}>Исполнитель</a>
-                                    </li>
+                                    {this.state.luminary &&
+                                        <li className="menu-li auctions sg-c-2">
+                                            <a href={"/#/my/luminary"}>Исполнитель</a>
+                                        </li>
+                                    }
                                 </ul>
                             </li>
+                            {this.state.luminary &&
                             <li className="menu-li account sg-c-2">
                                 <a href={"/#/my/activity/current"}>Мои предложения</a>
-                            </li>
+                            </li>}
+                            {this.state.luminary &&
                             <li className="menu-li sg-c-2">
                                 <ul className="sub-menu">
                                     <li className="menu-li orders purchases sg-c-2">
@@ -35,9 +55,12 @@ class MyMenu extends React.Component {
                                     </li>
                                 </ul>
                             </li>
+                            }
+                            {this.state.luminary &&
                             <li className="menu-li account sg-c-2">
                                 <a href={"/#/add"}>Добавить предложение</a>
                             </li>
+                            }
                             <li className="menu-li sg-c-2">
                                 <a href={"/#/my/activity/wish"}>Список желаний</a>
                             </li>

@@ -34,7 +34,7 @@ import Privacy from "./About/Privacy";
 @inject('userStore', 'commonStore', 'activityStore', 'locationStore')
 @withRouter
 @observer
-export default class App extends React.Component {
+class App extends React.Component {
 
     componentWillMount() {
         if (!this.props.commonStore.token) {
@@ -100,3 +100,4 @@ export default class App extends React.Component {
         );
     }
 }
+export default App;

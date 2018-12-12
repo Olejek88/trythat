@@ -54,7 +54,7 @@ export class MailStore {
     $req(count = 10, start = 0) {
         if (this.predicate.filter && this.predicate.id)
             return agent.Mail.filter(this.predicate.filter, this.predicate.id, this.predicate.limit, this.predicate.start);
-        return agent.Mail.filter('user', userStore.currentUser._id, count, start);
+        return agent.Mail.filter('from_user', userStore.currentUser.id, count, start);
     }
 
     @action loadMails() {
@@ -70,7 +70,6 @@ export class MailStore {
             }))
             .catch(action(err => {
                 throw err;
-                //return this.staticData;
             }));
     }
 

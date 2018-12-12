@@ -105,9 +105,8 @@ export class UserStore {
         console.log(newUser);
         return agent.Auth.save(newUser,newUser.id)
             .then(action((user) => {
-                console.log(user);
                 this.currentUser = user;
-                console.log(this.currentUser);
+                window.localStorage.setItem('user', JSON.stringify(user));
             }))
             .finally(action(() => {
                 this.updatingUser = false;
@@ -154,6 +153,7 @@ export class UserStore {
             }))
             .catch(action(err => {
                 console.log(err);
+                window.localStorage.setItem('luminary', undefined);
             }));
     }
 }

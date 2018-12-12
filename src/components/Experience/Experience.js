@@ -54,14 +54,16 @@ class Experience extends React.Component {
             }
 
             const customer = this.props.userStore.currentCustomer;
-            this.setState({customer: customer});
-            this.props.wishListStore.isWished(this.props.activity.id, customer.id).then((wish) => {
-                if (wish.length>0) {
-                    this.setState({favoredClass: "heart_img wishlist listed"});
-                    this.setState({wish: wish[0]});
-                    this.setState({favored: "favored"});
-                }
-            });
+            if (customer) {
+                this.setState({customer: customer});
+                this.props.wishListStore.isWished(this.props.activity.id, customer.id).then((wish) => {
+                    if (wish.length > 0) {
+                        self.setState({favoredClass: "heart_img wishlist listed"});
+                        self.setState({wish: wish[0]});
+                        self.setState({favored: "favored"});
+                    }
+                });
+            }
         }
     }
 
