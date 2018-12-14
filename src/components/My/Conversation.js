@@ -17,7 +17,7 @@ class Conversation extends React.Component {
             header: 'Входящие'
         };
         this.mails = [];
-        this.empty = <EmptyMailBox />;
+        this.empty = <EmptyMailBox/>;
         this.inputChange = this.inputChange.bind(this);
     }
 
@@ -76,15 +76,15 @@ class Conversation extends React.Component {
         switch (filter) {
             case 'input':
                 this.setState({header: 'Входящие'});
-                predicate = { id: 1, filter: 'mail_status' };
+                predicate = {id: 1, filter: 'mail_status'};
                 break;
             case 'unread':
                 this.setState({header: 'Не прочитанные'});
-                predicate = { id: 2, filter: 'mail_status' };
+                predicate = {id: 2, filter: 'mail_status'};
                 break;
             case 'create':
                 this.setState({header: 'Отправленные'});
-                predicate = { id: 3, filter: 'mail_status' };
+                predicate = {id: 3, filter: 'mail_status'};
                 break;
             case 'search':
             default:
@@ -105,8 +105,8 @@ class Conversation extends React.Component {
     }
 
     render() {
-        if(!this.state.login) {
-            return (<Redirect to={"/"} />);
+        if (!this.state.login) {
+            return (<Redirect to={"/"}/>);
         }
         return (
             <div className="main" style={{
@@ -133,8 +133,8 @@ class Conversation extends React.Component {
                                                style={{paddingLeft: '50px', width: '100%'}} type="search"/>
                                     </div>
                                     <div className="conversation_div">
-                                        {this.state.mails===[] &&
-                                            this.empty
+                                        {this.state.mails === [] &&
+                                        this.empty
                                         }
                                         {this.state.mails}
                                     </div>
@@ -147,4 +147,5 @@ class Conversation extends React.Component {
         );
     }
 }
+
 export default inject('userStore', 'mailStore', 'activityStore')(Conversation);

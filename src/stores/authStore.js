@@ -4,38 +4,38 @@ import userStore from './userStore';
 import commonStore from './commonStore';
 
 class AuthStore {
-     inProgress = false;
-     errors = undefined;
+    inProgress = false;
+    errors = undefined;
 
-     values = {
+    values = {
         username: '',
         email: '',
         password: '',
     };
 
-     setUsername(username) {
+    setUsername(username) {
         this.values.username = username;
     }
 
-     setEmail(email) {
+    setEmail(email) {
         this.values.email = email;
     }
 
-     setPassword(password) {
+    setPassword(password) {
         this.values.password = password;
     }
 
-     reset() {
+    reset() {
         this.values.username = '';
         this.values.email = '';
         this.values.password = '';
     }
 
-     login() {
+    login() {
         this.inProgress = true;
         this.errors = undefined;
         return agent.Auth.login(this.values.email, this.values.password)
-            .then(({token,id}) => {
+            .then(({token, id}) => {
                 console.log(token);
                 console.log(id);
                 commonStore.setToken(token);
@@ -51,12 +51,12 @@ class AuthStore {
             }));
     }
 
-     register() {
+    register() {
         this.inProgress = true;
         this.errors = undefined;
         return agent.Auth.register(this.values.username, this.values.email, this.values.password)
-            //.then(({user}) => commonStore.setToken(user.token))
-            //.then(() => userStore.pullUser())
+        //.then(({user}) => commonStore.setToken(user.token))
+        //.then(() => userStore.pullUser())
             .catch(action((err) => {
                 this.errors = err.response && err.response.body && err.response.body.errors;
                 throw err;
@@ -66,7 +66,7 @@ class AuthStore {
             }));
     }
 
-     logout() {
+    logout() {
         commonStore.setToken(undefined);
         commonStore.setId(undefined);
         userStore.forgetUser();
@@ -74,7 +74,7 @@ class AuthStore {
         return Promise.resolve();
     }
 
-     current() {
+    current() {
         return Promise.resolve();
     }
 }

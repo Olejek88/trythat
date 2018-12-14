@@ -17,13 +17,13 @@ class ActivityListingDialog extends React.Component {
             cost: 2500,
             currency: currencyStore.defaultData,
             isGroup: false,
-            durations:[]
+            durations: []
         };
 
         this.durations = [];
 
         this.clickHandler = (component) => {
-            component.setState({ showAnswerDialog: false });
+            component.setState({showAnswerDialog: false});
         };
 
         this.handleDurationChange = (event) => {
@@ -61,6 +61,7 @@ class ActivityListingDialog extends React.Component {
                 self.setState({duration: self.durations[0]});
         });
     }
+
     componentDidMount() {
         console.log(this.state.durations);
     }
@@ -81,18 +82,25 @@ class ActivityListingDialog extends React.Component {
                         <div className="dialog_body" style={{margin: '0 60px', width: '300px'}}>
                             <div className="dialog_content" style={{textAlign: 'left', width: '300px'}}>
                                 <div className="row" style={{marginTop: '36px', textAlign: 'left'}}>
-                                    <img src={this.props.commonStore.apiServer+this.props.activity.luminary.user.image.path}
-                                         alt={this.props.activity.luminary.user.firstName}
-                                         style={{width: '44px', height: '44px', float: 'left', borderRadius: '22px'}}/>
+                                    <img
+                                        src={this.props.commonStore.apiServer + this.props.activity.luminary.user.image.path}
+                                        alt={this.props.activity.luminary.user.firstName}
+                                        style={{width: '44px', height: '44px', float: 'left', borderRadius: '22px'}}/>
                                     <div className="luminary_answer">
                                         {this.props.activity.title}
                                     </div>
                                 </div>
-                                <div style={{borderBottom: '1px solid #e1e1e1', width: '100%', float: 'left', marginTop: '10px'}}></div>
+                                <div style={{
+                                    borderBottom: '1px solid #e1e1e1',
+                                    width: '100%',
+                                    float: 'left',
+                                    marginTop: '10px'
+                                }}></div>
                                 <div className="row" style={{marginTop: '28px', marginBottom: '36px'}}>
-                                    <form className="concierge-overlay" style={{position: 'relative'}} action="/" method="POST">
+                                    <form className="concierge-overlay" style={{position: 'relative'}} action="/"
+                                          method="POST">
                                         <div className="row-flow">
-                                            <div className="sibs" style={{padding:'10px'}}>
+                                            <div className="sibs" style={{padding: '10px'}}>
                                                 <label htmlFor="customers" className="required">Количество
                                                     участников</label>
                                             </div>
@@ -107,7 +115,7 @@ class ActivityListingDialog extends React.Component {
                                             </div>
                                         </div>
                                         <div className="row-flow">
-                                            <div className="sibs" style={{padding:'10px'}}>
+                                            <div className="sibs" style={{padding: '10px'}}>
                                                 <label htmlFor="durations"
                                                        className="required">Длительность</label>
                                             </div>
@@ -124,7 +132,7 @@ class ActivityListingDialog extends React.Component {
                                             </div>
                                         </div>
                                         <div className="row-flow">
-                                            <div className="sibs" style={{padding:'10px'}}>
+                                            <div className="sibs" style={{padding: '10px'}}>
                                                 <label htmlFor="durations"
                                                        className="required">Стоимость</label>
                                             </div>
@@ -138,7 +146,8 @@ class ActivityListingDialog extends React.Component {
                                             </div>
                                         </div>
                                         <div className="row">
-                                            <div id="send-question" className=" primaryButton button " style={{width: '100%'}}
+                                            <div id="send-question" className=" primaryButton button "
+                                                 style={{width: '100%'}}
                                                  onClick={clickHandler}
                                                  onMouseDown={this.clickHandlerSend}>
                                                 <div className="title-container">
@@ -156,4 +165,5 @@ class ActivityListingDialog extends React.Component {
         );
     }
 }
+
 export default inject('userStore', 'mailStore', 'commonStore', 'durationStore', 'activityListingStore')(withRouter(ActivityListingDialog));

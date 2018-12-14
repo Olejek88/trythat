@@ -5,7 +5,7 @@ class Privacy extends React.Component {
         return (
             <div id="wrapper">
                 <div id="content">
-                    <div id="left-main" style={{left: '-140px', position:'relative'}}>
+                    <div id="left-main" style={{left: '-140px', position: 'relative'}}>
                     </div>
                     <div id="main-detail">
                         <div>

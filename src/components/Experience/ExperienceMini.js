@@ -23,7 +23,7 @@ class ExperienceMini extends React.Component {
             }
             else {
                 this.setState({favoredClass: 'heart_img'});
-                let wish ={
+                let wish = {
                     activity_id: this.state.activity.id,
                     customer: this.state.customer.id
                 };
@@ -50,20 +50,24 @@ class ExperienceMini extends React.Component {
                 self.setState({activityPrice: price});
             });
             if (activity.activityImages[0])
-                this.setState({activity_image: {
+                this.setState({
+                    activity_image: {
                         title: activity.activityImages[0].image.title,
-                        path: this.props.commonStore.apiServer+activity.activityImages[0].image.path }
+                        path: this.props.commonStore.apiServer + activity.activityImages[0].image.path
+                    }
                 });
             else {
-                this.setState({activity_image: {
+                this.setState({
+                    activity_image: {
                         title: 'no', path: 'images/activity_no_image.jpg'
-                    }});
+                    }
+                });
             }
 
             const customer = this.props.userStore.currentCustomer;
             this.setState({customer: customer});
             this.props.wishListStore.isWished(activity.id, customer.id).then((wish) => {
-                if (wish.length>0) {
+                if (wish.length > 0) {
                     this.setState({favoredClass: "heart_img wishlist listed"});
                     this.setState({wish: wish[0]});
                     this.setState({favored: "favored"});
@@ -90,7 +94,7 @@ class ExperienceMini extends React.Component {
                         </div>
 
                         <Link
-                            to={"/activity/"+this.state.activity.id}
+                            to={"/activity/" + this.state.activity.id}
                             className="tile_product tile js-product-title desktop">
                             <div className="product_image_wrapper">
                                 <div className="product_image_viewport">
@@ -104,9 +108,10 @@ class ExperienceMini extends React.Component {
                         </Link>
                         <img className="celeb_img js-lazyload sg-bg-3"
                              data-src={this.state.activity.luminary.user.image.path}
-                             src={this.props.commonStore.apiServer+this.state.activity.luminary.user.image.path}
+                             src={this.props.commonStore.apiServer + this.state.activity.luminary.user.image.path}
                              alt={this.state.activity.luminary.user.firstName + " " + this.state.activity.luminary.user.lastName}/>
-                        <div className={this.state.favoredClass} tabIndex="0" title="Список желаний" onClick={this.onFavored}>
+                        <div className={this.state.favoredClass} tabIndex="0" title="Список желаний"
+                             onClick={this.onFavored}>
                         </div>
                         <div className="wishlist-main-con"
                              style={{

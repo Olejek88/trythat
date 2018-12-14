@@ -14,7 +14,7 @@ class FollowButton extends React.Component {
 
         this.onFollowed = () => {
             // сначала меняем визуально, потом запускаем асинхронный setstate
-            if (this.state.following[0] && this.state.following[0].id>0) {
+            if (this.state.following[0] && this.state.following[0].id > 0) {
                 this.setState({followClass: 'follow following  wide  button primaryButton'});
                 this.setState({followButtonText: 'Подписаться'});
                 this.setState({checkStyle: 'greenCheck display_none'});
@@ -42,7 +42,7 @@ class FollowButton extends React.Component {
             const customer = this.props.userStore.currentCustomer;
             this.props.followListStore.isFollow(customer, this.props.luminary).then((follow) => {
                 self.setState({following: follow});
-                if (follow.length===0) {
+                if (follow.length === 0) {
                     self.setState({followClass: "follow following  wide  button primaryButton"});
                     self.setState({followButtonText: 'Подписаться'});
                     self.setState({checkStyle: 'greenCheck display_none'});
@@ -70,4 +70,5 @@ class FollowButton extends React.Component {
         );
     }
 }
+
 export default inject('activityStore', 'followListStore', 'customerStore', 'userStore')(FollowButton);

@@ -21,6 +21,7 @@ class ExperienceRow extends React.Component {
             this.setState({activitiesList: this.activitiesList});
         }
     }
+
     render() {
         return (
             <div className="experience">

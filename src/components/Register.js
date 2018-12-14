@@ -39,7 +39,7 @@ class Register extends React.Component {
                             <form onSubmit={this.handleSubmitForm}>
                                 <fieldset>
 
-{/*
+                                    {/*
                                     <fieldset className="form-group">
                                         <input className="form-control form-control-lg"
                                                type="text"
@@ -84,4 +84,5 @@ class Register extends React.Component {
         );
     }
 }
+
 export default inject('authStore')(Register);

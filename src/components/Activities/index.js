@@ -34,4 +34,5 @@ class Activities extends React.Component {
         );
     }
 }
+
 export default Activities;

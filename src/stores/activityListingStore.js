@@ -19,26 +19,26 @@ export class ActivityListingStore {
             isGroup: false
         }];
 
-/*
-    staticData =
-        [{
-            id: '1',
-            customers: 1,
-            activity: activityStore.defaultData,
-            duration: durationStore.staticData[0],
-            cost: 2500,
-            currency: currencyStore.defaultData,
-            isGroup: false
-        }, {
-            id: '2',
-            customers: 2,
-            activity: activityStore.defaultData,
-            duration: durationStore.staticData[0],
-            cost: 2000,
-            currency: currencyStore.defaultData,
-            isGroup: false
-        }];
-*/
+    /*
+        staticData =
+            [{
+                id: '1',
+                customers: 1,
+                activity: activityStore.defaultData,
+                duration: durationStore.staticData[0],
+                cost: 2500,
+                currency: currencyStore.defaultData,
+                isGroup: false
+            }, {
+                id: '2',
+                customers: 2,
+                activity: activityStore.defaultData,
+                duration: durationStore.staticData[0],
+                cost: 2000,
+                currency: currencyStore.defaultData,
+                isGroup: false
+            }];
+    */
 
     loadActivityListing(activity) {
         this.activityListingRegistry.clear();
@@ -57,7 +57,7 @@ export class ActivityListingStore {
                 minimum_cost = cost;
             current_currency = activityListing.currency.title;
         });
-        if (minimum_cost===1000000) return 'не указано';
+        if (minimum_cost === 1000000) return 'не указано';
         return minimum_cost + " " + current_currency;
     }
 
@@ -71,8 +71,8 @@ export class ActivityListingStore {
             if (customer < min)
                 min = customer;
         });
-        if (min===10 && max===1) return 'не указано';
-        if (min===max) return max;
+        if (min === 10 && max === 1) return 'не указано';
+        if (min === max) return max;
         return min + "-" + max;
     }
 
@@ -82,13 +82,13 @@ export class ActivityListingStore {
         let min_duration = {seconds: 100000};
         activityListing.forEach(function (activityListing) {
             max = activityListing.duration.duration;
-            if (activityListing.duration.seconds>max_duration.seconds)
+            if (activityListing.duration.seconds > max_duration.seconds)
                 max_duration = activityListing.duration;
-            if (activityListing.duration.seconds<min_duration.seconds)
+            if (activityListing.duration.seconds < min_duration.seconds)
                 min_duration = activityListing.duration;
         });
-        if (max===1) return 'не указано';
-        return min_duration.duration+"-"+max_duration.duration;
+        if (max === 1) return 'не указано';
+        return min_duration.duration + "-" + max_duration.duration;
     }
 
     loadActivityListingSelectDurations(activityListing) {

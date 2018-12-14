@@ -26,7 +26,7 @@ class WishList extends React.Component {
                     activityListingStore.loadActivityListing(activity).then(action(() => {
                         const activityPrice = activityListingStore.loadActivityListingMinimumPrice();
                         wishListItems.push(<WishListItem wishList={wishList} key={count} price={activityPrice}/>);
-                        self.setState ({wishList: wishListItems});
+                        self.setState({wishList: wishListItems});
                     }));
                     count++;
                 });

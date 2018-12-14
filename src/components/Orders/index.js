@@ -230,4 +230,5 @@ class Orders extends React.Component {
         );
     }
 }
+
 export default inject('userStore', 'orderStore')(withRouter(Orders));

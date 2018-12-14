@@ -1,15 +1,15 @@
 import React from 'react';
 
 class CategoryRow extends React.Component {
-  render() {
-    return (
-        <div className="discovery discovery-row">
-            <div className="layout_tile discovery " style={{float: 'left'}}>
-                <a className="tile_collection" href={"/#/activities/category/3"}>
-                    <div className="collection_img_container">
-                        <img className="collection_img"
-                             alt="Незабываемые впечатления и приключения рядом с вами в вашем городе"
-                             src={'images/exp3.jpg'} />
+    render() {
+        return (
+            <div className="discovery discovery-row">
+                <div className="layout_tile discovery " style={{float: 'left'}}>
+                    <a className="tile_collection" href={"/#/activities/category/3"}>
+                        <div className="collection_img_container">
+                            <img className="collection_img"
+                                 alt="Незабываемые впечатления и приключения рядом с вами в вашем городе"
+                                 src={'images/exp3.jpg'}/>
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>
@@ -26,13 +26,14 @@ class CategoryRow extends React.Component {
                             </div>
                             <div className="gradient">
                             </div>
-                    </div>
-                </a>
-            </div>
-            <div className="layout_tile discovery " style={{float: 'left'}}>
-                <a className="tile_collection" href={"/#/activities/category/2"}>
-                    <div className="collection_img_container">
-                        <img className="collection_img" alt="Впечатления для особого случая" src={'images/exp.jpg'}/>
+                        </div>
+                    </a>
+                </div>
+                <div className="layout_tile discovery " style={{float: 'left'}}>
+                    <a className="tile_collection" href={"/#/activities/category/2"}>
+                        <div className="collection_img_container">
+                            <img className="collection_img" alt="Впечатления для особого случая"
+                                 src={'images/exp.jpg'}/>
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>
@@ -40,7 +41,8 @@ class CategoryRow extends React.Component {
                                         <td>
                                             <div className="collection_title">Впечатления для особого случая</div>
                                             <div className="collection_description"
-                                                 style={{textAlign: 'center'}}>Попробуйте что-то невероятное раз в жизни.
+                                                 style={{textAlign: 'center'}}>Попробуйте что-то невероятное раз в
+                                                жизни.
                                             </div>
                                         </td>
                                     </tr>
@@ -49,15 +51,15 @@ class CategoryRow extends React.Component {
                             </div>
                             <div className="gradient">
                             </div>
-                    </div>
-                </a>
-            </div>
-            <div className="layout_tile discovery " style={{float:'left'}}>
-                <a className="tile_collection" href={"/#/activities/category/1"}>
-                    <div className="collection_img_container">
-                        <img className="collection_img"
-                             alt="Дарите новые впечатления своим друзьям и близким"
-                             src={'images/exp2.jpg'}/>
+                        </div>
+                    </a>
+                </div>
+                <div className="layout_tile discovery " style={{float: 'left'}}>
+                    <a className="tile_collection" href={"/#/activities/category/1"}>
+                        <div className="collection_img_container">
+                            <img className="collection_img"
+                                 alt="Дарите новые впечатления своим друзьям и близким"
+                                 src={'images/exp2.jpg'}/>
                             <div className="collection-text-wrapper">
                                 <table className="collection-text-content">
                                     <tbody>
@@ -74,12 +76,12 @@ class CategoryRow extends React.Component {
                             </div>
                             <div className="gradient">
                             </div>
-                    </div>
-                </a>
+                        </div>
+                    </a>
+                </div>
             </div>
-        </div>
-    );
-  }
+        );
+    }
 }
 
 export default CategoryRow;

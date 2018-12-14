@@ -6,7 +6,7 @@ class FollowListItem extends React.Component {
 
     render() {
         const luminary = this.props.luminary;
-        let luminary_image = this.props.commonStore.apiServer+luminary.user.image.path;
+        let luminary_image = this.props.commonStore.apiServer + luminary.user.image.path;
         let luminary_name = luminary.user.firstName + " " + luminary.user.lastName;
         let luminary_link = "/luminary/" + luminary.id;
         let luminary_who = luminary.description;
@@ -23,7 +23,7 @@ class FollowListItem extends React.Component {
                     </div>
                     <div className="buttons">
                         <div className="js-follow-con" style={{width: '174px', textAlign: 'center'}}>
-                            <FollowButton luminary={luminary} />
+                            <FollowButton luminary={luminary}/>
                         </div>
                     </div>
                     <div className="cover">
@@ -34,4 +34,4 @@ class FollowListItem extends React.Component {
     }
 }
 
-export default inject('followListStore','userStore','customerStore','commonStore')(FollowListItem);
+export default inject('followListStore', 'userStore', 'customerStore', 'commonStore')(FollowListItem);

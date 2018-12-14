@@ -3,7 +3,8 @@ import React from 'react';
 class AboutCategory extends React.Component {
     render() {
         return (
-            <div className="pageframe_div_discovery layout_tiles first_pageframe partial_width position_relative layout_">
+            <div
+                className="pageframe_div_discovery layout_tiles first_pageframe partial_width position_relative layout_">
                 <div></div>
                 <div></div>
                 <h3 className="pageframe_sub_header sg-f-dspl-s txt-align-ovr1 sg-c-2 discovery"></h3>
@@ -12,10 +13,10 @@ class AboutCategory extends React.Component {
                     <div className="layout_tile tile1  discovery">
                         <div className="tile_title sg-f-dspl-m txt-align-ovr1">О категории</div>
                         <div className="tile_subtitle sg-f-dspl-s txt-align-ovr1 sg-c-2">Мы предлагаем Вашему вниманию
-                             самые яркие впечатления из области спорта.
+                            самые яркие впечатления из области спорта.
                         </div>
                     </div>
-                    <div style={{clear:'both'}}></div>
+                    <div style={{clear: 'both'}}></div>
                 </div>
             </div>
         );

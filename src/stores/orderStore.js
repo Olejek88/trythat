@@ -1,4 +1,4 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from '../agent';
 import activityListingStore from "./activityListingStore";
 import orderStatusStore from "./orderStatusStore";
@@ -6,15 +6,16 @@ import customerStore from "./customerStore";
 
 export class OrderStore {
 
-     isLoading = false;
-     page = 0;
-     totalPagesCount = 0;
+    isLoading = false;
+    page = 0;
+    totalPagesCount = 0;
     ordersRegistry = new Map();
-     addOrderErrors;
-     predicate = {};
+    addOrderErrors;
+    predicate = {};
 
     staticData =
-        [{   _id: '1',
+        [{
+            _id: '1',
             listing: activityListingStore.defaultData[0],
             orderStatus: orderStatusStore.staticData[0],
             created: new Date(),
@@ -22,7 +23,7 @@ export class OrderStore {
             startDate: new Date()
         }];
 
-     setPredicate(predicate) {
+    setPredicate(predicate) {
         if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
         this.clear();
         this.predicate = predicate;
@@ -34,19 +35,21 @@ export class OrderStore {
         return agent.Order.all(count, start);
     }
 
-     loadOrders() {
+    loadOrders() {
         this.isLoading = true;
         return this.$req()
-/*
-            .then(action((orders) => {
-                if (orders) {
-                    this.ordersRegistry.clear();
-                    orders.forEach(order => this.ordersRegistry.set(order.slug, order));
-                    this.totalPagesCount = Math.ceil(orders.length / LIMIT);
-                }
+        /*
+                    .then(action((orders) => {
+                        if (orders) {
+                            this.ordersRegistry.clear();
+                            orders.forEach(order => this.ordersRegistry.set(order.slug, order));
+                            this.totalPagesCount = Math.ceil(orders.length / LIMIT);
+                        }
+                    }))
+        */
+            .finally(action(() => {
+                this.isLoading = false;
             }))
-*/
-            .finally(action(() => { this.isLoading = false; }))
             .catch(action(err => {
                 throw err;
             }));
@@ -56,7 +59,7 @@ export class OrderStore {
         return this.ordersRegistry.get(id);
     }
 
-     loadOrder(id, {acceptCached = false} = {}) {
+    loadOrder(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const order = this.getOrder(id);
             if (order) return Promise.resolve(order);
@@ -80,7 +83,7 @@ export class OrderStore {
         this.page = 0;
     }
 
-     createOrder(order) {
+    createOrder(order) {
         return agent.Order.create(order)
             .finally((order) => {
                 this.ordersRegistry.set(order.id, order);
@@ -90,7 +93,7 @@ export class OrderStore {
             }))
     }
 
-     updateOrder(data) {
+    updateOrder(data) {
         return agent.Order.update(data)
             .then((order) => {
                 this.ordersRegistry.set(order.id, order);
@@ -100,7 +103,7 @@ export class OrderStore {
             }))
     }
 
-     deleteOrder(id) {
+    deleteOrder(id) {
         this.ordersRegistry.delete(id);
         return agent.Order.del(id)
             .catch(action(err => {

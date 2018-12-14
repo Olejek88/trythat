@@ -16,12 +16,12 @@ class ActivityView extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({activitiesRows:[], filter: nextProps.filter, id: nextProps.i});
+        this.setState({activitiesRows: [], filter: nextProps.filter, id: nextProps.i});
         this.fillList(nextProps)
     }
 
     componentWillMount() {
-        this.setState({activitiesRows:[], filter: this.props.match.params.filter, id: this.props.match.params.id});
+        this.setState({activitiesRows: [], filter: this.props.match.params.filter, id: this.props.match.params.id});
         this.fillList(this.props)
     }
 
@@ -39,7 +39,7 @@ class ActivityView extends React.Component {
             filter: this.state.filter,
             id: this.state.id
         };
-        if (props.i!=='0' && props.filter!=='') {
+        if (props.i !== '0' && props.filter !== '') {
             predicate.filter = props.filter;
             predicate.id = props.i;
         }
@@ -70,40 +70,44 @@ class ActivityView extends React.Component {
                     case 'city':
                         let city = this.props.cityStore.loadCity(my.state.id);
                         if (city)
-                            my.state.activitiesRows[0]=
+                            my.state.activitiesRows[0] =
                                 <ExperienceTitle key={100000001} title={'Лучшие впечатления в Вашем городе '
                                 + city.title}/>;
                         break;
                     case 'category':
                         let category = this.props.categoryStore.loadCategory(my.state.id);
                         if (category)
-                            my.state.activitiesRows[0]=
-                                <ExperienceTitle key={100000001} title={'Лучшие впечатления в категории ' + category.title}/>;
+                            my.state.activitiesRows[0] =
+                                <ExperienceTitle key={100000001}
+                                                 title={'Лучшие впечатления в категории ' + category.title}/>;
                         break;
                     case 'activity-category':
                         let activity_category = this.props.activityCategoryStore.loadActivityCategory(my.state.id);
                         if (activity_category)
-                            my.state.activitiesRows[0]=
+                            my.state.activitiesRows[0] =
                                 <ExperienceTitle key={100000001} title={'Лучшие впечатления в категории '
                                 + activity_category.title}/>;
                         break;
                     case 'occasion':
                         let occasion = this.props.occasionStore.loadOccasion(my.state.id);
                         if (occasion)
-                            my.state.activitiesRows[0]=<ExperienceTitle key={10000001} title={occasion.title + ' впечатления'}/>;
+                            my.state.activitiesRows[0] =
+                                <ExperienceTitle key={10000001} title={occasion.title + ' впечатления'}/>;
                         break;
                     case 'trend':
                         let trend = this.props.trendingStore.loadTrending(my.state.id);
                         if (trend)
-                            my.state.activitiesRows[0]=<ExperienceTitle key={10000001} title={'Лучшие ' + trend.title +
-                            ' впечатления'}/>;
+                            my.state.activitiesRows[0] =
+                                <ExperienceTitle key={10000001} title={'Лучшие ' + trend.title +
+                                ' впечатления'}/>;
                         break;
                     default:
-                        my.state.activitiesRows[0]=<ExperienceTitle key={10000001} title="Лучшие впечатления для Вас"/>;
+                        my.state.activitiesRows[0] =
+                            <ExperienceTitle key={10000001} title="Лучшие впечатления для Вас"/>;
                         break;
                 }
             } else {
-                my.state.activitiesRows[0]=<ExperienceTitle key={10000001} title="Лучшие впечатления для Вас"/>;
+                my.state.activitiesRows[0] = <ExperienceTitle key={10000001} title="Лучшие впечатления для Вас"/>;
             }
             my.setState({updated: false});
         });
@@ -117,4 +121,5 @@ class ActivityView extends React.Component {
         );
     }
 }
+
 export default inject('activityStore', 'activityCategoryStore', 'userStore', 'cityStore', 'categoryStore', 'trendingStore', 'occasionStore')(withRouter(ActivityView));

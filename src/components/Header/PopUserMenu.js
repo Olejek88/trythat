@@ -5,6 +5,7 @@ class PopWish extends React.Component {
     handleClickLogout = () =>
         this.props.authStore.logout()
             .then(() => window.location.reload());
+
     render() {
         return (
             <div id="acct-popup-wrapper" className="io-popup-wrapper">

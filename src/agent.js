@@ -81,7 +81,7 @@ const ActivityImage = {
     get: (id) =>
         requests.get(`/v1/activity-images/${id}`),
     create: (activity_image) =>
-        requests.post(`/v1/activity-images`,activity_image)
+        requests.post(`/v1/activity-images`, activity_image)
 };
 
 const ActivityListing = {
@@ -105,7 +105,7 @@ const Activities = {
         requests.get(`/v1/activities?${filter}_id=${id}&expand=luminary.user.image,activityImages.image,location.city`),
     get: id =>
         requests.get(`/v1/activities/${id}?expand=luminary.user.image,activityImages.image,location.city`),
-    all: (lim = 10,page = 0) =>
+    all: (lim = 10, page = 0) =>
         //requests.get(`/v1/activities/?${limit(lim, page)}`),
         requests.get(`/v1/activities?expand=luminary.user.image,activityImages.image,location.city`),
     isFavorite: (activity_id, customer_id) =>
@@ -121,10 +121,10 @@ const Activities = {
     update: activity =>
         requests.put(`/v1/activities/${activity.id}`, {activity}),
 
-/*
-    byTag: (tag, page, lim = 10) =>
-        requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
-*/
+    /*
+        byTag: (tag, page, lim = 10) =>
+            requests.get(`/activities?tag=${encode(tag)}&${limit(lim, page)}`),
+    */
 };
 
 const Categories = {
@@ -165,10 +165,10 @@ const Duration = {
 const FollowList = {
     get: customer_id =>
         requests.get(`/v1/follow-lists?customer_id=${customer_id}&expand=luminary.user.image`),
-    isFollow: (customer,luminary) =>
+    isFollow: (customer, luminary) =>
         requests.get(`/v1/follow-lists?customer_id=${customer}&luminary_id=${luminary}`),
     follow: (follow) =>
-        requests.post(`/v1/follow-lists`,follow),
+        requests.post(`/v1/follow-lists`, follow),
     unFollow: (id) =>
         requests.del(`/v1/follow-lists/${id}`),
 };
@@ -183,7 +183,7 @@ const Customer = {
     forUser: user =>
         requests.get(`/v1/customers/user/${user}`),
     create: (customer) =>
-        requests.post(`/v1/customers`,customer),
+        requests.post(`/v1/customers`, customer),
 };
 
 const Image = {
@@ -195,7 +195,7 @@ const Image = {
     filter: (filter, id) =>
         requests.get(`/v1/images/${filter}/${id}`),
     create: (image) =>
-        requests.post(`/v1/images`,image),
+        requests.post(`/v1/images`, image),
     del: (image_id) =>
         requests.del(`/v1/images/${image_id}`),
 };
@@ -206,7 +206,7 @@ const Locations = {
     get: slug =>
         requests.get(`/v1/locations/${slug}`),
     create: (location) =>
-        requests.post(`/v1/locations`,location)
+        requests.post(`/v1/locations`, location)
 };
 
 const Luminary = {
@@ -215,9 +215,9 @@ const Luminary = {
     get: user_id =>
         requests.get(`/v1/luminaries?expand=user.image&user.id=${user_id}`),
     create: luminary =>
-        requests.post(`/v1/luminaries`,{luminary}),
+        requests.post(`/v1/luminaries`, {luminary}),
     update: luminary =>
-        requests.put(`/v1/luminaries/${luminary.id}`,luminary),
+        requests.put(`/v1/luminaries/${luminary.id}`, luminary),
 };
 
 const MailStatus = {
@@ -233,7 +233,7 @@ const Mail = {
     get: mail_id =>
         requests.get(`/v1/mails/${mail_id}`),
     create: (mail) =>
-        requests.post(`/v1/mails`,mail),
+        requests.post(`/v1/mails`, mail),
     del: (mail_id) =>
         requests.del(`/v1/mails/${mail_id}`),
 };
@@ -253,7 +253,7 @@ const Order = {
         requests.get(`/v1/orders/${orderId}?expand=activityListing.activity.activityImages.image,activityListing.currency,
         activityListing.duration,activityListing.activity.luminary.user.image,orderStatus`),
     create: (order) =>
-        requests.post(`/v1/orders`,order),
+        requests.post(`/v1/orders`, order),
     del: (order_id) =>
         requests.del(`/v1/orders/${order_id}`),
 };
@@ -292,7 +292,7 @@ const WishList = {
     isWished: (activity, customer) =>
         requests.get(`/v1/wishlists?customer_id=${customer}&activity_id=${activity}`),
     wish: (wish) =>
-        requests.post('/v1/wishlists',wish),
+        requests.post('/v1/wishlists', wish),
     unWish: (wish_id) =>
         requests.del(`/v1/wishlists/${wish_id}`)
 };

@@ -63,7 +63,7 @@ class ActivityListingItem extends React.Component {
         };
 
         this.handleChange = (e) => {
-            console.log (e);
+            console.log(e);
             this.setState({customers: e});
         };
     }
@@ -72,7 +72,7 @@ class ActivityListingItem extends React.Component {
         let self = this;
         this.activity = this.props.activity;
         this.activity_listing = this.props.activity_listing;
-        this.activity_image = this.props.commonStore.apiServer+this.activity.activityImages[0].image.path;
+        this.activity_image = this.props.commonStore.apiServer + this.activity.activityImages[0].image.path;
         this.setState({cost: this.props.activity_listing.cost});
         this.activityListingCustomers.forEach(function (customers) {
             if (customers.value === self.activity_listing.customers) {
@@ -102,9 +102,9 @@ class ActivityListingItem extends React.Component {
                         <div className="vendor-img">
                             <img src={this.activity_image} style={{width: '40px', height: '40px'}} alt={""}/>
                         </div>
-                            <p className="vendor-name sg-f-ttl sg-inline-middle sg-inline-flex-grow"
-                               style={{margin: '0 10px'}}>{this.activity.title}
-                            </p>
+                        <p className="vendor-name sg-f-ttl sg-inline-middle sg-inline-flex-grow"
+                           style={{margin: '0 10px'}}>{this.activity.title}
+                        </p>
                     </div>
                     <div className="body-row">
                         <div className="main sg-inline-top">
@@ -152,7 +152,12 @@ class ActivityListingItem extends React.Component {
                                         />
                                     </div>
                                     <div className="sg-inline-flex-grow" style={{textAlign: 'center'}}>
-                                        <input style={{background: '#FFF', width: '100px', color: 'hsl(0,0%,50%)', fontSize: '13px'}}
+                                        <input style={{
+                                            background: '#FFF',
+                                            width: '100px',
+                                            color: 'hsl(0,0%,50%)',
+                                            fontSize: '13px'
+                                        }}
                                                type="text"
                                                name="title"
                                                value={this.state.cost}

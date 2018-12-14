@@ -1,13 +1,13 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from "../agent";
 import activityStore from "./activityStore";
 import customerStore from "./customerStore";
 
 class WishListStore {
-     isLoading = false;
+    isLoading = false;
     wishListRegistry = new Map();
 
-     staticData = [
+    staticData = [
         {
             _id: '1',
             activity: activityStore.loadActivity(1),
@@ -16,34 +16,36 @@ class WishListStore {
         },
     ];
 
-     loadWishList(customer) {
+    loadWishList(customer) {
         return agent.WishList.forCustomer(customer.id)
             .then(action((activities) => {
                 this.wishListRegistry.clear();
                 activities.forEach(activity =>
                     this.wishListRegistry.set(activity._id, activity));
             }))
-            .finally(action(() => { this.isLoading = false; }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }))
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     isWished(customer, activity) {
+    isWished(customer, activity) {
         return agent.WishList.isWished(customer, activity)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     wish(wish) {
+    wish(wish) {
         return agent.WishList.wish(wish)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     unWish(wish) {
+    unWish(wish) {
         return agent.WishList.unWish(wish.id)
             .catch(action(err => {
                 throw err;

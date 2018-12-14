@@ -54,15 +54,15 @@ class ActivitySelect extends React.Component {
                 this.setState({durationError: true});
             if (this.state.selectedQuantity !== 0 && this.state.selectedDuration !== 0) {
                 this.state.activityListingDurations.forEach(function (activityListing) {
-                    if (activityListing.duration===self.state.selectedDuration.id)
+                    if (activityListing.duration === self.state.selectedDuration.id)
                         selectedActivityListing = activityListing;
                 });
                 let order = {
                     activity_listing_id: selectedActivityListing.value,
                     orderStatus: this.props.orderStatusStore.loadOrderStatus(1),
                     customer_id: this.props.userStore.currentCustomer.id,
-                    created_at: Math.ceil(Date.now()/1000),
-                    updated_at: Math.ceil(Date.now()/1000),
+                    created_at: Math.ceil(Date.now() / 1000),
+                    updated_at: Math.ceil(Date.now() / 1000),
                     start_date: moment().format('YYYY-MM-DD 00:00:00')
                 };
                 console.log(order);

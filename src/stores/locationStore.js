@@ -1,11 +1,11 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from '../agent';
 import imageStore from "./imageStore";
 import cityStore from "./cityStore";
 
 class LocationStore {
-     currentLocation;
-     isLoading = false;
+    currentLocation;
+    isLoading = false;
     locationsRegistry = new Map();
 
     testData = {
@@ -21,7 +21,7 @@ class LocationStore {
         return this.locationsRegistry.get(id);
     }
 
-     loadLocation(id, { acceptCached = false } = {}) {
+    loadLocation(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const location = this.getLocation(id);
             if (location) return Promise.resolve(location);
@@ -31,26 +31,30 @@ class LocationStore {
             .then(action((location) => {
                 this.locationsRegistry.set(location.id, location);
             }))
-            .finally(action(() => { this.isLoading = false; }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }))
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     loadLocations() {
+    loadLocations() {
         this.isLoading = true;
         return agent.Locations.all()
             .then(action((locations) => {
                 this.locationsRegistry.clear();
                 locations.forEach(location => this.locationsRegistry.set(location.id, location));
             }))
-            .finally(action(() => { this.isLoading = false; }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }))
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     createLocation(location) {
+    createLocation(location) {
         return agent.Locations.create(location)
             .then((location) => {
                 this.locationsRegistry.set(location.id, location);

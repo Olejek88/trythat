@@ -1,14 +1,15 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from '../agent';
 import userStore from "./userStore";
 
 class LuminaryStore {
-     luminaryErrors;
-     updatingLuminary;
-     updatingLuminaryErrors;
+    luminaryErrors;
+    updatingLuminary;
+    updatingLuminaryErrors;
 
     luminary =
-        {   id: '888888',
+        {
+            id: '888888',
             verified: false,
             verifiedDate: new Date(),
             rating: 0.0,
@@ -17,21 +18,21 @@ class LuminaryStore {
             user: userStore.testData
         };
 
-     getLuminary(luminary_id) {
+    getLuminary(luminary_id) {
         return agent.Luminary.get(luminary_id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     getLuminaries() {
+    getLuminaries() {
         return agent.Luminary.all()
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     createLuminary(luminary) {
+    createLuminary(luminary) {
         return agent.Luminary
             .create(luminary)
             .catch(action(err => {
@@ -39,7 +40,7 @@ class LuminaryStore {
             }));
     }
 
-     updateLuminary(luminary) {
+    updateLuminary(luminary) {
         console.log(luminary);
         return agent.Luminary.update(luminary)
             .catch(action(err => {

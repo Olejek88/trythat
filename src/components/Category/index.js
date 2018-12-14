@@ -19,4 +19,5 @@ class Category extends React.Component {
         );
     }
 }
+
 export default inject('commonStore')(Category);

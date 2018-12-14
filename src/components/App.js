@@ -1,6 +1,6 @@
 import Header from './Header/Header';
 import React from 'react';
-import {Switch, Route, withRouter} from 'react-router-dom';
+import {Route, Switch, withRouter} from 'react-router-dom';
 import {inject} from 'mobx-react';
 import PrivateRoute from './PrivateRoute';
 
@@ -95,4 +95,5 @@ class App extends React.Component {
         );
     }
 }
+
 export default inject('userStore', 'commonStore', 'activityStore', 'locationStore')(withRouter(App));

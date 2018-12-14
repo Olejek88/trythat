@@ -19,9 +19,11 @@ class Login extends React.Component {
     handleSubmitForm = (e) => {
         e.preventDefault();
         this.props.authStore.login()
-            .then(() => { this.props.history.replace('/')})
+            .then(() => {
+                this.props.history.replace('/')
+            })
             .catch(action((err) => {
-                console.log('error '+err);
+                console.log('error ' + err);
             }));
     };
 
@@ -80,4 +82,5 @@ class Login extends React.Component {
         );
     }
 }
+
 export default inject('authStore')(Login);

@@ -1,5 +1,4 @@
 import {action, observable} from 'mobx';
-import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
 class OrderStatusStore {
@@ -14,7 +13,7 @@ class OrderStatusStore {
     ];
 
     get staticDataOptions() {
-        return this.staticData.map(x => ({ label: x.title, value: x._id }))
+        return this.staticData.map(x => ({label: x.title, value: x._id}))
     };
 
     getTestOrderStatus() {
@@ -23,12 +22,14 @@ class OrderStatusStore {
 
     loadOrderStatuses() {
         agent.OrderStatus.all()
-            .then(action(({ statuses}) => {
+            .then(action(({statuses}) => {
                 this.orderStatusRegistry.clear();
                 statuses.forEach(status =>
-                    this.orderStatusRegistry.set(status._id,status));
+                    this.orderStatusRegistry.set(status._id, status));
             }))
-            .finally(action(() => { this.isLoading = false; }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }))
             .catch(action(err => {
                 throw err;
             }));

@@ -16,8 +16,8 @@ class ActivityPhotoDiv extends React.Component {
         this.loadData(nextProps.image);
     }
 
-    loadData (image) {
-        if(image)
+    loadData(image) {
+        if (image)
             this.setState({image: image});
         else
             this.setState({image: {title: 'load', path: 'files/no_image.jpg'}});
@@ -25,7 +25,7 @@ class ActivityPhotoDiv extends React.Component {
 
     render() {
         return <div className="imgDiv cloned" style={{visibility: 'visible'}}>
-            <img src={"http://api.tt.ru/"+this.state.image.path}
+            <img src={"http://api.tt.ru/" + this.state.image.path}
                  title={this.state.image.title} alt={this.state.image.title}
                  style={{
                      maxWidth: '714px',

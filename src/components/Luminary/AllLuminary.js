@@ -46,7 +46,7 @@ class AllLuminary extends React.Component {
                         <div className="section-title"><h3 style={{border: 'none'}}>Все исполнители</h3></div>
                     </div>
                     <div id="allCelebrities">
-                            {this.state.updated && this.state.luminaryRows}
+                        {this.state.updated && this.state.luminaryRows}
                     </div>
                 </div>
             </div>

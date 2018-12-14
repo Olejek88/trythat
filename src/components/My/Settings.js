@@ -2,7 +2,7 @@ import ListErrors from '../ListErrors';
 import React from 'react';
 import ImageUploader from 'react-images-upload';
 import {withRouter} from 'react-router-dom';
-import {inject, observer} from 'mobx-react';
+import {inject} from 'mobx-react';
 import Select from 'react-select';
 import MyMenu from "./MyMenu";
 
@@ -61,18 +61,24 @@ class SettingsForm extends React.Component {
             switch (e.target.name) {
                 case 'day':
                     this.setState({birthDay: e.target.options[e.target.selectedIndex].value});
-                    this.setState({birthDate: this.state.birthYear+"-"+this.state.birthMonth+"-"
-                        +e.target.options[e.target.selectedIndex].value+" 00:00:00"});
+                    this.setState({
+                        birthDate: this.state.birthYear + "-" + this.state.birthMonth + "-"
+                        + e.target.options[e.target.selectedIndex].value + " 00:00:00"
+                    });
                     break;
                 case 'month':
                     this.setState({birthMonth: e.target.options[e.target.selectedIndex].value});
-                    this.setState({birthDate: this.state.birthYear+"-"+e.target.options[e.target.selectedIndex].value+"-"
-                        +this.state.birthDay+" 00:00:00"});
+                    this.setState({
+                        birthDate: this.state.birthYear + "-" + e.target.options[e.target.selectedIndex].value + "-"
+                        + this.state.birthDay + " 00:00:00"
+                    });
                     break;
                 case 'year':
                     this.setState({birthYear: e.target.options[e.target.selectedIndex].value});
-                    this.setState({birthDate: e.target.options[e.target.selectedIndex].value+"-"+this.state.birthMonth+"-"
-                        +this.state.birthDay+" 00:00:00"});
+                    this.setState({
+                        birthDate: e.target.options[e.target.selectedIndex].value + "-" + this.state.birthMonth + "-"
+                        + this.state.birthDay + " 00:00:00"
+                    });
                     break;
                 default:
             }
@@ -108,9 +114,12 @@ class SettingsForm extends React.Component {
         let self = this;
         this.props.cityStore.loadCities()
             .then(() => {
-                self.citiesList = Array.from(this.props.cityStore.cityRegistry.values()).map(x => ({ label: x.title, value: x.id }));
-                self.citiesList.forEach(function(city) {
-                    if (city.value===self.props.userStore.currentUser.city_id) {
+                self.citiesList = Array.from(this.props.cityStore.cityRegistry.values()).map(x => ({
+                    label: x.title,
+                    value: x.id
+                }));
+                self.citiesList.forEach(function (city) {
+                    if (city.value === self.props.userStore.currentUser.city_id) {
                         self.setState({city: city});
                     }
                 });
@@ -118,9 +127,12 @@ class SettingsForm extends React.Component {
 
         this.props.countryStore.loadCountries()
             .then(() => {
-                self.countryList = Array.from(this.props.countryStore.countryRegistry.values()).map(x => ({ label: x.title, value: x.id }));
-                self.countryList.forEach(function(country) {
-                    if (country.value===self.props.userStore.currentUser.country_id) {
+                self.countryList = Array.from(this.props.countryStore.countryRegistry.values()).map(x => ({
+                    label: x.title,
+                    value: x.id
+                }));
+                self.countryList.forEach(function (country) {
+                    if (country.value === self.props.userStore.currentUser.country_id) {
                         self.setState({country: country});
                     }
                 });
@@ -129,7 +141,7 @@ class SettingsForm extends React.Component {
         if (this.props.userStore.currentUser) {
             let birth = new Date(this.props.userStore.currentUser.birthDate);
             this.setState({birthDay: birth.getDate()});
-            this.setState({birthMonth: birth.getMonth()+1});
+            this.setState({birthMonth: birth.getMonth() + 1});
             this.setState({birthYear: birth.getFullYear()});
             Object.assign(this.state, {
                 id: this.props.userStore.currentUser.id || '',
@@ -163,7 +175,8 @@ class SettingsForm extends React.Component {
                                         <label className="required">Фотография</label>
                                     </div>
                                     <div className="sibs emailInput">
-                                        <img src={this.props.commonStore.apiServer+this.state.image.path} style={{width: '200px'}} alt={""}/>
+                                        <img src={this.props.commonStore.apiServer + this.state.image.path}
+                                             style={{width: '200px'}} alt={""}/>
                                         <ImageUploader
                                             withIcon={true}
                                             withPreview={true}
@@ -438,7 +451,7 @@ class SettingsForm extends React.Component {
                             </form>
                         </div>
 
-{/*
+                        {/*
                         <div className="row-flow">
                             <h3 className="sg-f-ttl">Оповещения</h3>
                         </div>
@@ -577,6 +590,7 @@ class SettingsForm extends React.Component {
         )
     }
 }
+
 //inject('userStore', 'countryStore', 'cityStore', 'imageStore', 'commonStore')(Settings);
 
 
@@ -619,4 +633,5 @@ class Settings extends React.Component {
         );
     }
 }
+
 export default inject('userStore', 'authStore')(withRouter(Settings));

@@ -23,7 +23,7 @@ class SiteMenu extends React.Component {
                         <a href={"/#/activities/activity-category/" + category.id} title={category.title}>
                             <p className="level-link fo-14-n-s4">{category.title}</p></a></div>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
 
         this.props.cityStore.loadCities()
@@ -33,7 +33,7 @@ class SiteMenu extends React.Component {
                         <a href={"/#/activities/city/" + city.id} title={city.title}>
                             <p className="level-link fo-14-n-s4">{city.title}</p></a></div>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
 
         this.props.categoryStore.loadCategories()
@@ -43,7 +43,7 @@ class SiteMenu extends React.Component {
                         <a href={"/#/activities/category/" + category.id} title={category.title}>
                             <p className="level-link fo-14-n-s4">{category.title}</p></a></div>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
 
         this.props.occasionStore.loadOccasions()
@@ -53,7 +53,7 @@ class SiteMenu extends React.Component {
                         <a href={"/#/activities/occasion/" + occasion.id} title={occasion.title}>
                             <p className="level-link fo-14-n-s4">{occasion.title}</p></a></div>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
 
         this.props.trendingStore.loadTrends()
@@ -63,7 +63,7 @@ class SiteMenu extends React.Component {
                         <a href={"/#/activities/trend/" + trend.id} title={trend.title}>
                             <p className="level-link fo-14-n-s4">{trend.title}</p></a></div>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
     }
 
@@ -134,15 +134,18 @@ class SiteMenu extends React.Component {
                             <div className="level-3">
                                 <div className="col">
                                     <div data-navmenuid="213" className="topNavCat">
-                                        <a href={"/#/activities/trends/3"} title="Популярное" className=" " tabIndex="1001">
+                                        <a href={"/#/activities/trends/3"} title="Популярное" className=" "
+                                           tabIndex="1001">
                                             <p className="level-link fo-14-n-s4">Популярное</p></a>
                                     </div>
                                     <div data-navmenuid="213" className="topNavCat">
-                                        <a href={"/#/activities/trends/2"} title="Новинки" className=" " tabIndex="1001">
+                                        <a href={"/#/activities/trends/2"} title="Новинки" className=" "
+                                           tabIndex="1001">
                                             <p className="level-link fo-14-n-s4">Новинки</p></a>
                                     </div>
                                     <div data-navmenuid="213" className="topNavCat">
-                                        <a href={"/#/activities/trends/1"} title="Недорогие" className=" " tabIndex="1001">
+                                        <a href={"/#/activities/trends/1"} title="Недорогие" className=" "
+                                           tabIndex="1001">
                                             <p className="level-link fo-14-n-s4">Недорогие</p></a>
                                     </div>
                                 </div>

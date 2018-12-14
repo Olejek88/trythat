@@ -7,9 +7,10 @@ import PopWish from "./PopWish";
 import PopUserMenu from "./PopUserMenu";
 
 const LoggedOutView = props => {
-    if (props.currentUser.id===0) {
+    if (props.currentUser.id === 0) {
         return (
-            <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3', flexWrap: 'nowrap', float: 'right'}}>
+            <div id="buttons-nav" className=" sg-inline-middle"
+                 style={{order: '3', flexWrap: 'nowrap', float: 'right'}}>
                 <Link to="/sell" className="navButton button" id="sellBtn">
                     <div className="title-container"><p className="title">Продать на TryThat</p></div>
                 </Link>
@@ -33,7 +34,7 @@ const LoggedOutView = props => {
 };
 
 const LoggedInView = props => {
-    if (props.currentUser.id!==0) {
+    if (props.currentUser.id !== 0) {
         return (
             <React.Fragment>
                 <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3', flexWrap: 'nowrap'}}>
@@ -67,24 +68,26 @@ const LoggedInView = props => {
                         <div className="bubble notification unread txt-ovr-4 bg-ovr-3"
                              style={{visibility: 'hidden'}}>
                         </div>
-                        <PopUserMenu />
+                        <PopUserMenu/>
                     </div>
                     <div id="wish" className={"profile_icon"}>
                         <Link to="/wishlist" className="settings" style={{textAlign: 'center'}}>
-                            <img src={"images/icon_heart_on_white.png"} style={{height: '28px'}} alt="хочу" />
+                            <img src={"images/icon_heart_on_white.png"} style={{height: '28px'}} alt="хочу"/>
                         </Link>
                         <p className="caption sg-c-4" style={{textAlign: 'center', marginTop: '5px'}}>Хочу</p>
-                        <PopWish />
+                        <PopWish/>
                     </div>
                     <Link to="/" className="sg-inline-middle">
                         <img src={"images/icon_search.png"} style={{width: '30px'}} alt="поиск"/>
                     </Link>
                     <div id="cart" style={{height: '100%'}}>
-                        <Link to="/cart" className="shopping access-join js-shopping-bag js-signUp sg-inline-middle filled">
+                        <Link to="/cart"
+                              className="shopping access-join js-shopping-bag js-signUp sg-inline-middle filled">
                             <img src={"images/icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
-                            <span id="cart-item-count" className="sg-c-1 sg-bg-3" style={{display: 'inline'}}>{props.ordersCount}</span>
+                            <span id="cart-item-count" className="sg-c-1 sg-bg-3"
+                                  style={{display: 'inline'}}>{props.ordersCount}</span>
                         </Link>
-                        <PopCart />
+                        <PopCart/>
                     </div>
                 </div>
             </React.Fragment>
@@ -105,7 +108,7 @@ class Header extends React.Component {
                             <Link to="/" className="navbar-brand">
                                 <img className="logo-img" style={{maxHeight: '50px'}}
                                      alt={this.props.commonStore.appName.toLowerCase()}
-                                     src={"images/trythat_logo_text_1.png"} />
+                                     src={"images/trythat_logo_text_1.png"}/>
                             </Link>
                             {/*
                         <a href="/" className="logo" tabIndex="1">
@@ -116,7 +119,7 @@ class Header extends React.Component {
 */}
                         </div>
                         <MenuNew/>
-                        <LoggedOutView currentUser={this.props.userStore.currentUser} />
+                        <LoggedOutView currentUser={this.props.userStore.currentUser}/>
                         <LoggedInView currentUser={this.props.userStore.currentUser} orders={orders}
                                       ordersCount={this.props.commonStore.ordersCount}/>
                     </div>

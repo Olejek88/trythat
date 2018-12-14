@@ -16,15 +16,15 @@ class Banner extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-/*
-        const data = new FormData();
-        data.append('search', this.state.search);
-        console.log(data);
-        this.props.router.push({
-            pathname: '/yourRoute',
-            query: { search:  this.state.search}
-        });
-*/
+        /*
+                const data = new FormData();
+                data.append('search', this.state.search);
+                console.log(data);
+                this.props.router.push({
+                    pathname: '/yourRoute',
+                    query: { search:  this.state.search}
+                });
+        */
         this.setState({redirect: true});
     }
 
@@ -95,4 +95,5 @@ class Banner extends React.Component {
         );
     }
 }
+
 export default withRouter(Banner);

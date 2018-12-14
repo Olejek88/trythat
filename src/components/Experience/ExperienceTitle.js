@@ -15,6 +15,7 @@ class ExperienceTitle extends React.Component {
         if (this.props.subtitle)
             this.setState({subtitle: this.props.subtitle});
     }
+
     render() {
         return (
             <div className="discovery-row experience-title" style={{clear: 'both'}}>

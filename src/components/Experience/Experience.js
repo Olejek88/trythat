@@ -23,7 +23,7 @@ class Experience extends React.Component {
             }
             else {
                 this.setState({favoredClass: 'heart_img'});
-                let wish ={
+                let wish = {
                     activity_id: this.state.activity.id,
                     customer: this.state.customer.id
                 };
@@ -42,14 +42,18 @@ class Experience extends React.Component {
                 self.setState({activityPrice: price});
             });
             if (this.props.activity.activityImages[0])
-                this.setState({activity_image: {
+                this.setState({
+                    activity_image: {
                         title: this.props.activity.activityImages[0].image.title,
-                        path: this.props.commonStore.apiServer+this.props.activity.activityImages[0].image.path }
-                    });
+                        path: this.props.commonStore.apiServer + this.props.activity.activityImages[0].image.path
+                    }
+                });
             else {
-                this.setState({activity_image: {
-                    title: 'no', path: 'images/activity_no_image.jpg'
-                }});
+                this.setState({
+                    activity_image: {
+                        title: 'no', path: 'images/activity_no_image.jpg'
+                    }
+                });
             }
 
             const customer = this.props.userStore.currentCustomer;
@@ -93,7 +97,7 @@ class Experience extends React.Component {
                         <div className="product_image_wrapper">
                             <div className="product_image_viewport" style={{overflow: 'hidden'}}>
                                 <Link
-                                    to={"/activity/"+this.state.activity.id}
+                                    to={"/activity/" + this.state.activity.id}
                                     className="tile_product tile js-product-title desktop">
                                     <img className="thumbnail_img product_img" alt={this.state.activity_image.title}
                                          title={this.state.activity_image.title}
@@ -103,7 +107,8 @@ class Experience extends React.Component {
                                 </Link>
                             </div>
                         </div>
-                        <img className="celeb_img" src={this.props.commonStore.apiServer+this.state.activity.luminary.user.image.path}
+                        <img className="celeb_img"
+                             src={this.props.commonStore.apiServer + this.state.activity.luminary.user.image.path}
                              alt={this.state.activity.luminary.user.firstName}/>
                         <div className={this.state.favoredClass} tabIndex="0" title="Список желаний"
                              onClick={this.onFavored} style={{cursor: 'pointer'}}>
@@ -121,7 +126,7 @@ class Experience extends React.Component {
                 </div>
                 <div className="product_text_container">
                     <Link
-                        to={"/activity/"+this.state.activity.id}
+                        to={"/activity/" + this.state.activity.id}
                         className="tile_product tile js-product-title desktop">
                         <div className="details_div">
                             <div className="min_height_placeholder">
@@ -134,7 +139,7 @@ class Experience extends React.Component {
                             </div>
                         </div>
                         <div className="product_location sg-c-2">{this.state.activity.location &&
-                                                                            this.state.activity.location.title}</div>
+                        this.state.activity.location.title}</div>
                         <div className="product_title sg-c-1">
                             <p style={{margin: '0 0 2px 0'}}>{this.state.activity.title}</p>
                         </div>

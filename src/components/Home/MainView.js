@@ -19,8 +19,8 @@ class MainView extends React.Component {
 
     componentDidMount() {
         let predicate = {
-             filter: '',
-             id: 0
+            filter: '',
+            id: 0
         };
         this.props.activityStore.setPredicate(predicate);
         let my = this;
@@ -88,4 +88,5 @@ class MainView extends React.Component {
         );
     }
 }
+
 export default inject('activityStore', 'commonStore', 'userStore')(withRouter(MainView));

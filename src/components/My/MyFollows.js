@@ -24,15 +24,15 @@ class MyFollows extends React.Component {
         self.followsRows = [];
 
         this.props.followListStore.loadFollowList(this.props.userStore.currentCustomer).then((followList) => {
-                followList.forEach(function (follow) {
-                    self.followsRows.push(<FollowListItem luminary={follow.luminary} key={count}/>);
-                    count++;
-                });
-
-                this.setState({followRows: this.followsRows}, () => {
-                    this.setState({updated: true});
-                });
+            followList.forEach(function (follow) {
+                self.followsRows.push(<FollowListItem luminary={follow.luminary} key={count}/>);
+                count++;
             });
+
+            this.setState({followRows: this.followsRows}, () => {
+                this.setState({updated: true});
+            });
+        });
     }
 
     render() {
@@ -68,4 +68,5 @@ class MyFollows extends React.Component {
         );
     }
 }
+
 export default inject('userStore', 'followListStore')(withRouter(MyFollows));

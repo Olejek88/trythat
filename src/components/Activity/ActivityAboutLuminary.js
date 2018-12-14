@@ -57,7 +57,7 @@ class ActivityAboutLuminary extends React.Component {
             this.props.activityStore.loadLocalActivities().then(((activities) => {
                 let activityListing = [];
                 activities.forEach(function (same_activity) {
-                    if (same_activity.id!==activity.id)
+                    if (same_activity.id !== activity.id)
                         activityListing.push(same_activity);
                 });
                 self.setState({activity_from_luminary: activityListing});
@@ -97,7 +97,8 @@ class ActivityAboutLuminary extends React.Component {
                         <a href="/" style={{display: 'inline-block'}}>
                             <div className="img-box-wrapper">
                                 <div className="img-box">
-                                    <img className="luminary-img thumbnail_img" src={this.props.commonStore.apiServer+this.state.luminary.user.image.path}
+                                    <img className="luminary-img thumbnail_img"
+                                         src={this.props.commonStore.apiServer + this.state.luminary.user.image.path}
                                          alt={this.state.luminary.user.firstName + " " + this.state.luminary.user.lastName}/>
                                 </div>
                             </div>
@@ -108,7 +109,8 @@ class ActivityAboutLuminary extends React.Component {
                     </div>
                     <div className="cb-desc ">
                         <a className="name" href="/" data-celebid="36"><h4
-                            className="sg-f-ttl">{this.state.luminary.user.firstName} {this.state.luminary.user.lastName}</h4></a>
+                            className="sg-f-ttl">{this.state.luminary.user.firstName} {this.state.luminary.user.lastName}</h4>
+                        </a>
                         <p className="org">{this.state.luminary.description}</p>
                         <div className="desc body-text sg-f-bdy "><p>{this.state.luminary.fullDescription}</p>
                         </div>
@@ -123,8 +125,10 @@ class ActivityAboutLuminary extends React.Component {
                             </Link>
                         </div>
                         <div className="list mini_product_list">
-                            {this.state.activity_from_luminary[0] && <ExperienceMini activity={this.state.activity_from_luminary[0]}/>}
-                            {this.state.activity_from_luminary[1] && <ExperienceMini activity={this.state.activity_from_luminary[1]}/>}
+                            {this.state.activity_from_luminary[0] &&
+                            <ExperienceMini activity={this.state.activity_from_luminary[0]}/>}
+                            {this.state.activity_from_luminary[1] &&
+                            <ExperienceMini activity={this.state.activity_from_luminary[1]}/>}
                         </div>
                         <a href="/">
                             <div className="custom-exp sg-bg-1" style={{textAlign: 'center'}}>
@@ -138,4 +142,4 @@ class ActivityAboutLuminary extends React.Component {
     }
 }
 
-export default inject('activityStore','commonStore', 'followListStore', 'customerStore', 'userStore')(ActivityAboutLuminary);
+export default inject('activityStore', 'commonStore', 'followListStore', 'customerStore', 'userStore')(ActivityAboutLuminary);

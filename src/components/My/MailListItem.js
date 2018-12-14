@@ -23,7 +23,7 @@ class MailListItem extends React.Component {
 
         this.clickHandler = (component) => {
             component.setState({showAnswerDialog: false});
-            return <Redirect to='/#/my/conversation' />
+            return <Redirect to='/#/my/conversation'/>
         };
     }
 
@@ -65,8 +65,10 @@ class MailListItem extends React.Component {
                                         <td style={{width: '100px'}}>
                                             <div className="avatar article-avatar">
                                                 <span className="icon-agent"></span>
-                                                <img src={this.props.commonStore.apiServer+this.mail.fromUser.image.path} alt="from"
-                                                     className="user-avatar"/>
+                                                <img
+                                                    src={this.props.commonStore.apiServer + this.mail.fromUser.image.path}
+                                                    alt="from"
+                                                    className="user-avatar"/>
                                             </div>
                                         </td>
                                         <td style={{width: '300px', alignContent: 'left', cursor: 'pointer'}}
@@ -75,7 +77,8 @@ class MailListItem extends React.Component {
                                                 {this.mail.fromUser.firstName} {this.mail.fromUser.lastName}
                                             </strong>
                                         </td>
-                                        <td style={{width: '500px', cursor: 'pointer'}} onClick={this.onClick.bind(this)}>
+                                        <td style={{width: '500px', cursor: 'pointer'}}
+                                            onClick={this.onClick.bind(this)}>
                                             <strong>{this.mail.title}</strong>
                                         </td>
                                         <td style={{width: '200px'}}>
@@ -147,7 +150,7 @@ class MailListItem extends React.Component {
                     </div>
                 </article>}
                 {this.state.showAnswerDialog && <AnswerDialog clickHandler={() => this.clickHandler(this)}
-                                                                  mail={this.mail}/>}
+                                                              mail={this.mail}/>}
             </React.Fragment>
         );
     }

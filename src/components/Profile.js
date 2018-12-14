@@ -1,7 +1,7 @@
 import React from 'react';
 import LoadingSpinner from './Elements/LoadingSpinner';
 import RedError from './Elements/RedError';
-import {NavLink, Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import {inject} from 'mobx-react';
 
 const EditProfileSettings = props => {

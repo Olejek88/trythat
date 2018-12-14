@@ -53,13 +53,13 @@ class Activity extends React.Component {
                 </div>
                 <React.Fragment>
                     <ActivityHowItWorks/>
-                    <ActivityReviews activity={this.state.activity} />
-                    <ActivityAboutLuminary activity={this.state.activity} />
-                    <ActivityYouMayLike activity={this.state.activity} />
+                    <ActivityReviews activity={this.state.activity}/>
+                    <ActivityAboutLuminary activity={this.state.activity}/>
+                    <ActivityYouMayLike activity={this.state.activity}/>
                 </React.Fragment>
             </div>
         );
     }
 }
 
-export default inject('activityStore','activityListingStore')(Activity);
+export default inject('activityStore', 'activityListingStore')(Activity);

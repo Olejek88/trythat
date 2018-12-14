@@ -19,12 +19,12 @@ class LuminaryActivity extends React.Component {
     componentWillMount() {
         let id = this.props.match.params['id'];
         let my = this;
-        if (id===undefined)
+        if (id === undefined)
             id = this.props.id;
-        if (id===undefined)
-            return <Redirect to='/#/' />;
+        if (id === undefined)
+            return <Redirect to='/#/'/>;
         this.props.luminaryStore.getLuminary(id).then((luminary) => {
-            my.setState ({luminary: luminary});
+            my.setState({luminary: luminary});
             if (luminary === null) {
                 this.props.history.replace('/');
             }
@@ -70,10 +70,11 @@ class LuminaryActivity extends React.Component {
                                      style={{width: '100%', display: 'inline-block'}} aria-hidden="true">
                                     <div className="marquee-img-wrapper">
                                         <div className="marquee-img">
-                                            <img src={this.props.commonStore.apiServer+this.state.luminary.user.image.path}
-                                                 alt={this.state.luminary.user.firstName +
-                                                 " " + this.state.luminary.user.lastName}
-                                                 style={{height: '100%', width: '100%'}}/>
+                                            <img
+                                                src={this.props.commonStore.apiServer + this.state.luminary.user.image.path}
+                                                alt={this.state.luminary.user.firstName +
+                                                " " + this.state.luminary.user.lastName}
+                                                style={{height: '100%', width: '100%'}}/>
                                         </div>
                                     </div>
                                     <div className="marquee-text celeb_nav">
@@ -85,7 +86,7 @@ class LuminaryActivity extends React.Component {
                                                  data-average-rating={this.state.luminary.rating}>
                                                 <div className="review_stars_inner_div sg-inline-middle">
                                                     <ActivityStarAverage rate={this.state.luminary.rating}
-                                                    total={1}/>
+                                                                         total={1}/>
                                                 </div>
                                             </div>
                                             <p className="org sg-c-2">{this.state.luminary.shortDescription}</p>
@@ -111,4 +112,5 @@ class LuminaryActivity extends React.Component {
         );
     }
 }
+
 export default inject('activityStore', 'userStore', 'luminaryStore', 'commonStore')(LuminaryActivity);

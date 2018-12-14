@@ -13,7 +13,7 @@ class Cart extends React.Component {
             sum: 0,
             orderList: 'Корзина пуста'
         };
-        this.orderList=[];
+        this.orderList = [];
         this.onSubmit = () => {
             this.props.history.push("/cart/checkout");
         };
@@ -34,7 +34,7 @@ class Cart extends React.Component {
                     self.orderList.push(<OrderListItem activity={activity} key={i} order={order}/>);
                 });
                 self.setState({count: self.orderList.length});
-                self.setState({orderList: self.orderList},() => {
+                self.setState({orderList: self.orderList}, () => {
                     console.log(self.state.orderList);
                     self.setState({updated: true})
                 });
@@ -130,4 +130,5 @@ class Cart extends React.Component {
         );
     }
 }
+
 export default inject('orderStore')(Cart);

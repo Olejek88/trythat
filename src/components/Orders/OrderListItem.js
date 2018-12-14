@@ -22,7 +22,7 @@ class OrderListItem extends React.Component {
         this.onRemove = (e) => {
             this.props.orderStore.deleteOrder(e);
             this.setState({showOrderItem: false});
-            if (this.props.commonStore.ordersCount>0) {
+            if (this.props.commonStore.ordersCount > 0) {
                 this.props.commonStore.ordersCount--;
                 window.localStorage.setItem('orders_count', this.props.commonStore.ordersCount);
             }
@@ -72,12 +72,12 @@ class OrderListItem extends React.Component {
         let order_price = activityListing.cost + activityListing.currency.title;
         let order_duration = activityListing.duration.duration;
         let order_quantity = activityListing.customers;
-        let activity_image = this.props.commonStore.apiServer+activity.activityImages[0].image.path;
-        let luminary_image = this.props.commonStore.apiServer+activity.luminary.user.image.path;
+        let activity_image = this.props.commonStore.apiServer + activity.activityImages[0].image.path;
+        let luminary_image = this.props.commonStore.apiServer + activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
 
         this.onSubmit = () => {
-            return <Redirect to='/cart/checkout' />
+            return <Redirect to='/cart/checkout'/>
         };
 
         return (
@@ -86,7 +86,7 @@ class OrderListItem extends React.Component {
                                                                   luminary={activity.luminary}/>}
                 {this.state.showReviewDialog && <ReviewDialog clickHandler={() => this.clickHandlerR(this)}
                                                               luminary={activity.luminary} activity={activity}
-                                                              customer={customer} />}
+                                                              customer={customer}/>}
                 {this.state.showOrderItem &&
                 <div className="vendorBlock sg-bd-3">
                     <div
@@ -99,16 +99,16 @@ class OrderListItem extends React.Component {
                            style={{margin: '0 10px'}}>{luminary_name}
                             <span className="sg-c-2" style={{margin: '0 5px'}}> 1 </span>
                         </p>
-                        {(status.id==='1') &&
-                            <div className="phone pdp_question_mark js-vendor-level button sg-inline-middle"
-                                 onClick={this.onClick.bind(this)}>
-                                <div className="sg-chatbubble">
-                                </div>
-                                <span className="txt-ovr-2 sg-hover-primary sg-text-transform"
-                                      style={{padding: '0 0 0 5px'}}>задать вопрос</span>
+                        {(status.id === '1') &&
+                        <div className="phone pdp_question_mark js-vendor-level button sg-inline-middle"
+                             onClick={this.onClick.bind(this)}>
+                            <div className="sg-chatbubble">
                             </div>
+                            <span className="txt-ovr-2 sg-hover-primary sg-text-transform"
+                                  style={{padding: '0 0 0 5px'}}>задать вопрос</span>
+                        </div>
                         }
-                        {(status._id==='1') &&
+                        {(status._id === '1') &&
                         <div className="phone pdp_question_mark js-vendor-level button sg-inline-middle"
                              onClick={this.showReview.bind(this)}>
                             <div className="sg-review">
@@ -159,7 +159,8 @@ class OrderListItem extends React.Component {
                                     <div className="remove-convert"
                                          style={{width: '28px', position: 'relative', top: '-6px'}}>
                                         <div className="remove">
-                                            <img src={"images/icon_close.png"} alt="remove" style={{width: '28px', cursor: 'pointer'}}
+                                            <img src={"images/icon_close.png"} alt="remove"
+                                                 style={{width: '28px', cursor: 'pointer'}}
                                                  onClick={() => {
                                                      this.onRemove(order.id)
                                                  }}/>
@@ -183,7 +184,8 @@ class OrderListItem extends React.Component {
                             {this.state.checkout &&
                             <div className="row" id="checkout">
                                 {(status._id === '1') &&
-                                <div className="start-checkout  primaryButton button" style={{width: '200px', marginRight:'10px'}}
+                                <div className="start-checkout  primaryButton button"
+                                     style={{width: '200px', marginRight: '10px'}}
                                      tabIndex="0" onClick={this.onSubmit}>
                                     <div className="title-container">
                                         <p className="title">Оформить</p>
@@ -209,4 +211,4 @@ class OrderListItem extends React.Component {
     }
 }
 
-export default inject('orderStore','wishListStore','userStore','commonStore')(OrderListItem);
+export default inject('orderStore', 'wishListStore', 'userStore', 'commonStore')(OrderListItem);

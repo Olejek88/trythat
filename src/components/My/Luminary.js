@@ -35,7 +35,7 @@ class Luminary extends React.Component {
     }
 
     componentWillMount() {
-        if (!this.props.userStore.currentLuminary || this.props.userStore.currentLuminary.id==="888888")
+        if (!this.props.userStore.currentLuminary || this.props.userStore.currentLuminary.id === "888888")
             this.props.history.replace('/my');
         this.setState({user: this.props.userStore.getUser()});
         this.setState({user_id: this.props.userStore.currentUser.id});

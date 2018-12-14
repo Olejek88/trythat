@@ -63,4 +63,4 @@ class WishListItem extends React.Component {
     }
 }
 
-export default inject('wishListStore', 'commonStore' , 'userStore')(WishListItem);
+export default inject('wishListStore', 'commonStore', 'userStore')(WishListItem);

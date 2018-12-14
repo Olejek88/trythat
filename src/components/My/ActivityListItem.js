@@ -19,15 +19,16 @@ class ActivityListItem extends React.Component {
     render() {
         const activity = this.props.activity;
         let activity_rating = activity.luminary.rating;
-        let activity_image = this.props.commonStore.apiServer+this.props.activity.activityImages[0].image.path;
-        let luminary_image = this.props.commonStore.apiServer+activity.luminary.user.image.path;
+        let activity_image = this.props.commonStore.apiServer + this.props.activity.activityImages[0].image.path;
+        let luminary_image = this.props.commonStore.apiServer + activity.luminary.user.image.path;
         let luminary_name = activity.luminary.user.firstName + " " + activity.luminary.user.lastName;
 
         return (
             <React.Fragment>
                 {this.state.showActivityItem &&
                 <div className="vendorBlock sg-bd-3">
-                    <div className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
+                    <div
+                        className="vendorHeading sg-inline-middle sg-bg-2 sg-bd-3 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
                         style={{padding: '20px 15px', width: '100%', boxSizing: 'border-box'}}>
                         <div className="vendor-img">
                             <img src={luminary_image} style={{width: '100%'}} alt={""}/>
@@ -39,18 +40,20 @@ class ActivityListItem extends React.Component {
                     </div>
                     <div className="body-row">
                         <div className="main sg-inline-top">
-                            <div className="two-col-1 col sg-f-ttl" style={{margin: '10px 0', width: '100%', display: 'inline-flex'}}>
-                                <div style={{margin: '0 10px', width: '20%'}}><img src={activity_image} style={{width: '140px'}} alt={""}/>
+                            <div className="two-col-1 col sg-f-ttl"
+                                 style={{margin: '10px 0', width: '100%', display: 'inline-flex'}}>
+                                <div style={{margin: '0 10px', width: '20%'}}><img src={activity_image}
+                                                                                   style={{width: '140px'}} alt={""}/>
                                 </div>
                                 <div style={{margin: '0 10px', width: '80%'}}>
                                     <div><a className="js-pdpDetails sg-c-1">
                                         {activity.title}</a></div>
-                                    <div className="sg-c-2">{activity.description.substr(0,220)+".."}</div>
+                                    <div className="sg-c-2">{activity.description.substr(0, 220) + ".."}</div>
                                     <div className="sg-c-2">
                                     </div>
                                     <div className="convert" style={{marginTop: '10px', cursor: 'pointer'}}>
                                         <Link className="sg-inline-middle"
-                                              to={'/add/'+activity.id}>
+                                              to={'/add/' + activity.id}>
                                             <div className={this.state.favoredClass}
                                                  style={{width: '22px', height: '22px', backgroundSize: 'cover'}}>
                                             </div>
@@ -70,4 +73,4 @@ class ActivityListItem extends React.Component {
     }
 }
 
-export default inject('activityStore','commonStore','activityListingStore')(ActivityListItem);
+export default inject('activityStore', 'commonStore', 'activityListingStore')(ActivityListItem);

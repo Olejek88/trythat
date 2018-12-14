@@ -1,12 +1,12 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from "../agent";
 import activityStore from "./activityStore";
 import customerStore from "./customerStore";
 
 class ReviewStore {
     reviewRegistry = new Map();
-     isLoading = true;
-     predicate = {};
+    isLoading = true;
+    predicate = {};
 
     staticData = {
         id: '1',
@@ -22,7 +22,7 @@ class ReviewStore {
         this.reviewRegistry.clear();
     }
 
-     setPredicate(predicate) {
+    setPredicate(predicate) {
         if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
         this.clear();
         this.predicate = predicate;
@@ -35,7 +35,7 @@ class ReviewStore {
         return agent.Review.all(count, start);
     }
 
-     loadReviews() {
+    loadReviews() {
         this.isLoading = true;
         return this.$req()
             .then(action((reviews) => {
@@ -50,14 +50,14 @@ class ReviewStore {
             }));
     }
 
-     loadLocalReviews() {
+    loadLocalReviews() {
         return this.$req()
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     loadReview(id, {acceptCached = false} = {}) {
+    loadReview(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const review = this.reviewRegistry.get(id);
             if (review) return Promise.resolve(review);
@@ -90,14 +90,14 @@ class ReviewStore {
     }
 
 
-     createReview(review) {
+    createReview(review) {
         return agent.Review.create(review)
             .then(({answer}) => {
                 return answer;
             })
     }
 
-     updateReview(review_id, review) {
+    updateReview(review_id, review) {
         return agent.reviewRegistry.update(review_id, review)
             .then(({review}) => {
                 this.reviewRegistry.set(review_id, review);
@@ -107,7 +107,7 @@ class ReviewStore {
             }))
     }
 
-     deleteReview(review_id) {
+    deleteReview(review_id) {
         this.reviewRegistry.delete(review_id);
         return agent.reviewRegistry.del(review_id)
             .catch(action(err => {

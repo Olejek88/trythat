@@ -23,16 +23,17 @@ class FooterCategories extends React.Component {
                         <a href={"/#/activities/activity-category/" + category.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{category.title}</a></li>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
 
         this.props.cityStore.loadCities()
             .then(() => {
                 for (let city of Array.from(this.props.cityStore.cityRegistry.values())) {
-                    self.citiesList.push(<li key={city.id}><a href={"/#/activities/city/" + city.id} className="sg-f-bdy"
-                                           style={{lineHeight: '2em'}}>{city.title}</a></li>);
+                    self.citiesList.push(<li key={city.id}><a href={"/#/activities/city/" + city.id}
+                                                              className="sg-f-bdy"
+                                                              style={{lineHeight: '2em'}}>{city.title}</a></li>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
 
         this.props.categoryStore.loadCategories()
@@ -42,7 +43,7 @@ class FooterCategories extends React.Component {
                         <a href={"/#/activities/category/" + category.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{category.title}</a></li>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
 
         this.props.occasionStore.loadOccasions()
@@ -52,7 +53,7 @@ class FooterCategories extends React.Component {
                         <a href={"/#/activities/category/" + occasion.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{occasion.title}</a></li>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
 
         this.props.trendingStore.loadTrends()
@@ -62,7 +63,7 @@ class FooterCategories extends React.Component {
                         <a href={"/#/activities/trend/" + trend.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{trend.title}</a></li>);
                 }
-                this.setState ({loadComplete: !this.state.loadComplete});
+                this.setState({loadComplete: !this.state.loadComplete});
             });
     }
 

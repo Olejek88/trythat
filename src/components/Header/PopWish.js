@@ -53,7 +53,7 @@ class PopWish extends React.Component {
                                         <ul className="wish-popup-ul">
                                             <React.Fragment>
                                                 {this.state.updated &&
-                                                    this.state.wishList
+                                                this.state.wishList
                                                 }
                                             </React.Fragment>
                                             <div

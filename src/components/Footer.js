@@ -12,13 +12,13 @@ const FooterView = () => {
 };
 
 class Footer extends React.Component {
-  render() {
-    return (
-        <div className="main_container" style={{float: 'bottom'}}>
-            <FooterView/>
-        </div>
-    );
-  }
+    render() {
+        return (
+            <div className="main_container" style={{float: 'bottom'}}>
+                <FooterView/>
+            </div>
+        );
+    }
 }
 
 export default Footer;

@@ -17,7 +17,7 @@ class ActivityReview extends React.Component {
 
     componentDidUpdate() {
         if (this.props.review && !this.state.updated) {
-            this.setState ({updated: true});
+            this.setState({updated: true});
         }
     }
 

@@ -1,4 +1,4 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from "../agent";
 import cityStore from "./cityStore";
 import imageStore from "./imageStore";
@@ -6,7 +6,8 @@ import countryStore from "./countryStore";
 
 export class UserStore {
     currentUser =
-        {   id: 0,
+        {
+            id: 0,
             username: '',
             email: '',
             firstName: '',
@@ -18,17 +19,18 @@ export class UserStore {
             country_id: 0,
             password: ''
         };
-     loadingUser;
-     updatingUser;
-     updatingUserErrors;
+    loadingUser;
+    updatingUser;
+    updatingUserErrors;
 
     testData =
-        {   id: '0',
+        {
+            id: '0',
             username: 'olejek',
             email: 'olejek8@yandex.ru',
             firstName: 'Олег',
             lastName: 'Иванов',
-            birthDate: new Date(1978,8,28,0,0,0),
+            birthDate: new Date(1978, 8, 28, 0, 0, 0),
             phone: '+79000242832',
             city: cityStore.defaultData,
             image: imageStore.userImage,
@@ -37,7 +39,8 @@ export class UserStore {
         };
 
     customer =
-        {   id: '888888',
+        {
+            id: '888888',
             user: this.currentUser,
             positive: 0,
             negative: 0,
@@ -45,7 +48,8 @@ export class UserStore {
         };
 
     luminary =
-        {   id: '888888',
+        {
+            id: '888888',
             verified: false,
             verifiedDate: new Date(),
             rating: 0.0,
@@ -56,20 +60,20 @@ export class UserStore {
     currentCustomer = this.customer;
     currentLuminary = this.luminary;
 
-     getUser() {
+    getUser() {
         return this.currentUser;
     }
 
-     pullUser() {
+    pullUser() {
         this.loadingUser = true;
         let user_id = window.localStorage.getItem('user_id');
-        if (user_id===undefined || user_id==='null' || user_id===null)
+        if (user_id === undefined || user_id === 'null' || user_id === null)
             return Promise.resolve(undefined);
         let user = window.localStorage.getItem('user');
-        if (user!==undefined && user!=='undefined' && JSON.parse(user)) {
+        if (user !== undefined && user !== 'undefined' && JSON.parse(user)) {
             this.currentUser = JSON.parse(user);
-            if (window.localStorage.getItem('customer')!==undefined &&
-                window.localStorage.getItem('customer')!=='undefined') {
+            if (window.localStorage.getItem('customer') !== undefined &&
+                window.localStorage.getItem('customer') !== 'undefined') {
                 this.currentCustomer = JSON.parse(window.localStorage.getItem('customer'));
             }
             else {
@@ -77,19 +81,19 @@ export class UserStore {
                     return Promise.resolve(this.currentUser);
                 });
             }
-            if (window.localStorage.getItem('luminary')!==undefined &&
-                window.localStorage.getItem('luminary')!=='undefined') {
+            if (window.localStorage.getItem('luminary') !== undefined &&
+                window.localStorage.getItem('luminary') !== 'undefined') {
                 this.currentLuminary = JSON.parse(window.localStorage.getItem('luminary'));
             }
-            if (this.currentCustomer!=null)
+            if (this.currentCustomer != null)
                 return Promise.resolve(this.currentUser);
         }
         return agent.Auth.current(user_id)
             .then(action((user) => {
-                if(user) {
+                if (user) {
                     this.currentUser = user;
                     window.localStorage.setItem('user', JSON.stringify(user));
-                    window.localStorage.setItem('user_id',user.id);
+                    window.localStorage.setItem('user_id', user.id);
                     this.getCustomerByUser(this.currentUser.id);
                     this.getLuminaryByUser(this.currentUser.id);
                     this.loadingUser = false;
@@ -100,10 +104,10 @@ export class UserStore {
             }));
     }
 
-     updateUser(newUser) {
+    updateUser(newUser) {
         this.updatingUser = true;
         console.log(newUser);
-        return agent.Auth.save(newUser,newUser.id)
+        return agent.Auth.save(newUser, newUser.id)
             .then(action((user) => {
                 this.currentUser = user;
                 window.localStorage.setItem('user', JSON.stringify(user));
@@ -113,7 +117,7 @@ export class UserStore {
             }));
     }
 
-     changeUserPassword(user, password, repeatPassword, newPassword) {
+    changeUserPassword(user, password, repeatPassword, newPassword) {
         this.updatingUser = true;
         if (password.toString() === repeatPassword.toString()) {
             return agent.Auth.password(user, password, newPassword)
@@ -127,11 +131,11 @@ export class UserStore {
         }
     }
 
-     forgetUser() {
+    forgetUser() {
         this.currentUser = undefined;
     }
 
-     getCustomerByUser(user_id) {
+    getCustomerByUser(user_id) {
         return agent.Customer.get(user_id)
             .then(action((customer) => {
                 this.currentCustomer = customer[0];
@@ -145,7 +149,7 @@ export class UserStore {
             }));
     }
 
-     getLuminaryByUser(user_id) {
+    getLuminaryByUser(user_id) {
         return agent.Luminary.get(user_id)
             .then(action((luminary) => {
                 this.currentLuminary = luminary[0];

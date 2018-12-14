@@ -22,7 +22,7 @@ class ActivityDescription extends React.Component {
     componentDidUpdate() {
         if (this.props.activity && !this.state.updated) {
             this.setState({activity: this.props.activity});
-            this.setState ({updated: true});
+            this.setState({updated: true});
         }
     }
 

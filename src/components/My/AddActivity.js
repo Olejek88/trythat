@@ -1,7 +1,7 @@
 import React from 'react';
 import ListErrors from '../ListErrors';
 import {inject} from 'mobx-react';
-import {withRouter} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
 import Select from 'react-select';
@@ -17,7 +17,6 @@ import ActivityListingItem from "./ActivityListingItem";
 import LocationPicker from 'react-location-picker';
 import agent from "../../agent";
 import {action} from "mobx/lib/mobx";
-import {Redirect} from "react-router-dom";
 import AddListingDialog from "./AddLIstingDialog";
 
 class AddActivity extends React.Component {
@@ -134,7 +133,7 @@ class AddActivity extends React.Component {
 
         this.clickHandler = (component) => {
             component.setState({showAddDialog: false});
-            return <Redirect to='/#/my/conversation' />
+            return <Redirect to='/#/my/conversation'/>
         };
 
         this.submitForm = ev => {
@@ -289,10 +288,10 @@ class AddActivity extends React.Component {
 
                     self.props.activityListingStore.loadActivityListing(activity).then((activity_lists) => {
                         activity_lists.forEach(function (activity_list, i) {
-                                self.activityListRows.push(<ActivityListingItem activity={self.activity}
-                                                                                activity_listing={activity_list}
-                                                                                key={i}/>);
-                            });
+                            self.activityListRows.push(<ActivityListingItem activity={self.activity}
+                                                                            activity_listing={activity_list}
+                                                                            key={i}/>);
+                        });
                         self.setState({activityListRows: self.activityListRows});
                     });
 
@@ -417,7 +416,7 @@ class AddActivity extends React.Component {
                         <MyMenu/>
                     </div>
                     {this.state.showAddDialog && <AddListingDialog clickHandler={() => this.clickHandler(this)}
-                                                                  activity={this.state.activity}/>}
+                                                                   activity={this.state.activity}/>}
                     <div className="page-right-col" style={{width: '85%', marginLeft: '15%'}}>
                         <ListErrors errors={this.props.activityStore.addActivityErrors}/>
                         <div className="product-section ">
@@ -728,12 +727,12 @@ class AddActivity extends React.Component {
                                                                 <p className="title">Сохранить изменения</p>
                                                             </button>
                                                             {this.state.activity &&
-                                                                <button id="addActivityListing"
+                                                            <button id="addActivityListing"
                                                                     style={{width: '252px', margin: '3px'}}
-                                                                        onClick={this.clickAdd.bind(this)}
+                                                                    onClick={this.clickAdd.bind(this)}
                                                                     className="medium primaryButton button title-container button-blue">
                                                                 <p className="title">Добавить вариант</p>
-                                                                </button>
+                                                            </button>
                                                             }
                                                         </div>
                                                     </div>
@@ -764,5 +763,6 @@ class AddActivity extends React.Component {
         );
     }
 }
+
 export default inject('activityCategoryStore', 'activityListingStore', 'activityStore', 'categoryStore', 'occasionStore', 'cityStore',
     'trendingStore', 'tagStore', 'userStore', 'activityImageStore', 'commonStore', 'imageStore', 'locationStore')(withRouter(AddActivity));

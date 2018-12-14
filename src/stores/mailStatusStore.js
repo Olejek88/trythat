@@ -13,24 +13,26 @@ class MailStatusStore {
     ];
 
     get staticDataOptions() {
-        return this.staticData.map(x => ({ label: x.title, value: x._id }))
+        return this.staticData.map(x => ({label: x.title, value: x._id}))
     };
 
     loadMailStatuses() {
         agent.MailStatus.all()
-            .then(action(({ statuses}) => {
+            .then(action(({statuses}) => {
                 this.mailStatusRegistry.clear();
                 statuses.forEach(status =>
-                    this.mailStatusRegistry.set(status._id,status));
+                    this.mailStatusRegistry.set(status._id, status));
             }))
-            .finally(action(() => { this.isLoading = false; }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }))
             .catch(action(err => {
                 throw err;
             }));
         return this.staticDataOptions;
     }
 
-     loadMailStatus(id, {acceptCached = false} = {}) {
+    loadMailStatus(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const status = this.mailStatusRegistry.get(id);
             if (status) return Promise.resolve(status);

@@ -1,5 +1,4 @@
-import {action, observable} from 'mobx';
-import {computed} from "mobx/lib/mobx";
+import {action} from 'mobx';
 import agent from "../agent";
 
 class DurationStore {
@@ -14,30 +13,30 @@ class DurationStore {
     ];
 
     get staticDataOptions() {
-        return this.staticData.map(x => ({ label: x.label, value: x.id }))
+        return this.staticData.map(x => ({label: x.label, value: x.id}))
     };
 
-     loadDurations() {
+    loadDurations() {
         this.isLoading = true;
-/*
-        if (this.durationsRegistry.length>0)
-            return Promise.resolve(this.durationsRegistry);
-*/
+        /*
+                if (this.durationsRegistry.length>0)
+                    return Promise.resolve(this.durationsRegistry);
+        */
         return agent.Duration.all()
-/*
-            .finally(action((durations) => {
-                this.durationsRegistry.clear();
-                durations.forEach(duration =>
-                    this.durationsRegistry.set(duration.id, duration));
-                this.isLoading = false;
-            }))
-*/
+        /*
+                    .finally(action((durations) => {
+                        this.durationsRegistry.clear();
+                        durations.forEach(duration =>
+                            this.durationsRegistry.set(duration.id, duration));
+                        this.isLoading = false;
+                    }))
+        */
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     loadDuration(id, {acceptCached = false} = {}) {
+    loadDuration(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const duration = this.durationsRegistry.get(id);
             if (duration) return Promise.resolve(duration);

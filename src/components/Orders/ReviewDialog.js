@@ -41,7 +41,7 @@ class ReviewDialog extends React.Component {
         };
 
         this.clickHandler = (component) => {
-            component.setState({ showReviewDialog: false });
+            component.setState({showReviewDialog: false});
         };
 
         this.sendReview = () => {
@@ -61,23 +61,31 @@ class ReviewDialog extends React.Component {
                 <div className="overlayContent">
                     <div className="form">
                         <div className="dialog_header" style={{margin: '0px'}}>
-                            <p className="header-text" style={{width: 'auto', textAlign: 'center', fontSize: '24px'}}>Оставить отзыв</p>
+                            <p className="header-text"
+                               style={{width: 'auto', textAlign: 'center', fontSize: '24px'}}>Оставить отзыв</p>
                         </div>
                         <div className="dialog_body" style={{margin: '0 60px', width: '300px'}}>
                             <div className="dialog_content" style={{textAlign: 'left', width: '300px'}}>
                                 <div className="row" style={{marginTop: '36px', textAlign: 'left'}}>
-                                    <img src={this.props.luminary.user.image.path} alt="{this.props.luminary.user.firstName}"
+                                    <img src={this.props.luminary.user.image.path}
+                                         alt="{this.props.luminary.user.firstName}"
                                          style={{width: '44px', height: '44px', float: 'left', borderRadius: '22px'}}/>
-                                    <div className="luminary_answer">[{this.props.luminary.user.firstName} {this.props.luminary.user.lastName}]
+                                    <div
+                                        className="luminary_answer">[{this.props.luminary.user.firstName} {this.props.luminary.user.lastName}]
                                         <br/>{this.props.activity.title}
                                     </div>
                                 </div>
-                                <div style={{borderBottom: '1px solid #e1e1e1', width: '100%', float: 'left', marginTop: '10px'}}>
+                                <div style={{
+                                    borderBottom: '1px solid #e1e1e1',
+                                    width: '100%',
+                                    float: 'left',
+                                    marginTop: '10px'
+                                }}>
                                 </div>
                                 <div className="row" style={{marginTop: '28px', marginBottom: '36px'}}>
                                     {this.visibleState.reviewSend &&
                                     <div className="row">
-                                        <div id="send-question" style={{width: '100%', alignContent:'center'}}>
+                                        <div id="send-question" style={{width: '100%', alignContent: 'center'}}>
                                             <div className="title-container">
                                                 <p className="title">Ваш отзыв успешно отправлен!</p>
                                             </div>

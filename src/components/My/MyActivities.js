@@ -23,10 +23,10 @@ class MyActivities extends React.Component {
     }
 
     componentWillMount() {
-/*
-        if (!this.props.userStore.currentLuminary || this.props.userStore.currentLuminary.id==="888888")
-            this.props.history.replace('/my');
-*/
+        /*
+                if (!this.props.userStore.currentLuminary || this.props.userStore.currentLuminary.id==="888888")
+                    this.props.history.replace('/my');
+        */
         //console.log('componentWillMount');
         this.fillList(null);
     }
@@ -79,13 +79,13 @@ class MyActivities extends React.Component {
                         id: this.props.userStore.currentLuminary.id
                     };
                     if (filter === 'wish') {
-                        this.setState ({header: 'Отслеживаемые'});
+                        this.setState({header: 'Отслеживаемые'});
                     }
                     if (filter === 'current') {
-                        this.setState ({header: 'Предложения текущие'});
+                        this.setState({header: 'Предложения текущие'});
                     }
                     if (filter === 'closed') {
-                        this.setState ({header: 'Предложения завершенные'});
+                        this.setState({header: 'Предложения завершенные'});
                     }
                     this.props.activityStore.setPredicate(predicate);
                 }
@@ -106,19 +106,19 @@ class MyActivities extends React.Component {
                     this.setState({showSearch: true});
                     this.setState({update: true});
                 }).catch(action(err => {
-                    //console.log(err);
-                    throw err;
-            }));
-/*
-            this.props.activityStore.loadActivities().then(action((activities) => {
-                activities.forEach(function (activity, i) {
-                    self.activitiesRows.push(<ActivityListItem activity={activity} key={i}/>);
-                })
-            })).catch(action(err => {
-                console.log(err);
+                //console.log(err);
                 throw err;
             }));
-*/
+            /*
+                        this.props.activityStore.loadActivities().then(action((activities) => {
+                            activities.forEach(function (activity, i) {
+                                self.activitiesRows.push(<ActivityListItem activity={activity} key={i}/>);
+                            })
+                        })).catch(action(err => {
+                            console.log(err);
+                            throw err;
+                        }));
+            */
         }
     }
 
@@ -161,4 +161,5 @@ class MyActivities extends React.Component {
         );
     }
 }
+
 export default inject('userStore', 'activityStore', 'activityListingStore')(MyActivities);

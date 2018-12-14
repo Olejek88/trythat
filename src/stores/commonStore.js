@@ -1,16 +1,16 @@
-import {action, observable, reaction} from 'mobx';
+import {action, reaction} from 'mobx';
 import agent from '../agent';
 
 class CommonStore {
     ordersCount = window.localStorage.getItem('orders_count');
-     appName = 'TryThat';
-     apiServer = 'http://api.tt.ru/';
-     token = window.localStorage.getItem('jwt');
-     user_id = window.localStorage.getItem('user_id');
-     appLoaded = false;
+    appName = 'TryThat';
+    apiServer = 'http://api.tt.ru/';
+    token = window.localStorage.getItem('jwt');
+    user_id = window.localStorage.getItem('user_id');
+    appLoaded = false;
 
-     tags = [];
-     isLoadingTags = false;
+    tags = [];
+    isLoadingTags = false;
 
     constructor() {
         reaction(
@@ -25,7 +25,7 @@ class CommonStore {
         );
     }
 
-     loadTags() {
+    loadTags() {
         this.isLoadingTags = true;
         return agent.Tags.getAll()
             .then(action(({tags}) => {
@@ -39,16 +39,16 @@ class CommonStore {
             }))
     }
 
-     setToken(token) {
+    setToken(token) {
         this.token = token;
     }
 
-     setId(id) {
+    setId(id) {
         this.user_id = id;
         window.localStorage.setItem('user_id', this.user_id);
     }
 
-     setAppLoaded() {
+    setAppLoaded() {
         this.appLoaded = true;
     }
 

@@ -1,10 +1,10 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from "../agent";
 import luminaryStore from "./luminaryStore";
 import customerStore from "./customerStore";
 
 class FollowListStore {
-     isLoading = false;
+    isLoading = false;
     followListRegistry = new Map();
 
     staticData = [
@@ -15,31 +15,33 @@ class FollowListStore {
         },
     ];
 
-     loadFollowList(customer) {
+    loadFollowList(customer) {
         this.isLoading = true;
         return agent.FollowList.get(customer.id)
-            .finally(action(() => { this.isLoading = false; }))
+            .finally(action(() => {
+                this.isLoading = false;
+            }))
             .catch(action(err => {
                 throw err;
             }));
     }
 
 
-     isFollow(customer, luminary) {
+    isFollow(customer, luminary) {
         return agent.FollowList.isFollow(customer.id, luminary.id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     follow(follow) {
+    follow(follow) {
         return agent.FollowList.follow(follow)
             .catch(action(err => {
                 throw err;
             }))
     }
 
-     unFollow(id) {
+    unFollow(id) {
         return agent.FollowList.unFollow(id)
             .catch(action(err => {
                 throw err;

@@ -22,15 +22,16 @@ class ActivityPhoto extends React.Component {
         this.loadData(nextProps.activity);
     }
 
-    loadData (activity) {
+    loadData(activity) {
         if (activity) {
             let self = this;
-            self.setState ({photoList: []});
-            self.photoList=[];
+            self.setState({photoList: []});
+            self.photoList = [];
             activity.activityImages.forEach(function (image, i) {
-                self.photoList.push(<ActivityPhotoDiv image={image.image} key={Math.random()} visibility={"visibility: 'visible'"}/>);
+                self.photoList.push(<ActivityPhotoDiv image={image.image} key={Math.random()}
+                                                      visibility={"visibility: 'visible'"}/>);
             });
-            self.setState ({photoList: self.photoList});
+            self.setState({photoList: self.photoList});
         }
     }
 
@@ -41,9 +42,9 @@ class ActivityPhoto extends React.Component {
                     <div className="scroll" style={{display: 'block'}}>
                         <div className="inner-container items"
                              style={{width: '100000px', height: '470px'}}>
-                                {
-                                    this.state.photoList
-                                }
+                            {
+                                this.state.photoList
+                            }
                         </div>
                     </div>
                 </div>

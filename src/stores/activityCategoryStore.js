@@ -24,8 +24,8 @@ class ActivityCategoryStore {
     }
 
     loadActivityCategory(id) {
-        if (this.activityCategoryRegistry.size>0)
-            return this.activityCategoryRegistry.get(parseInt(id,10));
+        if (this.activityCategoryRegistry.size > 0)
+            return this.activityCategoryRegistry.get(parseInt(id, 10));
         /*
         if (acceptCached) {
             const activityCategory = this.activityCategoryRegistry.get(id);

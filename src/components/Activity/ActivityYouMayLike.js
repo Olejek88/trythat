@@ -11,7 +11,7 @@ class ActivityYouMayLike extends React.Component {
             updated: false,
             activityList: []
         };
-        this.activityList=[];
+        this.activityList = [];
     }
 
     componentDidMount() {
@@ -35,17 +35,17 @@ class ActivityYouMayLike extends React.Component {
             this.props.activityStore.setPredicate(predicate);
 
             this.props.activityStore.loadLocalActivities().then(((activities) => {
-                let count=0;
-                self.activityList=[];
+                let count = 0;
+                self.activityList = [];
                 activities.forEach(function (activity, i) {
-                    if (count<4)
+                    if (count < 4)
                         self.activityList.push(<Experience activity={activity} key={i}/>);
                     count++;
                 });
                 self.setState({activityList: self.activityList});
                 //console.log(this.state.activityList);
             }));
-            this.setState ({updated: true});
+            this.setState({updated: true});
         }
     }
 
@@ -57,11 +57,12 @@ class ActivityYouMayLike extends React.Component {
                     <div style={{width: '100%', maxWidth: '1160px', margin: '0 auto'}}>
                         <div className="row">
                             <div className="row" style={{margin: '32px 0'}}>
-                                <h3 className="sg-f-dspl-l sg-text-transform you-may-also-enjoy">Вам также может понравиться</h3>
+                                <h3 className="sg-f-dspl-l sg-text-transform you-may-also-enjoy">Вам также может
+                                    понравиться</h3>
                             </div>
                             <div className="experience">
                                 {this.state.updated &&
-                                    this.state.activityList
+                                this.state.activityList
                                 }
                             </div>
                         </div>
@@ -71,4 +72,5 @@ class ActivityYouMayLike extends React.Component {
         );
     }
 }
+
 export default inject('activityStore')(ActivityYouMayLike);

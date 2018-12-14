@@ -70,25 +70,25 @@ export class ActivityStore {
             }));
     }
 
-     loadLocalActivities() {
+    loadLocalActivities() {
         return this.$req()
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     loadActivity(id, {acceptCached = false} = {}) {
+    loadActivity(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const activity = this.getActivity(id);
             if (activity) return Promise.resolve(activity);
         }
         this.isLoading = true;
         return agent.Activities.get(id)
-/*
-            .then(action((activity) => {
-                this.activitiesRegistry.set(activity._id, activity);
-            }))
-*/
+        /*
+                    .then(action((activity) => {
+                        this.activitiesRegistry.set(activity._id, activity);
+                    }))
+        */
             .finally(action(() => {
                 this.isLoading = false;
             }))
@@ -97,7 +97,7 @@ export class ActivityStore {
             }));
     }
 
-     isFavorite(activity_id, customer_id) {
+    isFavorite(activity_id, customer_id) {
         agent.Activities.isFavorite(activity_id, customer_id)
             .catch(action(err => {
                 throw err;
@@ -105,21 +105,21 @@ export class ActivityStore {
         return (Math.random() > 0.8);
     }
 
-     makeFavorite(activity_id, customer_id) {
+    makeFavorite(activity_id, customer_id) {
         agent.Activities.favorite(activity_id, customer_id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     unmakeFavorite(activity_id, customer_id) {
+    unmakeFavorite(activity_id, customer_id) {
         agent.Activities.unFavorite(activity_id, customer_id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-     createActivity(activity) {
+    createActivity(activity) {
         return agent.Activities.create(activity)
             .then(action((activity) => {
                 console.log(activity);
@@ -131,7 +131,7 @@ export class ActivityStore {
             }));
     }
 
-     updateActivity(activity) {
+    updateActivity(activity) {
         return agent.Activities.update(activity)
             .then(({activity}) => {
                 this.activitiesRegistry.set(activity.id, activity);
@@ -142,7 +142,7 @@ export class ActivityStore {
             }))
     }
 
-     deleteActivity(activity) {
+    deleteActivity(activity) {
         this.activitiesRegistry.delete(activity.id);
         return agent.Activities.del(activity.id)
             .catch(action(err => {

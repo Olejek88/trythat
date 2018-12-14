@@ -6,12 +6,12 @@ import activityStore from "./activityStore";
 
 export class MailStore {
 
-     isLoading = false;
-     page = 0;
-     totalPagesCount = 0;
+    isLoading = false;
+    page = 0;
+    totalPagesCount = 0;
     mailRegistry = new Map();
-     addMailErrors;
-     predicate = {};
+    addMailErrors;
+    predicate = {};
 
     staticData =
         [{
@@ -45,7 +45,7 @@ export class MailStore {
             order: null
         }];
 
-     setPredicate(predicate) {
+    setPredicate(predicate) {
         if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
         this.clear();
         this.predicate = predicate;
@@ -57,7 +57,7 @@ export class MailStore {
         return agent.Mail.filter('from_user', userStore.currentUser.id, count, start);
     }
 
-     loadMails() {
+    loadMails() {
         this.isLoading = true;
         return this.$req()
             .then(action((mails) => {
@@ -77,7 +77,7 @@ export class MailStore {
         return this.mailRegistry.get(id);
     }
 
-     loadMail(id, {acceptCached = false} = {}) {
+    loadMail(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const mail = this.selectMail(id);
             if (mail) return Promise.resolve(mail);
@@ -101,7 +101,7 @@ export class MailStore {
         this.page = 0;
     }
 
-     createMail(mail) {
+    createMail(mail) {
         return agent.Mail.create(mail)
             .then(({mail}) => {
                 this.mailRegistry.set(mail.id, mail);
@@ -112,7 +112,7 @@ export class MailStore {
             }))
     }
 
-     deleteMail(id) {
+    deleteMail(id) {
         this.mailRegistry.delete(id);
         return agent.Mail.del(id)
             .catch(action(err => {

@@ -11,7 +11,7 @@ class SiteMenu extends React.Component {
                         <Link to="/" className="navbar-brand">
                             <img className="logo-img" style={{maxHeight: '50px'}}
                                  alt={this.props.commonStore.appName.toLowerCase()}
-                                 src={"images/trythat_logo_text_1.png"} />
+                                 src={"images/trythat_logo_text_1.png"}/>
                         </Link>
                     </div>
                     <div id="footer-menu" className="responsive sg-c-3" style={{textAlign: 'center'}}>
@@ -42,8 +42,10 @@ class SiteMenu extends React.Component {
                         <ul className="footer-menu-item">
                             <p>Правила</p>
                             <li><a className="sg-c-3 allowAllUsers" href={"/#/privacy"}>Безопасность</a></li>
-                            <li><a className="sg-c-3 allowAllUsers" href={"/#/terms-customers"}>Правила для клиентов</a></li>
-                            <li><a className="sg-c-3 allowAllUsers" href={"/#/terms-luminary"}>Правила для исполнителей</a>
+                            <li><a className="sg-c-3 allowAllUsers" href={"/#/terms-customers"}>Правила для клиентов</a>
+                            </li>
+                            <li><a className="sg-c-3 allowAllUsers" href={"/#/terms-luminary"}>Правила для
+                                исполнителей</a>
                             </li>
                         </ul>
                         <ul id="stay-connected" className="footer-menu-item" style={{margin: '0'}}>
