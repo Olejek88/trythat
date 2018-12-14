@@ -1,13 +1,13 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from "../agent";
 
 class ActivityCategoryStore {
-    @observable activityCategoryRegistry = observable.map();
-    @observable isLoading = true;
+    activityCategoryRegistry = new Map();
+    isLoading = true;
 
     defaultData = {id: 3, label: 'Экстрим'};
 
-    @action loadActivityCategories() {
+    loadActivityCategories() {
         return agent.ActivityCategories.all()
             .then(action((activityCategories) => {
                 this.activityCategoryRegistry.clear();
@@ -23,7 +23,7 @@ class ActivityCategoryStore {
             }));
     }
 
-    @action loadActivityCategory(id) {
+    loadActivityCategory(id) {
         if (this.activityCategoryRegistry.size>0)
             return this.activityCategoryRegistry.get(parseInt(id,10));
         /*

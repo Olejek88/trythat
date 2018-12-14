@@ -1,15 +1,12 @@
 import ListErrors from '../ListErrors';
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import {inject, observer} from 'mobx-react';
+import {inject} from 'mobx-react';
 import MyMenu from "./MyMenu";
 
-@inject('userStore', 'luminaryStore')
-@observer
-@withRouter
 class Luminary extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             id: '',
@@ -130,4 +127,4 @@ class Luminary extends React.Component {
     }
 }
 
-export default Luminary;
+export default inject('userStore', 'luminaryStore')(withRouter(Luminary));

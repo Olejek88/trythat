@@ -6,8 +6,6 @@ import activityStore from "../../stores/activityStore";
 import Select from 'react-select';
 import InputRange from 'react-input-range';
 
-@inject('userStore', 'mailStore', 'commonStore', 'durationStore', 'activityListingStore')
-@withRouter
 class ActivityListingDialog extends React.Component {
     constructor() {
         super();
@@ -158,5 +156,4 @@ class ActivityListingDialog extends React.Component {
         );
     }
 }
-
-export default ActivityListingDialog;
+export default inject('userStore', 'mailStore', 'commonStore', 'durationStore', 'activityListingStore')(withRouter(ActivityListingDialog));

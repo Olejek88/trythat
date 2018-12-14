@@ -8,11 +8,9 @@ import ExperienceTitle from "../Experience/ExperienceTitle";
 import ExperienceRow from "../Experience/ExperienceRow";
 import FooterCategories from "../FooterCategories";
 
-@inject('activityStore', 'commonStore', 'userStore')
-@withRouter
-export default class MainView extends React.Component {
-    constructor() {
-        super();
+class MainView extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             activitiesRows: [],
             updated: false
@@ -89,4 +87,5 @@ export default class MainView extends React.Component {
             </React.Fragment>
         );
     }
-};
+}
+export default inject('activityStore', 'commonStore', 'userStore')(withRouter(MainView));

@@ -1,14 +1,11 @@
 import React from 'react';
 import {inject} from 'mobx-react';
-import {withRouter} from 'react-router-dom';
 import OrderListItem from "../Orders/OrderListItem";
 import {action} from "mobx/lib/mobx";
 
-@inject('orderStore','userStore')
-@withRouter
-export default class Checkout extends React.Component {
-    constructor() {
-        super();
+class Checkout extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             orderList: [],
             sum: 0,
@@ -53,7 +50,7 @@ export default class Checkout extends React.Component {
                     self.orderList.push(<OrderListItem activity={activity} key={i} order={order}/>);
                 });
                 self.setState({orders_count: self.orderList.length});
-                self.setState({orderList: self.orderList},() => {
+                self.setState({orderList: self.orderList}, () => {
                     self.setState({updated: true})
                 });
             }
@@ -299,7 +296,8 @@ export default class Checkout extends React.Component {
                                                                 </div>
                                                                 <div style={{margin: '10px 0'}}>
                                                                     <div className="sec sg-inline-flex-grow">
-                                                                        <label className="input-label">Срок действия</label>
+                                                                        <label className="input-label">Срок
+                                                                            действия</label>
                                                                         <div className="sg-inline-top exp-div"
                                                                              style={{width: '100%'}}>
                                                                             <div className="sg-inline-flex-grow">
@@ -355,16 +353,21 @@ export default class Checkout extends React.Component {
                                                                     <div className="sec sg-inline-flex-grow"
                                                                          style={{margin: '10px 0'}}>
                                                                         <label className="input-label">CVV</label>
-                                                                        <div className="sg-inline-middle" style={{width: '100%'}}>
-                                                                            <input style={{width: '60px', display: 'block'}}
-                                                                                maxLength="4" aria-required="true"
-                                                                                required="required"
+                                                                        <div className="sg-inline-middle"
+                                                                             style={{width: '100%'}}>
+                                                                            <input style={{
+                                                                                width: '60px',
+                                                                                display: 'block'
+                                                                            }}
+                                                                                   maxLength="4" aria-required="true"
+                                                                                   required="required"
                                                                                    value={this.state.cvc}
                                                                                    onChange={this.updateState('cvc')}
-                                                                                autoComplete="off" name="cvc" id="cvc"
-                                                                                type="text" />
-                                                                                <div className="cvv-img cvv">
-                                                                                </div>
+                                                                                   autoComplete="off" name="cvc"
+                                                                                   id="cvc"
+                                                                                   type="text"/>
+                                                                            <div className="cvv-img cvv">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -450,6 +453,8 @@ export default class Checkout extends React.Component {
                     </div>
                 </div>
             </div>
-    );
+        );
     }
-    }
+}
+
+export default inject('orderStore', 'userStore')(Checkout);

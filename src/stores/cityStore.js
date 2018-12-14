@@ -3,11 +3,11 @@ import agent from "../agent";
 
 class CityStore {
     cityRegistry = new Map();
-    @observable isLoading = true;
+     isLoading = true;
 
     defaultData = {_id: 1, title: 'Челябинск'};
 /*
-    @observable staticData = [
+     staticData = [
         {_id: 1, title: 'Челябинск'},
         {_id: 2, title: 'Екатеринбург'}
     ];
@@ -15,7 +15,7 @@ class CityStore {
         return this.staticData.map(x => ({ label: x.title, value: x.id }))
     };*/
 
-    @action loadCities() {
+     loadCities() {
         return agent.Cities.all()
             .then(action((cities) => {
                 this.cityRegistry.clear();
@@ -28,7 +28,7 @@ class CityStore {
             }));
     }
 
-    @action loadCity(id) {
+     loadCity(id) {
         if (this.cityRegistry.size>0)
             return this.cityRegistry.get(parseInt(id,10));
 /*

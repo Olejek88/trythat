@@ -1,14 +1,11 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import WishListPopItem from "../WishList/WishListPopItem";
 import {inject} from "mobx-react/index";
 import {action} from "mobx/lib/mobx";
 
-@inject('activityStore', 'activityListingStore', 'wishListStore', 'userStore')
-@observer
 class PopWish extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             updated: false,
             wishList: 'Список желаний пуст'
@@ -79,4 +76,4 @@ class PopWish extends React.Component {
     }
 }
 
-export default PopWish;
+export default inject('activityStore', 'activityListingStore', 'wishListStore', 'userStore')(PopWish);

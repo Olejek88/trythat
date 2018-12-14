@@ -1,16 +1,14 @@
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import {inject} from 'mobx-react';
 import ExperienceMini from "../Experience/ExperienceMini";
 import {action} from "mobx/lib/mobx";
 import luminaryStore from "../../stores/luminaryStore";
 import {Link} from "react-router-dom";
 import FollowButton from "../Components/FollowButton";
 
-@inject('activityStore','commonStore', 'followListStore', 'customerStore', 'userStore')
-@observer
 class ActivityAboutLuminary extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             updated: false,
@@ -140,4 +138,4 @@ class ActivityAboutLuminary extends React.Component {
     }
 }
 
-export default ActivityAboutLuminary;
+export default inject('activityStore','commonStore', 'followListStore', 'customerStore', 'userStore')(ActivityAboutLuminary);

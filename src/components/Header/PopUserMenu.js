@@ -1,9 +1,6 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import {inject} from "mobx-react/index";
 
-@inject('authStore')
-@observer
 class PopWish extends React.Component {
     handleClickLogout = () =>
         this.props.authStore.logout()
@@ -61,4 +58,4 @@ class PopWish extends React.Component {
     }
 }
 
-export default PopWish;
+export default inject('authStore')(PopWish);

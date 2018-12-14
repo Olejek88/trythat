@@ -1,11 +1,9 @@
 import ActivityView from './ActivityView';
 import React from 'react';
-import {withRouter} from 'react-router-dom';
 
-@withRouter
-export default class Activities extends React.Component {
-    constructor() {
-        super();
+class Activities extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             filter: '',
             id: 0
@@ -36,3 +34,4 @@ export default class Activities extends React.Component {
         );
     }
 }
+export default Activities;

@@ -1,8 +1,6 @@
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import {inject} from 'mobx-react';
 
-@inject('wishListStore', 'commonStore' , 'userStore')
-@observer
 class WishListItem extends React.Component {
     constructor() {
         super();
@@ -65,4 +63,4 @@ class WishListItem extends React.Component {
     }
 }
 
-export default WishListItem;
+export default inject('wishListStore', 'commonStore' , 'userStore')(WishListItem);

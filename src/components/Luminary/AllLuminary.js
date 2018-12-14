@@ -4,11 +4,9 @@ import LuminaryItem from "./LuminaryItem";
 import {inject} from "mobx-react/index";
 import LuminaryRow from "./LuminaryRow";
 
-@inject('luminaryStore', 'commonStore')
-@withRouter
-export default class AllLuminary extends React.Component {
-    constructor() {
-        super();
+class AllLuminary extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             luminaryRows: [],
             updated: false
@@ -55,3 +53,5 @@ export default class AllLuminary extends React.Component {
         )
     }
 }
+
+export default inject('luminaryStore', 'commonStore')(withRouter(AllLuminary));

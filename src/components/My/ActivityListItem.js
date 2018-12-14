@@ -2,7 +2,6 @@ import React from 'react';
 import {inject} from "mobx-react/index";
 import Link from "react-router-dom/es/Link";
 
-@inject('activityStore','commonStore','activityListingStore')
 class ActivityListItem extends React.Component {
     constructor() {
         super();
@@ -71,4 +70,4 @@ class ActivityListItem extends React.Component {
     }
 }
 
-export default ActivityListItem;
+export default inject('activityStore','commonStore','activityListingStore')(ActivityListItem);

@@ -1,10 +1,8 @@
 import React from 'react';
-import {observer } from 'mobx-react';
 
-@observer
 class MenuItem extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             list: []
         };
@@ -27,4 +25,4 @@ class MenuItem extends React.Component {
     }
 }
 
-export default observer(MenuItem);
+export default MenuItem;

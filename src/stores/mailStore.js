@@ -1,4 +1,4 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from '../agent';
 import userStore from "./userStore";
 import mailStatusStore from "./mailStatusStore";
@@ -6,12 +6,12 @@ import activityStore from "./activityStore";
 
 export class MailStore {
 
-    @observable isLoading = false;
-    @observable page = 0;
-    @observable totalPagesCount = 0;
+     isLoading = false;
+     page = 0;
+     totalPagesCount = 0;
     mailRegistry = new Map();
-    @observable addMailErrors;
-    @observable predicate = {};
+     addMailErrors;
+     predicate = {};
 
     staticData =
         [{
@@ -45,7 +45,7 @@ export class MailStore {
             order: null
         }];
 
-    @action setPredicate(predicate) {
+     setPredicate(predicate) {
         if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
         this.clear();
         this.predicate = predicate;
@@ -57,7 +57,7 @@ export class MailStore {
         return agent.Mail.filter('from_user', userStore.currentUser.id, count, start);
     }
 
-    @action loadMails() {
+     loadMails() {
         this.isLoading = true;
         return this.$req()
             .then(action((mails) => {
@@ -77,7 +77,7 @@ export class MailStore {
         return this.mailRegistry.get(id);
     }
 
-    @action loadMail(id, {acceptCached = false} = {}) {
+     loadMail(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const mail = this.selectMail(id);
             if (mail) return Promise.resolve(mail);
@@ -101,7 +101,7 @@ export class MailStore {
         this.page = 0;
     }
 
-    @action createMail(mail) {
+     createMail(mail) {
         return agent.Mail.create(mail)
             .then(({mail}) => {
                 this.mailRegistry.set(mail.id, mail);
@@ -112,7 +112,7 @@ export class MailStore {
             }))
     }
 
-    @action deleteMail(id) {
+     deleteMail(id) {
         this.mailRegistry.delete(id);
         return agent.Mail.del(id)
             .catch(action(err => {

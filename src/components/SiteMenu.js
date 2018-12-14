@@ -2,7 +2,6 @@ import React from 'react';
 import Link from "react-router-dom/es/Link";
 import {inject} from "mobx-react/index";
 
-@inject('commonStore')
 class SiteMenu extends React.Component {
     render() {
         return (
@@ -73,4 +72,4 @@ class SiteMenu extends React.Component {
     }
 }
 
-export default SiteMenu;
+export default inject('commonStore')(SiteMenu);

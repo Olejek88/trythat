@@ -2,10 +2,9 @@ import React from 'react';
 import {inject} from 'mobx-react';
 import Experience from "./Experience";
 
-@inject('activityStore')
 class ExperienceRow extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             activitiesList: []
         };
@@ -33,4 +32,4 @@ class ExperienceRow extends React.Component {
     }
 }
 
-export default ExperienceRow;
+export default inject('activityStore')(ExperienceRow);

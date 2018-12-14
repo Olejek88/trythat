@@ -1,12 +1,10 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import ActivityStar from "./ActivityStar";
 import reviewStore from "../../stores/reviewStore";
 
-@observer
 class ActivityReview extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             review: reviewStore.staticData,
             updated: false

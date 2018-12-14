@@ -2,12 +2,12 @@ import {action, observable} from 'mobx';
 import agent from '../agent';
 
 class CurrencyStore {
-    @observable isLoading = false;
-    @observable currencyRegistry = observable.map();
+     isLoading = false;
+     currencyRegistry = observable.map();
 
     defaultData = {id: 1, title: 'р.'};
 
-    @action loadCurrencies() {
+     loadCurrencies() {
         this.isLoading = true;
         return agent.Currency.all()
             .then(action(({ currencies}) => {
@@ -22,7 +22,7 @@ class CurrencyStore {
         //return this.testData;
     }
 
-    @action loadCurrency(id, {acceptCached = false} = {}) {
+     loadCurrency(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const currency = this.currencyRegistry.get(id);
             if (currency) return Promise.resolve(currency);

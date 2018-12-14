@@ -1,10 +1,9 @@
 import React from 'react';
 import {inject} from "mobx-react/index";
 
-@inject('activityStore', 'followListStore', 'customerStore', 'userStore')
-export default class FollowButton extends React.Component {
-    constructor() {
-        super();
+class FollowButton extends React.Component {
+    constructor(props) {
+        super(props);
 
         this.state = {
             followClass: "follow following  wide  button primaryButton",
@@ -71,3 +70,4 @@ export default class FollowButton extends React.Component {
         );
     }
 }
+export default inject('activityStore', 'followListStore', 'customerStore', 'userStore')(FollowButton);

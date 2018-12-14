@@ -1,11 +1,9 @@
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import {inject} from 'mobx-react';
 
-@inject('commonStore')
-@observer
 class LuminaryRow extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             luminaryRow: []
         };
@@ -28,4 +26,4 @@ class LuminaryRow extends React.Component {
     }
 }
 
-export default LuminaryRow;
+export default inject('commonStore')(LuminaryRow);

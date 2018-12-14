@@ -1,4 +1,4 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from '../agent';
 import imageStore from "./imageStore";
 import luminaryStore from "./luminaryStore";
@@ -9,10 +9,10 @@ import durationStore from "./durationStore";
 import locationStore from "./locationStore";
 
 export class ActivityStore {
-    @observable isLoading = false;
+    isLoading = false;
     activitiesRegistry = new Map();
-    @observable addActivityErrors;
-    @observable predicate = {};
+    addActivityErrors;
+    predicate = {};
 
     defaultData =
         {
@@ -43,7 +43,7 @@ export class ActivityStore {
         return this.activitiesRegistry.get(id);
     }
 
-    @action setPredicate(predicate) {
+    setPredicate(predicate) {
         if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
         this.clear();
         this.predicate = predicate;
@@ -55,7 +55,7 @@ export class ActivityStore {
         return agent.Activities.all(count, start);
     }
 
-    @action loadActivities() {
+    loadActivities() {
         this.isLoading = true;
         return this.$req()
             .then(action((activities) => {
@@ -70,14 +70,14 @@ export class ActivityStore {
             }));
     }
 
-    @action loadLocalActivities() {
+     loadLocalActivities() {
         return this.$req()
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action loadActivity(id, {acceptCached = false} = {}) {
+     loadActivity(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const activity = this.getActivity(id);
             if (activity) return Promise.resolve(activity);
@@ -97,7 +97,7 @@ export class ActivityStore {
             }));
     }
 
-    @action isFavorite(activity_id, customer_id) {
+     isFavorite(activity_id, customer_id) {
         agent.Activities.isFavorite(activity_id, customer_id)
             .catch(action(err => {
                 throw err;
@@ -105,21 +105,21 @@ export class ActivityStore {
         return (Math.random() > 0.8);
     }
 
-    @action makeFavorite(activity_id, customer_id) {
+     makeFavorite(activity_id, customer_id) {
         agent.Activities.favorite(activity_id, customer_id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action unmakeFavorite(activity_id, customer_id) {
+     unmakeFavorite(activity_id, customer_id) {
         agent.Activities.unFavorite(activity_id, customer_id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action createActivity(activity) {
+     createActivity(activity) {
         return agent.Activities.create(activity)
             .then(action((activity) => {
                 console.log(activity);
@@ -131,7 +131,7 @@ export class ActivityStore {
             }));
     }
 
-    @action updateActivity(activity) {
+     updateActivity(activity) {
         return agent.Activities.update(activity)
             .then(({activity}) => {
                 this.activitiesRegistry.set(activity.id, activity);
@@ -142,7 +142,7 @@ export class ActivityStore {
             }))
     }
 
-    @action deleteActivity(activity) {
+     deleteActivity(activity) {
         this.activitiesRegistry.delete(activity.id);
         return agent.Activities.del(activity.id)
             .catch(action(err => {

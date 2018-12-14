@@ -2,10 +2,9 @@ import React from 'react';
 import {inject} from "mobx-react/index";
 import Link from "react-router-dom/es/Link";
 
-@inject('activityListingStore', 'activityStore', 'commonStore', 'userStore', 'wishListStore')
 class Experience extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             favored: false,
             favoredClass: "heart_img",
@@ -147,4 +146,4 @@ class Experience extends React.Component {
     }
 }
 
-export default Experience;
+export default inject('activityListingStore', 'activityStore', 'commonStore', 'userStore', 'wishListStore')(Experience);

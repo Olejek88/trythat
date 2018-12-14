@@ -4,10 +4,10 @@ import activityStore from "./activityStore";
 import customerStore from "./customerStore";
 
 class WishListStore {
-    @observable isLoading = false;
+     isLoading = false;
     wishListRegistry = new Map();
 
-    @observable staticData = [
+     staticData = [
         {
             _id: '1',
             activity: activityStore.loadActivity(1),
@@ -16,7 +16,7 @@ class WishListStore {
         },
     ];
 
-    @action loadWishList(customer) {
+     loadWishList(customer) {
         return agent.WishList.forCustomer(customer.id)
             .then(action((activities) => {
                 this.wishListRegistry.clear();
@@ -29,21 +29,21 @@ class WishListStore {
             }));
     }
 
-    @action isWished(customer, activity) {
+     isWished(customer, activity) {
         return agent.WishList.isWished(customer, activity)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action wish(wish) {
+     wish(wish) {
         return agent.WishList.wish(wish)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action unWish(wish) {
+     unWish(wish) {
         return agent.WishList.unWish(wish.id)
             .catch(action(err => {
                 throw err;

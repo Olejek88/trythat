@@ -3,8 +3,6 @@ import {withRouter} from "react-router-dom";
 import mailStatusStore from "../../stores/mailStatusStore";
 import {inject} from "mobx-react/index";
 
-@inject('userStore', 'mailStore', 'commonStore')
-@withRouter
 class AnswerDialog extends React.Component {
     constructor() {
         super();
@@ -104,4 +102,4 @@ class AnswerDialog extends React.Component {
     }
 }
 
-export default AnswerDialog;
+export default inject('userStore', 'mailStore', 'commonStore')(withRouter(AnswerDialog));

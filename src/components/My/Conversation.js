@@ -1,17 +1,14 @@
 import React from 'react';
 import {inject} from 'mobx-react';
-import {withRouter} from 'react-router-dom';
 import MyMenu from "./MyMenu";
 import MailListItem from "./MailListItem";
 import EmptyMailBox from "./EmptyMailBox";
 import Redirect from "react-router-dom/es/Redirect";
 import {action} from "mobx/lib/mobx";
 
-@withRouter
-@inject('userStore', 'mailStore', 'activityStore')
-export default class Conversation extends React.Component {
-    constructor() {
-        super();
+class Conversation extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             search: '',
             mails: [],
@@ -150,3 +147,4 @@ export default class Conversation extends React.Component {
         );
     }
 }
+export default inject('userStore', 'mailStore', 'activityStore')(Conversation);

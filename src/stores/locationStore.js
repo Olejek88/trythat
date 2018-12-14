@@ -4,8 +4,8 @@ import imageStore from "./imageStore";
 import cityStore from "./cityStore";
 
 class LocationStore {
-    @observable currentLocation;
-    @observable isLoading = false;
+     currentLocation;
+     isLoading = false;
     locationsRegistry = new Map();
 
     testData = {
@@ -21,7 +21,7 @@ class LocationStore {
         return this.locationsRegistry.get(id);
     }
 
-    @action loadLocation(id, { acceptCached = false } = {}) {
+     loadLocation(id, { acceptCached = false } = {}) {
         if (acceptCached) {
             const location = this.getLocation(id);
             if (location) return Promise.resolve(location);
@@ -37,7 +37,7 @@ class LocationStore {
             }));
     }
 
-    @action loadLocations() {
+     loadLocations() {
         this.isLoading = true;
         return agent.Locations.all()
             .then(action((locations) => {
@@ -50,7 +50,7 @@ class LocationStore {
             }));
     }
 
-    @action createLocation(location) {
+     createLocation(location) {
         return agent.Locations.create(location)
             .then((location) => {
                 this.locationsRegistry.set(location.id, location);

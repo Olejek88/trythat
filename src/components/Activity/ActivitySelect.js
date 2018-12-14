@@ -1,16 +1,13 @@
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import {inject} from 'mobx-react';
 import Select from 'react-select';
 import QuestionDialog from "../Orders/QuestionDialog";
 import {Link} from "react-router-dom";
 import moment from "moment";
 
-@inject('activityStore', 'activityListingStore', 'orderStatusStore', 'customerStore',
-    'orderStore', 'userStore', 'luminaryStore', 'wishListStore')
-@observer
 class ActivitySelect extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             customersError: false,
             durationError: false,
@@ -380,4 +377,5 @@ class ActivitySelect extends React.Component {
     }
 }
 
-export default ActivitySelect;
+export default inject('activityStore', 'activityListingStore', 'orderStatusStore', 'customerStore',
+    'orderStore', 'userStore', 'luminaryStore', 'wishListStore')(ActivitySelect);

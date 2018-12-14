@@ -18,9 +18,9 @@ export class UserStore {
             country_id: 0,
             password: ''
         };
-    @observable loadingUser;
-    @observable updatingUser;
-    @observable updatingUserErrors;
+     loadingUser;
+     updatingUser;
+     updatingUserErrors;
 
     testData =
         {   id: '0',
@@ -56,11 +56,11 @@ export class UserStore {
     currentCustomer = this.customer;
     currentLuminary = this.luminary;
 
-    @action getUser() {
+     getUser() {
         return this.currentUser;
     }
 
-    @action pullUser() {
+     pullUser() {
         this.loadingUser = true;
         let user_id = window.localStorage.getItem('user_id');
         if (user_id===undefined || user_id==='null' || user_id===null)
@@ -100,7 +100,7 @@ export class UserStore {
             }));
     }
 
-    @action updateUser(newUser) {
+     updateUser(newUser) {
         this.updatingUser = true;
         console.log(newUser);
         return agent.Auth.save(newUser,newUser.id)
@@ -113,7 +113,7 @@ export class UserStore {
             }));
     }
 
-    @action changeUserPassword(user, password, repeatPassword, newPassword) {
+     changeUserPassword(user, password, repeatPassword, newPassword) {
         this.updatingUser = true;
         if (password.toString() === repeatPassword.toString()) {
             return agent.Auth.password(user, password, newPassword)
@@ -127,11 +127,11 @@ export class UserStore {
         }
     }
 
-    @action forgetUser() {
+     forgetUser() {
         this.currentUser = undefined;
     }
 
-    @action getCustomerByUser(user_id) {
+     getCustomerByUser(user_id) {
         return agent.Customer.get(user_id)
             .then(action((customer) => {
                 this.currentCustomer = customer[0];
@@ -145,7 +145,7 @@ export class UserStore {
             }));
     }
 
-    @action getLuminaryByUser(user_id) {
+     getLuminaryByUser(user_id) {
         return agent.Luminary.get(user_id)
             .then(action((luminary) => {
                 this.currentLuminary = luminary[0];

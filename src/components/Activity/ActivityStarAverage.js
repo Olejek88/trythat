@@ -1,7 +1,5 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 
-@observer
 class ActivityStarAverage extends React.Component {
     static getStarImg (filled) {
         if (filled===1) return 'images/icon_star_filled_green.png';

@@ -2,20 +2,20 @@ import {action, observable} from 'mobx';
 import agent from '../agent';
 
 class CountryStore {
-    @observable currentCountry;
-    @observable isLoading = false;
-    @observable countryRegistry = observable.map();
+     currentCountry;
+     isLoading = false;
+     countryRegistry = observable.map();
 
     defaultData = {_id: 1, title: 'Россия'};
 
     /*
-    @observable staticData = [{_id: 1, title: 'Россия'}];
+     staticData = [{_id: 1, title: 'Россия'}];
     @computed get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.title, value: x._id }))
     };
 */
 
-    @action loadCountries() {
+     loadCountries() {
         this.isLoading = true;
         return agent.Country.all()
             .then(action(( countries) => {
@@ -29,7 +29,7 @@ class CountryStore {
             }));
     }
 
-    @action loadCountry(id, {acceptCached = false} = {}) {
+     loadCountry(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const country = this.countryRegistry.get(id);
             if (country) return Promise.resolve(country);

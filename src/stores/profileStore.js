@@ -3,20 +3,20 @@ import agent from '../agent';
 
 class ProfileStore {
 
-  @observable profile = undefined;
-  @observable currentProfile;
-  @observable loadingProfile;
-  @observable updatingProfile;
-  @observable updatingProfileErrors;
+   profile = undefined;
+   currentProfile;
+   loadingProfile;
+   updatingProfile;
+   updatingProfileErrors;
 
-  @action loadProfile(username) {
+   loadProfile(username) {
     this.loadingProfile = true;
     agent.Profile.get(username)
       .then(action(({ profile }) => { this.profile = profile; }))
       .finally(action(() => { this.loadingProfile = false; }))
   }
 
-  @action follow() {
+   follow() {
     if (this.profile && !this.profile.following) {
       this.profile.following = true;
       agent.Profile.follow(this.profile.username)
@@ -24,7 +24,7 @@ class ProfileStore {
     }
   }
 
-  @action unfollow() {
+   unfollow() {
     if (this.profile && this.profile.following) {
       this.profile.following = false;
       agent.Profile.unfollow(this.profile.username)
@@ -32,7 +32,7 @@ class ProfileStore {
     }
   }
 
-    @action updateProfile(profile) {
+     updateProfile(profile) {
         this.updatingProfile = true;
         return agent.Auth.save(profile)
             .then(action(({ user }) => { this.currentUser = user; }))

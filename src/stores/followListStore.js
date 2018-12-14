@@ -4,7 +4,7 @@ import luminaryStore from "./luminaryStore";
 import customerStore from "./customerStore";
 
 class FollowListStore {
-    @observable isLoading = false;
+     isLoading = false;
     followListRegistry = new Map();
 
     staticData = [
@@ -15,7 +15,7 @@ class FollowListStore {
         },
     ];
 
-    @action loadFollowList(customer) {
+     loadFollowList(customer) {
         this.isLoading = true;
         return agent.FollowList.get(customer.id)
             .finally(action(() => { this.isLoading = false; }))
@@ -25,21 +25,21 @@ class FollowListStore {
     }
 
 
-    @action isFollow(customer, luminary) {
+     isFollow(customer, luminary) {
         return agent.FollowList.isFollow(customer.id, luminary.id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action follow(follow) {
+     follow(follow) {
         return agent.FollowList.follow(follow)
             .catch(action(err => {
                 throw err;
             }))
     }
 
-    @action unFollow(id) {
+     unFollow(id) {
         return agent.FollowList.unFollow(id)
             .catch(action(err => {
                 throw err;

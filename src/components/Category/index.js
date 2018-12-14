@@ -1,13 +1,9 @@
 import React from 'react';
-import {inject, observer} from 'mobx-react';
-import {withRouter} from 'react-router-dom';
+import {inject} from 'mobx-react';
 import Experiences from "./Experiences";
 import Banner from "./Banner";
 
-@inject('commonStore')
-@observer
-@withRouter
-export default class Category extends React.Component {
+class Category extends React.Component {
     componentDidMount() {
         this.props.commonStore.loadTags();
     }
@@ -23,3 +19,4 @@ export default class Category extends React.Component {
         );
     }
 }
+export default inject('commonStore')(Category);

@@ -1,10 +1,9 @@
 import React from 'react';
 import {inject} from 'mobx-react';
 
-@inject('cityStore', 'activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')
 class FooterCategories extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             loadComplete: true
         };
@@ -65,10 +64,6 @@ class FooterCategories extends React.Component {
                 }
                 this.setState ({loadComplete: !this.state.loadComplete});
             });
-    }
-
-    componentDidUpdate() {
-        //console.log("componentDidUpdate");
     }
 
     render() {
@@ -160,4 +155,4 @@ class FooterCategories extends React.Component {
     }
 }
 
-export default FooterCategories;
+export default inject('cityStore', 'activityCategoryStore', 'categoryStore', 'occasionStore', 'trendingStore')(FooterCategories);

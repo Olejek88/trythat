@@ -2,7 +2,6 @@ import React from 'react';
 import {inject} from "mobx-react/index";
 import ActivityPhotoDiv from "./ActivityPhotoDiv";
 
-@inject('activityStore')
 class ActivityPhoto extends React.Component {
     constructor() {
         super();
@@ -60,4 +59,4 @@ class ActivityPhoto extends React.Component {
     }
 }
 
-export default ActivityPhoto;
+export default inject('activityStore')(ActivityPhoto);

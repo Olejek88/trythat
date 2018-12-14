@@ -4,10 +4,9 @@ import QuestionDialog from "./QuestionDialog";
 import {Redirect} from "react-router-dom";
 import ReviewDialog from "./ReviewDialog";
 
-@inject('orderStore','wishListStore','userStore','commonStore')
 class OrderListItem extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.onClick = this.onClick.bind(this);
         this.showReview = this.showReview.bind(this);
 
@@ -210,4 +209,4 @@ class OrderListItem extends React.Component {
     }
 }
 
-export default OrderListItem;
+export default inject('orderStore','wishListStore','userStore','commonStore')(OrderListItem);

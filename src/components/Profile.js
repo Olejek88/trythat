@@ -1,8 +1,8 @@
 import React from 'react';
 import LoadingSpinner from './Elements/LoadingSpinner';
 import RedError from './Elements/RedError';
-import {NavLink, Link, withRouter} from 'react-router-dom';
-import {inject, observer} from 'mobx-react';
+import {NavLink, Link} from 'react-router-dom';
+import {inject} from 'mobx-react';
 
 const EditProfileSettings = props => {
     if (props.isUser) {
@@ -50,11 +50,7 @@ const FollowUserButton = props => {
     );
 };
 
-
-@inject('activityStore', 'profileStore', 'userStore')
-@withRouter
-@observer
-export default class Profile extends React.Component {
+class Profile extends React.Component {
     componentWillMount() {
         this.props.activityStore.setPredicate(this.getPredicate());
     }
@@ -173,4 +169,4 @@ export default class Profile extends React.Component {
     }
 }
 
-export {Profile};
+export default inject('activityStore', 'profileStore', 'userStore')(Profile);

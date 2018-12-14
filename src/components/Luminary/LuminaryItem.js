@@ -1,12 +1,10 @@
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import {inject} from 'mobx-react';
 import FollowButton from "../Components/FollowButton";
 
-@inject('commonStore')
-@observer
 class LuminaryItem extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {};
     }
 
@@ -43,4 +41,4 @@ class LuminaryItem extends React.Component {
     }
 }
 
-export default LuminaryItem;
+export default inject('commonStore')(LuminaryItem);

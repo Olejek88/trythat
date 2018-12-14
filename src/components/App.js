@@ -1,11 +1,10 @@
 import Header from './Header/Header';
 import React from 'react';
 import {Switch, Route, withRouter} from 'react-router-dom';
-import {inject, observer} from 'mobx-react';
+import {inject} from 'mobx-react';
 import PrivateRoute from './PrivateRoute';
 
 import Activity from './Activity';
-import Editor from './Editor';
 import Home from './Home';
 import Login from './Login';
 import Profile from './Profile';
@@ -31,9 +30,6 @@ import TermsLuminary from "./About/TermsLuminary";
 import TermsCustomers from "./About/TermsCustomer";
 import Privacy from "./About/Privacy";
 
-@inject('userStore', 'commonStore', 'activityStore', 'locationStore')
-@withRouter
-@observer
 class App extends React.Component {
 
     componentWillMount() {
@@ -60,7 +56,6 @@ class App extends React.Component {
                         <Route path="/cart/checkout" component={Checkout}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/register" component={Register}/>
-                        <Route path="/editor/:slug?" component={Editor}/>
                         <PrivateRoute path="/settings" component={Settings}/>
                         <Route path="/@:username" component={Profile}/>
                         <Route path="/@:username/favorites" component={Profile}/>
@@ -100,4 +95,4 @@ class App extends React.Component {
         );
     }
 }
-export default App;
+export default inject('userStore', 'commonStore', 'activityStore', 'locationStore')(withRouter(App));

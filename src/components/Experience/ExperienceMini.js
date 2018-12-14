@@ -1,12 +1,10 @@
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import {inject} from 'mobx-react';
 import Link from "react-router-dom/es/Link";
 
-@inject('activityListingStore', 'activityStore', 'commonStore', 'userStore', 'wishListStore')
-@observer
 class ExperienceMini extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             favored: false,
             favoredClass: "heart_img",
@@ -149,4 +147,4 @@ class ExperienceMini extends React.Component {
     }
 }
 
-export default ExperienceMini;
+export default inject('activityListingStore', 'activityStore', 'commonStore', 'userStore', 'wishListStore')(ExperienceMini);

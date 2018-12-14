@@ -1,5 +1,4 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import ActivityDescription from "./ActivityDescription";
 import ActivityPhoto from "./ActivityPhoto";
 import ActivitySelect from "./ActivitySelect";
@@ -7,16 +6,12 @@ import ActivityDetails from "./ActivityDetails";
 import ActivityHowItWorks from "./ActivityHowItWorks";
 import ActivityAboutLuminary from "./ActivityAboutLuminary";
 import ActivityYouMayLike from "./ActivityYouMayLike";
-import {withRouter} from "react-router-dom";
 import ActivityReviews from "./ActivityReviews";
 import {inject} from "mobx-react/index";
 
-@inject('activityStore','activityListingStore')
-@observer
-@withRouter
 class Activity extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             showActivityItem: true,
             activity: null
@@ -67,4 +62,4 @@ class Activity extends React.Component {
     }
 }
 
-export default Activity;
+export default inject('activityStore','activityListingStore')(Activity);

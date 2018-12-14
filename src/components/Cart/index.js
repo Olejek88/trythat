@@ -1,14 +1,11 @@
 import React from 'react';
 import {inject} from 'mobx-react';
-import {withRouter} from 'react-router-dom';
 import OrderListItem from "../Orders/OrderListItem";
 import {action} from "mobx/lib/mobx";
 
-@inject('orderStore')
-@withRouter
-export default class Cart extends React.Component {
-    constructor() {
-        super();
+class Cart extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             updated: false,
             count: 0,
@@ -133,3 +130,4 @@ export default class Cart extends React.Component {
         );
     }
 }
+export default inject('orderStore')(Cart);

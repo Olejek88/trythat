@@ -5,10 +5,9 @@ import AnswerDialog from "./AnswerDialog";
 import mailStore from "../../stores/mailStore";
 import {Redirect} from "react-router-dom";
 
-@inject('userStore', 'mailStore', 'commonStore')
 class MailListItem extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             open: false,
             showText: false,
@@ -154,4 +153,4 @@ class MailListItem extends React.Component {
     }
 }
 
-export default MailListItem;
+export default inject('userStore', 'mailStore', 'commonStore')(MailListItem);

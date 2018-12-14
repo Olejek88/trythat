@@ -3,11 +3,9 @@ import Link from "react-router-dom/es/Link";
 import {inject} from "mobx-react/index";
 import {withRouter} from "react-router-dom";
 
-@inject('userStore')
-@withRouter
 class MyMenu extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             luminary: '',
         };
@@ -107,4 +105,4 @@ class MyMenu extends React.Component {
     }
 }
 
-export default MyMenu;
+export default inject('userStore')(withRouter(MyMenu));

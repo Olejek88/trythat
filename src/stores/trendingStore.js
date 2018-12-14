@@ -1,21 +1,20 @@
 import {action, observable} from 'mobx';
-import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
 class TrendingStore {
     trendingRegistry = new Map();
-    @observable isLoading = true;
+    isLoading = true;
 
-    @observable staticData = [
+     staticData = [
         {id: 1, label: 'Недорогие'},
         {id: 2, label: 'Новые'},
         {id: 3, label: 'Популярные'}
     ];
-    @computed get staticDataOptions() {
+    get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))
     };
 
-    @action loadTrends() {
+     loadTrends() {
         this.isLoading = true;
         return agent.Trending.all()
             .then(action((categories) => {
@@ -30,7 +29,7 @@ class TrendingStore {
         //return this.staticDataOptions;
     }
 
-    @action loadTrending(id) {
+     loadTrending(id) {
         if (this.trendingRegistry.size>0)
             return this.trendingRegistry.get(parseInt(id,10));
         this.isLoading = true;

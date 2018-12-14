@@ -1,9 +1,6 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import {inject} from "mobx-react/index";
 
-@inject('commonStore')
-@observer
 class WishListPopItem extends React.Component {
     render() {
         const activity = this.props.activity;
@@ -31,4 +28,4 @@ class WishListPopItem extends React.Component {
     }
 }
 
-export default WishListPopItem;
+export default inject('commonStore')(WishListPopItem);

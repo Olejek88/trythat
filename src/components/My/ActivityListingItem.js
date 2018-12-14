@@ -2,10 +2,9 @@ import React from 'react';
 import {inject} from "mobx-react/index";
 import Select from 'react-select';
 
-@inject('activityStore', 'activityListingStore', 'durationStore', 'commonStore')
 class ActivityListingItem extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.activity = '';
         this.activity_listing = '';
         this.save_activity_listing = {};
@@ -192,4 +191,4 @@ class ActivityListingItem extends React.Component {
     }
 }
 
-export default ActivityListingItem;
+export default inject('activityStore', 'activityListingStore', 'durationStore', 'commonStore')(ActivityListingItem);

@@ -1,10 +1,8 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 
-@observer
 class ActivityDescription extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             updated: false,
             activity: {

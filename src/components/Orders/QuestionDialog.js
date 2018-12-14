@@ -2,8 +2,6 @@ import React from 'react';
 import {withRouter} from "react-router-dom";
 import {inject} from "mobx-react/index";
 
-@inject('commonStore')
-@withRouter
 class QuestionDialog extends React.Component {
     constructor() {
         super();
@@ -87,4 +85,4 @@ class QuestionDialog extends React.Component {
     }
 }
 
-export default QuestionDialog;
+export default inject('commonStore')(withRouter(QuestionDialog));

@@ -1,12 +1,10 @@
 import {Link} from 'react-router-dom';
 import ListErrors from './ListErrors';
 import React from 'react';
-import {inject, observer} from 'mobx-react';
+import {inject} from 'mobx-react';
 import {action} from "mobx/lib/mobx";
 
-@inject('authStore')
-@observer
-export default class Login extends React.Component {
+class Login extends React.Component {
 
     componentWillUnmount() {
         this.props.authStore.reset();
@@ -82,3 +80,4 @@ export default class Login extends React.Component {
         );
     }
 }
+export default inject('authStore')(Login);

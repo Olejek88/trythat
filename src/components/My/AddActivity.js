@@ -1,6 +1,6 @@
 import React from 'react';
 import ListErrors from '../ListErrors';
-import {observer, inject} from 'mobx-react';
+import {inject} from 'mobx-react';
 import {withRouter} from "react-router-dom";
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css'
@@ -20,13 +20,9 @@ import {action} from "mobx/lib/mobx";
 import {Redirect} from "react-router-dom";
 import AddListingDialog from "./AddLIstingDialog";
 
-@inject('activityCategoryStore', 'activityListingStore', 'activityStore', 'categoryStore', 'occasionStore', 'cityStore',
-    'trendingStore', 'tagStore', 'userStore', 'activityImageStore', 'commonStore', 'imageStore', 'locationStore')
-@observer
-@withRouter
 class AddActivity extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.minCustomers = 1;
         this.maxCustomers = 20;
         this.errors = [];
@@ -768,5 +764,5 @@ class AddActivity extends React.Component {
         );
     }
 }
-
-export default AddActivity;
+export default inject('activityCategoryStore', 'activityListingStore', 'activityStore', 'categoryStore', 'occasionStore', 'cityStore',
+    'trendingStore', 'tagStore', 'userStore', 'activityImageStore', 'commonStore', 'imageStore', 'locationStore')(withRouter(AddActivity));

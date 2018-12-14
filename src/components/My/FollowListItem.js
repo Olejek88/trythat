@@ -2,7 +2,6 @@ import React from 'react';
 import {inject} from "mobx-react/index";
 import FollowButton from "../Components/FollowButton";
 
-@inject('followListStore','userStore','customerStore','commonStore')
 class FollowListItem extends React.Component {
 
     render() {
@@ -35,4 +34,4 @@ class FollowListItem extends React.Component {
     }
 }
 
-export default FollowListItem;
+export default inject('followListStore','userStore','customerStore','commonStore')(FollowListItem);

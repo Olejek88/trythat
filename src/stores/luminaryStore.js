@@ -3,9 +3,9 @@ import agent from '../agent';
 import userStore from "./userStore";
 
 class LuminaryStore {
-    @observable luminaryErrors;
-    @observable updatingLuminary;
-    @observable updatingLuminaryErrors;
+     luminaryErrors;
+     updatingLuminary;
+     updatingLuminaryErrors;
 
     luminary =
         {   id: '888888',
@@ -17,21 +17,21 @@ class LuminaryStore {
             user: userStore.testData
         };
 
-    @action getLuminary(luminary_id) {
+     getLuminary(luminary_id) {
         return agent.Luminary.get(luminary_id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action getLuminaries() {
+     getLuminaries() {
         return agent.Luminary.all()
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action createLuminary(luminary) {
+     createLuminary(luminary) {
         return agent.Luminary
             .create(luminary)
             .catch(action(err => {
@@ -39,7 +39,7 @@ class LuminaryStore {
             }));
     }
 
-    @action updateLuminary(luminary) {
+     updateLuminary(luminary) {
         console.log(luminary);
         return agent.Luminary.update(luminary)
             .catch(action(err => {

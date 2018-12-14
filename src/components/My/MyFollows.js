@@ -4,11 +4,9 @@ import {withRouter} from 'react-router-dom';
 import MyMenu from "./MyMenu";
 import FollowListItem from "./FollowListItem";
 
-@inject('userStore', 'followListStore')
-@withRouter
-export default class MyFollows extends React.Component {
-    constructor() {
-        super();
+class MyFollows extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             followsRows: [],
             updated: false
@@ -70,3 +68,4 @@ export default class MyFollows extends React.Component {
         );
     }
 }
+export default inject('userStore', 'followListStore')(withRouter(MyFollows));

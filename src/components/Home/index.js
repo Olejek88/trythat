@@ -2,8 +2,7 @@ import MainView from './MainView';
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 
-@withRouter
-export default class Home extends React.Component {
+class Home extends React.Component {
     render() {
         return (
             <div className="home-page" style={{
@@ -17,3 +16,4 @@ export default class Home extends React.Component {
         );
     }
 }
+export default withRouter(Home);

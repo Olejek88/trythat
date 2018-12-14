@@ -1,8 +1,6 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 import ActivityStarAverage from "./ActivityStarAverage";
 
-@observer
 class ActivityStar extends React.Component {
   render() {
       const rate = this.props.rate;

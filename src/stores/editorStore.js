@@ -3,23 +3,23 @@ import activityStore from "./activityStore";
 
 class EditorStore {
 
-  @observable inProgress = false;
-  @observable errors = undefined;
-  @observable activitySlug = undefined;
+   inProgress = false;
+   errors = undefined;
+   activitySlug = undefined;
 
-  @observable title = '';
-  @observable description = '';
-  @observable body = '';
-  @observable tagList = [];
+   title = '';
+   description = '';
+   body = '';
+   tagList = [];
 
-  @action setActivitySlug(activitySlug) {
+   setActivitySlug(activitySlug) {
     if (this.activitySlug !== activitySlug) {
       this.reset();
       this.activitySlug = activitySlug;
     }
   }
 
-  @action loadInitialData() {
+   loadInitialData() {
     if (!this.activitySlug) return Promise.resolve();
     this.inProgress = true;
     return activityStore.loadActivity(this.activitySlug, { acceptCached: true })
@@ -32,30 +32,30 @@ class EditorStore {
       .finally(action(() => { this.inProgress = false; }));
   }
 
-  @action reset() {
+   reset() {
     this.title = '';
     this.description = '';
     this.tagList = [];
   }
 
-  @action setTitle(title) {
+   setTitle(title) {
     this.title = title;
   }
 
-  @action setDescription(description) {
+   setDescription(description) {
     this.description = description;
   }
 
-  @action addTag(tag) {
+   addTag(tag) {
     if (this.tagList.includes(tag)) return;
     this.tagList.push(tag);
   }
 
-  @action removeTag(tag) {
+   removeTag(tag) {
     this.tagList = this.tagList.filter(t => t !== tag);
   }
 
-  @action submit() {
+   submit() {
     this.inProgress = true;
     this.errors = undefined;
     const activity = {

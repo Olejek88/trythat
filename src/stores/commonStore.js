@@ -3,14 +3,14 @@ import agent from '../agent';
 
 class CommonStore {
     ordersCount = window.localStorage.getItem('orders_count');
-    @observable appName = 'TryThat';
-    @observable apiServer = 'http://api.tt.ru/';
-    @observable token = window.localStorage.getItem('jwt');
-    @observable user_id = window.localStorage.getItem('user_id');
-    @observable appLoaded = false;
+     appName = 'TryThat';
+     apiServer = 'http://api.tt.ru/';
+     token = window.localStorage.getItem('jwt');
+     user_id = window.localStorage.getItem('user_id');
+     appLoaded = false;
 
-    @observable tags = [];
-    @observable isLoadingTags = false;
+     tags = [];
+     isLoadingTags = false;
 
     constructor() {
         reaction(
@@ -25,7 +25,7 @@ class CommonStore {
         );
     }
 
-    @action loadTags() {
+     loadTags() {
         this.isLoadingTags = true;
         return agent.Tags.getAll()
             .then(action(({tags}) => {
@@ -39,16 +39,16 @@ class CommonStore {
             }))
     }
 
-    @action setToken(token) {
+     setToken(token) {
         this.token = token;
     }
 
-    @action setId(id) {
+     setId(id) {
         this.user_id = id;
         window.localStorage.setItem('user_id', this.user_id);
     }
 
-    @action setAppLoaded() {
+     setAppLoaded() {
         this.appLoaded = true;
     }
 

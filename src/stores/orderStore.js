@@ -6,12 +6,12 @@ import customerStore from "./customerStore";
 
 export class OrderStore {
 
-    @observable isLoading = false;
-    @observable page = 0;
-    @observable totalPagesCount = 0;
+     isLoading = false;
+     page = 0;
+     totalPagesCount = 0;
     ordersRegistry = new Map();
-    @observable addOrderErrors;
-    @observable predicate = {};
+     addOrderErrors;
+     predicate = {};
 
     staticData =
         [{   _id: '1',
@@ -22,7 +22,7 @@ export class OrderStore {
             startDate: new Date()
         }];
 
-    @action setPredicate(predicate) {
+     setPredicate(predicate) {
         if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
         this.clear();
         this.predicate = predicate;
@@ -34,7 +34,7 @@ export class OrderStore {
         return agent.Order.all(count, start);
     }
 
-    @action loadOrders() {
+     loadOrders() {
         this.isLoading = true;
         return this.$req()
 /*
@@ -56,7 +56,7 @@ export class OrderStore {
         return this.ordersRegistry.get(id);
     }
 
-    @action loadOrder(id, {acceptCached = false} = {}) {
+     loadOrder(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const order = this.getOrder(id);
             if (order) return Promise.resolve(order);
@@ -80,7 +80,7 @@ export class OrderStore {
         this.page = 0;
     }
 
-    @action createOrder(order) {
+     createOrder(order) {
         return agent.Order.create(order)
             .finally((order) => {
                 this.ordersRegistry.set(order.id, order);
@@ -90,7 +90,7 @@ export class OrderStore {
             }))
     }
 
-    @action updateOrder(data) {
+     updateOrder(data) {
         return agent.Order.update(data)
             .then((order) => {
                 this.ordersRegistry.set(order.id, order);
@@ -100,7 +100,7 @@ export class OrderStore {
             }))
     }
 
-    @action deleteOrder(id) {
+     deleteOrder(id) {
         this.ordersRegistry.delete(id);
         return agent.Order.del(id)
             .catch(action(err => {

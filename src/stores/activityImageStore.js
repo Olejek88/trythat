@@ -3,13 +3,13 @@ import agent from '../agent';
 
 export class ActivityImageStore {
 
-    @action createImage(image) {
+    createImage(image) {
         return agent.ActivityImage.create(image)
             .then((image) => {
             });
     }
 
-    @action loadImages(activity_id) {
+    loadImages(activity_id) {
         this.isLoading = true;
         return agent.ActivityImage.all(activity_id)
             .finally(action(() => {
@@ -20,14 +20,14 @@ export class ActivityImageStore {
             }));
     }
 
-    @action deleteImage(image) {
+    deleteImage(image) {
         return agent.ActivityImage.del(image.id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action loadImage(id) {
+    loadImage(id) {
         this.isLoading = true;
         return agent.ActivityImage.get(id)
             .catch(action(err => {

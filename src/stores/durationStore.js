@@ -3,7 +3,7 @@ import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
 class DurationStore {
-    @observable isLoading = false;
+    isLoading = false;
     durationsRegistry = new Map();
 
     staticData = [
@@ -13,11 +13,11 @@ class DurationStore {
         {id: '4', period: '4 часа'}
     ];
 
-    @computed get staticDataOptions() {
+    get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x.id }))
     };
 
-    @action loadDurations() {
+     loadDurations() {
         this.isLoading = true;
 /*
         if (this.durationsRegistry.length>0)
@@ -37,7 +37,7 @@ class DurationStore {
             }));
     }
 
-    @action loadDuration(id, {acceptCached = false} = {}) {
+     loadDuration(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const duration = this.durationsRegistry.get(id);
             if (duration) return Promise.resolve(duration);

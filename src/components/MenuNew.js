@@ -1,11 +1,9 @@
 import React from 'react';
-import {inject, observer } from 'mobx-react';
+import {inject} from 'mobx-react';
 
-@inject('cityStore', 'categoryStore', 'activityCategoryStore', 'occasionStore', 'trendingStore')
-@observer
 class SiteMenu extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             loadComplete: true
         };
@@ -157,4 +155,4 @@ class SiteMenu extends React.Component {
     }
 }
 
-export default SiteMenu;
+export default inject('cityStore', 'categoryStore', 'activityCategoryStore', 'occasionStore', 'trendingStore')(SiteMenu);

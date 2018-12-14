@@ -1,14 +1,11 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import OrderListPopItem from "../Orders/OrderListPopItem";
 import {inject} from "mobx-react/index";
 import {action} from "mobx/lib/mobx";
 
-@inject('orderStore', 'commonStore')
-@observer
 class PopCart extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             updated: false,
             count: 0,
@@ -113,4 +110,4 @@ class PopCart extends React.Component {
     }
 }
 
-export default PopCart;
+export default inject('orderStore', 'commonStore')(PopCart);

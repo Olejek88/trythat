@@ -1,11 +1,11 @@
-import {action, computed, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from '../agent';
 import activityStore from "./activityStore";
 import currencyStore from "./currencyStore";
 import durationStore from "./durationStore";
 
 export class ActivityListingStore {
-    @observable isLoading = false;
+    isLoading = false;
     activityListingRegistry = new Map();
 
     defaultData =
@@ -40,7 +40,7 @@ export class ActivityListingStore {
         }];
 */
 
-    @action loadActivityListing(activity) {
+    loadActivityListing(activity) {
         this.activityListingRegistry.clear();
         return agent.ActivityListing.forActivity(activity.id)
             .catch(action(err => {
@@ -119,7 +119,7 @@ export class ActivityListingStore {
         return arrayCustomers;
     }
 
-    @computed get activities() {
+    get activities() {
         return this.activityListingRegistry.values();
     };
 
@@ -127,20 +127,20 @@ export class ActivityListingStore {
         this.activityListingRegistry.clear();
     }
 
-    @action setPredicate(predicate) {
+    setPredicate(predicate) {
         if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
         this.clear();
         this.predicate = predicate;
     }
 
-    @action createActivityListing(activity_listing) {
+    createActivityListing(activity_listing) {
         return agent.ActivityListing.create(activity_listing)
             .catch(action(err => {
                 throw err;
             }))
     }
 
-    @action updateActivityListing(activity_listing) {
+    updateActivityListing(activity_listing) {
         return agent.ActivityListing.update(activity_listing)
             .then((activity_listing) => {
                 this.activityListingRegistry.set(activity_listing.id, activity_listing);
@@ -151,7 +151,7 @@ export class ActivityListingStore {
             }))
     }
 
-    @action deleteActivityListing(activity_listing_id) {
+    deleteActivityListing(activity_listing_id) {
         this.activityListingRegistry.delete(activity_listing_id);
         return agent.ActivityListing.del(activity_listing_id)
             .catch(action(err => {

@@ -2,17 +2,17 @@ import {action, observable} from 'mobx';
 import agent from '../agent';
 
 export class ImageStore {
-    @observable loadingImage;
-    @observable isLoading = false;
-    @observable predicate = {};
+     loadingImage;
+     isLoading = false;
+     predicate = {};
 
-    @observable userImage = {
+     userImage = {
         _id: '3',
         title: 'Олег Иванов',
         path: 'files/luminary.jpg'
     };
 
-    @observable images = [
+     images = [
         {
             _id: '1',
             title: 'Путшествие к центру Земли',
@@ -25,7 +25,7 @@ export class ImageStore {
         }
     ];
 
-    @action setPredicate(predicate) {
+     setPredicate(predicate) {
         if (JSON.stringify(predicate) === JSON.stringify(this.predicate)) return;
         this.predicate = predicate;
     }
@@ -36,13 +36,13 @@ export class ImageStore {
         return agent.Image.all();
     }
 
-    @action createImage(image) {
+     createImage(image) {
         return agent.Image.create(image).catch(action(err => {
                 throw err;
             }));
     }
 
-    @action loadImages() {
+     loadImages() {
         this.isLoading = true;
         this.$req()
             .finally(action(() => {
@@ -55,14 +55,14 @@ export class ImageStore {
         return this.images;
     }
 
-    @action deleteImage(image) {
+     deleteImage(image) {
         return agent.Image.del(image._id)
             .catch(action(err => {
                 throw err;
             }));
     }
 
-    @action loadImage(id) {
+     loadImage(id) {
         this.isLoading = true;
         agent.Image.get(id)
             .catch(action(err => {

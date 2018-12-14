@@ -93,7 +93,6 @@ const LoggedInView = props => {
     return null;
 };
 
-@inject('userStore', 'commonStore', 'orderStore')
 class Header extends React.Component {
     render() {
         //const orders = this.props.orderStore.loadTestOrdersCount();
@@ -127,4 +126,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default inject('userStore', 'commonStore', 'orderStore')(Header);

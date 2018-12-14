@@ -3,11 +3,11 @@ import agent from "../agent";
 
 class CategoryStore {
     categoryRegistry = new Map();
-    @observable isLoading = true;
+     isLoading = true;
 
     defaultData = {id: 2, title: 'Туризм'};
 
-    @action loadCategories() {
+     loadCategories() {
         return agent.Categories.all()
             .then(action((categories) => {
                 this.categoryRegistry.clear();
@@ -20,7 +20,7 @@ class CategoryStore {
             }));
     }
 
-    @action loadCategory(id) {
+     loadCategory(id) {
         if (this.categoryRegistry.size>0) {
             return this.categoryRegistry.get(parseInt(id,10));
         }

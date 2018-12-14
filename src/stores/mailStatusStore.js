@@ -1,10 +1,9 @@
-import {action, observable} from 'mobx';
-import {computed} from "mobx/lib/mobx";
+import {action} from 'mobx';
 import agent from "../agent";
 
 class MailStatusStore {
-    @observable mailStatusRegistry = observable.map();
-    @observable isLoading = true;
+    mailStatusRegistry = new Map();
+    isLoading = true;
 
     staticData = [
         {_id: '1', title: 'Создано'},
@@ -13,11 +12,11 @@ class MailStatusStore {
         {_id: '4', title: 'Удалено'}
     ];
 
-    @computed get staticDataOptions() {
+    get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.title, value: x._id }))
     };
 
-    @action loadMailStatuses() {
+    loadMailStatuses() {
         agent.MailStatus.all()
             .then(action(({ statuses}) => {
                 this.mailStatusRegistry.clear();
@@ -31,7 +30,7 @@ class MailStatusStore {
         return this.staticDataOptions;
     }
 
-    @action loadMailStatus(id, {acceptCached = false} = {}) {
+     loadMailStatus(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const status = this.mailStatusRegistry.get(id);
             if (status) return Promise.resolve(status);

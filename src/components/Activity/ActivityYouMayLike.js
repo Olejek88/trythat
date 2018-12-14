@@ -1,10 +1,8 @@
 import React from 'react';
-import {observer, inject} from 'mobx-react';
+import {inject} from 'mobx-react';
 import activityStore from "../../stores/activityStore";
 import Experience from "../Experience/Experience";
 
-@inject('activityStore')
-@observer
 class ActivityYouMayLike extends React.Component {
     constructor() {
         super();
@@ -73,4 +71,4 @@ class ActivityYouMayLike extends React.Component {
         );
     }
 }
-export default ActivityYouMayLike;
+export default inject('activityStore')(ActivityYouMayLike);

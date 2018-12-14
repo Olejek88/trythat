@@ -1,37 +1,37 @@
-import {action, observable} from 'mobx';
+import {action} from 'mobx';
 import agent from '../agent';
 import userStore from './userStore';
 import commonStore from './commonStore';
 
 class AuthStore {
-    @observable inProgress = false;
-    @observable errors = undefined;
+     inProgress = false;
+     errors = undefined;
 
-    @observable values = {
+     values = {
         username: '',
         email: '',
         password: '',
     };
 
-    @action setUsername(username) {
+     setUsername(username) {
         this.values.username = username;
     }
 
-    @action setEmail(email) {
+     setEmail(email) {
         this.values.email = email;
     }
 
-    @action setPassword(password) {
+     setPassword(password) {
         this.values.password = password;
     }
 
-    @action reset() {
+     reset() {
         this.values.username = '';
         this.values.email = '';
         this.values.password = '';
     }
 
-    @action login() {
+     login() {
         this.inProgress = true;
         this.errors = undefined;
         return agent.Auth.login(this.values.email, this.values.password)
@@ -51,7 +51,7 @@ class AuthStore {
             }));
     }
 
-    @action register() {
+     register() {
         this.inProgress = true;
         this.errors = undefined;
         return agent.Auth.register(this.values.username, this.values.email, this.values.password)
@@ -66,7 +66,7 @@ class AuthStore {
             }));
     }
 
-    @action logout() {
+     logout() {
         commonStore.setToken(undefined);
         commonStore.setId(undefined);
         userStore.forgetUser();
@@ -74,7 +74,7 @@ class AuthStore {
         return Promise.resolve();
     }
 
-    @action current() {
+     current() {
         return Promise.resolve();
     }
 }

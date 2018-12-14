@@ -1,16 +1,12 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import {withRouter} from "react-router-dom";
 import {inject} from "mobx-react/index";
 import WishListItem from "./WishListItem";
 import {action} from "mobx/lib/mobx";
 
-@inject('activityStore', 'activityListingStore', 'wishListStore', 'userStore')
-@observer
-@withRouter
 class WishList extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             updated: 0,
             wishList: []
@@ -70,4 +66,4 @@ class WishList extends React.Component {
     }
 }
 
-export default WishList;
+export default inject('activityStore', 'activityListingStore', 'wishListStore', 'userStore')(withRouter(WishList));

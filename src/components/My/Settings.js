@@ -6,11 +6,9 @@ import {inject, observer} from 'mobx-react';
 import Select from 'react-select';
 import MyMenu from "./MyMenu";
 
-@inject('userStore', 'countryStore', 'cityStore', 'imageStore', 'commonStore')
-@observer
 class SettingsForm extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             id: '',
@@ -579,10 +577,9 @@ class SettingsForm extends React.Component {
         )
     }
 }
+//inject('userStore', 'countryStore', 'cityStore', 'imageStore', 'commonStore')(Settings);
 
-@inject('userStore', 'authStore')
-@observer
-@withRouter
+
 class Settings extends React.Component {
     render() {
         return (
@@ -622,5 +619,4 @@ class Settings extends React.Component {
         );
     }
 }
-
-export default Settings;
+export default inject('userStore', 'authStore')(withRouter(Settings));

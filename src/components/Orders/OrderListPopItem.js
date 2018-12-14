@@ -1,9 +1,6 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import {inject} from "mobx-react/index";
 
-@inject('activityImageStore', 'commonStore')
-@observer
 class OrderListPopItem extends React.Component {
     render() {
         const activity = this.props.activity;
@@ -56,4 +53,4 @@ class OrderListPopItem extends React.Component {
     }
 }
 
-export default OrderListPopItem;
+export default inject('activityImageStore', 'commonStore')(OrderListPopItem);

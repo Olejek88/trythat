@@ -3,11 +3,11 @@ import agent from '../agent';
 import userStore from "./userStore";
 
 class CustomerStore {
-    @observable customerErrors;
-    @observable updatingCustomer;
-    @observable updatingCustomerErrors;
+     customerErrors;
+     updatingCustomer;
+     updatingCustomerErrors;
 
-    @observable customer =
+     customer =
         {   id: '888888',
             user: userStore.getUser(),
             positive: 0,
@@ -15,7 +15,7 @@ class CustomerStore {
             active: true
         };
 
-    @action getCustomer(id) {
+     getCustomer(id) {
         this.customerErrors = undefined;
         return agent.Customer.get(id)
             .catch(action(err => {
@@ -23,7 +23,7 @@ class CustomerStore {
             }));
     }
 
-    @action createCustomer(customer) {
+     createCustomer(customer) {
         return agent.Customer
             .create(customer)
             .catch(action(err => {

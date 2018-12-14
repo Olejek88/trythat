@@ -4,11 +4,9 @@ import {withRouter} from 'react-router-dom'
 import ExperienceTitle from "../Experience/ExperienceTitle";
 import ExperienceRow from "../Experience/ExperienceRow";
 
-@inject('activityStore', 'activityCategoryStore', 'userStore', 'cityStore', 'categoryStore', 'trendingStore', 'occasionStore')
-@withRouter
-export default class ActivityView extends React.Component {
-    constructor() {
-        super();
+class ActivityView extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             activitiesRows: [],
             updated: false,
@@ -118,4 +116,5 @@ export default class ActivityView extends React.Component {
             </React.Fragment>
         );
     }
-};
+}
+export default inject('activityStore', 'activityCategoryStore', 'userStore', 'cityStore', 'categoryStore', 'trendingStore', 'occasionStore')(withRouter(ActivityView));

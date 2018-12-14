@@ -1,15 +1,12 @@
 import React from 'react';
-import {observer} from 'mobx-react';
 import ActivityStarAverage from "./ActivityStarAverage";
 import ActivityReview from "./ActivityReview";
 import {action} from "mobx/lib/mobx";
 import {inject} from "mobx-react/index";
 
-@inject('reviewStore')
-@observer
 class ActivityReviews extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             activity: null,
             updated: false,
@@ -85,4 +82,4 @@ class ActivityReviews extends React.Component {
     }
 }
 
-export default ActivityReviews;
+export default inject('reviewStore')(ActivityReviews);

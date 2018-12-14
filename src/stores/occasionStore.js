@@ -3,18 +3,18 @@ import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
 class OccasionStore {
-    @observable occasionRegistry = observable.map();
-    @observable isLoading = true;
+    occasionRegistry = observable.map();
+    isLoading = true;
 
-    @observable staticData = [
+     staticData = [
         {id: 1, label: 'На свадьбу'},
         {id: 2, label: 'Юбилей'}
     ];
-    @computed get staticDataOptions() {
+    get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.label, value: x._id }))
     };
 
-    @action loadOccasions() {
+    loadOccasions() {
         return agent.Occasions.all()
             .then(action((occasions) => {
                 this.occasionRegistry.clear();
@@ -28,7 +28,7 @@ class OccasionStore {
         //return this.staticDataOptions;
     }
 
-    @action loadOccasion(id) {
+    loadOccasion(id) {
         if (this.occasionRegistry.size>0)
             return this.occasionRegistry.get(parseInt(id,10));
         this.isLoading = true;

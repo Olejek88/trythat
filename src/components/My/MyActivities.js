@@ -1,16 +1,13 @@
 import React from 'react';
 import {inject} from 'mobx-react';
-import {withRouter} from 'react-router-dom';
 import ActivityListItem from "./ActivityListItem";
 import ActivityListingItem from "./ActivityListingItem";
 import MyMenu from "./MyMenu";
 import {action} from "mobx/lib/mobx";
 
-@withRouter
-@inject('userStore', 'activityStore', 'activityListingStore')
-export default class MyActivities extends React.Component {
-    constructor() {
-        super();
+class MyActivities extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             update: false,
             showSearch: true,
@@ -164,3 +161,4 @@ export default class MyActivities extends React.Component {
         );
     }
 }
+export default inject('userStore', 'activityStore', 'activityListingStore')(MyActivities);

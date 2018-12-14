@@ -1,16 +1,13 @@
 import React from 'react';
 import {inject} from 'mobx-react';
-import {withRouter} from 'react-router-dom'
 import ExperienceRow from "../Experience/ExperienceRow";
 import FollowButton from "../Components/FollowButton";
 import ActivityStarAverage from "../Activity/ActivityStarAverage";
 import Redirect from "react-router-dom/es/Redirect";
 
-@inject('activityStore', 'userStore', 'luminaryStore', 'commonStore')
-@withRouter
-export default class LuminaryActivity extends React.Component {
-    constructor() {
-        super();
+class LuminaryActivity extends React.Component {
+    constructor(props) {
+        super(props);
         this.state = {
             luminary: [],
             ready: false,
@@ -113,4 +110,5 @@ export default class LuminaryActivity extends React.Component {
             </div>
         );
     }
-};
+}
+export default inject('activityStore', 'userStore', 'luminaryStore', 'commonStore')(LuminaryActivity);

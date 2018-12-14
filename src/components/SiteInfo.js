@@ -1,7 +1,6 @@
 import React from 'react';
 import {inject} from "mobx-react/index";
 
-@inject('commonStore')
 class SiteInfo extends React.Component {
   render() {
     return (
@@ -12,4 +11,4 @@ class SiteInfo extends React.Component {
   }
 }
 
-export default SiteInfo;
+export default inject('commonStore')(SiteInfo);

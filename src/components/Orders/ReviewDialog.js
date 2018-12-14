@@ -3,8 +3,6 @@ import {withRouter} from "react-router-dom";
 import Select from 'react-select';
 import {inject} from "mobx-react/index";
 
-@inject('reviewStore')
-@withRouter
 class ReviewDialog extends React.Component {
     constructor(props) {
         super(props);
@@ -132,4 +130,4 @@ class ReviewDialog extends React.Component {
     }
 }
 
-export default ReviewDialog;
+export default inject('reviewStore')(withRouter(ReviewDialog));

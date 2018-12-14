@@ -3,8 +3,8 @@ import {computed} from "mobx/lib/mobx";
 import agent from "../agent";
 
 class OrderStatusStore {
-    @observable orderStatusRegistry = observable.map();
-    @observable isLoading = true;
+    orderStatusRegistry = observable.map();
+    isLoading = true;
 
     staticData = [
         {id: '1', title: 'Создан'},
@@ -13,15 +13,15 @@ class OrderStatusStore {
         {id: '4', title: 'Архивный'}
     ];
 
-    @computed get staticDataOptions() {
+    get staticDataOptions() {
         return this.staticData.map(x => ({ label: x.title, value: x._id }))
     };
 
-    @action getTestOrderStatus() {
+    getTestOrderStatus() {
         return this.staticData[0];
     }
 
-    @action loadOrderStatuses() {
+    loadOrderStatuses() {
         agent.OrderStatus.all()
             .then(action(({ statuses}) => {
                 this.orderStatusRegistry.clear();
@@ -35,7 +35,7 @@ class OrderStatusStore {
         return this.staticDataOptions;
     }
 
-    @action loadOrderStatus(id, {acceptCached = false} = {}) {
+    loadOrderStatus(id, {acceptCached = false} = {}) {
         if (acceptCached) {
             const status = this.orderStatusRegistry.get(id);
             if (status) return Promise.resolve(status);
