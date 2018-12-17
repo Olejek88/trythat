@@ -1,10 +1,10 @@
-import {action, reaction} from 'mobx';
+import {action, reaction, observable, decorate} from 'mobx';
 import agent from '../agent';
 
 class CommonStore {
     ordersCount = window.localStorage.getItem('orders_count');
     appName = 'TryThat';
-    apiServer = 'http://api.tt.ru/';
+    apiServer = 'http://api.trythat.today/';
     token = window.localStorage.getItem('jwt');
     user_id = window.localStorage.getItem('user_id');
     appLoaded = false;
@@ -53,5 +53,9 @@ class CommonStore {
     }
 
 }
+decorate(CommonStore, {
+    appLoaded: observable,
+    token: observable
+});
 
 export default new CommonStore();

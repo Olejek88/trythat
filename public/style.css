@@ -885,6 +885,11 @@ a:hover {
     width: 100%;
 }
 
+.io-popup-wrapper span {
+    padding: 0 5px !important;
+    cursor: pointer;
+}
+
 #pdp {
     width: 100%;
     margin-top: 22px;

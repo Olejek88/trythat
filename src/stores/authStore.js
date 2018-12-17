@@ -2,6 +2,7 @@ import {action} from 'mobx';
 import agent from '../agent';
 import userStore from './userStore';
 import commonStore from './commonStore';
+import {decorate, observable} from "mobx/lib/mobx";
 
 class AuthStore {
     inProgress = false;
@@ -78,5 +79,11 @@ class AuthStore {
         return Promise.resolve();
     }
 }
+
+decorate(AuthStore, {
+    inProgress: observable,
+    errors: observable,
+    values: observable
+});
 
 export default new AuthStore();

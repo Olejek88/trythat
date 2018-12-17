@@ -8,7 +8,9 @@ class MainCategories extends React.Component {
             <React.Fragment>
                 <CategoryTitle/>
                 <CategoryRow category={1}/>
+{/*
                 <CategoryRow category={1}/>
+*/}
             </React.Fragment>
         );
     }

@@ -5,6 +5,13 @@ import {inject} from 'mobx-react';
 import {action} from "mobx/lib/mobx";
 
 class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            pass: ''
+        };
+    }
 
     componentWillUnmount() {
         this.props.authStore.reset();
@@ -12,10 +19,13 @@ class Login extends React.Component {
 
     handleEmailChange = e => {
         this.props.authStore.setEmail(e.target.value);
+        this.setState({email: e.target.value});
     };
     handlePasswordChange = e => {
         this.props.authStore.setPassword(e.target.value);
+        this.setState({pass: e.target.value});
     };
+
     handleSubmitForm = (e) => {
         e.preventDefault();
         this.props.authStore.login()
@@ -53,7 +63,7 @@ class Login extends React.Component {
                                             className="form-control form-control-lg"
                                             type="email"
                                             placeholder="Email"
-                                            value={values.email}
+                                            value={this.state.email}
                                             onChange={this.handleEmailChange}
                                         />
                                     </fieldset>
@@ -63,7 +73,7 @@ class Login extends React.Component {
                                             className="form-control form-control-lg"
                                             type="password"
                                             placeholder="Пароль"
-                                            value={values.password}
+                                            value={this.state.pass}
                                             onChange={this.handlePasswordChange}
                                         />
                                     </fieldset>

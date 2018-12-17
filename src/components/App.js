@@ -1,7 +1,7 @@
 import Header from './Header/Header';
 import React from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom';
-import {inject} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 import PrivateRoute from './PrivateRoute';
 
 import Activity from './Activity';
@@ -40,9 +40,12 @@ class App extends React.Component {
 
     componentDidMount() {
         if (this.props.commonStore.token) {
-            //console.log('token= '+this.props.commonStore.token);
             this.props.userStore.pullUser()
-                .finally(() => this.props.commonStore.setAppLoaded());
+                .finally(() => {
+                        this.props.commonStore.setAppLoaded();
+                        //this.render();
+                    }
+                );
         }
     }
 
@@ -96,4 +99,4 @@ class App extends React.Component {
     }
 }
 
-export default inject('userStore', 'commonStore', 'activityStore', 'locationStore')(withRouter(App));
+export default inject('userStore', 'commonStore', 'activityStore', 'locationStore')(withRouter(observer(App)));

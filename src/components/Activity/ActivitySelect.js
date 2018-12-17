@@ -219,7 +219,7 @@ class ActivitySelect extends React.Component {
                                                    href={"https://www.google.com/maps/?q=" +
                                                    this.state.activity.location.longitude + "," +
                                                    this.state.activity.location.latitude}
-                                                   target="_blank" title="Открыть в новом окне">На карте</a>
+                                                   target="_blank" rel="noopener noreferrer" title="Открыть в новом окне">На карте</a>
                                             </p>
                                         </div>
                                         <div className="displayonly_content">
@@ -347,12 +347,12 @@ class ActivitySelect extends React.Component {
                                 <tbody>
                                 <tr>
                                     <td className="left_td share_td sg-bd-3 sg-no-bd-left sg-no-bd-bottom">
-                                        <a className="button sg-inline-middle" style={{justifyContent: 'center'}}>
+                                        <button className="button sg-inline-middle" style={{justifyContent: 'center'}}>
                                             <img style={{width: '28px', verticalAlign: 'middle'}}
                                                  src={"images/icon_share_green.png"} alt={""}/>
                                             <span
                                                 className="sg-text-transform txt-ovr-2 sg-hover-primary">Поделиться</span>
-                                        </a>
+                                        </button>
                                     </td>
                                     <td className="right_td question_td sg-bd-3 sg-no-bd-right sg-no-bd-bottom">
                                         <a onClick={this.onClick.bind(this)} className="button sg-inline-middle"

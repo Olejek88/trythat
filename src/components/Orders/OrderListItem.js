@@ -134,13 +134,13 @@ class OrderListItem extends React.Component {
                                     <div className="sg-c-2">
                                     </div>
                                     <div className="convert" style={{marginTop: '10px', cursor: 'pointer'}}>
-                                        <a className="sg-inline-middle" onClick={this.onFavored}>
+                                        <button className="sg-inline-middle" onClick={this.onFavored}>
                                             <div className={this.state.favoredClass}
                                                  style={{width: '22px', height: '22px', backgroundSize: 'cover'}}>
                                             </div>
                                             <span className="wishlist-text sg-c-2 sg-f-btn sg-text-transform"
                                                   style={{margin: '2px 2px 2px 5px'}}>В избранное</span>
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

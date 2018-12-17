@@ -1,8 +1,8 @@
 import React from 'react';
 
 class ActivityPhotoDiv extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             image: null
         };
@@ -25,7 +25,7 @@ class ActivityPhotoDiv extends React.Component {
 
     render() {
         return <div className="imgDiv cloned" style={{visibility: 'visible'}}>
-            <img src={"http://api.tt.ru/" + this.state.image.path}
+            <img src={"http://api.trythat.today/" + this.state.image.path}
                  title={this.state.image.title} alt={this.state.image.title}
                  style={{
                      maxWidth: '714px',

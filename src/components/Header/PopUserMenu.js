@@ -1,10 +1,11 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 import {inject} from "mobx-react/index";
 
 class PopWish extends React.Component {
     handleClickLogout = () =>
         this.props.authStore.logout()
-            .then(() => window.location.reload());
+            .then(() => this.props.history.replace('/'));
 
     render() {
         return (
@@ -48,10 +49,10 @@ class PopWish extends React.Component {
                         </a>
                         <li style={{borderBottom: '1px solid #e1e1e1', paddingBottom: '5px'}}>
                         </li>
-                        <a tabIndex="2409" onClick={this.handleClickLogout}>
+                        <span onClick={this.handleClickLogout}>
                             <li className="child  sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Выйти</p></li>
-                        </a>
+                        </span>
                     </ul>
                 </div>
             </div>
@@ -59,4 +60,4 @@ class PopWish extends React.Component {
     }
 }
 
-export default inject('authStore')(PopWish);
+export default inject('authStore')(withRouter(PopWish));

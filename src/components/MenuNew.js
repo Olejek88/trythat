@@ -126,7 +126,7 @@ class SiteMenu extends React.Component {
                         </div>
                     </div>
                     <div className="l-menu js-menu" data-navmenuid="122" id="menu4">
-                        <a className="label js-tab-featrue js-show-dropdown" tabIndex="1300">
+                        <a className="label js-tab-featrue js-show-dropdown" tabIndex="1300" href={"/"}>
                             <p className="sg-f-btn sg-text-transform" style={{textAlign: 'center'}}>Фильтр</p>
                         </a>
                         <div className="highlight-bar" id="menu_highlight_4"></div>

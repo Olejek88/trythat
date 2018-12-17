@@ -5,7 +5,7 @@ import authStore from './stores/authStore';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'http://api.tt.ru';
+const API_ROOT = 'http://api.trythat.today';
 
 const encode = encodeURIComponent;
 
