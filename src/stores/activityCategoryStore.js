@@ -8,6 +8,8 @@ class ActivityCategoryStore {
     defaultData = {id: 3, label: 'Экстрим'};
 
     loadActivityCategories() {
+        if (this.activityCategoryRegistry.size > 0)
+            return Promise.resolve(this.activityCategoryRegistry);
         return agent.ActivityCategories.all()
             .then(action((activityCategories) => {
                 this.activityCategoryRegistry.clear();

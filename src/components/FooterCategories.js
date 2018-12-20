@@ -5,65 +5,69 @@ class FooterCategories extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loadComplete: true
+            activityCategoriesList: [],
+            categoriesList: [],
+            occasionList: [],
+            trendsList: [],
+            citiesList: []
         };
-        this.activityCategoriesList = [];
-        this.categoriesList = [];
-        this.occasionList = [];
-        this.trendsList = [];
-        this.citiesList = [];
     }
 
     componentWillMount() {
         let self = this;
         this.props.activityCategoryStore.loadActivityCategories()
             .then(() => {
-                for (let category of Array.from(this.props.activityCategoryStore.activityCategoryRegistry.values())) {
-                    self.activityCategoriesList.push(<li key={category.id}>
+                let activityCategoriesList = [];
+                for (let category of Array.from(self.props.activityCategoryStore.activityCategoryRegistry.values())) {
+                    activityCategoriesList.push(<li key={category.id}>
                         <a href={"/#/activities/activity-category/" + category.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{category.title}</a></li>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({activityCategoriesList: activityCategoriesList});
             });
 
         this.props.cityStore.loadCities()
             .then(() => {
-                for (let city of Array.from(this.props.cityStore.cityRegistry.values())) {
-                    self.citiesList.push(<li key={city.id}><a href={"/#/activities/city/" + city.id}
-                                                              className="sg-f-bdy"
+                let citiesList = [];
+                for (let city of Array.from(self.props.cityStore.cityRegistry.values())) {
+                    citiesList.push(<li key={city.id}><a href={"/#/activities/city/" + city.id}
+                                                                    className="sg-f-bdy"
                                                               style={{lineHeight: '2em'}}>{city.title}</a></li>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({citiesList: citiesList});
             });
 
         this.props.categoryStore.loadCategories()
             .then(() => {
-                for (let category of Array.from(this.props.categoryStore.categoryRegistry.values())) {
-                    self.categoriesList.push(<li key={category.id}>
+                let categoriesList = [];
+                for (let category of Array.from(self.props.categoryStore.categoryRegistry.values())) {
+                    categoriesList.push(<li key={category.id}>
                         <a href={"/#/activities/category/" + category.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{category.title}</a></li>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({categoriesList: categoriesList});
             });
 
         this.props.occasionStore.loadOccasions()
             .then(() => {
-                for (let occasion of Array.from(this.props.occasionStore.occasionRegistry.values())) {
-                    self.occasionList.push(<li key={occasion.id}>
-                        <a href={"/#/activities/category/" + occasion.id} className="sg-f-bdy"
+                let occasionList = [];
+                for (let occasion of Array.from(self.props.occasionStore.occasionRegistry.values())) {
+                    occasionList.push(<li key={occasion.id}>
+                        <a href={"/#/activities/occasion/" + occasion.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{occasion.title}</a></li>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({occasionList: occasionList});
             });
 
         this.props.trendingStore.loadTrends()
             .then(() => {
-                for (let trend of Array.from(this.props.trendingStore.trendingRegistry.values())) {
-                    self.trendsList.push(<li key={trend.id}>
+                let trendsList = [];
+                for (let trend of Array.from(self.props.trendingStore.trendingRegistry.values())) {
+                    trendsList.push(<li key={trend.id}>
                         <a href={"/#/activities/trend/" + trend.id} className="sg-f-bdy"
                            style={{lineHeight: '2em'}}>{trend.title}</a></li>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({trendsList: trendsList});
             });
     }
 
@@ -82,7 +86,7 @@ class FooterCategories extends React.Component {
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {this.categoriesList}
+                                                {this.state.categoriesList}
                                             </ul>
                                         </td>
                                     </tr>
@@ -96,7 +100,7 @@ class FooterCategories extends React.Component {
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {this.activityCategoriesList}
+                                                {this.state.activityCategoriesList}
                                             </ul>
                                         </td>
                                     </tr>
@@ -110,7 +114,7 @@ class FooterCategories extends React.Component {
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {this.occasionList}
+                                                {this.state.occasionList}
                                             </ul>
                                         </td>
                                     </tr>
@@ -124,7 +128,7 @@ class FooterCategories extends React.Component {
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {this.trendsList}
+                                                {this.state.trendsList}
                                             </ul>
                                         </td>
                                     </tr>
@@ -138,7 +142,7 @@ class FooterCategories extends React.Component {
                                     <tr>
                                         <td className="footer-td-content">
                                             <ul className="catch_all_footer_list">
-                                                {this.citiesList}
+                                                {this.state.citiesList}
                                             </ul>
                                         </td>
                                     </tr>

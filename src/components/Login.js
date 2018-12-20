@@ -38,7 +38,7 @@ class Login extends React.Component {
     };
 
     render() {
-        const {values, errors, inProgress} = this.props.authStore;
+        const {errors, inProgress} = this.props.authStore;
 
         return (
             <div className="auth-page">

@@ -12,11 +12,13 @@ class TrendingStore {
     ];
 
     get staticDataOptions() {
-        return this.staticData.map(x => ({label: x.label, value: x._id}))
+        return this.staticData.map(x => ({label: x.label, value: x.id}))
     };
 
     loadTrends() {
         this.isLoading = true;
+        if (this.trendingRegistry.size > 0)
+            return Promise.resolve(this.trendingRegistry);
         return agent.Trending.all()
             .then(action((categories) => {
                 this.trendingRegistry.clear();
@@ -34,7 +36,7 @@ class TrendingStore {
 
     loadTrending(id) {
         if (this.trendingRegistry.size > 0)
-            return this.trendingRegistry.get(parseInt(id, 10));
+            return Promise.resolve(this.trendingRegistry.get(parseInt(id, 10)));
         this.isLoading = true;
         return agent.Trending.get(id)
             .then(action((trending) => {

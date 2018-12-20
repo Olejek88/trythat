@@ -2,7 +2,7 @@
   "name": "try-that-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://trythat.net",
+  "homepage": "https://trythat.today",
   "license": "MIT",
   "devDependencies": {
     "custom-react-scripts": "^0.2.2",

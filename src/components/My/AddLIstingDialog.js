@@ -71,8 +71,8 @@ class ActivityListingDialog extends React.Component {
         return (
             <div id="conversationOverlay-dialog" className="overlay medium foyer commonDialog desktop"
                  style={{top: '60px', left: '510px', position: 'fixed', display: 'block'}}>
-                <a tabIndex="0" className="close" onClick={clickHandler}>
-                </a>
+                <span tabIndex="0" className="close" onClick={clickHandler}>
+                </span>
                 <div className="overlayContent">
                     <div className="form">
                         <div className="dialog_header" style={{margin: '0px'}}>

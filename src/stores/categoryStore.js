@@ -8,6 +8,8 @@ class CategoryStore {
     defaultData = {id: 2, title: 'Туризм'};
 
     loadCategories() {
+        if (this.categoryRegistry.size > 0)
+            return Promise.resolve(this.categoryRegistry);
         return agent.Categories.all()
             .then(action((categories) => {
                 this.categoryRegistry.clear();

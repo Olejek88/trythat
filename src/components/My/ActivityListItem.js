@@ -46,8 +46,8 @@ class ActivityListItem extends React.Component {
                                                                                    style={{width: '140px'}} alt={""}/>
                                 </div>
                                 <div style={{margin: '0 10px', width: '80%'}}>
-                                    <div><a className="js-pdpDetails sg-c-1">
-                                        {activity.title}</a></div>
+                                    <div><span className="js-pdpDetails sg-c-1">
+                                        {activity.title}</span></div>
                                     <div className="sg-c-2">{activity.description.substr(0, 220) + ".."}</div>
                                     <div className="sg-c-2">
                                     </div>

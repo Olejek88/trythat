@@ -5,65 +5,69 @@ class SiteMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loadComplete: true
+            activityCategoriesList: [],
+            categoriesList: [],
+            occasionList: [],
+            trendsList: [],
+            citiesList: []
         };
-        this.activityCategoriesList = [];
-        this.citiesList = [];
-        this.categoriesList = [];
-        this.occasionList = [];
-        this.trendsList = [];
     }
 
     componentWillMount() {
         let self = this;
         this.props.activityCategoryStore.loadActivityCategories()
             .then(() => {
-                for (let category of Array.from(this.props.activityCategoryStore.activityCategoryRegistry.values())) {
-                    self.activityCategoriesList.push(<div className="topNavCat" key={category.id}>
+                let activityCategoriesList = [];
+                for (let category of Array.from(self.props.activityCategoryStore.activityCategoryRegistry.values())) {
+                    activityCategoriesList.push(<div className="topNavCat" key={category.id}>
                         <a href={"/#/activities/activity-category/" + category.id} title={category.title}>
                             <p className="level-link fo-14-n-s4">{category.title}</p></a></div>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({activityCategoriesList: activityCategoriesList});
             });
 
         this.props.cityStore.loadCities()
             .then(() => {
-                for (let city of Array.from(this.props.cityStore.cityRegistry.values())) {
-                    self.citiesList.push(<div className="topNavCat" key={city.id}>
+                let citiesList = [];
+                for (let city of Array.from(self.props.cityStore.cityRegistry.values())) {
+                    citiesList.push(<div className="topNavCat" key={city.id}>
                         <a href={"/#/activities/city/" + city.id} title={city.title}>
                             <p className="level-link fo-14-n-s4">{city.title}</p></a></div>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({citiesList: citiesList});
             });
 
         this.props.categoryStore.loadCategories()
             .then(() => {
-                for (let category of Array.from(this.props.categoryStore.categoryRegistry.values())) {
-                    self.categoriesList.push(<div className="topNavCat" key={category.id}>
+                let categoriesList = [];
+                for (let category of Array.from(self.props.categoryStore.categoryRegistry.values())) {
+                    categoriesList.push(<div className="topNavCat" key={category.id}>
                         <a href={"/#/activities/category/" + category.id} title={category.title}>
                             <p className="level-link fo-14-n-s4">{category.title}</p></a></div>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({categoriesList: categoriesList});
             });
 
         this.props.occasionStore.loadOccasions()
             .then(() => {
-                for (let occasion of Array.from(this.props.occasionStore.occasionRegistry.values())) {
-                    self.occasionList.push(<div className="topNavCat" key={occasion.id}>
+                let occasionList = [];
+                for (let occasion of Array.from(self.props.occasionStore.occasionRegistry.values())) {
+                    occasionList.push(<div className="topNavCat" key={occasion.id}>
                         <a href={"/#/activities/occasion/" + occasion.id} title={occasion.title}>
                             <p className="level-link fo-14-n-s4">{occasion.title}</p></a></div>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({occasionList: occasionList});
             });
 
         this.props.trendingStore.loadTrends()
             .then(() => {
-                for (let trend of Array.from(this.props.trendingStore.trendingRegistry.values())) {
-                    self.trendsList.push(<div className="topNavCat" key={trend.id}>
+                let trendsList = [];
+                for (let trend of Array.from(self.props.trendingStore.trendingRegistry.values())) {
+                    trendsList.push(<div className="topNavCat" key={trend.id}>
                         <a href={"/#/activities/trend/" + trend.id} title={trend.title}>
                             <p className="level-link fo-14-n-s4">{trend.title}</p></a></div>);
                 }
-                this.setState({loadComplete: !this.state.loadComplete});
+                self.setState({trendsList: trendsList});
             });
     }
 
@@ -84,10 +88,10 @@ class SiteMenu extends React.Component {
                             </div>
                             <div className="level-3">
                                 <div className="col">
-                                    {this.categoriesList}
+                                    {this.state.categoriesList}
                                 </div>
                                 <div className="col">
-                                    {this.activityCategoriesList}
+                                    {this.state.activityCategoriesList}
                                 </div>
                             </div>
                         </div>
@@ -104,10 +108,10 @@ class SiteMenu extends React.Component {
                             </div>
                             <div className="level-3">
                                 <div className="col">
-                                    {this.trendsList}
+                                    {this.state.trendsList}
                                 </div>
                                 <div className="col">
-                                    {this.occasionList}
+                                    {this.state.occasionList}
                                 </div>
                             </div>
                         </div>
@@ -120,7 +124,7 @@ class SiteMenu extends React.Component {
                         <div className="drop-down version1" style={{minWidth: '160px'}} id="menu_drop_3">
                             <div className="level-3">
                                 <div className="col">
-                                    {this.citiesList}
+                                    {this.state.citiesList}
                                 </div>
                             </div>
                         </div>
