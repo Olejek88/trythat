@@ -23,7 +23,7 @@ class TagStore {
             .then(action(({tags}) => {
                 this.tagsRegistry.clear();
                 tags.forEach(tag =>
-                    this.tagsRegistry.set(tag._id, tag));
+                    this.tagsRegistry.set(tag.id, tag));
             }))
             .finally(action(() => {
                 this.isLoading = false;
@@ -34,6 +34,14 @@ class TagStore {
         //return this.staticData;
         //return this.staticDataOptions;
     }
+
+    createTag(tag) {
+        return agent.Tags.save(tag)
+            .catch(action(err => {
+                throw err;
+            }))
+    }
+
 }
 
 export default new TagStore();

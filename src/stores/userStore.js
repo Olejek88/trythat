@@ -105,11 +105,11 @@ export class UserStore {
     }
 
     updateUser(newUser) {
+        let self = this;
         this.updatingUser = true;
-        console.log(newUser);
         return agent.Auth.save(newUser, newUser.id)
             .then(action((user) => {
-                this.currentUser = user;
+                self.currentUser = user;
                 window.localStorage.setItem('user', JSON.stringify(user));
             }))
             .finally(action(() => {

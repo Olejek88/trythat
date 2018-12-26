@@ -4,14 +4,27 @@ import React from 'react';
 import {inject} from 'mobx-react';
 
 class Register extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            pass: ''
+        };
+    }
 
     componentWillUnmount() {
         this.props.authStore.reset();
     }
 
-    //handleUsernameChange = e => this.props.authStore.setUsername(e.target.value);
-    handleEmailChange = e => this.props.authStore.setEmail(e.target.value);
-    handlePasswordChange = e => this.props.authStore.setPassword(e.target.value);
+    handleEmailChange = e => {
+        this.props.authStore.setEmail(e.target.value);
+        this.setState({email: e.target.value});
+    };
+    handlePasswordChange = e => {
+        this.props.authStore.setPassword(e.target.value);
+        this.setState({pass: e.target.value});
+    };
+
     handleSubmitForm = (e) => {
         e.preventDefault();
         this.props.authStore.register()
@@ -19,7 +32,7 @@ class Register extends React.Component {
     };
 
     render() {
-        const {values, errors, inProgress} = this.props.authStore;
+        const {errors, inProgress} = this.props.authStore;
 
         return (
             <div className="auth-page" style={{marginBottom: '10px'}}>
@@ -54,7 +67,7 @@ class Register extends React.Component {
                                         <input className="form-control form-control-lg"
                                                type="email"
                                                placeholder="Email"
-                                               value={values.email}
+                                               value={this.state.email}
                                                onChange={this.handleEmailChange}
                                         />
                                     </fieldset>
@@ -64,7 +77,7 @@ class Register extends React.Component {
                                             className="form-control form-control-lg"
                                             type="password"
                                             placeholder="Пароль"
-                                            value={values.password}
+                                            value={this.state.password}
                                             onChange={this.handlePasswordChange}
                                         />
                                     </fieldset>

@@ -37,8 +37,6 @@ class AuthStore {
         this.errors = undefined;
         return agent.Auth.login(this.values.email, this.values.password)
             .then(({token, id}) => {
-                console.log(token);
-                console.log(id);
                 commonStore.setToken(token);
                 commonStore.setId(id);
             })

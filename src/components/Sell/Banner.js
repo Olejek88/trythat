@@ -9,7 +9,7 @@ const Banner = ({appName, token}) => {
         <div className="band band-banner">
             <div className="center">
                 <div className="marquee">
-                    <img src={"images/marketplace.jpg"} alt="try that marketplace" style={{display: 'none'}}/>
+                    <img src={"images/marketplace2.jpg"} alt="try that marketplace" style={{display: 'none'}}/>
                     <div className="catch">
                         <p className="title-1">Поделитесь своими талантами и постройте свой бизнес с нами</p>
                         <p className="text">Все что вы делаете мы представим нашим клиентам.</p>

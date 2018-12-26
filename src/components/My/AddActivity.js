@@ -61,6 +61,7 @@ class AddActivity extends React.Component {
             image: null,
             categoryList: [],
             activityCategoryList: [],
+            citiesList: [],
             occasionList: [],
             trendsList: [],
             activity: null,
@@ -207,6 +208,16 @@ class AddActivity extends React.Component {
                         console.log(activityImage);
                         self.props.activityImageStore.createImage(activityImage);
                     });
+                    this.state.tags.forEach(function (tag) {
+/*
+                        let new_tag = {
+                            title: tag
+                        };
+                        self.props.tagStore.createTag(new_tag);
+*/
+                    });
+
+
                     this.props.history.replace('/my/activity');
                 }));
         }
@@ -271,21 +282,107 @@ class AddActivity extends React.Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    loadData() {
+        let self = this;
+        self.props.cityStore.loadCities()
+            .then(() => {
+                self.citiesList = Array.from(self.props.cityStore.cityRegistry.values())
+                    .map(x => ({label: x.title, value: x.id}));
+                if (self.state.activity) {
+                    self.citiesList.forEach(function (city) {
+                        if (city.value === self.state.activity.location.city.id) {
+                            self.setState({city: city});
+                        }
+                    });
+                }
+                self.setState({citiesList: self.citiesList});
+            });
+        self.props.locationStore.loadLocations()
+            .then(() => {
+                self.locationList = Array.from(self.props.locationStore.locationsRegistry.values())
+                    .map(x => ({label: x.title, value: x.id}));
+                self.setState({locationList: self.locationList});
+                if (self.state.activity) {
+                    self.locationList.forEach(function (location) {
+                        if (location.value === self.state.activity.location.id) {
+                            self.setState({location: location});
+                        }
+                    });
+                }
+            });
+        this.props.categoryStore.loadCategories()
+            .then(() => {
+                self.categoryList = Array.from(self.props.categoryStore.categoryRegistry.values())
+                    .map(x => ({label: x.title, value: x.id}));
+                if (self.state.activity) {
+                    self.categoryList.forEach(function (category) {
+                        if (category.value === self.state.activity.category_id) {
+                            self.setState({category: category});
+                        }
+                    });
+                }
+                self.setState({categoryList: self.categoryList});
+            });
+        self.props.activityCategoryStore.loadActivityCategories()
+            .then(() => {
+                self.activityCategoryList = Array.from(self.props.activityCategoryStore.activityCategoryRegistry.values())
+                    .map(x => ({label: x.title, value: x.id}));
+                if (self.state.activity) {
+                    self.activityCategoryList.forEach(function (category) {
+                        if (category.value === self.state.activity.activity_category_id) {
+                            self.setState({activityCategory: category});
+                        }
+                    });
+                }
+                self.setState({activityCategoryList: self.activityCategoryList});
+            });
+        self.props.occasionStore.loadOccasions()
+            .then(() => {
+                self.occasionList = Array.from(self.props.occasionStore.occasionRegistry.values())
+                    .map(x => ({label: x.title, value: x.id}));
+                self.setState({occasionList: self.occasionList});
+                if (self.state.activity) {
+                    if (self.activity.occasion) {
+                        self.occasionList.forEach(function (category) {
+                            if (category.value === self.state.activity.occasion.id) {
+                                self.setState({occasion: category});
+                            }
+                        });
+                    }
+                }
+            });
+        self.props.trendingStore.loadTrends()
+            .then(() => {
+                self.trendsList = Array.from(self.props.trendingStore.trendingRegistry.values())
+                    .map(x => ({label: x.title, value: x.id}));
+                self.setState({trendsList: self.trendsList});
+                if (self.state.activity) {
+                    if (self.activity.trending) {
+                        self.trendsList.forEach(function (category) {
+                            if (category.value === self.state.activity.trending.id) {
+                                self.setState({trending: category});
+                            }
+                        });
+                    }
+                }
+            });
+    }
+
     componentWillMount() {
         let self = this;
         let activity_id = this.props.match.params['activity_id'];
-        this.setState({city: this.props.cityStore.defaultData});
+        //this.setState({city: this.props.cityStore.defaultData});
+
         if (activity_id) {
             this.props.activityStore.loadActivity(activity_id).then((activity) => {
                 self.activity = activity;
-                self.setState({activity: self.activity});
+                self.setState({activity: activity});
                 if (activity) {
                     if (activity.tags) {
                         self.activity.tags.forEach(function (tag) {
                             self.state.tags[self.state.tags.length] = tag.title;
                         });
                     }
-
                     self.props.activityListingStore.loadActivityListing(activity).then((activity_lists) => {
                         activity_lists.forEach(function (activity_list, i) {
                             self.activityListRows.push(<ActivityListingItem activity={self.activity}
@@ -295,26 +392,27 @@ class AddActivity extends React.Component {
                         self.setState({activityListRows: self.activityListRows});
                     });
 
-                    self.props.activityImageStore.loadImages(this.activity.id).then(function (images) {
+                    self.props.activityImageStore.loadImages(self.activity.id).then(function (images) {
                         if (images) {
                             let i = 1;
                             images.forEach(function (image) {
                                 self.imagesList.push(<img style={{width: '100px', padding: '3px'}} key={i}
                                                           src={self.props.commonStore.apiServer + image.image.path}
                                                           alt={"img"}/>);
-                                console.log(self.imagesList);
                                 i++;
                             });
                             self.setState({images: self.imagesList});
                         }
                     });
+
+                    self.loadData();
+
                     self.setState({
                         customers: {
                             min: this.activity.min_customers,
                             max: this.activity.max_customers
                         }
                     });
-                    self.setState({city: this.activity.location.city});
                     self.setState({title: this.activity.title});
                     self.setState({description: this.activity.description});
                     self.setState({shortDescription: this.activity.shortDescription});
@@ -325,87 +423,7 @@ class AddActivity extends React.Component {
                 }
             });
         }
-
-        this.props.cityStore.loadCities()
-            .then(() => {
-                self.citiesList = Array.from(this.props.cityStore.cityRegistry.values()).map(x => ({
-                    label: x.title,
-                    value: x.id
-                }));
-                if (this.activity) {
-                    self.citiesList.forEach(function (city) {
-                        if (city.value === self.activity.location.city.id) {
-                            self.setState({city: city});
-                        }
-                    });
-                }
-            });
-
-        this.props.locationStore.loadLocations()
-            .then(() => {
-                self.locationList = Array.from(this.props.locationStore.locationsRegistry.values())
-                    .map(x => ({label: x.title, value: x.id}));
-                if (this.activity) {
-                    self.locationList.forEach(function (location) {
-                        if (location.value === self.activity.location.id) {
-                            self.setState({location: location});
-                        }
-                    });
-                }
-                this.setState({categoryList: self.categoryList});
-            });
-        this.props.categoryStore.loadCategories()
-            .then(() => {
-                self.categoryList = Array.from(this.props.categoryStore.categoryRegistry.values())
-                    .map(x => ({label: x.title, value: x.id}));
-                if (this.activity) {
-                    self.categoryList.forEach(function (category) {
-                        if (category.value === self.activity.category_id) {
-                            self.setState({category: category});
-                        }
-                    });
-                }
-                this.setState({categoryList: self.categoryList});
-            });
-        this.props.activityCategoryStore.loadActivityCategories()
-            .then(() => {
-                self.activityCategoryList = Array.from(this.props.activityCategoryStore.activityCategoryRegistry.values())
-                    .map(x => ({label: x.title, value: x.id}));
-                if (this.activity) {
-                    self.activityCategoryList.forEach(function (category) {
-                        if (category.value === self.activity.activity_category_id) {
-                            self.setState({activityCategory: category});
-                        }
-                    });
-                }
-                this.setState({activityCategoryList: self.activityCategoryList});
-            });
-        this.props.occasionStore.loadOccasions()
-            .then(() => {
-                self.occasionList = Array.from(this.props.occasionStore.occasionRegistry.values())
-                    .map(x => ({label: x.title, value: x.id}));
-                if (this.activity && this.activity.occasion) {
-                    self.occasionList.forEach(function (category) {
-                        if (category.value === self.activity.occasion.id) {
-                            self.setState({occasion: category});
-                        }
-                    });
-                }
-                this.setState({occasionList: self.occasionList});
-            });
-        this.props.trendingStore.loadTrends()
-            .then(() => {
-                self.trendsList = Array.from(this.props.trendingStore.trendingRegistry.values())
-                    .map(x => ({label: x.title, value: x.id}));
-                if (this.activity && this.activity.trending) {
-                    self.trendsList.forEach(function (category) {
-                        if (category.value === self.activity.trending.id) {
-                            self.setState({trending: category});
-                        }
-                    });
-                }
-                this.setState({trendsList: self.trendsList});
-            });
+        else this.loadData();
     };
 
     render() {
@@ -508,7 +526,7 @@ class AddActivity extends React.Component {
                                                                 placeHolder={"Выберите город"}
                                                                 className="language_select desktop"
                                                                 onChange={(e) => this.handleSelectCityChange(e)}
-                                                                options={this.citiesList}
+                                                                options={this.state.citiesList}
                                                             />
                                                         </div>
                                                     </div>
@@ -525,7 +543,7 @@ class AddActivity extends React.Component {
                                                                 className="language_select desktop"
                                                                 placeholder={"Выберите"}
                                                                 onChange={(e) => this.handleSelectLocationChange(e)}
-                                                                options={this.locationList}
+                                                                options={this.state.locationList}
                                                             />
                                                         </div>
                                                     </div>
@@ -572,7 +590,7 @@ class AddActivity extends React.Component {
                                                                 className="language_select desktop"
                                                                 placeholder={"Выберите"}
                                                                 onChange={(e) => this.handleSelectCategoryChange(e)}
-                                                                options={this.categoryList}
+                                                                options={this.state.categoryList}
                                                             />
                                                         </div>
                                                     </div>
@@ -589,7 +607,7 @@ class AddActivity extends React.Component {
                                                                 className="language_select desktop"
                                                                 placeholder={"Выберите"}
                                                                 onChange={(e) => this.handleSelectActivityCategoryChange(e)}
-                                                                options={this.activityCategoryList}
+                                                                options={this.state.activityCategoryList}
                                                             />
                                                         </div>
                                                     </div>
@@ -606,7 +624,7 @@ class AddActivity extends React.Component {
                                                                 placeholder={"Выберите"}
                                                                 className="language_select desktop"
                                                                 onChange={(e) => this.handleSelectOccasionChange(e)}
-                                                                options={this.occasionList}
+                                                                options={this.state.occasionList}
                                                             />
                                                         </div>
                                                     </div>

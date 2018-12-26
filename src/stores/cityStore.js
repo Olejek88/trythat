@@ -17,6 +17,8 @@ class CityStore {
         };*/
 
     loadCities() {
+        if (this.cityRegistry.size > 0)
+            return Promise.resolve(this.cityRegistry);
         return agent.Cities.all()
             .then(action((cities) => {
                 this.cityRegistry.clear();

@@ -86,7 +86,6 @@ class Settings extends React.Component {
 
         this.submitForm = ev => {
             ev.preventDefault();
-            let self = this;
             let user = Object.assign({}, this.state);
             if (!user.password) {
                 delete user.password;
@@ -98,11 +97,7 @@ class Settings extends React.Component {
             user.country_id = user.country.id;
             user.city_id = user.city.id;
             user.phone = this.state.phone;
-            this.props.userStore.updateUser(user)
-                .then(() => {
-                    self.props.userStore.currentUser = user;
-                    //self.props.history.replace('/settings');
-                });
+            this.props.userStore.updateUser(user);
         };
 
         this.onSubmitPasswordForm = ev => {
@@ -174,6 +169,7 @@ class Settings extends React.Component {
                 phone: this.props.userStore.currentUser.phone || '',
                 password: this.props.userStore.currentUser.password || ''
             });
+            //console.log(this.props.userStore.currentUser);
             if (this.props.userStore.currentUser.image) {
                 this.setState({image_id: this.props.userStore.currentUser.image.id});
                 this.setState({image: this.props.userStore.currentUser.image});

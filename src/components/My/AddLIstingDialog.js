@@ -7,8 +7,8 @@ import Select from 'react-select';
 import InputRange from 'react-input-range';
 
 class ActivityListingDialog extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             id: '1',
             customers: 10,

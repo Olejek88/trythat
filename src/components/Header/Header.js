@@ -7,7 +7,7 @@ import PopWish from "./PopWish";
 import PopUserMenu from "./PopUserMenu";
 
 const LoggedOutView = props => {
-    if (props.currentUser.id === 0) {
+    if ((props.currentUser && (props.currentUser.id === 0)) || props.currentUser===undefined) {
         return (
             <div id="buttons-nav" className=" sg-inline-middle"
                  style={{order: '3', flexWrap: 'nowrap', float: 'right'}}>
@@ -34,7 +34,7 @@ const LoggedOutView = props => {
 };
 
 const LoggedInView = props => {
-    if (props.currentUser.id !== 0) {
+    if (props.currentUser && props.currentUser.id !== 0) {
         return (
             <React.Fragment>
                 <div id="buttons-nav" className=" sg-inline-middle" style={{order: '3', flexWrap: 'nowrap'}}>

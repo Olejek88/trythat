@@ -174,7 +174,8 @@ const FollowList = {
 };
 
 const Tags = {
-    all: () => requests.get('/v1/tags')
+    all: () => requests.get('/v1/tags'),
+    save: (tag) => requests.put(`/v1/tags`, tag)
 };
 
 const Customer = {

@@ -9,6 +9,7 @@ class Experience extends React.Component {
             favored: false,
             favoredClass: "heart_img",
             customer: null,
+            isMounted: false,
             activity: '',
             activity_image: '',
             activityPrice: 0,
@@ -37,10 +38,7 @@ class Experience extends React.Component {
         if (this.props.activity) {
             this.setState({favoredClass: 'heart_img'});
             this.setState({activity: this.props.activity});
-            this.props.activityListingStore.loadActivityListing(this.props.activity).then(function (activityListing) {
-                let price = self.props.activityListingStore.loadActivityListingMinimumPrice(activityListing);
-                self.setState({activityPrice: price});
-            });
+
             if (this.props.activity.activityImages[0])
                 this.setState({
                     activity_image: {
@@ -67,6 +65,10 @@ class Experience extends React.Component {
                     }
                 });
             }
+            this.props.activityListingStore.loadActivityListing(this.props.activity).then(function (activityListing) {
+                let price = self.props.activityListingStore.loadActivityListingMinimumPrice(activityListing);
+                self.setState({activityPrice: price});
+            });
         }
     }
 
