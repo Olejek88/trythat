@@ -5,7 +5,7 @@ import Why from "./Why";
 import HowItWorks from "./HowItWorks";
 
 
-class Activity extends React.Component {
+class Sell extends React.Component {
     componentDidMount() {
         //this.props.commonStore.loadTags();
     }
@@ -24,4 +24,4 @@ class Activity extends React.Component {
     }
 }
 
-export default Activity;
+export default Sell;

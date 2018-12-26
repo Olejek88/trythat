@@ -2666,6 +2666,30 @@ span {text-decoration: underline; padding-left: 10px; cursor:pointer;}
     background: url("images/steps.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
 }
 
+.signup-full {
+    min-height: 600px;
+    max-height: 1200px;
+    background: url("images/marketplace2.jpg") no-repeat scroll 50% 0 / 100% auto rgba(222, 222, 222, 1);
+    position: relative;
+}
+
+.signup-top, #vendorSignUp .landingPage {
+    position: relative;
+    z-index: 3;
+    color: #fff;
+}
+.center {
+    width: 100%;
+    text-align: center;
+}
+
+.signup-top {
+    background: none;
+    position: relative;
+    padding: 100px 0 40px;
+    z-index: 3;
+}
+
 .center {
     width: 960px;
     margin: 0 auto;

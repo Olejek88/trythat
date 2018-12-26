@@ -10,6 +10,7 @@ import Login from './Login';
 import Profile from './Profile';
 import Register from './Register';
 import Sell from './Sell';
+import WantLuminary from './Sell/WantLuminary';
 import About from './About';
 import Footer from "./Footer";
 import Settings from "./My/Settings";
@@ -72,6 +73,7 @@ class App extends React.Component {
                         <Route path="/follows" component={MyFollows}/>
                         <Route path="/category/:id" component={Category}/>
                         <Route path="/sell" component={Sell}/>
+                        <Route path="/become" component={WantLuminary}/>
                         <Route path="/wish_list" component={WishList}/>
                         <Route path="/about" component={About}/>
                         <Route path="/orders/:filter" component={Orders}/>

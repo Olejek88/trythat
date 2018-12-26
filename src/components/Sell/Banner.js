@@ -13,8 +13,8 @@ const Banner = ({appName, token}) => {
                     <div className="catch">
                         <p className="title-1">Поделитесь своими талантами и постройте свой бизнес с нами</p>
                         <p className="text">Все что вы делаете мы представим нашим клиентам.</p>
-                        <Link to="/add" className="myaccount sg-inline-middle" id="settings">
-                            <div className="allowAllUsers small primaryButton button" style={{width: '192px'}}
+                        <Link to="/become" className="myaccount sg-inline-middle" id="settings">
+                            <div className="allowAllUsers small primaryButton button button_radius" style={{width: '192px'}}
                                  tabIndex="0">
                                 <div className="title-container"><p className="title">НАЧАТЬ</p></div>
                             </div>
