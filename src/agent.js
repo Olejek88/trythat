@@ -216,7 +216,7 @@ const Luminary = {
     get: user_id =>
         requests.get(`/v1/luminaries?expand=user.image&user.id=${user_id}`),
     create: luminary =>
-        requests.post(`/v1/luminaries`, {luminary}),
+        requests.post(`/v1/luminaries`, luminary),
     update: luminary =>
         requests.put(`/v1/luminaries/${luminary.id}`, luminary),
 };

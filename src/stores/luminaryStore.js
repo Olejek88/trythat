@@ -41,7 +41,6 @@ class LuminaryStore {
     }
 
     updateLuminary(luminary) {
-        console.log(luminary);
         return agent.Luminary.update(luminary)
             .catch(action(err => {
                 throw err;
