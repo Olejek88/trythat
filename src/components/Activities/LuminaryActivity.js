@@ -24,8 +24,8 @@ class LuminaryActivity extends React.Component {
         if (id === undefined)
             return <Redirect to='/#/'/>;
         this.props.luminaryStore.getLuminary(id).then((luminary) => {
-            my.setState({luminary: luminary});
-            if (luminary === null) {
+            my.setState({luminary: luminary[0]});
+            if (luminary[0] === null) {
                 this.props.history.replace('/');
             }
 
@@ -60,7 +60,7 @@ class LuminaryActivity extends React.Component {
                 position: 'relative', margin: '0 auto', overflow: 'hidden', width: '1124px',
                 paddingTop: '80px'
             }}>
-                {this.state.ready &&
+                {this.state.ready && this.state.luminary &&
                 <div className="main-row">
                     <div id="category-top-nav" className="top-nav-scroll luminary"
                          style={{height: '15px', overflow: 'visible', width: '960px'}}>
@@ -79,7 +79,7 @@ class LuminaryActivity extends React.Component {
                                     </div>
                                     <div className="marquee-text celeb_nav">
                                         <div>
-                                            <FollowButton activity={this.state.luminary} styles={'float: right'}/>
+                                            <FollowButton luminary={this.state.luminary} styles={'float: right'}/>
                                             <h3 className="sg-f-ttl">{this.state.luminary.user.firstName +
                                             " " + this.state.luminary.user.lastName}</h3>
                                             <div className="review_stars_div at_celeb_top_nav"
@@ -91,7 +91,6 @@ class LuminaryActivity extends React.Component {
                                             </div>
                                             <p className="org sg-c-2">{this.state.luminary.shortDescription}</p>
                                         </div>
-
                                         <div className="desc sg-f-bdy"><p>{this.state.luminary.description}</p>
                                         </div>
                                         <div style={{clear: 'both'}}>
@@ -103,7 +102,7 @@ class LuminaryActivity extends React.Component {
                     </div>
                     <div className="row sg-f-ttl"
                          style={{margin: '0px 0 14px 0', textAlign: 'center', borderTop: '1px solid #CDCDCD'}}>
-                        <div className="section-title"><h3>Предложения</h3></div>
+                        <div className="section-title"><h3>Предложения от {this.state.luminary.user.firstName}</h3></div>
                     </div>
                     {this.state.activitiesRows}
                 </div>

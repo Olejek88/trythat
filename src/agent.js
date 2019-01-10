@@ -215,6 +215,8 @@ const Luminary = {
         requests.get(`/v1/luminaries?expand=user.image`),
     get: user_id =>
         requests.get(`/v1/luminaries?expand=user.image&user.id=${user_id}`),
+    getLuminary: id =>
+        requests.get(`/v1/luminaries?expand=user.image&id=${id}`),
     create: luminary =>
         requests.post(`/v1/luminaries`, luminary),
     update: luminary =>

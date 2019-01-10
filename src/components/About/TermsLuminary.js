@@ -22,7 +22,7 @@ class TermsLuminary extends React.Component {
                                         Experiences and other terms specific to a Luminary’s provision of
                                         Experiences in connection with the Services. Unless otherwise defined in
                                         this Luminary Addendum, all capitalized terms have the meaning provided
-                                        in the IfOnly Terms. &nbsp;</p>
+                                        in the TryThat Terms. &nbsp;</p>
                                     <p>Please read this Luminary Addendum carefully. &nbsp;If you don’t agree to
                                         its terms and conditions you aren’t permitted to become a Luminary and
                                         you may not offer Experiences in connection with the Services. Traina
@@ -89,7 +89,7 @@ class TermsLuminary extends React.Component {
                                     <p>For Scheduled Experiences, you must respond to a request to schedule your
                                         Experience within seventy-two (72) hours, but recommend a prompt
                                         response whenever possible. &nbsp;Otherwise, the request may be
-                                        automatically rejected. IfOnly may, at their discretion, make a good
+                                        automatically rejected. TryThat may, at their discretion, make a good
                                         faith effort to contact you if you do not reply to a schedule requests
                                         in a timely manner. Traina Interactive reserves the right to remove your
                                         Experiences and/or Luminary account from the Services if you do not
@@ -163,7 +163,7 @@ class TermsLuminary extends React.Component {
                                     <p><strong>&nbsp;</strong></p>
                                     <p><strong>Luminary Conduct</strong></p>
                                     <p>As a Luminary, without limiting the Registered User Conduct Terms
-                                        provided in the IfOnly Terms, in connection with your use of the
+                                        provided in the TryThat Terms, in connection with your use of the
                                         Services, you also agree that you won’t:</p>
                                     <ul>
                                         <li>Offer to buy your own auction Experiences, or instruct, authorize or
@@ -180,10 +180,10 @@ class TermsLuminary extends React.Component {
                                             illegally duplicated; bootlegged or pirated content).
                                         </li>
                                         <li>Offer an experience that is illegal in any way</li>
-                                        <li>Fail to contact IfOnly if there are any issues with the execution of
+                                        <li>Fail to contact TryThat if there are any issues with the execution of
                                             your experience;
                                         </li>
-                                        <li>Accept or make payments for an IfOnly Experience outside of the
+                                        <li>Accept or make payments for an TryThat Experience outside of the
                                             Services; or
                                         </li>
                                         <li>Fulfill an experience that is inconsistent with the Experience
@@ -208,7 +208,7 @@ class TermsLuminary extends React.Component {
                                         for such Experience and upon notice you must return to Traina
                                         Interactive any portion of the Luminary Share (defined below) paid to
                                         you in advance. Any refunds to End Users will be made in accordance with
-                                        the <a href="https://ifonly.com/website/terms">IfOnly Terms of
+                                        the <a href="https://TryThat.com/website/terms">TryThat Terms of
                                             Service</a>.</p>
                                     <p><strong>&nbsp;</strong></p>
                                     <p><strong>Financial Terms</strong></p>
@@ -301,7 +301,7 @@ class TermsLuminary extends React.Component {
                                         valid U.S. tax identification number and a fully-completed IRS Form W-9,
                                         or an IRS Form W-8BEN or any other comparable tax information as
                                         required by local laws and regulations.&nbsp;</p>
-                                    <p>All payments due and payable to you under these IfOnly Terms will include
+                                    <p>All payments due and payable to you under these TryThat Terms will include
                                         applicable Taxes, if any. You will be responsible for payment of all
                                         Taxes and any related interest and penalties resulting from any payments
                                         made hereunder. &nbsp;You are also solely responsible for remitting to
@@ -339,7 +339,7 @@ class TermsLuminary extends React.Component {
                                         rights in your Luminary Marks under this Luminary Addendum.</p>
                                     <p><strong>Contact Us</strong></p>
                                     <p>If you have any questions regarding this Luminary Addendum feel free to
-                                        send us a note at terms@ifonly.com. We will happily answer any questions
+                                        send us a note at terms@TryThat.com. We will happily answer any questions
                                         you have.</p>
                                     <p>&nbsp;</p></div>
                             </div>

@@ -94,7 +94,7 @@ class ActivityAboutLuminary extends React.Component {
                     <div className="cb" data-celebid="36">
                         <div className="cb-title"><h4 className=" sg-f-ttl ">Об организаторе</h4></div>
                         <div className="cb-box">
-                            <a href="/" style={{display: 'inline-block'}}>
+                            <a href={"/#/luminary/" + this.state.luminary.id} style={{display: 'inline-block'}}>
                                 <div className="img-box-wrapper">
                                     <div className="img-box">
                                         <img className="luminary-img thumbnail_img"

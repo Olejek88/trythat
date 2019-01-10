@@ -17,15 +17,15 @@ class SiteMenu extends React.Component {
                     <div id="footer-menu" className="responsive sg-c-3" style={{textAlign: 'center'}}>
                         <ul className="footer-menu-item">
                             <p style={{marginBottom: '16px'}}>Компания</p>
-                            <li><a className="sg-c-3 allowAllUsers" href="/#/about">О нас</a></li>
-                            <li><a className="sg-c-3 allowAllUsers" href="/#/sell">Как это работает</a></li>
+                            <li><a className="sg-c-3 allowAllUsers" href={"/#/about"}>О нас</a></li>
+                            <li><a className="sg-c-3 allowAllUsers" href={"/#/sell"}>Как это работает</a></li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">Карьера</a></li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">Статьи</a></li>
                         </ul>
                         <ul className="footer-menu-item">
                             <p>Помощь</p>
                             <li>
-                                <div id="email-us">Е-мэйл</div>
+                                <div id="email-us"><a href={"mailto:sale@trythat.info"}>Е-мэйл</a></div>
                                 <div>(922) 1212121</div>
                             </li>
                             <li><a className="sg-c-3 allowAllUsers" href="/">Гарантии</a></li>

@@ -19,7 +19,14 @@ class LuminaryStore {
         };
 
     getLuminary(luminary_id) {
-        return agent.Luminary.get(luminary_id)
+        return agent.Luminary.getLuminary(luminary_id)
+            .catch(action(err => {
+                throw err;
+            }));
+    }
+
+    getByUser(user_id) {
+        return agent.Luminary.get(user_id)
             .catch(action(err => {
                 throw err;
             }));

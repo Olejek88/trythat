@@ -18,16 +18,17 @@ const TeamMember = ({appName, token}) => {
                 <div className="celeb-info">
                     <div className="celeb-info-content">
                         <div className="name ">
-                            <p className="sg-f-dspl-m2 sg-c-1 sg-text-transform">Oleg Ivanov</p>
+                            <p className="sg-f-dspl-m2 sg-c-1 sg-text-transform">Олег Иванов</p>
                         </div>
                         <div className="charity">
-                            <p className="sg-f-dspl-s sg-c-2">IT chief</p>
+                            <p className="sg-f-dspl-s sg-c-2">IT</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div id="member_detail_1" className="team_member_div team_member_div_1 desktop">
-                <div style={{clear: 'both'}}></div>
+                <div style={{clear: 'both'}}>
+                </div>
                 <div className="left_col">
                     <div className="celebrityBox">
                         <div className="img-box-wrapper">
@@ -40,16 +41,16 @@ const TeamMember = ({appName, token}) => {
 
                 <div className="right_col">
                     <div className="member_name">
-                        Oleg Ivanov
+                        Олег Иванов
                     </div>
 
                     <div className="member_position">
-                        IT Chief
+                        IT шеф
                     </div>
 
                     <div className="member_social_links">
                         <a href="https://www.linkedin.com/">
-                            <img src={"images/icon_instagram.png"} alt="Opens In New Window"/>
+                            <img src={"images/icon_instagram.png"} alt="Открыть в новом окне"/>
                         </a>
                     </div>
                 </div>

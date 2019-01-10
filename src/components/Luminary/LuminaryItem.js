@@ -34,7 +34,7 @@ class LuminaryItem extends React.Component {
                 </a>
 
                 <div className="js-follow-con " style={{textAlign: 'center'}}>
-                    <FollowButton activity={this.state.luminary}/>
+                    <FollowButton luminary={this.props.luminary}/>
                 </div>
             </div>
         );

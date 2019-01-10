@@ -18,6 +18,7 @@ class PopCart extends React.Component {
 
     componentWillMount() {
         let self = this;
+        let count = 0;
         let predicate = {
             filter: 'order-status',
             id: 1
@@ -26,8 +27,11 @@ class PopCart extends React.Component {
         this.props.orderStore.loadOrders().then(action((orders) => {
             orders.forEach(function (order, i) {
                 let activity = order.activityListing.activity;
-                self.setState({sum: self.state.sum + order.activityListing.cost});
-                self.orderList.push(<OrderListPopItem activity={activity} key={i} order={order}/>);
+                if (count<=5) {
+                    self.setState({sum: self.state.sum + order.activityListing.cost});
+                    self.orderList.push(<OrderListPopItem activity={activity} key={i} order={order}/>);
+                }
+                count++;
             });
             self.setState({count: self.orderList.length});
             self.props.commonStore.ordersCount = self.orderList.length;

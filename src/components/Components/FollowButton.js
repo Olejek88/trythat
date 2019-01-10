@@ -14,12 +14,12 @@ class FollowButton extends React.Component {
 
         this.onFollowed = () => {
             // сначала меняем визуально, потом запускаем асинхронный setstate
-            if (this.state.following[0] && this.state.following[0].id > 0) {
+            if (this.state.following) {
                 this.setState({followClass: 'follow following  wide  button primaryButton'});
                 this.setState({followButtonText: 'Подписаться'});
                 this.setState({checkStyle: 'greenCheck display_none'});
-                this.props.followListStore.unFollow(this.state.following[0].id).then(() => {
-                    this.setState({following: []});
+                this.props.followListStore.unFollow(this.state.following.id).then(() => {
+                    this.setState({following: undefined});
                 });
             }
             else {
@@ -30,8 +30,9 @@ class FollowButton extends React.Component {
                     customer_id: this.props.userStore.currentCustomer.id,
                     luminary_id: this.props.luminary.id
                 };
-                this.props.followListStore.follow(follow);
-                this.setState({following: follow});
+                this.props.followListStore.follow(follow).then((follow) => {
+                    this.setState({following: follow});
+                });
             }
         };
     }
@@ -41,7 +42,6 @@ class FollowButton extends React.Component {
         if (this.props.luminary) {
             const customer = this.props.userStore.currentCustomer;
             this.props.followListStore.isFollow(customer, this.props.luminary).then((follow) => {
-                self.setState({following: follow});
                 if (follow.length === 0) {
                     self.setState({followClass: "follow following  wide  button primaryButton"});
                     self.setState({followButtonText: 'Подписаться'});
@@ -51,6 +51,7 @@ class FollowButton extends React.Component {
                     self.setState({followClass: 'follow following  wide button secondaryButton js-following'});
                     self.setState({followButtonText: 'Подписаны'});
                     self.setState({checkStyle: 'greenCheck display_initial'});
+                    self.setState({following: follow[0]});
                 }
             });
         }
@@ -62,8 +63,10 @@ class FollowButton extends React.Component {
             <div data-id="36" style={{margin: '10px 0 0 2px'}}
                  className={this.state.followClass}>
                 <div className="title-container"><p className="title">
+                    {this.state.following &&
                     <img src={"images/icon_checkmark_green.png"} className={this.props.checkStyle}
-                         alt={""}/>
+                        alt={""}/>
+                    }
                     <span className="title following-text sg-text-transform"
                           onClick={this.onFollowed}>{this.state.followButtonText}</span></p></div>
             </div>

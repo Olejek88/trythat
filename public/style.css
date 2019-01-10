@@ -1233,6 +1233,7 @@ div.p-top-sec .p-form .info-box {
     margin: 2px 0;
     vertical-align: middle !important;
     border: 2px solid transparent;
+    border-radius: 5px;
 }
 
 .button {
