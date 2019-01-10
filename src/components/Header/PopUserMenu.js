@@ -24,13 +24,14 @@ class PopWish extends React.Component {
                                 <p>Заказы</p></li>
                         </a>
                         <a href={"/#/my/activity/wish"}>
-                            <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3"><p>Список желаний</p></li>
+                            <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
+                                <p>Список желаний</p></li>
                         </a>
                         <a href={"/#/follows"}>
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Предпочтения</p></li>
                         </a>
-                        <a href="/#/mail">
+                        <a href={"/#/mail"}>
                             <li className="child sg-inline-middle sg-f-bdy sg-c-1 sg-hover-3">
                                 <p>Общение<span className="bubble notification unread sg-c-3 bg-ovr-4"
                                                 style={{

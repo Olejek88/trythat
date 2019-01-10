@@ -11,9 +11,8 @@ class Activities extends React.Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
-        //this.setState({filter: this.props.match.params.filter});
-        //this.setState({id: this.props.match.params.id});
+        this.setState({filter: nextProps.match.params.filter});
+        this.setState({id: nextProps.match.params.id});
     }
 
     componentWillMount() {

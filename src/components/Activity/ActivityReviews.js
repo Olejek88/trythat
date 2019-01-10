@@ -49,8 +49,8 @@ class ActivityReviews extends React.Component {
                 self.setState({reviewList: self.reviewList});
                 if (total > 0)
                     self.setState({averageMark: {rate: (sum / total), total: total}});
+                self.setState({updated: true});
             }));
-            self.setState({updated: true});
         }
     }
 
@@ -74,7 +74,7 @@ class ActivityReviews extends React.Component {
                     <div className="reviews_list clearfix">
                         <React.Fragment>
                             {this.state.updated &&
-                            this.state.reviewList
+                                this.state.reviewList
                             }
                         </React.Fragment>
                     </div>

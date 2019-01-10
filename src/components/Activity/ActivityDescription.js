@@ -19,13 +19,6 @@ class ActivityDescription extends React.Component {
         this.setState({activity: nextProps.activity});
     }
 
-    componentDidUpdate() {
-        if (this.props.activity && !this.state.updated) {
-            this.setState({activity: this.props.activity});
-            this.setState({updated: true});
-        }
-    }
-
     render() {
         return (
             <div className="left-box desc-box">

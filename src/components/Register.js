@@ -28,7 +28,7 @@ class Register extends React.Component {
     handleSubmitForm = (e) => {
         e.preventDefault();
         this.props.authStore.register()
-            .then(() => this.props.history.replace('/#/login'));
+            .then(() => this.props.history.replace('/login'));
     };
 
     render() {

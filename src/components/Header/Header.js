@@ -11,9 +11,11 @@ const LoggedOutView = props => {
         return (
             <div id="buttons-nav" className=" sg-inline-middle"
                  style={{order: '3', flexWrap: 'nowrap', float: 'right'}}>
+                {!props.currentLuminary &&
                 <Link to="/sell" className="navButton button" id="sellBtn">
                     <div className="title-container"><p className="title">Продать на TryThat</p></div>
                 </Link>
+                }
                 <Link to="/register" className="access-join allowAllUsers js-signUp primaryButton button"
                       id="signUpBtn">
                     <div className="title-container"><p className="title">Регистрация</p></div>
@@ -45,11 +47,13 @@ const LoggedInView = props => {
                     <img src={props.currentUser.image} className="user-pic" alt="" />
                     {props.currentUser.username}
                 </Link>
-*/}
+                */}
+                {!props.currentLuminary &&
                     <Link to="/sell" className="navButton button button_radius" id="sellBtn">
                         <div className="title-container"><p className="title">Продать на TryThat</p></div>
                     </Link>
-                    {/*
+                }
+                {/*
                 <Link to="/settings" className="access-join allowAllUsers js-signUp primaryButton button" id="signUpBtn">
                     <div className="title-container"><p className="title">Профиль</p></div>
                 </Link>
@@ -119,8 +123,12 @@ class Header extends React.Component {
 */}
                         </div>
                         <MenuNew/>
-                        <LoggedOutView currentUser={this.props.userStore.currentUser}/>
-                        <LoggedInView currentUser={this.props.userStore.currentUser} orders={orders}
+                        <LoggedOutView currentUser={this.props.userStore.currentUser}
+                                       currentLuminary={this.props.userStore.currentLuminary}
+                        />
+                        <LoggedInView currentUser={this.props.userStore.currentUser}
+                                      currentLuminary={this.props.userStore.currentLuminary}
+                                      orders={orders}
                                       ordersCount={this.props.commonStore.ordersCount}/>
                     </div>
                 </div>

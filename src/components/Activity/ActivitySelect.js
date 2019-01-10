@@ -21,7 +21,8 @@ class ActivitySelect extends React.Component {
             activityDiapason: '1-10',
             activityDurations: 'не указано',
             luminary: "",
-            activity: "",
+            status: this.props.orderStatusStore.loadOrderStatus(1),
+            activity: undefined,
             activityCustomers: [],
             activityListingDurations: [],
             wish_id: 0
@@ -36,7 +37,9 @@ class ActivitySelect extends React.Component {
                     activity_id: this.props.activity.id,
                     customer_id: customer.id
                 };
-                this.props.wishListStore.wish(wish);
+                this.props.wishListStore.wish(wish).then((wish_id) => {
+                    this.setState({wish_id: wish_id.id});
+                });
             }
             else {
                 this.setState({favoredClass: 'pdp heart_img'});
@@ -59,13 +62,12 @@ class ActivitySelect extends React.Component {
                 });
                 let order = {
                     activity_listing_id: selectedActivityListing.value,
-                    orderStatus: this.props.orderStatusStore.loadOrderStatus(1),
+                    orderStatus: this.state.status,
                     customer_id: this.props.userStore.currentCustomer.id,
                     created_at: Math.ceil(Date.now() / 1000),
                     updated_at: Math.ceil(Date.now() / 1000),
                     start_date: moment().format('YYYY-MM-DD 00:00:00')
                 };
-                console.log(order);
                 this.props.orderStore.createOrder(order).then(() => {
                     this.props.history.push("/");
                 });
@@ -97,10 +99,7 @@ class ActivitySelect extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.loadData(nextProps.activity);
-        this.setState({updated: true});
-    }
-
-    componentDidUpdate() {
+        //this.setState({updated: true});
     }
 
     loadData(activity) {
@@ -123,22 +122,24 @@ class ActivitySelect extends React.Component {
                 });
             }));
             const customer = this.props.userStore.currentCustomer;
-            this.props.wishListStore.isWished(activity.id, customer.id).then(((wish) => {
-                if (wish) {
-                    this.setState({favored: true});
-                    this.setState({favoredClass: "pdp heart_img listed"});
-                }
-                else {
-                    this.setState({favored: false});
-                    this.setState({favoredClass: 'pdp heart_img'});
-                }
-            }));
-            this.setState({updated: true});
+            if (customer && customer.id>0) {
+                this.props.wishListStore.isWished(activity.id, customer.id).then(((wish) => {
+                    if (wish) {
+                        this.setState({favored: true});
+                        this.setState({favoredClass: "pdp heart_img listed"});
+                        this.setState({wish_id: wish[0].id});
+                    }
+                    else {
+                        this.setState({favored: false});
+                        this.setState({favoredClass: 'pdp heart_img'});
+                    }
+                }));
+            }
         }
     }
 
     componentWillMount() {
-        this.loadData(this.props.activity);
+        //this.loadData(this.props.activity);
     }
 
     render() {
@@ -146,7 +147,7 @@ class ActivitySelect extends React.Component {
             <React.Fragment>
                 {this.state.showQuestionDialog && <QuestionDialog clickHandler={() => this.clickHandler(this)}
                                                                   luminary={this.state.activity.luminary}/>}
-                {this.state.updated &&
+                {this.state.activity &&
                 <div className="right-box action-box" style={{marginBottom: '40px'}}>
                     <div className="p-attributes " data-productid="325">
                         <h2 className="lum-name sg-f-dspl-s ">

@@ -3,8 +3,8 @@ import {inject} from "mobx-react/index";
 import ActivityPhotoDiv from "./ActivityPhotoDiv";
 
 class ActivityPhoto extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             activity: null,
             photoList: []

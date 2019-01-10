@@ -46,7 +46,7 @@ class WishListStore {
     }
 
     unWish(wish) {
-        return agent.WishList.unWish(wish.id)
+        return agent.WishList.unWish(wish)
             .catch(action(err => {
                 throw err;
             }));

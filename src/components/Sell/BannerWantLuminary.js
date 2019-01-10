@@ -50,7 +50,8 @@ class BannerWantLuminary extends React.Component {
         return (
             <div className="band signup-full" style={{position: 'relative', width: '100%'}}>
                 <div className="background-con">
-                    <div className="dark-img-overlay"></div>
+                    <div className="dark-img-overlay">
+                    </div>
                     <div className="signup-top center">
                         <h3>Станьте нашим партнером</h3>
                         <div className="sub-header">
@@ -71,7 +72,8 @@ class BannerWantLuminary extends React.Component {
                                onChange={this.handleEmailChange}
                                name="emailAddress"/>
                     </div>
-                    <div style={{clear: 'both'}}></div>
+                    <div style={{clear: 'both'}}>
+                    </div>
                     <div className="js-err-con" onClick={this.handleClickBecome}>
                         <div className="login-btn primaryButton button button_radius">
                             <div className="title-container"><p className="title">Отправить</p></div>

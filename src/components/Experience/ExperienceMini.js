@@ -118,7 +118,7 @@ class ExperienceMini extends React.Component {
                                  zIndex: '1', position: 'absolute', right: '5px', textAlign: 'right',
                                  top: '40px'
                              }}>
-                            <img className="wishlist-carrot" src={"arrow_up_white_border.png"} alt={""}/>
+                            <img className="wishlist-carrot" src={"images/arrow_up_white_border.png"} alt={""}/>
                             <div className="wishlist-text-con sg-bg-3 sg-bd-2 ">
                                 <p className="wishlist-text sg-f-bdy sg-c-primary sg-text-transform"
                                    style={{textAlign: 'center'}}>хочу!</p>

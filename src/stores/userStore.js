@@ -40,7 +40,7 @@ export class UserStore {
 
     customer =
         {
-            id: '888888',
+            id: '0',
             user: this.currentUser,
             positive: 0,
             negative: 0,
@@ -49,7 +49,7 @@ export class UserStore {
 
     luminary =
         {
-            id: '888888',
+            id: '0',
             verified: false,
             verifiedDate: new Date(),
             rating: 0.0,

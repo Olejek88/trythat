@@ -1243,6 +1243,7 @@ div.p-top-sec .p-form .info-box {
     min-width: 100px;
     box-sizing: border-box;
     cursor: pointer;
+    background-color: white;
 }
 
 .secondaryButton {

@@ -8,6 +8,7 @@ class PopWish extends React.Component {
         super(props);
         this.state = {
             updated: false,
+            count: 0,
             wishList: 'Список желаний пуст'
         };
     }
@@ -28,6 +29,7 @@ class PopWish extends React.Component {
                         self.setState({wishList: wishListItems});
                         self.setState({updated: true});
                         count++;
+                        self.setState({count: count});
                     }));
                 });
             });
@@ -36,42 +38,46 @@ class PopWish extends React.Component {
 
     render() {
         return (
-            <div id="wish-popup-wrapper" className="io-popup-wrapper">
-                <div id="wish-popup-box" className="sg-bg-3 sg-bd-3">
-                    <div id="wish-popup-carrot" className="io-arrow-popup-carrot" style={{marginLeft: '400px'}}>
-                    </div>
-                    <div id="wish-popup-content" className="sg-f-subttl"
-                         style={{marginTop: '0px', textAlign: 'center'}}>
-                        <div id="wish-popup" className="io-arrow-popup">
-                            <div id="wish-popup-items" style={{height: '82px'}} className="mCustomScrollbar _mCS_1">
-                                <div className="mCustomScrollBox" id="mCSB_1" style={{
-                                    position: 'relative',
-                                    height: '100%', overflow: 'hidden', maxWidth: '100%'
-                                }}>
-                                    <div className="mCSB_container mCS_no_scrollbar"
-                                         style={{position: 'relative', top: '0'}}>
-                                        <ul className="wish-popup-ul">
-                                            <React.Fragment>
-                                                {this.state.updated &&
-                                                this.state.wishList
-                                                }
-                                            </React.Fragment>
-                                            <div
-                                                className="separator sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right">
-                                            </div>
-                                        </ul>
+            <React.Fragment>
+                {this.state.count > 0 &&
+                <div id="wish-popup-wrapper" className="io-popup-wrapper">
+                    <div id="wish-popup-box" className="sg-bg-3 sg-bd-3">
+                        <div id="wish-popup-carrot" className="io-arrow-popup-carrot" style={{marginLeft: '400px'}}>
+                        </div>
+                        <div id="wish-popup-content" className="sg-f-subttl"
+                             style={{marginTop: '0px', textAlign: 'center'}}>
+                            <div id="wish-popup" className="io-arrow-popup">
+                                <div id="wish-popup-items" style={{height: '82px'}} className="mCustomScrollbar _mCS_1">
+                                    <div className="mCustomScrollBox" id="mCSB_1" style={{
+                                        position: 'relative',
+                                        height: '100%', overflow: 'hidden', maxWidth: '100%'
+                                    }}>
+                                        <div className="mCSB_container mCS_no_scrollbar"
+                                             style={{position: 'relative', top: '0'}}>
+                                            <ul className="wish-popup-ul">
+                                                <React.Fragment>
+                                                    {this.state.updated &&
+                                                    this.state.wishList
+                                                    }
+                                                </React.Fragment>
+                                                <div
+                                                    className="separator sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right">
+                                                </div>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="footer">
-                                <div style={{float: 'left', margin: '0px 0 0 20px'}}>
-                                    <a href={"/#/wish_list"} className="goto-link">Смотреть весь список</a>
+                                <div className="footer">
+                                    <div style={{float: 'left', margin: '0px 0 0 20px'}}>
+                                        <a href={"/#/wish_list"} className="goto-link">Смотреть весь список</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                }
+            </React.Fragment>
         );
     }
 }

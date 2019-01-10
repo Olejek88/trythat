@@ -116,7 +116,7 @@ class Experience extends React.Component {
                              onClick={this.onFavored} style={{cursor: 'pointer'}}>
                         </div>
                         <div className="wishlist-main-con wishlist_spec">
-                            <img className="wishlist-carrot" src={"/arrow_up_white_border.png"} alt={""}/>
+                            <img className="wishlist-carrot" src={"images/arrow_up_white_border.png"} alt={""}/>
                             <div className="wishlist-text-con sg-bg-3 sg-bd-2 ">
                                 <p className="wishlist-text sg-f-bdy sg-c-primary sg-text-transform"
                                    style={{textAlign: 'center'}}>хочу!</p>
