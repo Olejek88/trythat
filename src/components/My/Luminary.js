@@ -13,6 +13,7 @@ class Luminary extends React.Component {
             description: '',
             shortDescription: '',
             rating: 0.0,
+            total: 0,
             user_id: '',
             user: ''
         };

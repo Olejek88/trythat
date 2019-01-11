@@ -42,8 +42,8 @@ class ActivityListItem extends React.Component {
                         <div className="main sg-inline-top">
                             <div className="two-col-1 col sg-f-ttl"
                                  style={{margin: '10px 0', width: '100%', display: 'inline-flex'}}>
-                                <div style={{margin: '0 10px', width: '20%'}}><img src={activity_image}
-                                                                                   style={{width: '140px'}} alt={""}/>
+                                <div style={{margin: '0 10px', width: '20%'}}>
+                                    <img src={activity_image} style={{width: '140px', borderRadius: '5px'}} alt={""}/>
                                 </div>
                                 <div style={{margin: '0 10px', width: '80%'}}>
                                     <div><span className="js-pdpDetails sg-c-1">

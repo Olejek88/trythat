@@ -79,7 +79,9 @@ class LuminaryActivity extends React.Component {
                                     </div>
                                     <div className="marquee-text celeb_nav">
                                         <div>
-                                            <FollowButton luminary={this.state.luminary} styles={'float: right'}/>
+                                            <div style={{float: 'right'}}>
+                                                <FollowButton luminary={this.state.luminary}/>
+                                            </div>
                                             <h3 className="sg-f-ttl">{this.state.luminary.user.firstName +
                                             " " + this.state.luminary.user.lastName}</h3>
                                             <div className="review_stars_div at_celeb_top_nav"

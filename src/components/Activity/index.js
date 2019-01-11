@@ -19,6 +19,7 @@ class Activity extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         this.loadActivity(nextProps.match.params.id);
     }
 

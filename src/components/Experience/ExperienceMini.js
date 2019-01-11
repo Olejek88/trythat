@@ -1,34 +1,16 @@
 import React from 'react';
 import {inject} from 'mobx-react';
 import Link from "react-router-dom/es/Link";
+import FavoredButton from "../Components/FavoredButton";
 
 class ExperienceMini extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            favored: false,
-            favoredClass: "heart_img",
             customer: null,
             activity: '',
             activity_image: '',
-            activityPrice: 0,
-            wish: null
-        };
-
-        this.onFavored = () => {
-            this.setState({favored: !this.state.favored});
-            if (this.state.favored && this.state.wish) {
-                this.setState({favoredClass: 'heart_img wishlist listed'});
-                this.props.wishListStore.unWish(this.state.wish);
-            }
-            else {
-                this.setState({favoredClass: 'heart_img'});
-                let wish = {
-                    activity_id: this.state.activity.id,
-                    customer: this.state.customer.id
-                };
-                this.props.wishListStore.wish(wish);
-            }
+            activityPrice: 0
         };
     }
 
@@ -43,7 +25,6 @@ class ExperienceMini extends React.Component {
     loadData(activity) {
         let self = this;
         if (activity) {
-            this.setState({favoredClass: 'heart_img'});
             this.setState({activity: activity});
             this.props.activityListingStore.loadActivityListing(activity).then(function (activityListing) {
                 let price = self.props.activityListingStore.loadActivityListingMinimumPrice(activityListing);
@@ -63,16 +44,7 @@ class ExperienceMini extends React.Component {
                     }
                 });
             }
-
-            const customer = this.props.userStore.currentCustomer;
-            this.setState({customer: customer});
-            this.props.wishListStore.isWished(activity.id, customer.id).then((wish) => {
-                if (wish.length > 0) {
-                    this.setState({favoredClass: "heart_img wishlist listed"});
-                    this.setState({wish: wish[0]});
-                    this.setState({favored: "favored"});
-                }
-            });
+            this.setState({customer: this.props.userStore.currentCustomer});
         }
     }
 
@@ -110,9 +82,7 @@ class ExperienceMini extends React.Component {
                              data-src={this.state.activity.luminary.user.image.path}
                              src={this.props.commonStore.apiServer + this.state.activity.luminary.user.image.path}
                              alt={this.state.activity.luminary.user.firstName + " " + this.state.activity.luminary.user.lastName}/>
-                        <div className={this.state.favoredClass} tabIndex="0" title="Список желаний"
-                             onClick={this.onFavored}>
-                        </div>
+                        <FavoredButton activity={this.state.activity}/>
                         <div className="wishlist-main-con"
                              style={{
                                  zIndex: '1', position: 'absolute', right: '5px', textAlign: 'right',

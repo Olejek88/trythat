@@ -15,7 +15,7 @@ class FollowListItem extends React.Component {
             <React.Fragment>
                 <li className="celeb-1479">
                     <div className="image"><a href={luminary_link}>
-                        <img src={luminary_image} alt={luminary_name}/>
+                        <img src={luminary_image} alt={luminary_name} style={{borderRadius: '10px'}}/>
                     </a></div>
                     <div className="desc">
                         <p className="cname">{luminary_who}</p>

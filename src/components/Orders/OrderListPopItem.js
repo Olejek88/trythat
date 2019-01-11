@@ -14,7 +14,8 @@ class OrderListPopItem extends React.Component {
         let activity_image = null;
         if (activity.activityImages[0].image)
             activity_image = {
-                backgroundImage: 'url(' + this.props.commonStore.apiServer + activity.activityImages[0].image.path + ')'
+                backgroundImage: 'url(' + this.props.commonStore.apiServer + activity.activityImages[0].image.path + ')',
+                borderRadius: '3px'
             };
         else
             activity_image = {

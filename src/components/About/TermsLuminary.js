@@ -17,28 +17,23 @@ class TermsLuminary extends React.Component {
                                         описывает правила использования площадки, механизм работы и оплаты услуг и
                                         другие
                                         детали сотрудничества.</p>
-                                    <p>The Luminary Addendum contains terms regarding the creation and posting
-                                        of Experience Listings, how and what Luminaries get paid for their
-                                        Experiences and other terms specific to a Luminary’s provision of
-                                        Experiences in connection with the Services. Unless otherwise defined in
-                                        this Luminary Addendum, all capitalized terms have the meaning provided
-                                        in the TryThat Terms. &nbsp;</p>
-                                    <p>Please read this Luminary Addendum carefully. &nbsp;If you don’t agree to
-                                        its terms and conditions you aren’t permitted to become a Luminary and
-                                        you may not offer Experiences in connection with the Services. Traina
-                                        Interactive reserves the right to approve or reject any Luminary
-                                        application, for any reason. &nbsp;</p>
+                                    <p>Эта страница содержит условия, касающиеся создания и размещения предложений,
+                                        органицазии оплаты услуг и выплаты вознаграждений.
+                                        Пожалуйста, внимательно прочитайте это Приложение. Если вы не согласны с
+                                        его условиями вам не разрешено стать Исполнителями на данной площадке и
+                                        Вы не можете предлагать свой Опыт. Наша компания оставляет за собой право одобрить
+                                        или отклонить любой предложение любого Исполнителя по любой причине.</p>
                                     <p>&nbsp;</p>
-                                    <p><strong>Experience Listings and Experience Purchasing</strong></p>
-                                    <p><span style={{textDecoration: 'underline'}}>Experience Listings</span></p>
-                                    <p>For each Experience, you will create an Experience Listing via the
-                                        Luminary portal page. When you do so, you will be asked a series of
-                                        questions about the Experience that will structure your experience in an
-                                        appropriate way; you may also choose certain requirements which must be
-                                        met by End Users, including but not limited to the recommended health,
-                                        fitness and skill level and time and location for the Experience. You
-                                        will also set the price for your Experience, as further described below
-                                        under the section titled “<strong>Financial Terms</strong>”.</p>
+                                    <p><strong>Перечень предложений и их покупка</strong></p>
+                                    <p><span style={{textDecoration: 'underline'}}>Перечень предложений</span></p>
+                                    <p>Для каждого предложения вы создадите список вариантов через
+                                        ваш раздел. Когда вы это сделаете, с вами свяжется наш специалист и будет предложен
+                                        ряд уточняющих вопросов, которые будут структурировать ваш опыт.
+                                        Вы также можете выбрать определенные требования, которые должны быть
+                                        удовлетворены конечными пользователями, включая, но не ограничиваясь
+                                        рекомендованным состоянием здоровья,
+                                        уровень физической подготовки и навыков, а также временем и местом для опыта. Вы
+                                        также установит цену за ваши предложения.</p>
                                     <p>After you complete your Experience Listing and submit it to the Services,
                                         we will review it as further described on the Site. You can visit our <a
                                             href="/faq">Luminary FAQs

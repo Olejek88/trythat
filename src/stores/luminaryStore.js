@@ -13,6 +13,7 @@ class LuminaryStore {
             verified: false,
             verifiedDate: new Date(),
             rating: 0.0,
+            total: 0,
             description: 'Нет описания',
             fullDescription: 'Нет описания',
             user: userStore.testData

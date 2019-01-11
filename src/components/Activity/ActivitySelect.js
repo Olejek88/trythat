@@ -338,11 +338,9 @@ class ActivitySelect extends React.Component {
                         </div>
                         <div className="social_wiget_div sg-f-hdr sg-bd-3 desktop " style={{textAlign: 'center'}}>
                             <div className="wishlist  secondaryButton sg-cursor " tabIndex="0">
-                                <div className={this.state.favoredClass} style={{marginBottom: '18px'}}
-                                     onClick={this.onFavored}>
+                                <div className={this.state.favoredClass} style={{marginBottom: '18px'}} onClick={this.onFavored}>
                                 </div>
-                                <p className="pdp wishlist-text title sg-text-transform">Добавить в список
-                                    желаний</p>
+                                <p className="pdp wishlist-text title sg-text-transform">Добавить в список желаний</p>
                             </div>
                             <table className="btn_table sg-bd-2 sg-no-bd-bottom sg-no-bd-left sg-no-bd-right">
                                 <tbody>

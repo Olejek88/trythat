@@ -120,9 +120,9 @@ class OrderListItem extends React.Component {
                     </div>
                     <div className="body-row">
                         <div className="main sg-inline-top">
-                            <div className="two-col-1 col sg-inline-top sg-f-ttl" style={{margin: '10px 0'}}>
+                            <div className="two-col-1 col sg-inline-top sg-f-ttl" style={{margin: '10px'}}>
                                 <div><a href={order_link} className="sg-c-1">
-                                    <img src={activity_image} style={{width: '140px'}} alt={""}/>
+                                    <img src={activity_image} style={{width: '140px', borderRadius: '5px'}} alt={""}/>
                                 </a>
                                 </div>
                                 <div style={{margin: '0 10px', width: '50%'}}>
@@ -133,7 +133,7 @@ class OrderListItem extends React.Component {
                                     </div>
                                     <div className="sg-c-2">
                                     </div>
-                                    <div className="convert" style={{marginTop: '10px', cursor: 'pointer'}}>
+                                    <div className="convert" style={{marginTop: '10px', cursor: 'pointer', display: 'none'}}>
                                         <button className="sg-inline-middle" onClick={this.onFavored}>
                                             <div className={this.state.favoredClass}
                                                  style={{width: '22px', height: '22px', backgroundSize: 'cover'}}>

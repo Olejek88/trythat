@@ -159,6 +159,9 @@ class Settings extends React.Component {
             this.setState({birthDay: birth.getDate()});
             this.setState({birthMonth: birth.getMonth() + 1});
             this.setState({birthYear: birth.getFullYear()});
+            this.setState({
+                birthDate: birth.getFullYear() + "-" + (birth.getMonth() + 1) + "-" + birth.getDate() + " 00:00:00"
+            });
             Object.assign(this.state, {
                 id: this.props.userStore.currentUser.id || '',
                 image: this.props.userStore.currentUser.image || '',
