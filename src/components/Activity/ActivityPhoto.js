@@ -39,20 +39,10 @@ class ActivityPhoto extends React.Component {
         return (
             <div className="left-box product-slider-box" style={{marginBottom: '40px'}}>
                 <div className="pImgContainer">
-                    <div className="scroll" style={{display: 'block'}}>
-                        <div className="inner-container items"
-                             style={{width: '100000px', height: '470px'}}>
+                    <div className="item" style={{display: 'block'}}>
                             {
-                                this.state.photoList
+                                this.state.photoList[0]
                             }
-                        </div>
-                    </div>
-                </div>
-
-                <div style={{width: '100%', position: 'absolute', bottom: '0px'}}>
-                    <div className="pImgSlide" style={{margin: '0 auto', width: '14px'}}>
-                        <a href="/" className="active">
-                        </a>
                     </div>
                 </div>
             </div>

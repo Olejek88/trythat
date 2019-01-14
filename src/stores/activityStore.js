@@ -89,9 +89,6 @@ export class ActivityStore {
                         this.activitiesRegistry.set(activity._id, activity);
                     }))
         */
-            .finally(action(() => {
-                this.isLoading = false;
-            }))
             .catch(action(err => {
                 throw err;
             }));

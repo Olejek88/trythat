@@ -24,17 +24,15 @@ class ActivityPhotoDiv extends React.Component {
     }
 
     render() {
-        return <div className="imgDiv cloned" style={{visibility: 'visible'}}>
-            <img src={"http://api.trythat.today/" + this.state.image.path}
+        return <img src={"http://api.trythat.today/" + this.state.image.path}
                  title={this.state.image.title} alt={this.state.image.title}
                  style={{
                      maxWidth: '714px',
                      width: '100%',
-                     //height: '100%',
+                     height: '100%',
                      display: 'block',
                      margin: '0 auto'
                  }}/>
-        </div>;
     }
 }
 

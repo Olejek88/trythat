@@ -3,9 +3,11 @@ import {withRouter} from 'react-router-dom';
 import {inject} from "mobx-react/index";
 
 class PopWish extends React.Component {
-    handleClickLogout = () =>
+    handleClickLogout = () => {
+        let my = this;
         this.props.authStore.logout()
-            .then(() => this.props.history.replace('/'));
+            .then(() => my.props.history.replace('/'));
+    };
 
     render() {
         return (

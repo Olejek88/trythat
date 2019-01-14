@@ -49,7 +49,6 @@ a:hover {
     float: left;
     margin-bottom: 2%;
 }
-
 .experience_header {
     padding: 0 100px;
     text-align: center;
@@ -58,6 +57,31 @@ a:hover {
     line-height: 40px;
     letter-spacing: 0.01em;
     font-weight: normal;
+}
+@media only screen and (max-width: 750px) {
+    .experience-tile {
+        width: 48%;
+        margin-right: 2%;
+        float: left;
+        margin-bottom: 2%;
+    }
+    .experience_header {
+        padding: 0 100px;
+        text-align: center;
+        font-family: georgia, serif;
+        font-size: 24px;
+        line-height: 28px;
+        letter-spacing: 0.01em;
+        font-weight: normal;
+    }
+}
+@media only screen and (min-width: 750px) and (max-width: 1000px) {
+    .experience-tile {
+        width: 32%;
+        margin-right: 2%;
+        float: left;
+        margin-bottom: 2%;
+    }
 }
 
 .experience_sub_header {
@@ -231,7 +255,7 @@ a:hover {
     border-width: 0;
     border-style: solid;
     margin-top: -27px;
-    padding-top: 200px;
+    padding-top: 15%;
     z-index: 201;
     bottom: 155px;
     width: 100%;
@@ -246,12 +270,11 @@ a:hover {
     vertical-align: bottom;
     color: #ffffff;
     font-family: georgia, serif;
-    font-size: 48px;
-    line-height: 54px;
+    font-size: 24px;
+    line-height: 30px;
     letter-spacing: 0.01em;
     font-weight: normal;
 }
-
 .moving_text {
     vertical-align: bottom;
     position: relative;
@@ -259,10 +282,90 @@ a:hover {
     margin: 0 0 0 .2em;
     color: #00A94F;
     font-family: georgia, serif;
-    font-size: 48px;
-    line-height: 54px;
+    font-size: 24px;
+    line-height: 30px;
     letter-spacing: 0.01em;
     font-weight: normal;
+}
+
+.js-discovery-search {
+    width: 255px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+    border: none;
+    font-family: montserrat, sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    font-weight: normal;
+    float: left;
+    box-sizing: border-box;
+}
+
+.discovery-city-search {
+    margin: 0;
+    border: none;
+    font-family: montserrat, sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    font-weight: normal;
+    width: 0;
+    height: 30px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width: 1280px) {
+    .static_text {
+        vertical-align: bottom;
+        color: #ffffff;
+        font-family: georgia, serif;
+        font-size: 48px;
+        line-height: 54px;
+        letter-spacing: 0.01em;
+        font-weight: normal;
+    }
+    .moving_text {
+        vertical-align: bottom;
+        position: relative;
+        width: 4em;
+        margin: 0 0 0 .2em;
+        color: #00A94F;
+        font-family: georgia, serif;
+        font-size: 48px;
+        line-height: 54px;
+        letter-spacing: 0.01em;
+        font-weight: normal;
+    }
+    .js-discovery-search {
+        width: 605px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        font-family: montserrat, sans-serif;
+        font-size: 11px;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        font-weight: normal;
+        float: left;
+        box-sizing: border-box;
+    }
+    .discovery-city-search {
+        margin: 0;
+        border: none;
+        font-family: montserrat, sans-serif;
+        font-size: 11px;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+        font-weight: normal;
+        width: 250px;
+        height: 30px;
+        padding: 0;
+        box-sizing: border-box;
+    }
 }
 
 .search_container {
@@ -301,21 +404,6 @@ a:hover {
     box-sizing: border-box !important;
 }
 
-.js-discovery-search {
-    width: 605px;
-    height: 30px;
-    padding: 0;
-    margin: 0;
-    border: none;
-    font-family: montserrat, sans-serif;
-    font-size: 11px;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    font-weight: normal;
-    float: left;
-    box-sizing: border-box;
-}
-
 .city-search-wrapper {
     text-align: center;
     border: 0;
@@ -324,20 +412,6 @@ a:hover {
     display: inline-block;
     padding: 9px 6px 9px 16px;
     vertical-align: top;
-}
-
-.discovery-city-search {
-    margin: 0;
-    border: none;
-    font-family: montserrat, sans-serif;
-    font-size: 11px;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
-    font-weight: normal;
-    width: 250px;
-    height: 30px;
-    padding: 0;
-    box-sizing: border-box;
 }
 
 .disc-btn-block {
@@ -626,6 +700,35 @@ a:hover {
     margin-bottom: 2%;
     margin-left: 1%;
     min-height: 245px;
+}
+
+.discovery2 {
+    height: 400px;
+    width: 100%;
+}
+@media only screen and (max-width: 750px) {
+    .layout_tile {
+        width: 98%;
+        margin-bottom: 2%;
+        margin-left: 1%;
+        min-height: 245px;
+    }
+    .discovery2 {
+        height: 1200px;
+        width: 100%;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .layout_tile {
+        width: 48%;
+        margin-bottom: 2%;
+        margin-left: 1%;
+        min-height: 245px;
+    }
+    .discovery2 {
+        height: 800px;
+        width: 100%;
+    }
 }
 
 .main-row {
@@ -1020,8 +1123,17 @@ a:hover {
 #footer {
     position: relative;
     margin: 0 auto 0;
-    height: 187px;
+    height: 320px;
     width: 100%;
+}
+
+@media only screen and (min-width: 1000px) {
+    #footer {
+        position: relative;
+        margin: 0 auto 0;
+        height: 187px;
+        width: 100%;
+    }
 }
 
 .p-top-sec .p-form .buyBox {
@@ -1380,13 +1492,6 @@ a {
     clear: both;
 }
 
-.pImgContainer .scroll .items > .imgDiv {
-    width: 714px;
-    height: 470px;
-    overflow: hidden;
-    position: relative;
-    float: left;
-}
 .scroll .items > div {
     float: left;
     width: 960px;
@@ -2062,10 +2167,19 @@ select {
 
 .sg-f-dspl-l {
     font-family: montserrat, sans-serif;
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 22px;
+    line-height: 25px;
     letter-spacing: 0.3em;
     font-weight: normal;
+}
+@media only screen and (min-width: 1000px) {
+    .sg-f-dspl-l {
+        font-family: montserrat, sans-serif;
+        font-size: 32px;
+        line-height: 40px;
+        letter-spacing: 0.3em;
+        font-weight: normal;
+    }
 }
 
 .main-vertical-list {
@@ -3223,7 +3337,7 @@ span {text-decoration: underline; padding-left: 10px; cursor:pointer;}
 }
 
 #header-nav {
-    min-width: 720px;
+    min-width: 420px;
     width: 100%;
 }
 

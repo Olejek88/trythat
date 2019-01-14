@@ -3,8 +3,8 @@ import {withRouter} from "react-router-dom";
 import {inject} from "mobx-react/index";
 
 class QuestionDialog extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.clickHandler = (component) => {
             console.log('clickHandler');

@@ -3,8 +3,8 @@ import React from 'react';
 class CategoryRow extends React.Component {
     render() {
         return (
-            <div className="discovery discovery-row">
-                <div className="layout_tile discovery " style={{float: 'left'}}>
+            <div className="discovery2 discovery-row">
+                <div className="layout_tile discovery" style={{float: 'left'}}>
                     <a className="tile_collection" href={"/#/activities/category/3"}>
                         <div className="collection_img_container">
                             <img className="collection_img"

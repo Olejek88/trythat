@@ -44,6 +44,7 @@ class MainView extends React.Component {
             }
             my.setState({updated: true});
         });
+
     }
 
     componentDidUpdate(previousProps) {

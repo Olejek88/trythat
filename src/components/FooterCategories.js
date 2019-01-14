@@ -5,16 +5,23 @@ class FooterCategories extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            width: 1920,
             activityCategoriesList: [],
             categoriesList: [],
             occasionList: [],
             trendsList: [],
             citiesList: []
         };
+        this.updateDimensions = this.updateDimensions.bind(this);
+    }
+    updateDimensions() {
+        let documentElement = document.documentElement;
+        this.setState({width: documentElement.clientWidth});
     }
 
     componentWillMount() {
         let self = this;
+        window.addEventListener("resize", this.updateDimensions);
         this.props.activityCategoryStore.loadActivityCategories()
             .then(() => {
                 let activityCategoriesList = [];
@@ -71,6 +78,10 @@ class FooterCategories extends React.Component {
             });
     }
 
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
     render() {
         return (
             <div className="footer_div">
@@ -121,6 +132,7 @@ class FooterCategories extends React.Component {
                                     </tbody>
                                 </table>
                             </td>
+                            {this.state.width >= 1000 &&
                             <td className="sg-bd-2">
                                 <div className="catch_all_footer_subtitle">По тренду</div>
                                 <table className="catch_all_footer_lists_table">
@@ -135,6 +147,8 @@ class FooterCategories extends React.Component {
                                     </tbody>
                                 </table>
                             </td>
+                            }
+                            {this.state.width >= 1000 &&
                             <td className="sg-bd-2">
                                 <div className="catch_all_footer_subtitle">Локации</div>
                                 <table className="catch_all_footer_lists_table">
@@ -149,6 +163,7 @@ class FooterCategories extends React.Component {
                                     </tbody>
                                 </table>
                             </td>
+                            }
                         </tr>
                         </tbody>
                     </table>

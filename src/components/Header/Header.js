@@ -5,6 +5,7 @@ import MenuNew from "../MenuNew";
 import PopCart from "./PopCart";
 import PopWish from "./PopWish";
 import PopUserMenu from "./PopUserMenu";
+import MenuMobile from "../MenuMobile";
 
 const LoggedOutView = props => {
     if ((props.currentUser && (props.currentUser.id === 0)) || props.currentUser===undefined) {
@@ -23,12 +24,14 @@ const LoggedOutView = props => {
                 <Link to="/login" className="navButton button js-login" id="logInBtn">
                     <div className="title-container"><p className="title">Войти</p></div>
                 </Link>
+{/*
                 <Link to="/" className="sg-inline-middle">
                     <img src={"images/icon_search.png"} style={{width: '30px'}} alt="поиск"/>
                 </Link>
                 <Link to="/" className="shopping access-join js-shopping-bag js-signUp sg-inline-middle">
                     <img src={"images/icon_cart.png"} style={{width: '30px'}} alt="корзина"/>
                 </Link>
+*/}
             </div>
         );
     }
@@ -81,9 +84,11 @@ const LoggedInView = props => {
                         <p className="caption sg-c-4" style={{textAlign: 'center', marginTop: '5px'}}>Хочу</p>
                         <PopWish/>
                     </div>
+                    {props.currentWidth >= 1000 &&
                     <Link to="/" className="sg-inline-middle">
                         <img src={"images/icon_search.png"} style={{width: '30px'}} alt="поиск"/>
                     </Link>
+                    }
                     <div id="cart" style={{height: '100%'}}>
                         <Link to="/cart"
                               className="shopping access-join js-shopping-bag js-signUp sg-inline-middle filled">
@@ -101,6 +106,27 @@ const LoggedInView = props => {
 };
 
 class Header extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            width: 1920
+        };
+        this.updateDimensions = this.updateDimensions.bind(this);
+    }
+
+    updateDimensions() {
+        let documentElement = document.documentElement;
+        this.setState({width: documentElement.clientWidth});
+    }
+
+    componentWillMount() {
+        window.addEventListener("resize", this.updateDimensions);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
     render() {
         //const orders = this.props.orderStore.loadTestOrdersCount();
         const orders = 1;
@@ -110,9 +136,16 @@ class Header extends React.Component {
                     <div id="header-nav" className="main_container sg-inline-middle" style={{flexWrap: 'nowrap'}}>
                         <div id="top-logo">
                             <Link to="/" className="navbar-brand">
+                                {this.state.width>=1000 &&
+                                    <img className="logo-img" style={{maxHeight: '50px'}}
+                                         alt={this.props.commonStore.appName.toLowerCase()}
+                                         src={"images/trythat_logo_text_1.png"}/>
+                                }
+                                {this.state.width<1000 &&
                                 <img className="logo-img" style={{maxHeight: '50px'}}
                                      alt={this.props.commonStore.appName.toLowerCase()}
-                                     src={"images/trythat_logo_text_1.png"}/>
+                                     src={"images/trythat_logo_text_m.png"}/>
+                                }
                             </Link>
                             {/*
                         <a href="/" className="logo" tabIndex="1">
@@ -122,13 +155,20 @@ class Header extends React.Component {
                         </a>
 */}
                         </div>
+                        {this.state.width >= 1000 &&
                         <MenuNew/>
+                        }
+                        {this.state.width < 1000 &&
+                        <MenuMobile/>
+                        }
                         <LoggedOutView currentUser={this.props.userStore.currentUser}
                                        currentLuminary={this.props.userStore.currentLuminary}
+                                       currentWidth={this.state.width}
                         />
                         <LoggedInView currentUser={this.props.userStore.currentUser}
                                       currentLuminary={this.props.userStore.currentLuminary}
                                       orders={orders}
+                                      currentWidth={this.state.width}
                                       ordersCount={this.props.commonStore.ordersCount}/>
                     </div>
                 </div>
