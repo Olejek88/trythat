@@ -3,6 +3,7 @@ import {inject} from 'mobx-react';
 import Select from 'react-select';
 import QuestionDialog from "../Orders/QuestionDialog";
 import {Link} from "react-router-dom";
+import {withRouter} from 'react-router-dom';
 import moment from "moment";
 
 class ActivitySelect extends React.Component {
@@ -11,9 +12,11 @@ class ActivitySelect extends React.Component {
         this.state = {
             customersError: false,
             durationError: false,
+            listingsError: false,
             updated: false,
             selectedQuantity: 0,
             selectedDuration: 0,
+            selectedListings: 0,
             selectedPrice: 'не выбрано',
             favoredClass: "heart_img",
             favored: false,
@@ -25,6 +28,7 @@ class ActivitySelect extends React.Component {
             activity: undefined,
             activityCustomers: [],
             activityListingDurations: [],
+            activityListings: [],
             wish_id: 0
         };
 
@@ -55,9 +59,11 @@ class ActivitySelect extends React.Component {
                 this.setState({customersError: true});
             if (this.state.selectedDuration === 0)
                 this.setState({durationError: true});
-            if (this.state.selectedQuantity !== 0 && this.state.selectedDuration !== 0) {
-                this.state.activityListingDurations.forEach(function (activityListing) {
-                    if (activityListing.duration === self.state.selectedDuration.id)
+            if (this.state.selectedListings === 0)
+                this.setState({listingsError: true});
+            if (this.state.selectedListings) {
+                this.state.activityListings.forEach(function (activityListing) {
+                    if (activityListing.value === self.state.selectedListings.value)
                         selectedActivityListing = activityListing;
                 });
                 let order = {
@@ -69,20 +75,29 @@ class ActivitySelect extends React.Component {
                     start_date: moment().format('YYYY-MM-DD 00:00:00')
                 };
                 this.props.orderStore.createOrder(order).then(() => {
-                    this.props.history.push("/");
+                    self.props.commonStore.ordersCount++;
+                    self.props.commonStore.ordersSum+=selectedActivityListing.price;
+                    window.localStorage.setItem('orders_count', self.props.commonStore.ordersCount);
+                    window.localStorage.setItem('orders_sum', self.props.commonStore.ordersSum);
+                    self.props.history.replace('/');
                 });
             }
         };
 
         this.handleSelectActivityQuantityChange = (event) => {
             this.setState({selectedQuantity: event});
-            this.setState({selectedPrice: event.cost});
+            //this.setState({selectedPrice: event.cost});
             this.setState({customersError: false});
         };
         this.handleSelectActivityDurationChange = (event) => {
             this.setState({selectedDuration: event});
-            this.setState({selectedPrice: event.cost});
+            //this.setState({selectedPrice: event.cost});
             this.setState({durationError: false});
+        };
+        this.handleSelectActivityListingsChange = (event) => {
+            this.setState({selectedListings: event});
+            this.setState({selectedPrice: event.cost});
+            this.setState({listingsError: false});
         };
 
         this.onClick = this.onClick.bind(this);
@@ -112,6 +127,8 @@ class ActivitySelect extends React.Component {
                 self.setState({activityDiapason: customers});
                 let durations = this.props.activityListingStore.loadActivityListingDurations(activityListing);
                 self.setState({activityDurations: durations});
+                let listings = this.props.activityListingStore.loadActivityListingList(activityListing);
+                self.setState({activityListings: listings});
                 self.setState({
                     activityListingDurations:
                         this.props.activityListingStore.loadActivityListingSelectDurations(activityListing)
@@ -226,6 +243,7 @@ class ActivitySelect extends React.Component {
                                         <div className="displayonly_content">
                                         </div>
                                     </div>
+{/*
                                     <div className="preCheckOutField sg-bg-3" id="addDuration"
                                          style={{paddingTop: '5px', paddingBottom: '10px'}}>
                                         <Select
@@ -283,6 +301,38 @@ class ActivitySelect extends React.Component {
                                                 color: 'red !important', fontFamily: 'georgia',
                                                 fontStyle: 'italic', fontSize: '13px'
                                             }}>Неправильное количество людей</p>
+                                        </div>
+                                        }
+                                    </div>
+*/}
+                                    <div className="clearAll">
+                                    </div>
+                                    <div className="preCheckOutField sg-bg-3" id="addListings"
+                                         style={{paddingTop: '5px', paddingBottom: '10px'}}>
+                                        <Select
+                                            style={{width: '100%', top: '5px'}}
+                                            value={this.state.selectedListings}
+                                            cost={this.state.selectedPrice}
+                                            name="listings"
+                                            id="listings"
+                                            placeholder={"Выбор варианта"}
+                                            className="sg-f-hdr participants js-participants js-numGuests sg-bd-2 sg-no-bd-top sg-no-bd-left sg-no-bd-right"
+                                            onChange={(e) => this.handleSelectActivityListingsChange(e)}
+                                            options={this.state.activityListings}
+                                        />
+                                        {this.state.listingsError &&
+                                        <div className="row" id="addListingsError"
+                                             style={{
+                                                 fontFamily: 'georgia',
+                                                 fontStyle: 'italic',
+                                                 fontSize: '13px',
+                                                 boxSizing: 'border-box',
+                                                 padding: '5px 10px'
+                                             }}>
+                                            <p style={{
+                                                color: 'red !important', fontFamily: 'georgia',
+                                                fontStyle: 'italic', fontSize: '13px'
+                                            }}>Неправильный выбор</p>
                                         </div>
                                         }
                                     </div>
@@ -377,4 +427,4 @@ class ActivitySelect extends React.Component {
 }
 
 export default inject('activityStore', 'activityListingStore', 'orderStatusStore', 'customerStore',
-    'orderStore', 'userStore', 'luminaryStore', 'wishListStore')(ActivitySelect);
+    'orderStore', 'userStore', 'luminaryStore', 'wishListStore', 'commonStore')(withRouter(ActivitySelect));

@@ -1392,19 +1392,6 @@ div.p-top-sec .p-form .info-box {
     width: 100%;
 }
 
-.product-section .left-box {
-    max-width: 714px;
-    min-width: 386px;
-    width: 60%;
-    width: -webkit-calc(100% - 410px);
-    width: -moz-calc(100% - 410px);
-    width: calc(100% - 410px);
-    min-height: 470px;
-    overflow: hidden;
-    float: left;
-    position: relative;
-}
-
 .icon-box {
     position: absolute;
     right: 10px;

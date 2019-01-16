@@ -3,6 +3,7 @@ import agent from '../agent';
 
 class CommonStore {
     ordersCount = window.localStorage.getItem('orders_count');
+    ordersSum = window.localStorage.getItem('orders_sum');
     appName = 'TryThat';
     apiServer = 'http://api.trythat.today/';
     token = window.localStorage.getItem('jwt');

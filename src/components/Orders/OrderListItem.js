@@ -24,7 +24,9 @@ class OrderListItem extends React.Component {
             this.setState({showOrderItem: false});
             if (this.props.commonStore.ordersCount > 0) {
                 this.props.commonStore.ordersCount--;
+                this.props.commonStore.ordersSum-=this.props.order.activityListing.cost;
                 window.localStorage.setItem('orders_count', this.props.commonStore.ordersCount);
+                window.localStorage.setItem('orders_sum', this.props.commonStore.ordersSum);
             }
         };
 
@@ -37,12 +39,10 @@ class OrderListItem extends React.Component {
         };
 
         this.clickHandler = (component) => {
-            console.log('clickHandler');
             component.setState({showQuestionDialog: false});
         };
 
         this.clickHandlerR = (component) => {
-            console.log('clickHandler');
             component.setState({showReviewDialog: false});
         };
     }

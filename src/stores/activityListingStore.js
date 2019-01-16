@@ -19,27 +19,6 @@ export class ActivityListingStore {
             isGroup: false
         }];
 
-    /*
-        staticData =
-            [{
-                id: '1',
-                customers: 1,
-                activity: activityStore.defaultData,
-                duration: durationStore.staticData[0],
-                cost: 2500,
-                currency: currencyStore.defaultData,
-                isGroup: false
-            }, {
-                id: '2',
-                customers: 2,
-                activity: activityStore.defaultData,
-                duration: durationStore.staticData[0],
-                cost: 2000,
-                currency: currencyStore.defaultData,
-                isGroup: false
-            }];
-    */
-
     loadActivityListing(activity) {
         this.activityListingRegistry.clear();
         return agent.ActivityListing.forActivity(activity.id)
@@ -89,6 +68,15 @@ export class ActivityListingStore {
         });
         if (max === 1) return 'не указано';
         return min_duration.duration + "-" + max_duration.duration;
+    }
+
+    loadActivityListingList(activityListing) {
+        let arrayListing = [];
+        activityListing.forEach(function (activity) {
+            arrayListing.push({label: activity.duration.duration + '/' + activity.customers + ' человек',
+                value: activity.id, cost: 'Сумма '+activity.cost+'р.', price: activity.cost});
+        });
+        return arrayListing;
     }
 
     loadActivityListingSelectDurations(activityListing) {

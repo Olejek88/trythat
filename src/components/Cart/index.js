@@ -33,11 +33,16 @@ class Cart extends React.Component {
                     self.setState({sum: self.state.sum + order.activityListing.cost});
                     self.orderList.push(<OrderListItem activity={activity} key={i} order={order}/>);
                 });
-                self.setState({count: self.orderList.length});
                 self.setState({orderList: self.orderList}, () => {
-                    console.log(self.state.orderList);
                     self.setState({updated: true})
                 });
+
+                self.setState({sum: self.state.sum});
+                self.setState({count: self.orderList.length});
+                self.props.commonStore.ordersSum = self.state.sum;
+                self.props.commonStore.ordersCount = self.orderList.length;
+                window.localStorage.setItem('orders_sum', self.state.sum.toString(10));
+                window.localStorage.setItem('orders_count', self.props.commonStore.ordersCount);
             }
         }));
     }
@@ -89,8 +94,7 @@ class Cart extends React.Component {
                                         <hr/>
                                         <div className="currency-disclaimer sg-f-bdy-s">
                                             *Данная цена окончательна и не может быть изменена без обоюдного
-                                            согласия
-                                            обеих сторон.
+                                            согласия обеих сторон.
                                         </div>
                                         <div className="row">
                                             <div className="start-checkout  primaryButton button"
@@ -131,4 +135,4 @@ class Cart extends React.Component {
     }
 }
 
-export default inject('orderStore')(Cart);
+export default inject('orderStore','commonStore')(Cart);

@@ -34,31 +34,13 @@ class TermsLuminary extends React.Component {
                                         рекомендованным состоянием здоровья,
                                         уровень физической подготовки и навыков, а также временем и местом для опыта. Вы
                                         также установит цену за ваши предложения.</p>
-                                    <p>After you complete your Experience Listing and submit it to the Services,
-                                        we will review it as further described on the Site. You can visit our <a
-                                            href="/faq">Luminary FAQs
-                                            Page</a> for additional information on the approval process for
-                                        listings. &nbsp;Once your Experience Listing is approved, the applicable
-                                        Experience will be offered for sale for a price set by you or, if
-                                        applicable, for the price set by an auction via the Services.</p>
-                                    <p>Your ability to change or modify an Experience Listing after it’s been
-                                        posted to the Services depends on the type of Experience: (i) for
-                                        Experiences that are physical or digital Products, the Experience
-                                        Listing can be modified up until the time the Experience is purchased,
-                                        and (ii) for Experiences that require the End User and Luminary to agree
-                                        on particulars like the time and location for the Experience (“<strong>Scheduled
-                                            Experiences</strong>”), the Experience Listing can be modified up
-                                        until the time a &nbsp;Registered User has submitted a request to
-                                        schedule your Experience.</p>
-                                    <p>Traina Interactive has the right to terminate the offering of any
-                                        Experience via the Services and remove any Experience Listing at any
-                                        time for any reason in Traina Interactive’s sole discretion (including,
-                                        without limitation, if such Experience is related to any unlawful
-                                        activity or is inconsistent with Traina Interactive’s brand identity).
-                                        Traina Interactive does not act as an insurer or as your contracting
-                                        agent. We recommend that you obtain appropriate insurance for any
-                                        Experience you provide.</p>
-                                    <p><span style={{textDecoration: 'underline'}}>Change Requests and Experience Scheduling</span>
+                                    <p>После формирования перечня вариантов Услуги мы имеем право рассмотреть эти варианты и
+                                        доработать их совместно с Вами. Вы имеете полное право редактировать свое предложение,
+                                        цены и время в любое время до осуществления заказа.</p>
+                                    <p>Мы имеем право в любой момент удалить одно или несколько ваших предложений по любым причинам,
+                                        включающие претензии третих сторон, жалобы заказчиков или несоответствие с законами РФ.
+                                    </p>
+                                    <p><span style={{textDecoration: 'underline'}}>Изменение предложений</span>
                                     </p>
                                     <p>The modification of an Experience Listing is not the same as offering a
                                         post-purchase request negotiated between yourself and the purchaser

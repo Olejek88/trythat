@@ -85,12 +85,12 @@ export class OrderStore {
 
     createOrder(order) {
         return agent.Order.create(order)
-            .finally((order) => {
-                this.ordersRegistry.set(order.id, order);
-            })
+            // .finally((order) => {
+            //     this.ordersRegistry.set(order.id, order);
+            // })
             .catch(action(err => {
                 throw err;
-            }))
+            }));
     }
 
     updateOrder(data) {
