@@ -23,6 +23,7 @@
     "react-scripts": "^2.1.1",
     "react-datepicker": "^1.7.0",
     "react-dom": "^16.6.0",
+    "react-helmet": "^5.2.0",
     "react-images-upload": "^1.2.3",
     "react-images-uploader": "^1.2.0-rc1",
     "react-input-range": "latest",
@@ -52,10 +53,10 @@
     "not op_mini all"
   ],
   "eslintConfig": {
-      "parserOptions": {
-          "ecmaFeatures": {
-              "legacyDecorators": true
-          }
+    "parserOptions": {
+      "ecmaFeatures": {
+        "legacyDecorators": true
       }
+    }
   }
 }

@@ -31,6 +31,7 @@ import TermsLuminary from "./About/TermsLuminary";
 import TermsCustomers from "./About/TermsCustomer";
 import Privacy from "./About/Privacy";
 import MyOrders from "./My/Orders/MyOrders";
+import {Helmet} from "react-helmet";
 
 class App extends React.Component {
 
@@ -55,6 +56,10 @@ class App extends React.Component {
         if (this.props.commonStore.appLoaded) {
             return (
                 <div>
+                    <Helmet>
+                        <title>TryThat - площадка для уникальных услуг</title>
+                        <description>Try That это площадка для невероятных приключений, интереснейшего опыта и уникальных подарков.</description>
+                    </Helmet>
                     <Header/>
                     <Switch>
                         <Route path="/activities/:filter/:id" component={Activities}/>
