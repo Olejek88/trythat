@@ -30,6 +30,7 @@ import AllLuminary from "./Luminary/AllLuminary";
 import TermsLuminary from "./About/TermsLuminary";
 import TermsCustomers from "./About/TermsCustomer";
 import Privacy from "./About/Privacy";
+import MyOrders from "./My/Orders/MyOrders";
 
 class App extends React.Component {
 
@@ -68,6 +69,7 @@ class App extends React.Component {
                         <Route path="/my/activity/:filter" component={MyActivities}/>
                         <Route path="/my/activity" component={MyActivities}/>
                         <Route path="/my/luminary" component={Luminary}/>
+                        <Route path="/my/orders" component={MyOrders}/>
                         <Route path="/mail/:filter/:by" component={Conversation}/>
                         <Route path="/mail" component={Conversation}/>
                         <Route path="/follows" component={MyFollows}/>

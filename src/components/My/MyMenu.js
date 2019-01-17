@@ -45,11 +45,14 @@ class MyMenu extends React.Component {
                             {this.state.luminary &&
                             <li className="menu-li sg-c-2">
                                 <ul className="sub-menu">
-                                    <li className="menu-li orders purchases sg-c-2">
+                                    <li className="menu-li sg-c-2">
                                         <a href={"/#/my/activity/current"}>Текущие</a>
                                     </li>
-                                    <li className="menu-li auctions sg-c-2">
+                                    <li className="menu-li sg-c-2">
                                         <a href={"/#/my/activity/closed"}>Завершенные</a>
+                                    </li>
+                                    <li className="menu-li sg-c-2">
+                                        <a href={"/#/my/orders"}>Мои заказы</a>
                                     </li>
                                 </ul>
                             </li>

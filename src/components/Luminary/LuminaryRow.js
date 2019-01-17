@@ -11,7 +11,6 @@ class LuminaryRow extends React.Component {
 
     componentWillMount() {
         let self = this;
-        console.log(this.props.luminaries);
         self.setState({luminaryRow: this.props.luminaries});
     }
 

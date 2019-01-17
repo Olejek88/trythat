@@ -6532,10 +6532,6 @@ footer .attribution {
     margin-top: 24px;
 }
 
-.sg-inline-flex-grow {
-    flex: 1;
-}
-
 .luminary .marquee-text .support {
     margin-top: 32px;
 }
@@ -6724,4 +6720,8 @@ ul {
 .rtl .celeb_support_div {
     position: relative;
     right: 20px;
+}
+
+.clear-both {
+    clear: both;
 }
