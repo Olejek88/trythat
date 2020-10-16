@@ -8,7 +8,6 @@ import ActivityAboutLuminary from "./ActivityAboutLuminary";
 import ActivityYouMayLike from "./ActivityYouMayLike";
 import ActivityReviews from "./ActivityReviews";
 import {inject} from "mobx-react/index";
-import {Helmet} from "react-helmet";
 
 class Activity extends React.Component {
     constructor(props) {
@@ -31,7 +30,6 @@ class Activity extends React.Component {
         let self = this;
         this.props.activityStore.loadActivity(id)
             .then((activity) => {
-                //console.log(activity);
                 self.setState({activity: activity});
             });
     }

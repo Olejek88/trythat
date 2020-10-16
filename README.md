@@ -1,3 +1,5 @@
 # trythat
-Frontend part of @Try that marketplace based on React/MobX.<br/>
+Frontend part of @Trythat marketplace based on React/MobX.
+
+<br/>
 <img src="screen.png" />

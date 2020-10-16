@@ -141,7 +141,7 @@ class ActivitySelect extends React.Component {
             const customer = this.props.userStore.currentCustomer;
             if (customer && customer.id>0) {
                 this.props.wishListStore.isWished(activity.id, customer.id).then(((wish) => {
-                    if (wish) {
+                    if (wish !== undefined && wish[0] !== undefined) {
                         this.setState({favored: true});
                         this.setState({favoredClass: "pdp heart_img listed"});
                         this.setState({wish_id: wish[0].id});

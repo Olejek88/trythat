@@ -30,12 +30,14 @@ export class ActivityListingStore {
     loadActivityListingMinimumPrice(activityListing) {
         let minimum_cost = 1000000;
         let current_currency = '';
-        activityListing.forEach(function (activityListing) {
-            let cost = activityListing.cost;
-            if (cost < minimum_cost)
-                minimum_cost = cost;
-            current_currency = activityListing.currency.title;
-        });
+        if (activityListing !== undefined) {
+            activityListing.forEach(function (activityListing) {
+                let cost = activityListing.cost;
+                if (cost < minimum_cost)
+                    minimum_cost = cost;
+                current_currency = activityListing.currency.title;
+            });
+        }
         if (minimum_cost === 1000000) return 'не указано';
         return minimum_cost + " " + current_currency;
     }

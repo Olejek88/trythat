@@ -46,7 +46,6 @@ class MyOrders extends React.Component {
 
     fillList(nextProps) {
         let filter = null;
-        let order = null;
         let self = this;
         this.ordersRows = [];
         if (this.props.userStore.currentLuminary) {
